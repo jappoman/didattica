@@ -18,5 +18,3 @@ for file in *.c; do
     echo "Aggiunto commento in $file"
   fi
 done
-
-# Se non ci sono file .c nella directory corrente
