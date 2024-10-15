@@ -1,1 +1,1 @@
-# Esercizi script Bash
+# Esercizi pratici di Sistemi / Tecnologie.
