@@ -33,13 +33,17 @@ echo "Il risultato della divisione è: $((num1 / num2))"
 exit 0
 
 # Spiegazione espressione regolare:
-# =~ : in Bash questo simbolo viene utilizzato all'interno di un'istruzione condizionale per verificare se una stringa corrisponde a un'espressione regolare (regex). È parte del costrutto [[ ... ]], che viene utilizzato per testare condizioni in Bash.
+# =~ : in Bash questo simbolo viene utilizzato all'interno di un'istruzione condizionale per verificare se una stringa
+  # corrisponde a un'espressione regolare (regex). È parte del costrutto [[ ... ]], che viene utilizzato per testare condizioni in Bash.
 # ^: Questo simbolo è l'ancora dell'inizio della stringa. Indica che la corrispondenza deve iniziare dall'inizio della stringa.
-# [0-9]: Questo è un range di caratteri. In questo caso, [0-9] corrisponde a qualsiasi cifra compresa tra 0 e 9. Quindi, si sta cercando una sequenza di numeri interi positivi.
-# +: Questo è un quantificatore. Indica che l'elemento precedente (in questo caso, il range [0-9]) deve apparire una o più volte. Quindi, la regex richiede che ci sia almeno una cifra nella stringa.
+# [0-9]: Questo è un range di caratteri. In questo caso, [0-9] corrisponde a qualsiasi cifra compresa tra 0 e 9.
+  # Quindi, si sta cercando una sequenza di numeri interi positivi.
+# +: Questo è un quantificatore. Indica che l'elemento precedente (in questo caso, il range [0-9]) deve apparire una o più volte.
+  # Quindi, la regex richiede che ci sia almeno una cifra nella stringa.
 # $: Questo simbolo è l'ancora di fine stringa. Indica che la corrispondenza deve finire alla fine della stringa.
 
-# In sintesi, l'espressione ^[0-9]+$ verifica che l'intera stringa contenga solo numeri (cifre da 0 a 9) e che sia composta da una o più cifre. Se la stringa contiene qualunque altro carattere o è vuota, la regex non corrisponderà.
+# In sintesi, l'espressione ^[0-9]+$ verifica che l'intera stringa contenga solo numeri (cifre da 0 a 9) e che sia composta da una o più cifre.
+  # Se la stringa contiene qualunque altro carattere o è vuota, la regex non corrisponderà.
 # La regex ^[0-9]+$ viene utilizzata per controllare se i due argomenti passati allo script sono numeri interi positivi.
 # Se il primo argomento non corrisponde alla regex, lo script restituisce un errore specificando che non è un numero.
 # Lo stesso controllo viene fatto per il secondo argomento.
