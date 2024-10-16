@@ -14,19 +14,19 @@ fi
 ```
 
 ### Operatori di confronto numerico:
-- -eq: Verifica se due numeri sono uguali.
-- -ne: Verifica se due numeri sono diversi.
-- -lt: Verifica se un numero è minore di un altro.
-- -le: Verifica se un numero è minore o uguale a un altro.
-- -gt: Verifica se un numero è maggiore di un altro.
-- -ge: Verifica se un numero è maggiore o uguale a un altro.
+- ```-eq```: Verifica se due numeri sono uguali.
+- ```-ne```: Verifica se due numeri sono diversi.
+- ```-lt```: Verifica se un numero è minore di un altro.
+- ```-le```: Verifica se un numero è minore o uguale a un altro.
+- ```-gt```: Verifica se un numero è maggiore di un altro.
+- ```-ge```: Verifica se un numero è maggiore o uguale a un altro.
 
 ### Operatori di confronto stringhe:
-- =: Verifica se due stringhe sono uguali.
-- !=: Verifica se due stringhe sono diverse.
+- ```=```: Verifica se due stringhe sono uguali.
+- ```!=```: Verifica se due stringhe sono diverse.
 
 ## Uso delle parentesi quadre [ ] e doppie parentesi (( ))
-Le parentesi quadre [ ] sono utilizzate per i confronti, mentre le doppie parentesi (( )) sono utilizzate per le espressioni aritmetiche e alcuni confronti.
+Le parentesi quadre ```[ ]``` sono utilizzate per i confronti, mentre le doppie parentesi ```(( ))``` sono utilizzate per le espressioni aritmetiche e alcuni confronti.
 
 ### Parentesi quadre [ ]
 Utilizzate per confronti di stringhe o numerici. Sintassi di base:
@@ -37,7 +37,6 @@ if [ condizione ]; then
 fi
 ```
 Esempio:
-
 ```bash
 if [ "$num1" -gt "$num2" ]; then
   echo "Il primo numero è maggiore del secondo."
@@ -45,7 +44,7 @@ fi
 ```
 
 ### Doppie parentesi (( ))
-Utilizzate per espressioni aritmetiche e confronti numerici più semplici, che non richiedono operatori come -gt, -lt. Sintassi di base:
+Utilizzate per espressioni aritmetiche e confronti numerici più semplici, che non richiedono operatori come ```-gt```, ```-lt```. Sintassi di base:
 
 ```bash
 if (( condizione )); then
@@ -53,7 +52,6 @@ if (( condizione )); then
 fi
 ```
 Esempi:
-
 ```bash
 if (( num1 > num2 )); then
   echo "Il primo numero è maggiore del secondo."
@@ -64,29 +62,26 @@ sum=$((a + b))  # Operazioni aritmetiche
 ```
 
 #### Vantaggi di (( )):
-- Non è necessario utilizzare operatori come -gt, -lt, ecc.
+- Non è necessario utilizzare operatori come ```-gt```, ```-lt```, ecc.
 - Più leggibile per operazioni aritmetiche.
 
 
 ## Ciclo for
-
-Il ciclo for permette di iterare su una lista di elementi o su una sequenza numerica. Sintassi di base:
+Il ciclo ```for``` permette di iterare su una lista di elementi o su una sequenza numerica. Sintassi di base:
 
 ```bash
 for var in lista_di_elementi; do
   # Codice da eseguire per ogni elemento
 done
 ```
-
-Uso alternativo: Il ciclo for può essere utilizzato anche per iterare su un range numerico:
-
+Uso alternativo: Il ciclo ```for``` può essere utilizzato anche per iterare su un range numerico:
 ```bash
 for i in {1..10}; do
   echo "Iterazione numero $i"
 done
 ```
 
-In alternativa, è possibile utilizzare un ciclo for con seq per specificare incrementi personalizzati:
+In alternativa, è possibile utilizzare un ciclo ```for``` con seq per specificare incrementi personalizzati:
 
 ```bash
 for i in $(seq 1 2 10); do
@@ -94,23 +89,19 @@ for i in $(seq 1 2 10); do
 done
 ```
 
-## Significato di *.c
+### Significato di *.c
 
-Il pattern *.c è un metacarattere (wildcard) che Bash espande automaticamente per creare una lista di tutti i file nella directory corrente che hanno l'estensione .c. Questo processo è noto come espansione di pathname.
-
+Il pattern ```*.c``` è un metacarattere (wildcard) che Bash espande automaticamente per creare una lista di tutti i file nella directory corrente che hanno l'estensione .c. Questo processo è noto come espansione di pathname.
 Esempio:
-
 ```bash
 for file in *.c; do
   echo "Trovato file: $file"
 done
 ```
-Bash traduce *.c in una lista di tutti i file con estensione .c. Se non ci sono file con quell'estensione, il ciclo verrà eseguito una volta con il valore letterale *.c (quindi meglio controllare l'esistenza dei file).
+Bash traduce ```*.c``` in una lista di tutti i file con estensione .c. Se non ci sono file con quell'estensione, il ciclo verrà eseguito una volta con il valore letterale *.c (quindi meglio controllare l'esistenza dei file).
 
 ## Ciclo while
-
 Esegue un blocco di codice finché la condizione è vera. Sintassi di base:
-
 ```bash
 while [ condizione ]; do
   # Codice da eseguire
