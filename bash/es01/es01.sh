@@ -47,3 +47,24 @@ exit 0
 # La regex ^[0-9]+$ viene utilizzata per controllare se i due argomenti passati allo script sono numeri interi positivi.
 # Se il primo argomento non corrisponde alla regex, lo script restituisce un errore specificando che non è un numero.
 # Lo stesso controllo viene fatto per il secondo argomento.
+
+# Ecco alcune espressioni regolari (regex) utili:
+  # Carattere alfabetico (a-z o A-Z):
+  # ^[a-zA-Z]$
+  # Questa regex verifica che la stringa contenga esattamente un singolo carattere alfabetico maiuscolo o minuscolo.
+
+  # Carattere numerico (0-9):
+  # ^[0-9]$
+  # Questa regex verifica che la stringa contenga esattamente un singolo numero (una cifra da 0 a 9).
+
+  # Parola alfabetica (combinazione di lettere):
+  # ^[a-zA-Z]+$
+  # Questa regex verifica che la stringa contenga solo caratteri alfabetici (lettere maiuscole o minuscole) e che sia composta da uno o più caratteri.
+
+  # Parola numerica (combinazione di numeri):
+  # ^[0-9]+$
+  # Questa regex verifica che la stringa contenga solo numeri (cifre da 0 a 9) e che sia composta da uno o più numeri.
+
+  # Parola alfanumerica (combinazione di lettere e numeri):
+  # ^[a-zA-Z0-9]+$
+  # Questa regex verifica che la stringa contenga solo caratteri alfanumerici (lettere maiuscole o minuscole e numeri) e che sia composta da uno o più caratteri.
