@@ -300,10 +300,15 @@ wc -m file.txt # Output: 290 file.txt
 # Mostrare la lunghezza della riga più lunga
 wc -L file.txt # Output: 35 file.txt
 
-# Lettura del numero di righe in una variabile
+# Lettura del numero di righe in una variabile. Con redirezione. Il comando legge il contenuto del file direttamente come input, e l'output è solo il numero di righe, senza il nome del file.
 righe=$(wc -l < file.txt)
 echo "Il file ha $righe righe."
 # Output: Il file ha 10 righe.
+
+# Lettura del numero di righe in una variabile. Senza redirezione. Viene fornito il nome del file come argomento, e l'output include sia il numero di righe che il nome del file.
+righe=$ (wc -l file.txt)
+echo "Il file ha $righe"
+# Output: Il file ha 10 file.txt
 
 # Contare il numero di parole da un input tramite pipe
 echo "Ciao, come stai?" | wc -w # Output: 3
