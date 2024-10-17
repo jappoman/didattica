@@ -180,8 +180,7 @@ Opzioni:
 Permette di accedere agli argomenti passati quando viene eseguito lo script. Opzioni comuni:
 - ```$#```: Numero di argomenti passati.
 - ```$1```, ```$2```, ecc.: Argomenti in ordine.
-- ```$@```: Tutti gli argomenti passati.
-- ```$?```: Codice di uscita dell'ultimo comando eseguito.
+- ```$@```: Tutti gli argomenti passati. Restituisce tutti gli argomenti passati allo script, rappresentandoli come una lista di argomenti separati da spazi. Ogni argomento è mantenuto intatto, quindi se un argomento contiene spazi, sarà considerato come un singolo argomento.
 
 ## Spostare file o directory (mv)
 Il comando mv permette di spostare o rinominare file e directory. Sintassi di base:
@@ -192,34 +191,75 @@ Opzioni:
 - ```-i```: Chiede conferma prima di sovrascrivere un file esistente.
 - ```-n```: Non sovrascrivere mai i file esistenti.
 - ```-v```: Mostra ogni operazione effettuata.
+
 Esempio:
 ```bash
-mv file.txt /percorso/destinazione/
+mv file.txt /percorso/destinazione/ # Sposta il file nel percorso di destinazione
 mv file.txt nuovo_nome.txt    # Rinomina il file
 ```
 
-## Contare le righe di un file (wc -l)
-Il comando wc (word count) con l'opzione -l conta il numero di righe in un file. Sintassi di base:
+## Comando Word Count
+Il comando ```wc``` è usato per contare il numero di righe, parole, caratteri e byte di un file o di un input. Sintassi di base:
 ```bash
-wc -l file
+wc [opzione] file
 ```
-Esempio:
+Senza opzioni, wc restituisce il numero di righe, parole e byte del file specificato. Esempio:
 ```bash
+wc file.txt #Output: 10  50  300 file.txt
+```
+Questo output significa che il file ```file.txt``` ha:
+- 10 righe
+- 50 parole
+- 300 byte
+
+Opzioni principali:
+- ```-l```: Conta il numero di righe nel file.
+- ```-w```: Conta il numero di parole.
+- ```-c```: Conta il numero di byte.
+- ```-m```: Conta il numero di caratteri, considerand- anche i caratteri multi-byte (utile con fil- codificati in UTF-8).
+- ```-L```: Mostra la lunghezza della riga più lunga (i- termini di caratteri).
+
+Esempi:
+```bash
+# Contare solo il numero di righe
+wc -l file.txt # Output: 10 file.txt
+
+# Contare solo il numero di parole
+wc -w file.txt # Output: 50 file.txt
+
+# Contare solo il numero di byte
+wc -c file.txt # Output: 300 file.txt
+
+# Contare il numero di caratteri (inclusi caratteri multi-byte)
+wc -m file.txt # Output: 290 file.txt
+
+# Mostrare la lunghezza della riga più lunga
+wc -L file.txt # Output: 35 file.txt
+
+# Lettura del numero di righe in una variabile
 righe=$(wc -l < file.txt)
 echo "Il file ha $righe righe."
+# Output: Il file ha 10 righe.
+
+# Contare il numero di parole da un input tramite pipe
+echo "Ciao, come stai?" | wc -w # Output: 3
+
+# Contare il numero di righe in più file e mostrare il totale
+wc -l file1.txt file2.txt
+# Output:
+# 10 file1.txt
+# 20 file2.txt
+# 30 totale
 ```
-Opzioni aggiuntive di wc:
-- ```-w```: Conta le parole.
-- ```-c```: Conta i byte.
-- ```-m```: Conta i caratteri.
 
 ## Comando grep per cercare parole o pattern
-Il comando grep permette di cercare stringhe o espressioni regolari in un file. Opzioni avanzate:
-- -i: Ignora maiuscole e minuscole.
-- -r: Cerca ricorsivamente in tutte le sottodirectory.
-- -v: Inverte la ricerca, mostrando le righe che non corrispondono- pattern.
-- -n: Mostra i numeri di riga corrispondenti alle righe trovate.
-- -o: Mostra solo la parte della riga che corrisponde al pattern.
+Il comando ```grep``` permette di cercare stringhe o espressioni regolari in un file. Opzioni avanzate:
+- ```-i```: Ignora maiuscole e minuscole.
+- ```-r```: Cerca ricorsivamente in tutte le sottodirectory.
+- ```-v```: Inverte la ricerca, mostrando le righe che non corrispondono- pattern.
+- ```-n```: Mostra i numeri di riga corrispondenti alle righe trovate.
+- ```-o```: Mostra solo la parte della riga che corrisponde al pattern.
+
 Esempi:
 ```bash
 grep -i "^$termine:" "$dizionario"   # Cerca ignorando maiuscole/minuscole
@@ -227,49 +267,50 @@ grep -n "pattern" file.txt           # Mostra i numeri di riga
 grep -r "pattern" /directory         # Cerca ricorsivamente
 grep -v "errore" file.txt            # Mostra le righe che NON contengono "errore"
 ```
+
 ## Comando sed per modificare file
 Sintassi di base:
 ```bash
 sed 's/pattern/sostituzione/' file
 ```
-s sta per sostituzione (substitute), e la sintassi è:
+"s" sta per sostituzione (substitute), e la sintassi è:
 ```bash
 s/pattern/sostituzione/flag
 ```
 Dove:
-- pattern: È l'espressione regolare o la stringa che vuoi cercare
-- sostituzione: È la stringa che sostituisce il pattern trovato.
-- flag (opzionale): Controlla il comportamento della sostituzione. Alcuni flag utili includono:
-- g: Sostituisce tutte le occorrenze nella riga (di default sed sostituisce solo la prima occorrenza).
-- p: Stampa le righe modificate.
-- i: Ignora la distinzione tra maiuscole e minuscole durante la ricerca.
+- ```pattern```: È l'espressione regolare o la stringa che vuoi cercare
+- ```sostituzione```: È la stringa che sostituisce il pattern trovato.
+- ```flag``` (opzionale): Controlla il comportamento della sostituzione. Alcuni flag utili includono:
+  - ```g```: Sostituisce tutte le occorrenze nella riga (di default sed sostituisce solo la prima occorrenza).
+  - ```p```: Stampa le righe modificate.
+  - ```i```: Ignora la distinzione tra maiuscole e minuscole durante la ricerca.
+
 Esempi:
 ```bash
 sed 's/errore/corretto/g' file.txt      # Sostituisce tutte le occorrenze di "errore" con "corretto"
 sed 's/foo/bar/i' file.txt              # Sostituisce "foo" con "bar" ignorando maiuscole/minuscole
 ```
 ### Operazioni comuni con sed:
-Aggiungere testo all'inizio di un file:
+Aggiungere testo all'inizio di un file. Esempio:
 ```bash
-
 sed -i '1i\Inizio del file' file.txt
+# Aggiunge la riga "Inizio del file" come prima riga nel file.
 ```
-Questo comando aggiunge la riga "Inizio del file" come prima riga nel file.
-Eliminare righe contenenti una stringa specifica:
+Eliminare righe contenenti una stringa specifica. Esempio:
 ```bash
 sed '/errore/d' file.txt
+# Elimina tutte le righe che contengono la parola "errore".
 ```
-Elimina tutte le righe che contengono la parola "errore".
-Aggiungere testo alla fine di un file:
+Aggiungere testo alla fine di un file. Esempio:
 ```bash
 sed -i '$a\Nuova riga aggiunta' file.txt
+# Aggiunge "Nuova riga aggiunta" alla fine del file.
 ```
-Aggiunge "Nuova riga aggiunta" alla fine del file.
-Sostituire solo la prima occorrenza di un pattern:
+Sostituire solo la prima occorrenza di un pattern. Esempio:
 ```bash
 sed '0,/pattern/s//replacement/' file.txt
+# Sostituisce solo la prima occorrenza di "pattern" con "replacement".
 ```
-Questo comando sostituisce solo la prima occorrenza di "pattern" con "replacement".
 
 ## Espressioni regolari (regex)
 Le espressioni regolari sono stringhe che descrivono modelli di ricerca e vengono spesso usate con comandi come grep e sed. Di seguito alcuni esempi comuni di espressioni regolari:
