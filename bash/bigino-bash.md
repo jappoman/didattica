@@ -16,14 +16,53 @@ fi
 ### Operatori di confronto numerico:
 - ```-eq```: Verifica se due numeri sono uguali.
 - ```-ne```: Verifica se due numeri sono diversi.
-- ```-lt```: Verifica se un numero è minore di un altro.
-- ```-le```: Verifica se un numero è minore o uguale a un altro.
-- ```-gt```: Verifica se un numero è maggiore di un altro.
-- ```-ge```: Verifica se un numero è maggiore o uguale a un altro.
+- ```-lt```: Verifica se il primo numero è minore del secondo.
+- ```-le```: Verifica se il primo numero è minore o uguale al secondo.
+- ```-gt```: Verifica se il primo un numero è maggiore del secondo.
+- ```-ge```: Verifica se il primo numero è maggiore o uguale al secondo.
+
+Esempio:
+```bash
+if [ "$num1" -lt "$num2" ]; then
+  echo "$num1 è minore di $num2"
+elif [ "$num1" -gt "$num2" ]; then
+  echo "$num1 è maggiore di $num2"
+else
+  echo "I numeri sono uguali"
+fi
+```
 
 ### Operatori di confronto stringhe:
 - ```=```: Verifica se due stringhe sono uguali.
 - ```!=```: Verifica se due stringhe sono diverse.
+
+Esempio:
+```bash
+if [ "$str1" = "$str2" ]; then
+  echo "Le stringhe sono uguali"
+elif [ -z "$str1" ]; then
+  echo "La prima stringa è vuota"
+else
+  echo "Le stringhe sono diverse"
+fi
+```
+
+### Controllo di file o directory
+- ```-e```: Verifica se un file o directory esiste.
+- ```-f```: Verifica se esiste un file regolare (non una directory).
+- ```-d```: Verifica se esiste una directory.
+- ```-r```: Verifica se un file è leggibile.
+- ```-w```: Verifica se un file è scrivibile.
+- ```-x```: Verifica se un file è eseguibile.
+
+Esempio:
+```bash
+if [ -f "file.txt" ]; then
+  echo "Il file esiste ed è un file regolare."
+else
+  echo "Il file non esiste o non è un file regolare."
+fi
+```
 
 ## Uso delle parentesi quadre [ ] e doppie parentesi (( ))
 Le parentesi quadre ```[ ]``` sono utilizzate per i confronti, mentre le doppie parentesi ```(( ))``` sono utilizzate per le espressioni aritmetiche e alcuni confronti.
@@ -68,6 +107,7 @@ sum=$((a + b))  # Operazioni aritmetiche
 
 ## Ciclo for
 Il ciclo for permette di iterare su una lista di elementi o su una sequenza numerica. Sintassi di base:
+Il ciclo for permette di iterare su una lista di elementi o su una sequenza numerica. Sintassi di base:
 
 ```bash
 for var in lista_di_elementi; do
@@ -75,13 +115,13 @@ for var in lista_di_elementi; do
 done
 ```
 Uso alternativo: Il ciclo for può essere utilizzato anche per iterare su un range numerico:
+Uso alternativo: Il ciclo for può essere utilizzato anche per iterare su un range numerico:
 ```bash
 for i in {1..10}; do
   echo "Iterazione numero $i"
 done
 ```
-
-In alternativa, è possibile utilizzare un ciclo for con ```seq``` per specificare incrementi personalizzati:
+In alternativa, è possibile utilizzare un ciclo for con seq per specificare una sequenza personalizzata di valori:
 
 ```bash
 for i in $(seq 1 2 10); do
@@ -90,15 +130,20 @@ done
 ```
 È possibile utilizzare il ciclo for anche per iterare su file nella directory corrente. Guardare l'esempio successivo.
 
-### Significato di *.c (e in generale di * in Bash)
+### Iterare su una lista di file (esempio: tutti i file che hanno estensione "*.c")
 
-Il pattern "*.c" è un metacarattere (wildcard) che Bash espande automaticamente per creare una lista di tutti i file nella directory corrente che hanno l'estensione ".c". Questo processo è noto come espansione di pathname.
+Il pattern ```*.c``` è un metacarattere (wildcard) che Bash espande automaticamente per creare una lista di tutti i file nella directory corrente che hanno l'estensione ".c". Questo processo è noto come espansione di pathname.
 Esempio:
 ```bash
 for file in *.c; do
-  echo "Trovato file: $file"
+  if [ -e "$file" ]; then
+    echo "Trovato file: $file"
+  else
+    echo "Nessun file con estensione .c trovato"
+  fi
 done
 ```
+Bash traduce ```*.c``` in una lista di tutti i file con estensione ".c". Se non ci sono file con quell'estensione, il ciclo verrà eseguito una volta con il valore letterale "*.c" (quindi meglio controllare l'esistenza dei file).
 Bash traduce ```*.c``` in una lista di tutti i file con estensione ".c". Se non ci sono file con quell'estensione, il ciclo verrà eseguito una volta con il valore letterale "*.c" (quindi meglio controllare l'esistenza dei file).
 
 ## Ciclo while
@@ -110,13 +155,17 @@ done
 ```
 Esempio:
 ```bash
+i=1
+sum=0
 while [ $i -le 10 ]; do
   sum=$((sum + i))
   i=$((i + 1))
 done
+echo "La somma è: $sum"
 ```
-## Lettura da input (read)
+Il codice dell'esempio viene eseguito finché il valore di ```$i``` è minore o uguale a 10. Ad ogni iterazione, il valore di ```$sum``` viene incrementato di ```$i``` e il valore di ```$i``` viene incrementato di 1. Quindi questo codice somma i numeri da 1 a 10.
 
+## Lettura da input (read)
 Permette di ricevere input dall'utente. Sintassi di base:
 ```bash
 read -p "Inserisci un valore: " variabile
@@ -131,8 +180,7 @@ Opzioni:
 Permette di accedere agli argomenti passati quando viene eseguito lo script. Opzioni comuni:
 - ```$#```: Numero di argomenti passati.
 - ```$1```, ```$2```, ecc.: Argomenti in ordine.
-- ```$@```: Tutti gli argomenti passati.
-- ```$?```: Codice di uscita dell'ultimo comando eseguito.
+- ```$@```: Tutti gli argomenti passati. Restituisce tutti gli argomenti passati allo script, rappresentandoli come una lista di argomenti separati da spazi. Ogni argomento è mantenuto intatto, quindi se un argomento contiene spazi, sarà considerato come un singolo argomento.
 
 ## Lettura da file
 È possibile leggere un file riga per riga utilizzando un ciclo while. Questo approccio permette di processare ogni riga di un file separatamente. Sintassi di base:
@@ -165,9 +213,10 @@ Opzioni:
 - ```-i```: Chiede conferma prima di sovrascrivere un file esistente.
 - ```-n```: Non sovrascrivere mai i file esistenti.
 - ```-v```: Mostra ogni operazione effettuata.
+
 Esempio:
 ```bash
-mv file.txt /percorso/destinazione/
+mv file.txt /percorso/destinazione/ # Sposta il file nel percorso di destinazione
 mv file.txt nuovo_nome.txt    # Rinomina il file
 ```
 
@@ -213,28 +262,68 @@ cat "$file1" "$file2" > "$output"  # Salva il risultato in output.txt
 cat "$file2" >> "$file1"  # Appende il contenuto di file2 a file1
 ```
 
-## Contare le righe di un file (wc -l)
-Il comando wc (word count) con l'opzione -l conta il numero di righe in un file. Sintassi di base:
+## Comando Word Count
+Il comando ```wc``` è usato per contare il numero di righe, parole, caratteri e byte di un file o di un input. Sintassi di base:
 ```bash
-wc -l file
+wc [opzione] file
 ```
-Esempio:
+Senza opzioni, wc restituisce il numero di righe, parole e byte del file specificato. Esempio:
 ```bash
+wc file.txt #Output: 10  50  300 file.txt
+```
+Questo output significa che il file ```file.txt``` ha:
+- 10 righe
+- 50 parole
+- 300 byte
+
+Opzioni principali:
+- ```-l```: Conta il numero di righe nel file.
+- ```-w```: Conta il numero di parole.
+- ```-c```: Conta il numero di byte.
+- ```-m```: Conta il numero di caratteri, considerand- anche i caratteri multi-byte (utile con fil- codificati in UTF-8).
+- ```-L```: Mostra la lunghezza della riga più lunga (i- termini di caratteri).
+
+Esempi:
+```bash
+# Contare solo il numero di righe
+wc -l file.txt # Output: 10 file.txt
+
+# Contare solo il numero di parole
+wc -w file.txt # Output: 50 file.txt
+
+# Contare solo il numero di byte
+wc -c file.txt # Output: 300 file.txt
+
+# Contare il numero di caratteri (inclusi caratteri multi-byte)
+wc -m file.txt # Output: 290 file.txt
+
+# Mostrare la lunghezza della riga più lunga
+wc -L file.txt # Output: 35 file.txt
+
+# Lettura del numero di righe in una variabile
 righe=$(wc -l < file.txt)
 echo "Il file ha $righe righe."
+# Output: Il file ha 10 righe.
+
+# Contare il numero di parole da un input tramite pipe
+echo "Ciao, come stai?" | wc -w # Output: 3
+
+# Contare il numero di righe in più file e mostrare il totale
+wc -l file1.txt file2.txt
+# Output:
+# 10 file1.txt
+# 20 file2.txt
+# 30 totale
 ```
-Opzioni aggiuntive di wc:
-- ```-w```: Conta le parole.
-- ```-c```: Conta i byte.
-- ```-m```: Conta i caratteri.
 
 ## Comando grep per cercare parole o pattern
-Il comando grep permette di cercare stringhe o espressioni regolari in un file. Opzioni avanzate:
-- -i: Ignora maiuscole e minuscole.
-- -r: Cerca ricorsivamente in tutte le sottodirectory.
-- -v: Inverte la ricerca, mostrando le righe che non corrispondono- pattern.
-- -n: Mostra i numeri di riga corrispondenti alle righe trovate.
-- -o: Mostra solo la parte della riga che corrisponde al pattern.
+Il comando ```grep``` permette di cercare stringhe o espressioni regolari in un file. Opzioni avanzate:
+- ```-i```: Ignora maiuscole e minuscole.
+- ```-r```: Cerca ricorsivamente in tutte le sottodirectory.
+- ```-v```: Inverte la ricerca, mostrando le righe che non corrispondono- pattern.
+- ```-n```: Mostra i numeri di riga corrispondenti alle righe trovate.
+- ```-o```: Mostra solo la parte della riga che corrisponde al pattern.
+
 Esempi:
 ```bash
 grep -i "^$termine:" "$dizionario"   # Cerca ignorando maiuscole/minuscole
@@ -242,49 +331,50 @@ grep -n "pattern" file.txt           # Mostra i numeri di riga
 grep -r "pattern" /directory         # Cerca ricorsivamente
 grep -v "errore" file.txt            # Mostra le righe che NON contengono "errore"
 ```
+
 ## Comando sed per modificare file
 Sintassi di base:
 ```bash
 sed 's/pattern/sostituzione/' file
 ```
-s sta per sostituzione (substitute), e la sintassi è:
+"s" sta per sostituzione (substitute), e la sintassi è:
 ```bash
 s/pattern/sostituzione/flag
 ```
 Dove:
-- pattern: È l'espressione regolare o la stringa che vuoi cercare
-- sostituzione: È la stringa che sostituisce il pattern trovato.
-- flag (opzionale): Controlla il comportamento della sostituzione. Alcuni flag utili includono:
-- g: Sostituisce tutte le occorrenze nella riga (di default sed sostituisce solo la prima occorrenza).
-- p: Stampa le righe modificate.
-- i: Ignora la distinzione tra maiuscole e minuscole durante la ricerca.
+- ```pattern```: È l'espressione regolare o la stringa che vuoi cercare
+- ```sostituzione```: È la stringa che sostituisce il pattern trovato.
+- ```flag``` (opzionale): Controlla il comportamento della sostituzione. Alcuni flag utili includono:
+  - ```g```: Sostituisce tutte le occorrenze nella riga (di default sed sostituisce solo la prima occorrenza).
+  - ```p```: Stampa le righe modificate.
+  - ```i```: Ignora la distinzione tra maiuscole e minuscole durante la ricerca.
+
 Esempi:
 ```bash
 sed 's/errore/corretto/g' file.txt      # Sostituisce tutte le occorrenze di "errore" con "corretto"
 sed 's/foo/bar/i' file.txt              # Sostituisce "foo" con "bar" ignorando maiuscole/minuscole
 ```
 ### Operazioni comuni con sed:
-Aggiungere testo all'inizio di un file:
+Aggiungere testo all'inizio di un file. Esempio:
 ```bash
-
 sed -i '1i\Inizio del file' file.txt
+# Aggiunge la riga "Inizio del file" come prima riga nel file.
 ```
-Questo comando aggiunge la riga "Inizio del file" come prima riga nel file.
-Eliminare righe contenenti una stringa specifica:
+Eliminare righe contenenti una stringa specifica. Esempio:
 ```bash
 sed '/errore/d' file.txt
+# Elimina tutte le righe che contengono la parola "errore".
 ```
-Elimina tutte le righe che contengono la parola "errore".
-Aggiungere testo alla fine di un file:
+Aggiungere testo alla fine di un file. Esempio:
 ```bash
 sed -i '$a\Nuova riga aggiunta' file.txt
+# Aggiunge "Nuova riga aggiunta" alla fine del file.
 ```
-Aggiunge "Nuova riga aggiunta" alla fine del file.
-Sostituire solo la prima occorrenza di un pattern:
+Sostituire solo la prima occorrenza di un pattern. Esempio:
 ```bash
 sed '0,/pattern/s//replacement/' file.txt
+# Sostituisce solo la prima occorrenza di "pattern" con "replacement".
 ```
-Questo comando sostituisce solo la prima occorrenza di "pattern" con "replacement".
 
 ## Espressioni regolari (regex)
 Le espressioni regolari sono stringhe che descrivono modelli di ricerca e vengono spesso usate con comandi come grep e sed. Di seguito alcuni esempi comuni di espressioni regolari:
