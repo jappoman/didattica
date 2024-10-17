@@ -134,6 +134,28 @@ Permette di accedere agli argomenti passati quando viene eseguito lo script. Opz
 - ```$@```: Tutti gli argomenti passati.
 - ```$?```: Codice di uscita dell'ultimo comando eseguito.
 
+## Lettura da file
+È possibile leggere un file riga per riga utilizzando un ciclo while. Questo approccio permette di processare ogni riga di un file separatamente. Sintassi di base:
+```bash
+while read -r linea; do
+  # Azioni da eseguire su ogni riga
+done < nomefile.txt
+```
+- read -r linea: Legge ogni riga del file e la memorizza nella variabile linea. L'opzione -r impedisce che le backslash vengano interpretate.
+- < nomefile.txt: Specifica il file di input da leggere.
+
+Esempio:
+```bash
+# numeri.txt è un file che contiene una lista di numeri, uno per riga. Lo script seguente legge ogni riga del file e la somma.
+
+#!/bin/bash
+sum=0
+while read -r numero; do
+  sum=$((sum + numero))
+done < numeri.txt
+echo "La somma totale è: $sum"
+```
+
 ## Spostare file o directory (mv)
 Il comando mv permette di spostare o rinominare file e directory. Sintassi di base:
 ```bash
@@ -147,6 +169,48 @@ Esempio:
 ```bash
 mv file.txt /percorso/destinazione/
 mv file.txt nuovo_nome.txt    # Rinomina il file
+```
+
+##  Manipolare/visualizzare il contenuto di file di testo (cat)
+Il comando cat è utilizzato per visualizzare, concatenare e manipolare file di testo in Bash. Sintassi di base:
+```bash
+cat [opzioni] [file...]
+# file: Il nome del file (o dei file) da leggere.
+```
+
+### Utilizzi principali
+```bash
+# Visualizza il contenuto di file.txt
+cat file.txt
+
+# Concatena e visualizza il contenuto di file1.txt e file2.txt
+cat file1.txt file2.txt
+
+# Concatena file1.txt e file2.txt e salva il risultato in unione.txt
+cat file1.txt file2.txt > unione.txt
+
+# Visualizza il contenuto di file.txt con numeri di riga
+cat -n file.txt  # Numerazione di tutte le righe
+
+# Visualizza il contenuto di file.txt numerando solo le righe non vuote
+cat -b file.txt  # Numerazione delle sole righe non vuote
+
+# Rimuove righe vuote consecutive da file.txt
+cat -s file.txt  # Comprimi righe vuote multiple in una sola
+
+# Visualizza i caratteri non stampabili nel file.txt
+cat -v file.txt  # Mostra i caratteri non stampabili
+
+# Definizione di variabili per l'output
+output="output.txt"
+file1="file1.txt"
+file2="file2.txt"
+
+# Concatena file1 e file2 e scrive l'output in un file con variabili
+cat "$file1" "$file2" > "$output"  # Salva il risultato in output.txt
+
+# Usa cat per aggiungere il contenuto di file2 a file1
+cat "$file2" >> "$file1"  # Appende il contenuto di file2 a file1
 ```
 
 ## Contare le righe di un file (wc -l)
