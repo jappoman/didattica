@@ -16,14 +16,53 @@ fi
 ### Operatori di confronto numerico:
 - ```-eq```: Verifica se due numeri sono uguali.
 - ```-ne```: Verifica se due numeri sono diversi.
-- ```-lt```: Verifica se un numero è minore di un altro.
-- ```-le```: Verifica se un numero è minore o uguale a un altro.
-- ```-gt```: Verifica se un numero è maggiore di un altro.
-- ```-ge```: Verifica se un numero è maggiore o uguale a un altro.
+- ```-lt```: Verifica se il primo numero è minore del secondo.
+- ```-le```: Verifica se il primo numero è minore o uguale al secondo.
+- ```-gt```: Verifica se il primo un numero è maggiore del secondo.
+- ```-ge```: Verifica se il primo numero è maggiore o uguale al secondo.
+
+Esempio:
+```bash
+if [ "$num1" -lt "$num2" ]; then
+  echo "$num1 è minore di $num2"
+elif [ "$num1" -gt "$num2" ]; then
+  echo "$num1 è maggiore di $num2"
+else
+  echo "I numeri sono uguali"
+fi
+```
 
 ### Operatori di confronto stringhe:
 - ```=```: Verifica se due stringhe sono uguali.
 - ```!=```: Verifica se due stringhe sono diverse.
+
+Esempio:
+```bash
+if [ "$str1" = "$str2" ]; then
+  echo "Le stringhe sono uguali"
+elif [ -z "$str1" ]; then
+  echo "La prima stringa è vuota"
+else
+  echo "Le stringhe sono diverse"
+fi
+```
+
+### Controllo di file o directory
+- ```-e```: Verifica se un file o directory esiste.
+- ```-f```: Verifica se esiste un file regolare (non una directory).
+- ```-d```: Verifica se esiste una directory.
+- ```-r```: Verifica se un file è leggibile.
+- ```-w```: Verifica se un file è scrivibile.
+- ```-x```: Verifica se un file è eseguibile.
+
+Esempio:
+```bash
+if [ -f "file.txt" ]; then
+  echo "Il file esiste ed è un file regolare."
+else
+  echo "Il file non esiste o non è un file regolare."
+fi
+```
 
 ## Uso delle parentesi quadre [ ] e doppie parentesi (( ))
 Le parentesi quadre ```[ ]``` sono utilizzate per i confronti, mentre le doppie parentesi ```(( ))``` sono utilizzate per le espressioni aritmetiche e alcuni confronti.
@@ -67,21 +106,20 @@ sum=$((a + b))  # Operazioni aritmetiche
 
 
 ## Ciclo for
-Il ciclo ```for``` permette di iterare su una lista di elementi o su una sequenza numerica. Sintassi di base:
+Il ciclo for permette di iterare su una lista di elementi o su una sequenza numerica. Sintassi di base:
 
 ```bash
 for var in lista_di_elementi; do
   # Codice da eseguire per ogni elemento
 done
 ```
-Uso alternativo: Il ciclo ```for``` può essere utilizzato anche per iterare su un range numerico:
+Uso alternativo: Il ciclo for può essere utilizzato anche per iterare su un range numerico:
 ```bash
 for i in {1..10}; do
   echo "Iterazione numero $i"
 done
 ```
-
-In alternativa, è possibile utilizzare un ciclo ```for``` con seq per specificare incrementi personalizzati:
+In alternativa, è possibile utilizzare un ciclo for con seq per specificare una sequenza personalizzata di valori:
 
 ```bash
 for i in $(seq 1 2 10); do
@@ -89,16 +127,20 @@ for i in $(seq 1 2 10); do
 done
 ```
 
-### Significato di *.c
+### Iterare su una lista di file (esempio: tutti i file che hanno estensione "*.c")
 
-Il pattern ```*.c``` è un metacarattere (wildcard) che Bash espande automaticamente per creare una lista di tutti i file nella directory corrente che hanno l'estensione .c. Questo processo è noto come espansione di pathname.
+Il pattern ```*.c``` è un metacarattere (wildcard) che Bash espande automaticamente per creare una lista di tutti i file nella directory corrente che hanno l'estensione ".c". Questo processo è noto come espansione di pathname.
 Esempio:
 ```bash
 for file in *.c; do
-  echo "Trovato file: $file"
+  if [ -e "$file" ]; then
+    echo "Trovato file: $file"
+  else
+    echo "Nessun file con estensione .c trovato"
+  fi
 done
 ```
-Bash traduce ```*.c``` in una lista di tutti i file con estensione .c. Se non ci sono file con quell'estensione, il ciclo verrà eseguito una volta con il valore letterale *.c (quindi meglio controllare l'esistenza dei file).
+Bash traduce ```*.c``` in una lista di tutti i file con estensione ".c". Se non ci sono file con quell'estensione, il ciclo verrà eseguito una volta con il valore letterale "*.c" (quindi meglio controllare l'esistenza dei file).
 
 ## Ciclo while
 Esegue un blocco di codice finché la condizione è vera. Sintassi di base:
@@ -109,26 +151,26 @@ done
 ```
 Esempio:
 ```bash
+i=1
+sum=0
 while [ $i -le 10 ]; do
   sum=$((sum + i))
   i=$((i + 1))
 done
+echo "La somma è: $sum"
 ```
+Il codice dell'esempio viene eseguito finché il valore di ```$i``` è minore o uguale a 10. Ad ogni iterazione, il valore di ```$sum``` viene incrementato di ```$i``` e il valore di ```$i``` viene incrementato di 1. Quindi questo codice somma i numeri da 1 a 10.
+
 ## Lettura da input (read)
-
-Permette di ricevere input dall'utente.
-
-    Sintassi di base:
-
-    bash
-
-    read -p "Inserisci un valore: " variabile
-
-    Opzioni:
-        -p "testo": Mostra un messaggio prima di chiedere l'input.
-        -s: Nasconde l'input (utile per password).
-        -n N: Legge solo N caratteri dall'input.
-        -t N: Limita il tempo di attesa per l'input a N secondi.
+Permette di ricevere input dall'utente. Sintassi di base:
+```bash
+read -p "Inserisci un valore: " variabile
+```
+Opzioni:
+- ```-p "testo"```: Mostra un messaggio prima di chiedere l'input.
+- ```-s```: Nasconde l'input (utile per password).
+- ```-n N```: Legge solo N caratteri dall'input.
+- ```-t N```: Limita il tempo di attesa per l'input a N secondi.
 
 ## Lettura di argomenti da riga di comando ($#, $1, $2, ecc.)
 
