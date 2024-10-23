@@ -48,7 +48,6 @@ fi
 ```
 
 ### Controllo di file o directory
-- ```-e```: Verifica se un file o directory esiste.
 - ```-f```: Verifica se esiste un file regolare (non una directory).
 - ```-d```: Verifica se esiste una directory.
 - ```-r```: Verifica se un file è leggibile.
