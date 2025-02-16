@@ -1,7 +1,9 @@
-# Esercizi pratici di Sistemi / Tecnologie.
-Questo repository contiene esercizi riguardandi le materie di Sistemi e Tecnologie.
-Oltre a contenere esercizi, contiene anche guide pratiche alla programmazione dei rispettivi argomenti.
+# Didattica di Sistemi / Tecnologie
+Questo repository contiene materiale aggiuntivo per la didattica relativo alle materie di Sistemi/Tecnologie del professor Tarenzi.
+
+## Linux
+- [Fondamenti](linux/fondamenti.md)
 
 ## Bash
-- Bigino con funzioni fondamentali: [bigino](bash/bigino-bash.md)
-- Esercizi presenti nella cartella [bash](bash/)
+- [Bigino con funzioni fondamentali](bash/bigino-bash.md)
+- [Esercizi](bash/)
