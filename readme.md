@@ -5,5 +5,6 @@ Questo repository contiene materiale aggiuntivo per la didattica relativo alle m
 - [Fondamenti](linux/fondamenti.md)
 
 ## Bash
-- [Bigino con funzioni fondamentali](bash/bigino-bash.md)
+- [Comandi base](bash/comandi-base.md)
+- [Scripting, funzioni fondamentali](bash/scripting.md)
 - [Esercizi](bash/)

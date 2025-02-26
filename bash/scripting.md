@@ -1,4 +1,50 @@
-# Bigino Riassuntivo di Bash
+# Scripting in Bash
+Uno script Bash è un file di testo contenente una serie di comandi che possono essere eseguiti in sequenza per automatizzare operazioni nel terminale Linux.
+
+Gli script Bash vengono utilizzati per:
+- Automatizzare compiti ripetitivi
+- Creare strumenti personalizzati
+- Gestire file e cartelle
+- Eseguire programmi
+
+Per eseguire uno script Bash, si utilizza il comando:
+```bash
+bash nome_script.sh
+```
+oppure si rende eseguibile il file e lo si esegue direttamente:
+```bash
+chmod +x nome_script.sh
+./nome_script.sh
+```
+
+## Struttura di Base di uno Script
+Un semplice script inizia con la cosiddetta **shebang** (`#!`), che indica il programma da usare per interpretarlo.
+
+Esempio di un primo script:
+```bash
+#!/bin/bash
+
+echo "Ciao, questo è il mio primo script Bash!"
+```
+
+**Passaggi per eseguire lo script:**
+1. Creare un file:
+   ```bash
+   nano mio_script.sh
+   ```
+2. Scrivere il codice sopra nel file e salvarlo.
+3. Renderlo eseguibile:
+   ```bash
+   chmod +x mio_script.sh
+   ```
+4. Eseguirlo:
+   ```bash
+   ./mio_script.sh
+   ```
+
+## Comandi base
+
+I comandi sono gli stessi che si usano nel terminale, ma possono essere inseriti in uno script per automatizzarne l'esecuzione.
 
 ## Condizioni (if, else, elif)
 Le condizioni permettono di eseguire blocchi di codice solo se certe condizioni sono vere. Sintassi di base:

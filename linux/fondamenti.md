@@ -1,5 +1,35 @@
 # 🐧 Fondamenti di Linux, comandi e script 🐧
 
+## Cenni Storici
+- **GNU:** Progetto avviato da Richard Stallman nel 1985 per creare un sistema operativo libero.
+- **Linux:** Iniziato da Linus Torvalds nel 1991, il kernel Linux ha completato il progetto GNU, dando vita a GNU/Linux.
+
+## Le Distribuzioni Linux 🖥️
+Le distribuzioni Linux sono varianti del sistema operativo GNU/Linux che si differenziano per:
+
+- **Gestione dei Pacchetti:**
+  Formati diversi (es. `.deb` per Ubuntu/Debian vs. `.rpm` per Fedora/CentOS) e strumenti come `apt`, `dnf` o `pacman`.
+
+- **Modello di Rilascio:**
+  Versioni stabili (come Ubuntu LTS) offrono sicurezza e affidabilità, mentre le rolling release (come Arch Linux) forniscono aggiornamenti continui.
+
+- **Filosofia e Target:**
+  Alcune sono pensate per i principianti (Ubuntu, Linux Mint) con configurazioni pronte all’uso, altre per utenti avanzati (Arch, Gentoo) che preferiscono personalizzare ogni aspetto.
+
+- **Sistemi di Init e Configurazione:**
+  L'avvio e la gestione dei servizi possono variare (es. `systemd` vs. `SysVinit`), influenzando le performance e la flessibilità del sistema.
+
+- **Supporto e Comunità:**
+  Distribuzioni con supporto commerciale (Red Hat, Ubuntu) offrono assistenza ufficiale, mentre altre si affidano a una community attiva.
+
+Esempi di distribuzioni: Ubuntu, Debian, Fedora, CentOS, Arch Linux, Linux Mint, openSUSE, ecc.
+
+## Licenza GPL (General Public License)
+La GPL è la licenza free software più diffusa, che permette:
+- L’uso, la modifica e la redistribuzione del software
+
+Esempio: molti software open source, come WordPress, sono rilasciati sotto GPL.
+
 ## 📂 Introduzione al filesystem di Linux
 
 Il filesystem di Linux è organizzato gerarchicamente, partendo dalla directory **root** (`/`). Le cartelle principali sono:
@@ -19,6 +49,16 @@ Il filesystem di Linux è organizzato gerarchicamente, partendo dalla directory 
 | `/proc` | Informazioni sui **processi** e sul sistema in tempo reale |
 | `/sys` | Info hardware e kernel (più moderno di `/proc`) |
 
+## Dettagli Avanzati sul File System 📁
+Oltre alle directory già trattate, è utile conoscere anche:
+- **/sbin e /usr/sbin:** Contengono i comandi per l'amministrazione del sistema, usati principalmente dal superutente.
+- **/usr/man:** Directory che ospita le pagine di manuale.
+- **/lib:** Contiene le librerie di sistema necessarie al funzionamento dei programmi.
+- **/cdrom e /floppy:** Directory predisposte per il montaggio di dispositivi esterni.
+
+## Dispositivi e File Speciali 🔌
+La directory `/dev` raccoglie file speciali che rappresentano i dispositivi hardware del sistema.
+- **Esempi:** `fd0` (floppy A), `hda`, `hdb` (dischi fissi IDE), ecc.
 
 ## 🔑 Permessi in Linux
 Ogni file e cartella ha tre **tipi di permessi**:
@@ -95,127 +135,22 @@ nano nomefile
 | `CTRL + W` | Cerca nel testo |
 | `CTRL + G` | Mostra l’aiuto |
 
-## 🛠 Comandi di base Bash
+## Editor Avanzati: vi/vim ⌨️
+Oltre a Nano, `vi` (o la sua versione migliorata `vim`) è un editor molto diffuso in ambiente Unix/Linux:
+- **Modalità comando:** Premendo `ESC` si accede ai comandi (salvataggio, uscita, copia, cancellazione, ecc.).
+- **Modalità inserimento:** Premendo `i` si entra in modalità di editing.
+- **Comandi principali:**
+  - `:w` per salvare
+  - `:q` per uscire
+  - `:wq` per salvare ed uscire
+  - `dd` per cancellare una riga
+  - `yy` per copiare una riga
+  - `p` per incollare
+
+## La Shell 💻
+La shell è l'interfaccia testuale che permette di interagire con il sistema operativo.
+- **Interprete di comandi:** Permette di eseguire comandi e script.
+- **Tipi di shell:** Bourne shell (sh), C shell (csh), Korn shell (ksh) e, comunemente, Bash (`/bin/bash`).
+- **Shell di login:** La shell che viene eseguita al login, specificata in `/etc/passwd`.
 
 Bash è una shell di Linux che permette di interagire con il sistema operativo tramite comandi.
-
-### 📂 Gestione file e cartelle
-```bash
-pwd           # Mostra la directory corrente
-ls            # Elenca i file della cartella
-ls -l         # Lista dettagliata con permessi
-cd Documenti  # Entra nella cartella "Documenti"
-mkdir nuova   # Crea una cartella "nuova"
-rm file.txt   # Cancella un file
-rm -r cartella # Cancella una cartella con tutto il suo contenuto
-```
-
-### 📝 Gestione file
-```bash
-touch nuovo.txt         # Crea un file vuoto
-cp file1.txt file2.txt  # Copia un file
-mv file1.txt file2.txt  # Rinomina/sposta un file
-cat file.txt            # Mostra il contenuto del file
-head -5 file.txt        # Mostra le prime 5 righe
-tail -5 file.txt        # Mostra le ultime 5 righe
-```
-
-### 📦 Gestione pacchetti
-```bash
-sudo apt update   # Aggiorna la lista dei pacchetti
-sudo apt upgrade  # Aggiorna i pacchetti installati
-sudo apt install nome_pacchetto  # Installa un pacchetto
-sudo apt remove nome_pacchetto   # Rimuove un pacchetto
-```
-
-### 🚀 Altri comandi utili
-```bash
-echo "Ciao mondo!"  # Stampa un messaggio
-whoami              # Mostra il nome dell'utente
-date                # Mostra la data e l'ora corrente
-```
-
-## Script in Bash
-Uno script Bash è un file di testo contenente una serie di comandi che possono essere eseguiti in sequenza per automatizzare operazioni nel terminale Linux.
-
-Gli script Bash vengono utilizzati per:
-- Automatizzare compiti ripetitivi
-- Creare strumenti personalizzati
-- Gestire file e cartelle
-- Eseguire programmi
-
-Per eseguire uno script Bash, si utilizza il comando:
-```bash
-bash nome_script.sh
-```
-oppure si rende eseguibile il file e lo si esegue direttamente:
-```bash
-chmod +x nome_script.sh
-./nome_script.sh
-```
-
-### Struttura di Base di uno Script
-Un semplice script inizia con la cosiddetta **shebang** (`#!`), che indica il programma da usare per interpretarlo.
-
-Esempio di un primo script:
-```bash
-#!/bin/bash
-
-echo "Ciao, questo è il mio primo script Bash!"
-```
-
-**Passaggi per eseguire lo script:**
-1. Creare un file:
-   ```bash
-   nano mio_script.sh
-   ```
-2. Scrivere il codice sopra nel file e salvarlo.
-3. Renderlo eseguibile:
-   ```bash
-   chmod +x mio_script.sh
-   ```
-4. Eseguirlo:
-   ```bash
-   ./mio_script.sh
-   ```
-
-### Comandi Bash
-
-I comandi sono gli stessi che si usano nel terminale, ma possono essere inseriti in uno script per automatizzarne l'esecuzione.
-
-### Iterazioni di base in Bash
-Bash permette di eseguire cicli utilizzando comandi standard di Linux.
-
-#### Ciclo for
-Esegue un'azione per ogni elemento in una lista.
-```bash
-#!/bin/bash
-for nome in Marco Luca Anna
-  do
-    echo "Ciao, $nome!"
-  done
-```
-
-#### Ciclo while
-Esegue un blocco di codice finché una condizione è vera.
-```bash
-#!/bin/bash
-cont=1
-while [ $cont -le 5 ]
-do
-  echo "Numero: $cont"
-  cont=$((cont+1))
-done
-```
-
-#### Ciclo until
-Simile a `while`, ma esegue il blocco finché la condizione diventa vera.
-```bash
-#!/bin/bash
-cont=1
-until [ $cont -gt 5 ]
-do
-  echo "Numero: $cont"
-  cont=$((cont+1))
-done
-```
