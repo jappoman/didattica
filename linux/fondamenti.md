@@ -61,37 +61,134 @@ La directory `/dev` raccoglie file speciali che rappresentano i dispositivi hard
 - **Esempi:** `fd0` (floppy A), `hda`, `hdb` (dischi fissi IDE), ecc.
 
 ## 🔑 Permessi in Linux
-Ogni file e cartella ha tre **tipi di permessi**:
-- **r (read)** → Lettura
-- **w (write)** → Scrittura
-- **x (execute)** → Esecuzione (necessario per i programmi)
+In Linux, ogni file e cartella ha un **sistema di permessi** che regola chi può leggere, scrivere ed eseguire il file.
+I permessi sono fondamentali per garantire la sicurezza e il corretto funzionamento del sistema.
 
-E sono assegnati a tre **categorie**:
-1. **Utente (owner)** → Il proprietario del file
-2. **Gruppo (group)** → Altri utenti che appartengono allo stesso gruppo
-3. **Altri (others)** → Tutti gli altri utenti
+### 💡 **Tipi di permessi**
+Ogni file o cartella può avere tre **tipi di permessi**:
 
-Puoi visualizzare i permessi con:
+- **r (read)** → Permette di leggere il contenuto del file o di elencare i file in una directory.
+- **w (write)** → Permette di modificare il file o aggiungere/rimuovere file in una directory.
+- **x (execute)** → Permette di eseguire il file (se è uno script o un programma) o accedere a una directory.
+
+### 💡 **Categorie di utenti**
+I permessi sono assegnati a **tre categorie di utenti**:
+
+1. **Utente (owner)** → Il proprietario del file.
+2. **Gruppo (group)** → Gli utenti che appartengono allo stesso gruppo.
+3. **Altri (others)** → Tutti gli altri utenti.
+
+### 🔍 **Visualizzare i permessi**
+Puoi vedere i permessi di un file o una cartella con il comando:
 ```bash
 ls -l
 ```
-Esempio:
+Esempio di output:
 ```
--rw-r--r--  1 gabriele utenti  1024 Feb 16 12:00 documento.txt
+-rwxr-xr--  1 gabriele utenti  1024 Feb 16 12:00 script.sh
 ```
-Qui vediamo che:
-- **Utente (gabriele)** ha permessi di **lettura e scrittura** (`rw-`)
-- **Gruppo (utenti)** ha solo **lettura** (`r--`)
-- **Altri** hanno solo **lettura** (`r--`)
+Analizziamo la prima colonna (`-rwxr-xr--`):
 
-Per modificare i permessi:
+| Simbolo  | Significato | Categoria |
+|----------|------------|-----------|
+| `-` | File normale (se fosse `d` sarebbe una directory) | |
+| `rwx` | Permessi per l'utente proprietario (`r` lettura, `w` scrittura, `x` esecuzione) | Owner |
+| `r-x` | Permessi per il gruppo (`r` lettura, `-` nessuna scrittura, `x` esecuzione) | Group |
+| `r--` | Permessi per tutti gli altri utenti (`r` lettura, `-` nessuna scrittura, `-` nessuna esecuzione) | Others |
+
+### 🔧 **Modificare i permessi con `chmod`**
+Il comando `chmod` permette di **cambiare i permessi di un file o directory**.
+Esistono due sintassi: **simbolica** e **ottale**.
+
+#### 🔹 **Sintassi simbolica**
+Formato:
 ```bash
-chmod 755 script.sh
+chmod [chi] [azione] [permessi] file
 ```
+Dove:
+- `[chi]` → Chi vogliamo modificare:
+  - `u` → Utente proprietario (**user**)
+  - `g` → Gruppo (**group**)
+  - `o` → Altri utenti (**others**)
+  - `a` → Tutti gli utenti (**all**, equivalente a `ugo`)
 
-Per cambiare il proprietario:
+- `[azione]` → Operazione da eseguire:
+  - `+` → Aggiunge permessi
+  - `-` → Rimuove permessi
+  - `=` → Imposta esattamente questi permessi
+
+- `[permessi]` → Uno o più permessi:
+  - `r` → Lettura
+  - `w` → Scrittura
+  - `x` → Esecuzione
+
+##### 📈 **Esempi pratici**
+1. Dare il permesso di esecuzione all’utente proprietario:
+   ```bash
+   chmod u+x script.sh
+   ```
+2. Dare permessi di lettura e scrittura al gruppo:
+   ```bash
+   chmod g+rw documento.txt
+   ```
+3. Rimuovere i permessi di esecuzione per tutti:
+   ```bash
+   chmod a-x programma.bin
+   ```
+4. Impostare i permessi esattamente a `rwx` per l’utente, `r-x` per il gruppo e `r--` per gli altri:
+   ```bash
+   chmod u=rwx,g=rx,o=r documento.txt
+   ```
+
+#### 🔢 **Codifica Ottale dei permessi**
+Ogni permesso ha un **valore numerico**:
+- `r` = **4** (lettura)
+- `w` = **2** (scrittura)
+- `x` = **1** (esecuzione)
+
+I permessi si sommano per ogni categoria di utenti:
+
+| Permessi | Valore |
+|----------|--------|
+| `rwx` | 7 |
+| `rw-` | 6 |
+| `r-x` | 5 |
+| `r--` | 4 |
+
+##### 📈 **Esempi con notazione ottale**
+1. **Rendere un file eseguibile per tutti**:
+   ```bash
+   chmod 755 script.sh
+   ```
+2. **Permettere solo la lettura a tutti**:
+   ```bash
+   chmod 444 documento.txt
+   ```
+3. **Permettere lettura e scrittura solo all’utente**:
+   ```bash
+   chmod 600 segreto.txt
+   ```
+
+## 📛 **Cambiare il proprietario con `chown`**
+Il comando `chown` permette di **cambiare il proprietario e il gruppo** di un file.
+
+### 📈 **Sintassi base**
+```bash
+chown [nuovo_utente] file
+```
+Esempio:
 ```bash
 chown gabriele documento.txt
+```
+
+Per cambiare **proprietario e gruppo**:
+```bash
+chown gabriele:utenti documento.txt
+```
+
+Per modificare **tutti i file in una cartella**:
+```bash
+chown -R gabriele:utenti mia_cartella/
 ```
 
 ## 💆 Gestione software su Ubuntu
