@@ -22,4 +22,4 @@ Questo repository contiene materiale per la didattica del professor Gabriele Tar
 ### Tecnologie della comunicazione
 
 #### Database
-[Modellazione ER](pacioli/tecnologie/database/modellazione-er.md)
+- [Modellazione ER](pacioli/tecnologie/database/modellazione-er.md)
