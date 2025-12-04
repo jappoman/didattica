@@ -10,8 +10,8 @@ Registrare studenti, corsi e le iscrizioni, con data di iscrizione e voto finale
 
 - Dominio: l'ambito del problema che stai modellando (qui: gestione iscrizioni a corsi).
 - ER (Entity-Relationship): schema concettuale con entità (cose) e relazioni (legami). Si fa prima di tradurre tutto in tabelle relazionali nel db vero e proprio.
-- Entità: oggetti/concetti chiave del dominio (es. Studente, Corso).
-- Relazione: legame tra entità (es. Studente si iscrive a Corso).
+- Entità: oggetti/concetti chiave del dominio (es. Studente, Corso). Ogni entità deve avere una chiave, cioè un attributo che la identifica in modo univoco.
+- Relazione: legame tra entità (es. Studente si iscrive a Corso). Le relazioni possono avere attributi propri se il legame rappresenta un evento o un fatto. Se una relazione ha attributi, in genere diventa un'entità associativa.
 - Cardinalita: indicano quante volte una entità puo essere collegata all'altra. Tre casi base:
   - 1:1 = al massimo uno con uno (es. persona-passaporto).
   - 1:N = uno puo collegarsi a molti, ogni elemento dei molti torna a uno (es. docente-corso).
@@ -26,7 +26,8 @@ Registrare studenti, corsi e le iscrizioni, con data di iscrizione e voto finale
 
 ### Todo
 
-0. Capire bene il dominio che si sta trattando.
+Pre requisito: Capire bene il dominio che si sta trattando.
+
 1. Estrarre le entità (sostantivi forti) e i loro attributi chiave.
 2. Trovare le relazioni (verbi).
 3. Aggiungere attributi essenziali alle entità individuate.
@@ -49,7 +50,6 @@ Nota: le frecce servono solo a leggere il verso del verbo; la relazione non e or
 #### Passo 2: cogliere le relazioni base
 
 Verbi chiave: Studente si iscrive a Corso; Docente tiene Corso.
-Cardinalita min/max: (0,N) significa da zero a molti (opzionale), (1,1) significa esattamente uno (obbligatorio).
 
 ```plain
 +----------+   iscrizione   +--------+
@@ -60,6 +60,12 @@ Cardinalita min/max: (0,N) significa da zero a molti (opzionale), (1,1) signific
 | Docente |---------------->| Corso  |
 +---------+                 +--------+
 ```
+
+Cardinalità: si stabilisce la cardinalià della relazione. Attenzione ai minimi e massimi: (0,N) significa zero o più (cioè che è opzionale); (1,1) significa esattamente uno (obbligatorio); (1,N) significa uno o più (obbligatorio, almeno uno). Nell'esempio:
+
+- Docente–Corso: un docente tiene minimo 0 corsi e massimo N corsi.
+- Studente–Corso: uno studente può essere iscritto a minimo 0 e massimo N corsi. Un corso può avere minimo 0 e massimo N studenti.
+- Persona–Passaporto (1:1): una persona ha minimo 0 o 1 passaporto.
 
 #### Passo 3: aggiungere attributi essenziali
 
@@ -99,10 +105,11 @@ Cardinalità in figura: (0,N) sul lato Studente significa che uno studente puo a
 Annotare min-max vicino ai lati; aggiungere il vincolo "ogni corso ha 1 docente" (1,1).
 
 ```plain
-+----------+ (0,N)     +--------------+     (0,N) +--------+ (1,1)     +---------+
++----------+ (0,N)     +--------------+     (0,N) +--------+ (1,1)*    +---------+
 | Studente |-----------| Iscrizione   |-----------| Corso  |-----------| Docente |
 +----------+     (1,1) +--------------+ (1,1)     +--------+     (0,N) +---------+
 
+* = il corso deve essere tenuto bbligatoriamente da un docente
 ```
 
 Interpretazione:
