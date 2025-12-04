@@ -16,6 +16,8 @@ Questo repository contiene materiale per la didattica del professor Gabriele Tar
 ## Pacioli
 
 ### Informatica
+#### HTML e CSS
+- [Fondamenti di HTML](pacioli/informatica/html/fondamenti-html.md)
 
 ### Tecnologie della comunicazione
 
