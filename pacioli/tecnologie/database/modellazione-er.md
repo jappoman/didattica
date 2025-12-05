@@ -109,7 +109,7 @@ Annotare min-max vicino ai lati; aggiungere il vincolo "ogni corso ha 1 docente"
 | Studente |-----------| Iscrizione   |-----------| Corso  |-----------| Docente |
 +----------+     (1,1) +--------------+ (1,1)     +--------+     (0,N) +---------+
 
-* = il corso deve essere tenuto bbligatoriamente da un docente
+* = il corso deve essere tenuto obbligatoriamente da un docente
 ```
 
 Interpretazione:
