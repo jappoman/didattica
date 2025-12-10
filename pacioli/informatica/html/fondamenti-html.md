@@ -45,6 +45,39 @@ Ecco cosa fanno le varie righe:
   - Attributi utili: `src` (posizione del file o URL), `alt` (testo alternativo), `width`/`height` per ridimensionare rapidamente l'immagine.
   - Il tag non ha chiusura; si chiude da solo.
 
+## Attributi dei tag
+
+Gli attributi aggiungono informazioni extra a un tag: seguono sempre il nome del tag, vanno dentro l'apertura e usano la forma `nome="valore"`. Alcuni sono obbligatori (`src` per le immagini), altri opzionali o booleani (es. `required` su un input).
+
+Esempi rapidi:
+
+- Link con descrizione e apertura in nuova scheda:
+
+```html
+<a href="https://www.example.com" title="Sito di esempio" target="_blank" rel="noopener">Visita il sito</a>
+```
+
+- Immagine con testo alternativo e dimensione:
+
+```html
+<img src="foto.jpg" alt="Un tramonto sul mare" width="320" />
+```
+
+- Paragrafo con classe personalizzata (utile per CSS):
+
+```html
+<p class="evidenziato">Questo paragrafo ha uno stile speciale.</p>
+```
+
+E i colori o i font? In teoria li gestisce il CSS, ma per le prove rapide è possibile usare l'attributo `style` direttamente sul tag:
+
+```html
+<h1 style="color: darkblue; font-family: Georgia, serif;">Titolo colorato</h1>
+<p style="color: #555; font-size: 18px;">Paragrafo con colore e dimensione personalizzati.</p>
+```
+
+Usalo solo per esperimenti veloci; nei progetti veri conviene spostare questi stili in un file CSS o in una classe.
+
 ## Dove scrivere il codice HTML
 
 Useremo https://jsfiddle.net/ per fare i primi passi. Nel pannello HTML scrivere solo il contenuto del `body`: non servono `<!DOCTYPE>`, `<html>`, `<head>` e `<body>` per queste prove. Aggiungere i tag direttamente come comparirebbero dentro il `body`.
