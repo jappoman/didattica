@@ -111,11 +111,11 @@ Esempio completo (versione file .html):
     <title>Homepage di Mario Rossi</title>
   </head>
   <body>
-    <h1>Benvenuti nella mia homepage</h1>
-    <p>Mi chiamo Mario e questa e la mia prima pagina creata in HTML.</p>
+    <h1 style="color: darkblue; font-family: Georgia, serif;">Benvenuti nella mia homepage</h1>
+    <p style="color: #555; font-size: 18px;">Mi chiamo Mario e questa e la mia prima pagina creata in HTML.</p>
     <img src="https://placekitten.com/400/250" alt="Foto di esempio" width="320" />
-    <p>Visita il mio sito preferito:</p>
-    <a href="https://www.wikipedia.org">Vai su Wikipedia</a>
+    <p style="color: #555;">Visita il mio sito preferito:</p>
+    <a href="https://www.wikipedia.org" style="color: seagreen; font-weight: bold;">Vai su Wikipedia</a>
   </body>
 </html>
 ```
