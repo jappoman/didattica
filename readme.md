@@ -6,7 +6,7 @@ Questo repository contiene materiale per la didattica del professor Gabriele Tar
 ### Tecnologie
 
 #### Linux
-- [Fondamenti](itis/tecnologie/linux/fondamenti.md)
+- [Fondamenti](itis/tecnologie/linux/fondamenti-linux.md)
 
 #### Bash
 - [Comandi base](itis/tecnologie/bash/comandi-base.md)
@@ -17,8 +17,7 @@ Questo repository contiene materiale per la didattica del professor Gabriele Tar
 
 ### Informatica
 #### HTML e CSS
-- [Fondamenti di HTML](pacioli/informatica/html/fondamenti-html.md)
-- [Fondamenti di HTML - parte 2](pacioli/informatica/html/fondamenti-html-lezione2.md)
+- [Laboratorio HTML](pacioli/informatica/html/laboratorio-html.md)
 
 ### Tecnologie della comunicazione
 
