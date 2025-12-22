@@ -255,3 +255,72 @@ Esempio completo (versione file .html):
 3) Crea un piccolo menu con ancore interne che porti alle tue sezioni principali (almeno 3 link).
 4) Aggiungi una tabella con almeno 3 colonne e 4 righe di dati reali per il tuo tema (es. elenco prodotti, orario settimanale, tappe di viaggio).
 5) Inserisci un `<caption>` descrittivo.
+
+
+# Lezione 3: HTML5 multimedia
+
+## Perche usare `<video>` e `<audio>`
+HTML5 permette di inserire contenuti multimediali senza plugin esterni.
+Il browser gestisce direttamente riproduzione, pausa e volume.
+
+## Tag `<video>`
+Struttura base:
+
+```html
+<video src="video.mp4" controls></video>
+```
+
+Attributi principali:
+- `controls`: mostra i comandi di riproduzione.
+- `width` e `height`: dimensioni del video.
+- `autoplay`: parte automaticamente (attenzione).
+- `loop`: ripete il video.
+- `muted`: audio disattivato.
+
+Esempio completo:
+
+```html
+<video src="video.mp4" controls width="400">
+  Il tuo browser non supporta il video.
+</video>
+```
+
+## Tag `<audio>`
+Struttura base:
+
+```html
+<audio src="audio.mp3" controls></audio>
+```
+
+Esempio:
+
+```html
+<audio src="musica.mp3" controls>
+  Il tuo browser non supporta l'audio.
+</audio>
+```
+
+## Uso corretto dei media
+- Non avviare audio o video automaticamente.
+- Usa dimensioni ragionevoli.
+- Inserisci sempre una frase di fallback tra i tag.
+
+Esempio con sezione multimedia:
+
+```html
+<section id="media">
+  <h2>Contenuti multimediali</h2>
+
+  <p>Video di presentazione:</p>
+  <video src="presentazione.mp4" controls width="400"></video>
+
+  <p>Audio di sottofondo:</p>
+  <audio src="intro.mp3" controls></audio>
+</section>
+```
+
+## Esercizio
+1) Inserisci un video e un audio nella tua pagina.
+2) Usa `controls` su entrambi.
+3) Racchiudi i media in una `<section>` con titolo.
+4) Imposta almeno una dimensione sul video.
