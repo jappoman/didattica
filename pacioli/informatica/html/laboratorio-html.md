@@ -349,6 +349,19 @@ Il tag `<form>` contiene tutti i campi. Gli attributi principali:
 - `<textarea>`: testo lungo (messaggio).
 - `<button type="submit">`: invia il form.
 
+## Attributo `required`
+`required` e un attributo booleano: se presente, il browser blocca l'invio finche il campo non e compilato.
+Puoi usarlo su `input` e `textarea` quando un dato è obbligatorio.
+
+## Altri attributi utili
+- `placeholder`: suggerisce cosa scrivere nel campo (testo guida, sparisce quando si digita).
+- `name`: è il nome con cui il dato viene inviato al server; senza `name` il campo non viene inviato.
+- `id`: serve per collegare il `label` con `for` ed e utile per CSS/Javascript.
+- `value`: valore predefinito del campo (utile per esempi o moduli precompilati).
+- `maxlength`: limita il numero massimo di caratteri.
+- `minlength`: imposta un minimo di caratteri (supporto moderno).
+- `rows` e `cols` su `<textarea>`: definiscono altezza (righe) e larghezza (colonne). Di solito si usa `rows` e si lascia la larghezza al CSS.
+
 Esempio minimale di form contatto:
 
 ```html
@@ -367,9 +380,11 @@ Esempio minimale di form contatto:
 ```
 
 ## Esercizio
-1) Crea un form contatto con nome, email e messaggio.
-2) Aggiungi `required` a nome ed email.
-3) Inserisci un bottone "Invia".
+1) Crea un form per "richiesta informazioni" con nome, email, oggetto e messaggio.
+2) Collega ogni `label` al suo campo con `for` e `id`.
+3) Aggiungi `required` a nome ed email.
+4) Imposta `rows="6"` sul `textarea`.
+5) Inserisci un bottone "Invia".
 
 
 # Lezione 5: Form HTML - scelte
