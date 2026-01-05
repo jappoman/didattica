@@ -324,3 +324,169 @@ Esempio con sezione multimedia:
 2) Usa `controls` su entrambi.
 3) Racchiudi i media in una `<section>` con titolo.
 4) Imposta almeno una dimensione sul video.
+
+
+# Lezione 4: Form HTML - base
+
+## A cosa serve un form
+Un form raccoglie dati inseriti dall'utente e li invia a un server. Anche senza server, è utile per imparare la struttura e i campi di input.
+
+## Struttura base con `<form>`
+Il tag `<form>` contiene tutti i campi. Gli attributi principali:
+- `action`: dove inviare i dati (URL).
+- `method`: come inviarli (`get` o `post`). Il metodo `get` aggiunge i dati all'URL, `post` li invia in modo nascosto.
+
+```html
+<form action="/invia" method="post">
+  <!-- campi qui dentro -->
+</form>
+```
+
+## Campi essenziali
+- `<label>`: descrive il campo; si collega con `for` uguale all'`id` dell'input.
+- `<input type="text">`: testo breve (nome, cognome).
+- `<input type="email">`: email con validazione base del browser.
+- `<textarea>`: testo lungo (messaggio).
+- `<button type="submit">`: invia il form.
+
+Esempio minimale di form contatto:
+
+```html
+<form action="/invia" method="post">
+  <label for="nome">Nome</label>
+  <input type="text" id="nome" name="nome" required>
+
+  <label for="email">Email</label>
+  <input type="email" id="email" name="email" required>
+
+  <label for="messaggio">Messaggio</label>
+  <textarea id="messaggio" name="messaggio" rows="4"></textarea>
+
+  <button type="submit">Invia</button>
+</form>
+```
+
+## Esercizio
+1) Crea un form contatto con nome, email e messaggio.
+2) Aggiungi `required` a nome ed email.
+3) Inserisci un bottone "Invia".
+
+
+# Lezione 5: Form HTML - scelte
+
+## Scelta singola e scelta multipla
+- Scelta singola: si usa `<input type="radio">` con lo stesso `name`.
+- Scelta multipla: si usa `<input type="checkbox">` e si possono selezionare piu opzioni.
+
+## Radio (scelta singola)
+Stesso `name`, `value` diverso per ogni opzione.
+
+```html
+<p>Metodo di contatto preferito:</p>
+<label><input type="radio" name="contatto" value="email"> Email</label>
+<label><input type="radio" name="contatto" value="telefono"> Telefono</label>
+```
+
+## Checkbox (scelta multipla)
+Ogni checkbox ha lo stesso `name` se vuoi inviare un elenco di preferenze.
+
+```html
+<p>Argomenti di interesse:</p>
+<label><input type="checkbox" name="interessi" value="html"> HTML</label>
+<label><input type="checkbox" name="interessi" value="css"> CSS</label>
+<label><input type="checkbox" name="interessi" value="js"> JavaScript</label>
+```
+
+## Esempio di estensione del form
+
+```html
+<form action="/invia" method="post">
+  <label for="nome">Nome</label>
+  <input type="text" id="nome" name="nome">
+
+  <p>Metodo di contatto preferito:</p>
+  <label><input type="radio" name="contatto" value="email"> Email</label>
+  <label><input type="radio" name="contatto" value="telefono"> Telefono</label>
+
+  <p>Argomenti di interesse:</p>
+  <label><input type="checkbox" name="interessi" value="html"> HTML</label>
+  <label><input type="checkbox" name="interessi" value="css"> CSS</label>
+</form>
+```
+
+## Esercizio
+1) Aggiungi una scelta singola con radio (es. metodo di contatto).
+2) Aggiungi una scelta multipla con checkbox (es. preferenze).
+3) Controlla che le radio abbiano lo stesso `name`.
+
+
+# Lezione 6: CSS base
+
+## Cos'e il CSS
+CSS (Cascading Style Sheets) serve per definire l'aspetto grafico: colori, font, spazi, dimensioni.
+
+## Collegare un file `.css`
+Nel `<head>` di HTML:
+
+```html
+<link rel="stylesheet" href="style.css">
+```
+
+## Selettori base
+- `body` per la pagina intera.
+- `h1`, `p` per elementi specifici.
+- `.classe` per gruppi di elementi con la stessa classe.
+
+## Proprieta base
+- `color`: colore del testo.
+- `font-family`: famiglia di font.
+
+Esempio `style.css`:
+
+```css
+body {
+  color: #333;
+  font-family: Georgia, serif;
+}
+
+h1 {
+  color: darkblue;
+}
+
+.evidenziato {
+  color: seagreen;
+}
+```
+
+## Esercizio
+1) Crea un file `style.css` e collegalo alla pagina.
+2) Cambia il colore del titolo con `h1`.
+3) Imposta un font per tutto il `body`.
+
+
+# Lezione 7: CSS light - spazi
+
+## Spazi esterni e interni
+- `margin`: spazio esterno tra un elemento e gli altri.
+- `padding`: spazio interno tra contenuto e bordo.
+
+## Esempio pratico
+
+```css
+body {
+  margin: 20px;
+}
+
+p {
+  margin-bottom: 12px;
+  padding: 6px;
+}
+```
+
+## Perche sono importanti
+Gli spazi migliorano la leggibilita e l'ordine visivo della pagina.
+
+## Esercizio
+1) Aggiungi `margin` al `body` per staccare il contenuto dai bordi.
+2) Usa `margin-bottom` sui paragrafi.
+3) Aggiungi un po di `padding` a un paragrafo o a una sezione.
