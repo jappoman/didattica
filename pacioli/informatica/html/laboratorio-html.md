@@ -2,13 +2,21 @@
 
 ## Perchè ci serve l'HTML
 
-HTML (HyperText Markup Language) descrive il contenuto di una pagina web. Il browser legge i tag e li trasforma in titoli, paragrafi, link, immagini. Non decide i colori o i font (quello lo fa il CSS) ma si concentra solo sulla struttura.
+HTML (HyperText Markup Language) è un linguaggio di markup, cioè un linguaggio che usa dei tag per descrivere la struttura e il significato dei contenuti di una pagina web. Il browser legge i tag e li trasforma in titoli, paragrafi, link, immagini. Non decide i colori o i font (quello lo fa il CSS) ma si concentra solo sulla struttura.
 
 Un tag ha quasi sempre un'apertura e una chiusura:
 
 ```html
 <p>Ciao!</p>
 ```
+
+Un tag HTML è un elemento che indica al browser che tipo di contenuto stiamo scrivendo. La maggior parte dei tag è composta da:
+
+- un tag di apertura
+- un contenuto
+- un tag di chiusura
+
+L'insieme formato da tag di apertura, contenuto e tag di chiusura si chiama elemento HTML.
 
 ## Struttura minima di una pagina
 
@@ -21,7 +29,7 @@ Un tag ha quasi sempre un'apertura e una chiusura:
   </head>
   <body>
     <h1>Benvenuti nella mia pagina</h1>
-    <p>Questo e il mio primo paragrafo HTML.</p>
+    <p>Questo è il mio primo paragrafo HTML.</p>
   </body>
 </html>
 ```
@@ -47,7 +55,7 @@ Ecco cosa fanno le varie righe:
 
 ## Attributi dei tag
 
-Gli attributi aggiungono informazioni extra a un tag: seguono sempre il nome del tag, vanno dentro l'apertura e usano la forma `nome="valore"`. Alcuni sono obbligatori (`src` per le immagini), altri opzionali o booleani (es. `required` su un input).
+Gli attributi HTML sono informazioni aggiuntive associate a un tag e servono a specificarne il comportamento o le caratteristiche. Seguono sempre il nome del tag, vanno dentro l'apertura e usano la forma `nome="valore"`. Alcuni sono obbligatori (`src` per le immagini), altri opzionali o booleani (es. `required` su un input).
 
 Esempi rapidi:
 
@@ -86,7 +94,7 @@ Esempio minimo in JSFiddle (solo corpo):
 
 ```html
 <h1>Benvenuti nella mia pagina</h1>
-<p>Questo e il mio primo paragrafo HTML.</p>
+<p>Questo è il mio primo paragrafo HTML.</p>
 <img src="https://example.com/foto.jpg" alt="Foto di esempio" width="200" />
 <p>Visita il mio sito preferito:</p>
 <a href="https://www.wikipedia.org">Vai su Wikipedia</a>
@@ -112,7 +120,7 @@ Esempio completo (versione file .html):
   </head>
   <body>
     <h1 style="color: darkblue; font-family: Georgia, serif;">Benvenuti nella mia homepage</h1>
-    <p style="color: #555; font-size: 18px;">Mi chiamo Mario e questa e la mia prima pagina creata in HTML.</p>
+    <p style="color: #555; font-size: 18px;">Mi chiamo Mario e questa è la mia prima pagina creata in HTML.</p>
     <img src="https://placekitten.com/400/250" alt="Foto di esempio" width="320" />
     <p style="color: #555;">Visita il mio sito preferito:</p>
     <a href="https://www.wikipedia.org" style="color: seagreen; font-weight: bold;">Vai su Wikipedia</a>
@@ -164,7 +172,7 @@ Esempio completo (versione file .html):
 ```
 
 ## Liste
-- Liste puntate: `<ul>` è il tag che apre e chiude una lista. Ogni elemento della lista è racon `<li>`. Utile per elementi senza ordine preciso.
+- Liste puntate: `<ul>` è il tag che apre e chiude una lista. Ogni elemento della lista è racchiuso in `<li>`. Utile per elementi senza ordine preciso.
 - Liste numerate: `<ol>` con elementi `<li>`. Utile per sequenze o passi da seguire.
 - Liste annidate: è possibile avere elementi `<li>` che contengono delle nuove liste `<ul>` o `<ol>` per creare delle sotto-voci. Ricorda di chiudere correttamente tutti i tag.
 
@@ -259,7 +267,7 @@ Esempio completo (versione file .html):
 
 # Lezione 3: HTML5 multimedia
 
-## Perche usare `<video>` e `<audio>`
+## Perchè usare `<video>` e `<audio>`
 HTML5 permette di inserire contenuti multimediali senza plugin esterni.
 Il browser gestisce direttamente riproduzione, pausa e volume.
 
@@ -350,13 +358,13 @@ Il tag `<form>` contiene tutti i campi. Gli attributi principali:
 - `<button type="submit">`: invia il form.
 
 ## Attributo `required`
-`required` e un attributo booleano: se presente, il browser blocca l'invio finche il campo non e compilato.
+`required` è un attributo booleano: se presente, il browser blocca l'invio finché il campo non è compilato.
 Puoi usarlo su `input` e `textarea` quando un dato è obbligatorio.
 
 ## Altri attributi utili
 - `placeholder`: suggerisce cosa scrivere nel campo (testo guida, sparisce quando si digita).
 - `name`: è il nome con cui il dato viene inviato al server; senza `name` il campo non viene inviato.
-- `id`: serve per collegare il `label` con `for` ed e utile per CSS/Javascript.
+- `id`: serve per collegare il `label` con `for` ed è utile per CSS/Javascript.
 - `value`: valore predefinito del campo (utile per esempi o moduli precompilati).
 - `maxlength`: limita il numero massimo di caratteri.
 - `minlength`: imposta un minimo di caratteri (supporto moderno).
@@ -391,7 +399,7 @@ Esempio minimale di form contatto:
 
 ## Scelta singola e scelta multipla
 - Scelta singola: si usa `<input type="radio">` con lo stesso `name`.
-- Scelta multipla: si usa `<input type="checkbox">` e si possono selezionare piu opzioni.
+- Scelta multipla: si usa `<input type="checkbox">` e si possono selezionare più opzioni.
 
 ## Radio (scelta singola)
 Stesso `name`, `value` diverso per ogni opzione.
@@ -437,7 +445,7 @@ Ogni checkbox ha lo stesso `name` se vuoi inviare un elenco di preferenze.
 
 # Lezione 6: CSS base
 
-## Cos'e il CSS
+## Cos'è il CSS
 CSS (Cascading Style Sheets) serve per definire l'aspetto grafico: colori, font, spazi, dimensioni.
 
 ## Collegare un file `.css`
@@ -498,7 +506,7 @@ p {
 }
 ```
 
-## Perche sono importanti
+## Perchè sono importanti
 Gli spazi migliorano la leggibilita e l'ordine visivo della pagina.
 
 ## Esercizio
