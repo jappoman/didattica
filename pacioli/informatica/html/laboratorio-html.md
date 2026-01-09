@@ -293,6 +293,24 @@ Esempio completo:
 </video>
 ```
 
+Se vuoi incorporare un video di YouTube non usare `<video>`, ma un `<iframe>` con il codice di incorporamento:
+
+```html
+<iframe
+width="560" height="315"
+src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=JA_VG0TCtxwuzIlN" title="YouTube video player"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+allowfullscreen>
+</iframe>
+```
+
+Un `<iframe>` e' una "finestra" che inserisce una pagina esterna dentro la tua pagina. Gli attributi principali qui sono:
+- `width` e `height`: dimensioni dell'area video.
+- `src`: URL del video incorporato.
+- `title`: descrizione per l'accessibilita.
+- `allow`: permessi concessi al player (es. autoplay, fullscreen, ecc.).
+- `allowfullscreen`: abilita il pulsante schermo intero.
+
 ## Tag `<audio>`
 Struttura base:
 
