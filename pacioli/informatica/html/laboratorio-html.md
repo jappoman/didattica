@@ -477,10 +477,10 @@ Dopo l'invio, la pagina di test elenca tutte le scelte inviate dal form.
 
 
 
-# Lezione 6: CSS - selettori, proprieta, spazi
+# Lezione 6: CSS
 
-## Cos'e' il CSS
-CSS (Cascading Style Sheets) serve per definire l'aspetto grafico: colori, font, spazi, dimensioni e bordi. L'HTML dice che cosa c'è, il CSS dice come appare.
+## Cos'è il CSS
+Il CSS (Cascading Style Sheets) serve per definire l'aspetto grafico della pagina web: colori, font, spazi, dimensioni e bordi. L'HTML dice che cosa c'è nella pagina, il CSS dice come appare.
 
 ## Dove si scrive il CSS
 In JSFiddle ci sono tre riquadri principali: HTML, CSS e JS. Quando fai gli esercizi, il CSS va scritto nell'apposito riquadro CSS, non dentro l'HTML.
@@ -494,22 +494,27 @@ Se invece lavori in un file locale, il CSS sta in un file .css collegato all'HTM
 Un selettore indica quali elementi della pagina devono ricevere le regole CSS.
 
 Selettori base:
-- Tag: h1, p, ul (tutti gli elementi di quel tipo).
-- Classe: .evidenziato (tutti gli elementi con class="evidenziato").
-- ID: #titolo (un elemento con id="titolo", di solito unico).
+- Tag singoli: `h1`, `p`, `ul` (tutti gli elementi di quel tipo).
+- Classe: `.evidenziato` (tutti gli elementi con class="evidenziato").
+- ID: `#titolo` (un elemento con id="titolo", di solito unico).
 
-Selettori utili:
-- Combinati: p.evidenziato (solo i paragrafi con quella classe).
-- Discendenti: section p (tutti i p dentro una section).
-- Gruppi: h1, h2, h3 (stessa regola per piu' tag).
+Selettori avanzati:
+- Combinati: `p.evidenziato` (solo i paragrafi con quella classe).
+- Discendenti: `section p` (tutti i p dentro una section).
+- Gruppi: `h1, h2, h3` (stessa regola per più tag).
 
-## Proprieta CSS principali
-- color: colore del testo.
-- background-color: colore di sfondo.
-- font-family, font-size, line-height: font e leggibilita.
-- margin, padding: spazi esterni e interni.
-- border, border-radius: bordo e angoli arrotondati.
-- text-align, text-decoration: allineamento e decorazione del testo.
+## Proprietà CSS principali
+- color: imposta il colore del testo (nome, esadecimale o RGB).
+- background-color: imposta il colore di sfondo dell'elemento.
+- font-family: sceglie il carattere tipografico, con eventuali font di riserva.
+- font-size: dimensione del testo (es. 16px, 1.2em, 120%).
+- line-height: distanza tra le righe; valori più alti aumentano la leggibilità.
+- margin: spazio esterno tra l'elemento e gli altri elementi.
+- padding: spazio interno tra contenuto e bordo dell'elemento.
+- border: disegna un bordo con spessore, stile e colore (es. 1px solid #ccc).
+- border-radius: arrotonda gli angoli del bordo (con valori in px o %, es. 8px).
+- text-align: allinea il testo (left, center, right, justify).
+- text-decoration: applica decorazioni al testo (underline, none, line-through).
 
 ## Esempio completo (da copiare nel riquadro CSS di JSFiddle)
 Applica questo CSS nella sezione CSS di JSFiddle:
@@ -558,7 +563,7 @@ ul li {
 }
 ```
 
-Poi utilizza questo piccolo HTML di esempio da mettere nel riquadro HTML di JSFiddle:
+Poi utilizza questo HTML di esempio da mettere nel riquadro HTML di JSFiddle:
 
 ```html
 <h1>Mini pagina di prova</h1>
