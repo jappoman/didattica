@@ -480,12 +480,10 @@ Dopo l'invio, la pagina di test elenca tutte le scelte inviate dal form.
 # Lezione 6: CSS - selettori, proprieta, spazi
 
 ## Cos'e' il CSS
-CSS (Cascading Style Sheets) serve per definire l'aspetto grafico: colori, font, spazi, dimensioni e bordi. L'HTML dice che cosa c'e', il CSS dice come appare.
+CSS (Cascading Style Sheets) serve per definire l'aspetto grafico: colori, font, spazi, dimensioni e bordi. L'HTML dice che cosa c'è, il CSS dice come appare.
 
-## Dove si scrive il CSS (JSFiddle)
-In JSFiddle ci sono tre riquadri principali: HTML, CSS e JS.
-Quando fai gli esercizi qui, il CSS va scritto nel riquadro CSS, non dentro l'HTML.
-
+## Dove si scrive il CSS
+In JSFiddle ci sono tre riquadri principali: HTML, CSS e JS. Quando fai gli esercizi, il CSS va scritto nell'apposito riquadro CSS, non dentro l'HTML.
 Se invece lavori in un file locale, il CSS sta in un file .css collegato all'HTML con:
 
 ```html
@@ -514,7 +512,7 @@ Selettori utili:
 - text-align, text-decoration: allineamento e decorazione del testo.
 
 ## Esempio completo (da copiare nel riquadro CSS di JSFiddle)
-Usa un HTML con titoli, paragrafi, link e liste, poi applica questo CSS:
+Applica questo CSS nella sezione CSS di JSFiddle:
 
 ```css
 body {
@@ -560,7 +558,7 @@ ul li {
 }
 ```
 
-Ecco un piccolo HTML di esempio da mettere nel riquadro HTML di JSFiddle:
+Poi utilizza questo piccolo HTML di esempio da mettere nel riquadro HTML di JSFiddle:
 
 ```html
 <h1>Mini pagina di prova</h1>
@@ -581,8 +579,7 @@ Ecco un piccolo HTML di esempio da mettere nel riquadro HTML di JSFiddle:
 
 
 ## Esercizio
-1) In JSFiddle, metti l'HTML nel riquadro HTML e tutto il CSS nel riquadro CSS.
-2) Crea almeno 3 selettori diversi: uno per tag, uno per classe e uno discendente.
-3) Applica almeno 6 proprieta diverse (es. color, background-color, font-size, margin, padding, border).
-4) Aggiungi una classe a un paragrafo e rendilo "evidenziato" con sfondo, bordo e padding.
-5) Fai in modo che la pagina sia piu' leggibile aumentando spazi e line-height.
+1) Crea almeno 3 selettori diversi: uno per tag, uno per classe e uno discendente.
+2) Applica almeno 6 proprietà diverse (es. color, background-color, font-size, margin, padding, border).
+3) Aggiungi una classe a un paragrafo e rendilo "evidenziato" con sfondo, bordo e padding.
+4) Fai in modo che la pagina sia più leggibile aumentando spazi e line-height.
