@@ -495,7 +495,7 @@ Un selettore indica quali elementi della pagina devono ricevere le regole CSS.
 
 Selettori base:
 - Tag singoli: `h1`, `p`, `ul` (tutti gli elementi di quel tipo).
-- Classe: `.evidenziato` (tutti gli elementi con class="evidenziato").
+- Classe: `.evidenziato` (tutti gli elementi con class="evidenziato"). Una classe è un'etichetta riutilizzabile che puoi assegnare a più elementi per applicare lo stesso stile.
 - ID: `#titolo` (un elemento con id="titolo", di solito unico).
 
 Selettori avanzati:
