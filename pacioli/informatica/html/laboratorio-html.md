@@ -363,7 +363,7 @@ Il tag `<form>` contiene tutti i campi. Gli attributi principali:
 - `method`: come inviarli (`get` o `post`). Il metodo `get` aggiunge i dati all'URL, `post` li invia in modo nascosto.
 
 ```html
-<form action="/invia" method="post">
+<form action="https://formtester.goodbytes.be/post.php" method="post">
   <!-- campi qui dentro -->
 </form>
 ```
@@ -391,7 +391,7 @@ Puoi usarlo su `input` e `textarea` quando un dato è obbligatorio.
 Esempio minimale di form contatto:
 
 ```html
-<form action="/invia" method="post">
+<form action="https://formtester.goodbytes.be/post.php" method="post">
   <label for="nome">Nome</label>
   <input type="text" id="nome" name="nome" required>
 
@@ -405,12 +405,20 @@ Esempio minimale di form contatto:
 </form>
 ```
 
+Per simulare il server che riceve i dati, questo `action` invia il form a una pagina di test che mostra
+subito tutti i campi ricevuti. Se hai dimenticato un `name` o lo hai scritto male, lo vedi subito.
+
+
 ## Esercizio
 1) Crea un form per "richiesta informazioni" con nome, email, oggetto e messaggio.
 2) Collega ogni `label` al suo campo con `for` e `id`.
 3) Aggiungi `required` a nome ed email.
 4) Imposta `rows="6"` sul `textarea`.
 5) Inserisci un bottone "Invia".
+
+Per provarlo senza server, imposta `method="post"` e `action="https://formtester.goodbytes.be/post.php"`.
+Quando invii il form, la pagina di test mostra i dati ricevuti.
+
 
 
 # Lezione 5: Form HTML - scelte
@@ -441,7 +449,7 @@ Ogni checkbox ha lo stesso `name` se vuoi inviare un elenco di preferenze.
 ## Esempio di estensione del form
 
 ```html
-<form action="/invia" method="post">
+<form action="https://formtester.goodbytes.be/post.php" method="post">
   <label for="nome">Nome</label>
   <input type="text" id="nome" name="nome">
 
@@ -455,10 +463,18 @@ Ogni checkbox ha lo stesso `name` se vuoi inviare un elenco di preferenze.
 </form>
 ```
 
+Anche qui, l'`action` punta alla pagina di test: dopo l'invio vedrai quali `name` sono arrivati e con che valore.
+Serve per verificare che radio e checkbox abbiano i nomi corretti.
+
+
 ## Esercizio
 1) Aggiungi una scelta singola con radio (es. metodo di contatto).
 2) Aggiungi una scelta multipla con checkbox (es. preferenze).
 3) Controlla che le radio abbiano lo stesso `name`.
+
+Per verificare i dati, imposta `method="post"` e `action="https://formtester.goodbytes.be/post.php"`.
+Dopo l'invio, la pagina di test elenca tutte le scelte inviate dal form.
+
 
 
 # Lezione 6: CSS base
