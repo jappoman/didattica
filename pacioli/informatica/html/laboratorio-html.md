@@ -352,7 +352,7 @@ Esempio con sezione multimedia:
 4) Imposta almeno una dimensione sul video.
 
 
-# Lezione 4: Form HTML - base
+# Lezione 4: Form HTML
 
 ## A cosa serve un form
 Un form raccoglie dati inseriti dall'utente e li invia a un server. Anche senza server, è utile per imparare la struttura e i campi di input.
@@ -477,73 +477,112 @@ Dopo l'invio, la pagina di test elenca tutte le scelte inviate dal form.
 
 
 
-# Lezione 6: CSS base
+# Lezione 6: CSS - selettori, proprieta, spazi
 
-## Cos'è il CSS
-CSS (Cascading Style Sheets) serve per definire l'aspetto grafico: colori, font, spazi, dimensioni.
+## Cos'e' il CSS
+CSS (Cascading Style Sheets) serve per definire l'aspetto grafico: colori, font, spazi, dimensioni e bordi. L'HTML dice che cosa c'e', il CSS dice come appare.
 
-## Collegare un file `.css`
-Nel `<head>` di HTML:
+## Dove si scrive il CSS (JSFiddle)
+In JSFiddle ci sono tre riquadri principali: HTML, CSS e JS.
+Quando fai gli esercizi qui, il CSS va scritto nel riquadro CSS, non dentro l'HTML.
+
+Se invece lavori in un file locale, il CSS sta in un file .css collegato all'HTML con:
 
 ```html
 <link rel="stylesheet" href="style.css">
 ```
 
-## Selettori base
-- `body` per la pagina intera.
-- `h1`, `p` per elementi specifici.
-- `.classe` per gruppi di elementi con la stessa classe.
+## Selettori: come scegliere cosa stilizzare
+Un selettore indica quali elementi della pagina devono ricevere le regole CSS.
 
-## Proprieta base
-- `color`: colore del testo.
-- `font-family`: famiglia di font.
+Selettori base:
+- Tag: h1, p, ul (tutti gli elementi di quel tipo).
+- Classe: .evidenziato (tutti gli elementi con class="evidenziato").
+- ID: #titolo (un elemento con id="titolo", di solito unico).
 
-Esempio `style.css`:
+Selettori utili:
+- Combinati: p.evidenziato (solo i paragrafi con quella classe).
+- Discendenti: section p (tutti i p dentro una section).
+- Gruppi: h1, h2, h3 (stessa regola per piu' tag).
+
+## Proprieta CSS principali
+- color: colore del testo.
+- background-color: colore di sfondo.
+- font-family, font-size, line-height: font e leggibilita.
+- margin, padding: spazi esterni e interni.
+- border, border-radius: bordo e angoli arrotondati.
+- text-align, text-decoration: allineamento e decorazione del testo.
+
+## Esempio completo (da copiare nel riquadro CSS di JSFiddle)
+Usa un HTML con titoli, paragrafi, link e liste, poi applica questo CSS:
 
 ```css
 body {
-  color: #333;
-  font-family: Georgia, serif;
+  font-family: "Georgia", serif;
+  background-color: #f4f1ea;
+  color: #2c2c2c;
+  margin: 24px;
 }
 
 h1 {
-  color: darkblue;
-}
-
-.evidenziato {
-  color: seagreen;
-}
-```
-
-## Esercizio
-1) Crea un file `style.css` e collegalo alla pagina.
-2) Cambia il colore del titolo con `h1`.
-3) Imposta un font per tutto il `body`.
-
-
-# Lezione 7: CSS light - spazi
-
-## Spazi esterni e interni
-- `margin`: spazio esterno tra un elemento e gli altri.
-- `padding`: spazio interno tra contenuto e bordo.
-
-## Esempio pratico
-
-```css
-body {
-  margin: 20px;
+  color: #1f4e79;
+  text-align: center;
+  letter-spacing: 1px;
 }
 
 p {
+  line-height: 1.6;
   margin-bottom: 12px;
-  padding: 6px;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  max-width: 600px;
+}
+
+a {
+  color: #c15a00;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+ul li {
+  margin-bottom: 6px;
+}
+
+.evidenziato {
+  background-color: #fff3b0;
+  padding: 4px 8px;
+  border-left: 4px solid #f0b429;
 }
 ```
 
-## Perchè sono importanti
-Gli spazi migliorano la leggibilita e l'ordine visivo della pagina.
+Ecco un piccolo HTML di esempio da mettere nel riquadro HTML di JSFiddle:
+
+```html
+<h1>Mini pagina di prova</h1>
+
+<div class="card">
+  <p>Questo e' un paragrafo dentro una card.</p>
+  <p class="evidenziato">Questo paragrafo e' evidenziato.</p>
+  <p>Visita il mio <a href="https://www.wikipedia.org">sito preferito</a>.</p>
+
+  <h2>Lista di cose</h2>
+  <ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+  </ul>
+</div>
+```
+
 
 ## Esercizio
-1) Aggiungi `margin` al `body` per staccare il contenuto dai bordi.
-2) Usa `margin-bottom` sui paragrafi.
-3) Aggiungi un po di `padding` a un paragrafo o a una sezione.
+1) In JSFiddle, metti l'HTML nel riquadro HTML e tutto il CSS nel riquadro CSS.
+2) Crea almeno 3 selettori diversi: uno per tag, uno per classe e uno discendente.
+3) Applica almeno 6 proprieta diverse (es. color, background-color, font-size, margin, padding, border).
+4) Aggiungi una classe a un paragrafo e rendilo "evidenziato" con sfondo, bordo e padding.
+5) Fai in modo che la pagina sia piu' leggibile aumentando spazi e line-height.
