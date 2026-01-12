@@ -434,11 +434,18 @@ subito tutti i campi ricevuti. Se hai dimenticato un `name` o lo hai scritto mal
 
 
 ## Esercizio
-1) Crea un form per "richiesta informazioni" con nome, email, oggetto e messaggio.
-2) Collega ogni `label` al suo campo con `for` e `id`.
-3) Aggiungi `required` a nome ed email.
-4) Imposta `rows="6"` sul `textarea`.
-5) Inserisci un bottone "Invia".
+1) Crea un form "Iscrizione a un laboratorio" con `method="post"` e `action="https://formtester.goodbytes.be/post.php"`.
+2) Inserisci questi campi, tutti con `label` collegato tramite `for` e `id`:
+   - Nome e cognome (`type="text"`), con `placeholder`, `maxlength="30"` e `required`.
+   - Email (`type="email"`), con `placeholder` e `required`.
+   - Password di accesso (`type="password"`), con `minlength="8"` e `placeholder`.
+   - Età (`type="number"`), con `min="14"` e `max="99"`.
+   - Data di nascita (`type="date"`).
+   - Orario preferito (`type="time"`).
+3) Inserisci un `<textarea>` per "note aggiuntive" con `rows="6"` e `cols="40"`, con `placeholder`.
+4) Aggiungi un campo `tel` facoltativo con `placeholder` e `name` corretto.
+5) Imposta un valore predefinito (`value`) per almeno un campo.
+6) Chiudi con un bottone `type="submit"` con testo "Invia iscrizione".
 
 Per provarlo senza server, imposta `method="post"` e `action="https://formtester.goodbytes.be/post.php"`.
 Quando invii il form, la pagina di test mostra i dati ricevuti.
@@ -450,6 +457,7 @@ Quando invii il form, la pagina di test mostra i dati ricevuti.
 ## Scelta singola e scelta multipla
 - Scelta singola: si usa `<input type="radio">` con lo stesso `name`.
 - Scelta multipla: si usa `<input type="checkbox">` e si possono selezionare più opzioni.
+- Scelta da menu a tendina: si usa `<select>` con più `<option>`.
 
 ## Radio (scelta singola)
 Stesso `name`, `value` diverso per ogni opzione.
@@ -470,6 +478,16 @@ Ogni checkbox ha lo stesso `name` se vuoi inviare un elenco di preferenze.
 <label><input type="checkbox" name="interessi" value="js"> JavaScript</label>
 ```
 
+## Select (menu a tendina)
+```html
+<label for="corso">Scegli un corso:</label>
+<select id="corso" name="corso">
+  <option value="html">Corso HTML</option>
+  <option value="css">Corso CSS</option>
+  <option value="js">Corso JavaScript</option>
+</select>
+```
+
 ## Esempio di estensione del form
 
 ```html
@@ -484,6 +502,13 @@ Ogni checkbox ha lo stesso `name` se vuoi inviare un elenco di preferenze.
   <p>Argomenti di interesse:</p>
   <label><input type="checkbox" name="interessi" value="html"> HTML</label>
   <label><input type="checkbox" name="interessi" value="css"> CSS</label>
+
+  <label for="corso">Scegli un corso:</label>
+  <select id="corso" name="corso">
+    <option value="html">Corso HTML</option>
+    <option value="css">Corso CSS</option>
+    <option value="js">Corso JavaScript</option>
+  </select>
 </form>
 ```
 
@@ -492,13 +517,12 @@ Serve per verificare che radio e checkbox abbiano i nomi corretti.
 
 
 ## Esercizio
-1) Aggiungi una scelta singola con radio (es. metodo di contatto).
+1) Aggiungi all'esercizio precedente uno o più scelte singole con radio (es. metodo di contatto).
 2) Aggiungi una scelta multipla con checkbox (es. preferenze).
-3) Controlla che le radio abbiano lo stesso `name`.
+3) Aggiungi una selezione da menu a tendina (es. corso di laurea).
 
 Per verificare i dati, imposta `method="post"` e `action="https://formtester.goodbytes.be/post.php"`.
 Dopo l'invio, la pagina di test elenca tutte le scelte inviate dal form.
-
 
 
 # Lezione 6: CSS
