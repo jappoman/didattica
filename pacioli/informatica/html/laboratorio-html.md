@@ -368,10 +368,22 @@ Il tag `<form>` contiene tutti i campi. Gli attributi principali:
 </form>
 ```
 
+Esempio di url quando viene usato il metodo `get`:
+```
+https://formtester.goodbytes.be/post.php?nome=Mario&cognome=Rossi
+```
+
 ## Campi essenziali
 - `<label>`: descrive il campo; si collega con `for` uguale all'`id` dell'input.
 - `<input type="text">`: testo breve (nome, cognome).
 - `<input type="email">`: email con validazione base del browser.
+- `<input type="password">`: password (testo nascosto).
+- `<input type="number">`: numeri (con frecce per aumentare/diminuire).
+- `<input type="date">`: selezione data (calendario).
+- `<input type="time">`: selezione ora (ora, minuto, secondo).
+- `<input type="checkbox">`: scelta multipla (opzioni selezionabili).
+- `<input type="radio">`: scelta singola (opzioni esclusive).
+- `<select>` e `<option>`: menu a tendina.
 - `<textarea>`: testo lungo (messaggio).
 - `<button type="submit">`: invia il form.
 
@@ -388,7 +400,7 @@ Puoi usarlo su `input` e `textarea` quando un dato è obbligatorio.
 - `minlength`: imposta un minimo di caratteri (supporto moderno).
 - `rows` e `cols` su `<textarea>`: definiscono altezza (righe) e larghezza (colonne). Di solito si usa `rows` e si lascia la larghezza al CSS.
 
-Esempio minimale di form contatto:
+Esempio di form contatto con i campi essenziali:
 
 ```html
 <form action="https://formtester.goodbytes.be/post.php" method="post">
@@ -400,6 +412,18 @@ Esempio minimale di form contatto:
 
   <label for="messaggio">Messaggio</label>
   <textarea id="messaggio" name="messaggio" rows="4"></textarea>
+
+  <label for="telefono">Telefono</label>
+  <input type="tel" id="telefono" name="telefono" required>
+
+  <label for="numero">Numero</label>
+  <input type="number" id="numero" name="numero" required>
+
+  <label for="data">Data</label>
+  <input type="date" id="data" name="data" required>
+
+  <label for="ora">Ora</label>
+  <input type="time" id="ora" name="ora" required>
 
   <button type="submit">Invia</button>
 </form>
