@@ -456,7 +456,7 @@ Quando invii il form, la pagina di test mostra i dati ricevuti.
 
 ## Scelta singola e scelta multipla
 - Scelta singola: si usa `<input type="radio">` con lo stesso `name`.
-- Scelta multipla: si usa `<input type="checkbox">` e si possono selezionare più opzioni.
+- Scelta multipla: si usa `<input type="checkbox">` e si possono selezionare più opzioni (stesso `name[]`).
 - Scelta da menu a tendina: si usa `<select>` con più `<option>`.
 
 ## Radio (scelta singola)
@@ -469,13 +469,13 @@ Stesso `name`, `value` diverso per ogni opzione.
 ```
 
 ## Checkbox (scelta multipla)
-Ogni checkbox ha lo stesso `name` se vuoi inviare un elenco di preferenze.
+Ogni checkbox ha lo stesso `name[]` se vuoi inviare un elenco di preferenze. Il server riceve tutti i valori selezionati come lista.
 
 ```html
 <p>Argomenti di interesse:</p>
-<label><input type="checkbox" name="interessi" value="html"> HTML</label>
-<label><input type="checkbox" name="interessi" value="css"> CSS</label>
-<label><input type="checkbox" name="interessi" value="js"> JavaScript</label>
+<label><input type="checkbox" name="interessi[]" value="html"> HTML</label>
+<label><input type="checkbox" name="interessi[]" value="css"> CSS</label>
+<label><input type="checkbox" name="interessi[]" value="js"> JavaScript</label>
 ```
 
 ## Select (menu a tendina)
@@ -500,8 +500,8 @@ Ogni checkbox ha lo stesso `name` se vuoi inviare un elenco di preferenze.
   <label><input type="radio" name="contatto" value="telefono"> Telefono</label>
 
   <p>Argomenti di interesse:</p>
-  <label><input type="checkbox" name="interessi" value="html"> HTML</label>
-  <label><input type="checkbox" name="interessi" value="css"> CSS</label>
+  <label><input type="checkbox" name="interessi[]" value="html"> HTML</label>
+  <label><input type="checkbox" name="interessi[]" value="css"> CSS</label>
 
   <label for="corso">Scegli un corso:</label>
   <select id="corso" name="corso">
