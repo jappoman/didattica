@@ -23,3 +23,4 @@ Questo repository contiene materiale per la didattica del professor Gabriele Tar
 
 #### Database
 - [Modellazione ER](pacioli/tecnologie/database/modellazione-er.md)
+- [Laboratorio SQL (Postgres)](pacioli/tecnologie/database/laboratorio-sql.md)
