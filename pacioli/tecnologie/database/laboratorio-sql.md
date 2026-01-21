@@ -1,33 +1,48 @@
-# Laboratorio SQL - Postgres
+# Laboratorio SQL - PostgreSQL
 
-Queste lezioni seguono uno stile semplice e pratico, come nel laboratorio HTML. Gli esercizi sono pensati per essere svolti su https://www.db-fiddle.com/ usando il database PostgreSQL.
+## Prima di iniziare
+SQL e' il linguaggio con cui parliamo con un database. Un database serve a salvare dati in modo ordinato e a recuperarli quando servono. In questo laboratorio useremo PostgreSQL, che e' uno dei database piu usati nel mondo reale.
 
-## Come usare DB Fiddle (Postgres)
-- Seleziona **Database: PostgreSQL**.
-- Nel riquadro **Schema SQL** metti le istruzioni per creare le tabelle e, quando serve, per inserire i dati.
-- Nel riquadro **Query SQL** scrivi le query da eseguire (SELECT, UPDATE, DELETE, ecc.).
-- Premi **Run** per vedere i risultati.
+Lavoreremo online con DB Fiddle per evitare installazioni: useremo un riquadro per lo schema (creazione tabelle) e un riquadro per le query (interrogazioni).
 
-## Lezione 1 - Creazione tabelle (DDL)
+## Dove scrivere il codice SQL
+Useremo https://www.db-fiddle.com/ con database **PostgreSQL**.
 
-### Obiettivi
-- Capire cosa sono tabelle, colonne, tipi di dato.
-- Definire chiavi primarie (PK) e chiavi esterne (FK).
-- Usare vincoli come NOT NULL, UNIQUE e CHECK.
+- **Schema SQL**: qui scrivi i comandi per creare le tabelle e inserire i dati iniziali.
+- **Query SQL**: qui scrivi le query da eseguire (SELECT, UPDATE, DELETE, ecc.).
+- **Run**: esegue quello che hai scritto e mostra il risultato.
 
-### Concetti base
+Regole importanti:
+- Ogni comando termina con `;`.
+- Le stringhe vanno tra apici singoli, ad esempio `'Mario'`.
+- Le date si scrivono nel formato `AAAA-MM-GG`, ad esempio `'2008-02-10'`.
+
+
+# Lezione 1 - Creazione tabelle (DDL)
+
+## Perche ci serve il DDL
+DDL significa **Data Definition Language**. Sono i comandi che definiscono la struttura del database: tabelle, colonne, tipi di dato e regole. E' come disegnare l'architettura di una casa prima di arredarla.
+
+## Concetti fondamentali
 - **Tabella**: insieme di righe (record) con le stesse colonne.
-- **Colonna**: un dato specifico (nome, data, voto, ecc.).
-- **PK (Primary Key)**: identifica in modo unico una riga.
-- **FK (Foreign Key)**: collega una colonna a una PK di un'altra tabella.
-- **Vincoli**: regole sui dati (es. non vuoto, valore unico, range valido).
+- **Colonna**: un singolo tipo di informazione (nome, data, voto, ecc.).
+- **PK (Primary Key)**: campo che identifica in modo unico ogni riga.
+- **FK (Foreign Key)**: campo che collega una tabella a un'altra.
+- **Vincoli**: regole che i dati devono rispettare (es. non vuoto, valore unico).
 
-### Da ER a schema SQL (in breve)
-- Un'entita diventa una tabella.
-- Gli attributi dell'entita diventano colonne.
-- Una relazione "uno a molti" si realizza con una FK nella tabella del "molti".
+## Tipi di dato di base
+- **SERIAL**: intero auto-incrementale (ottimo per le PK).
+- **INT**: numero intero.
+- **VARCHAR(n)**: testo con un massimo di n caratteri.
+- **DATE**: data (anno-mese-giorno).
+- **NUMERIC(3,1)**: numero con decimali controllati (es. 7.5).
 
-### Schema SQL (da incollare in DB Fiddle)
+## Vincoli piu usati
+- **NOT NULL**: il campo non puo essere vuoto.
+- **UNIQUE**: il valore non si puo ripetere.
+- **CHECK**: impone una regola, ad esempio un intervallo.
+
+## Schema SQL (da incollare in DB Fiddle)
 ```sql
 CREATE TABLE classi (
   id SERIAL PRIMARY KEY,
@@ -58,26 +73,30 @@ CREATE TABLE voti (
 );
 ```
 
-### Spiegazione dei tipi di dato
-- **SERIAL**: intero auto-incrementale (comodo per le PK).
-- **INT**: numero intero.
-- **VARCHAR(n)**: testo con massimo n caratteri.
-- **DATE**: data (AAAA-MM-GG).
-- **NUMERIC(3,1)**: numero con 3 cifre totali e 1 decimale (es. 7.5).
+## Cosa succede qui dentro
+- `classi` contiene le classi, con anno e sezione.
+- `studenti` contiene gli studenti, collegati a `classi` tramite `classe_id`.
+- `materie` contiene le materie scolastiche.
+- `voti` collega studenti e materie con un voto e una data.
 
-### Esercizio
+## Esercizio
 1) Aggiungi una tabella `docenti` con: id, nome, cognome, email (unica).
 2) Aggiungi alla tabella `materie` una colonna `ore_settimanali` (INT, NOT NULL).
 
 
-## Lezione 2 - Inserimento e modifica dati (DML)
+# Lezione 2 - Inserimento e modifica dati (DML)
 
-### Obiettivi
-- Inserire dati con `INSERT`.
-- Modificare dati con `UPDATE`.
-- Eliminare dati con `DELETE`.
+## Perche ci serve il DML
+DML significa **Data Manipulation Language**. Sono i comandi con cui inseriamo, modifichiamo ed eliminiamo i dati. Dopo aver creato le tabelle, dobbiamo riempirle.
 
-### Schema SQL (creazione + dati iniziali)
+## Comandi principali
+- `INSERT`: aggiunge nuove righe.
+- `UPDATE`: modifica righe esistenti.
+- `DELETE`: elimina righe.
+
+Attenzione: senza `WHERE`, `UPDATE` e `DELETE` agiscono su **tutte** le righe.
+
+## Schema SQL (creazione + dati iniziali)
 ```sql
 CREATE TABLE classi (
   id SERIAL PRIMARY KEY,
@@ -128,7 +147,7 @@ INSERT INTO voti (studente_id, materia_id, voto, data_prova) VALUES
   (3, 1, 7.0, '2025-11-11');
 ```
 
-### Query SQL (esempi DML)
+## Query SQL (esempi DML)
 ```sql
 -- Inserisci un nuovo studente
 INSERT INTO studenti (nome, cognome, data_nascita, classe_id)
@@ -144,28 +163,36 @@ DELETE FROM materie
 WHERE nome = 'Italiano';
 ```
 
-### Spiegazione
-- `INSERT` aggiunge nuove righe.
-- `UPDATE` cambia le righe che rispettano il `WHERE`.
-- `DELETE` elimina le righe che rispettano il `WHERE`.
-- Senza `WHERE`, `UPDATE` o `DELETE` agiscono su **tutte** le righe.
+## Spiegazione dei passaggi
+- Con `INSERT` indichi la tabella, le colonne e poi i valori.
+- Con `UPDATE` usi `SET` per dire cosa cambia.
+- Con `WHERE` scegli quali righe toccare.
+- Con `DELETE` elimini solo le righe selezionate dal `WHERE`.
 
-### Esercizio
+## Esercizio
 1) Aggiungi una nuova classe 4A e un nuovo studente in quella classe.
 2) Aggiorna la data di nascita di uno studente.
 3) Elimina il voto di uno studente in Informatica.
 
 
-## Lezione 3 - SELECT base
+# Lezione 3 - SELECT base
 
-### Obiettivi
-- Usare `SELECT`, `WHERE`, `ORDER BY`.
-- Filtrare con condizioni semplici.
+## Perche ci serve SELECT
+Con `SELECT` leggiamo i dati. E' il comando piu usato: serve per vedere cosa c'e nel database e per rispondere a domande.
 
-### Schema SQL (usa lo stesso della lezione 2)
-Riusa lo schema e i dati della lezione 2.
+## Parti principali di una SELECT
+- `SELECT`: quali colonne vuoi vedere.
+- `FROM`: da quale tabella.
+- `WHERE`: quali righe ti interessano.
+- `ORDER BY`: come ordinare il risultato.
 
-### Query SQL (esempi SELECT)
+## Operatori utili
+- `=` uguale, `<>` diverso.
+- `>` maggiore, `<` minore.
+- `AND` per condizioni multiple, `OR` per alternative.
+- `LIKE` per cercare testo con pattern (es. `LIKE 'Mar%'`).
+
+## Query SQL (esempi SELECT)
 ```sql
 -- Seleziona nome e cognome di tutti gli studenti
 SELECT nome, cognome
@@ -188,34 +215,30 @@ WHERE data_nascita > '2008-01-01'
 ORDER BY data_nascita;
 ```
 
-### Spiegazione rapida
-- `SELECT` sceglie le colonne.
-- `FROM` indica la tabella.
-- `WHERE` filtra le righe.
-- `ORDER BY` ordina il risultato.
-
-### Esercizio
+## Esercizio
 1) Mostra tutti gli studenti in ordine alfabetico per cognome.
 2) Mostra i voti di Matematica (materia_id = 2).
 3) Mostra gli studenti nati nel 2008.
 
 
-## Lezione 4 - JOIN e filtri
+# Lezione 4 - JOIN e filtri
 
-### Obiettivi
-- Unire dati di piu tabelle con `JOIN`.
-- Aggiungere filtri con `WHERE`.
+## Perche ci serve la JOIN
+I dati spesso sono distribuiti in piu tabelle. Con la `JOIN` uniamo informazioni correlate. E' come collegare due elenchi usando una chiave comune.
 
-### Concetto base
-Una `JOIN` collega tabelle usando una chiave in comune:
-- `studenti.classe_id` si collega a `classi.id`.
-- `voti.studente_id` si collega a `studenti.id`.
-- `voti.materia_id` si collega a `materie.id`.
+## Come si collega
+Nel nostro schema:
+- `studenti.classe_id` punta a `classi.id`.
+- `voti.studente_id` punta a `studenti.id`.
+- `voti.materia_id` punta a `materie.id`.
 
-### Schema SQL (usa lo stesso della lezione 2)
-Riusa lo schema e i dati della lezione 2.
+Usiamo spesso delle abbreviazioni (alias) per scrivere piu veloce:
+- `studenti s`
+- `classi c`
+- `voti v`
+- `materie m`
 
-### Query SQL (esempi JOIN)
+## Query SQL (esempi JOIN)
 ```sql
 -- Elenco studenti con nome classe
 SELECT s.nome, s.cognome, c.nome AS classe
@@ -240,23 +263,28 @@ WHERE m.nome = 'Matematica' AND c.nome = '3A'
 ORDER BY v.voto DESC;
 ```
 
-### Esercizio
+## Esercizio
 1) Mostra nome, cognome e classe di tutti gli studenti della 3B.
 2) Mostra tutti i voti di uno studente a scelta (nome e cognome).
 3) Mostra le materie in cui compare almeno un voto maggiore o uguale a 8.
 
 
-## Lezione 5 - Aggregazioni
+# Lezione 5 - Aggregazioni
 
-### Obiettivi
-- Usare funzioni aggregate: `COUNT`, `AVG`, `MIN`, `MAX`.
-- Raggruppare con `GROUP BY`.
-- Filtrare i gruppi con `HAVING`.
+## Perche ci servono le aggregazioni
+Le funzioni aggregate riassumono i dati: contare, fare medie, trovare minimi e massimi. Sono utili per statistiche e riepiloghi.
 
-### Schema SQL (usa lo stesso della lezione 2)
-Riusa lo schema e i dati della lezione 2.
+## Funzioni principali
+- `COUNT`: conta quante righe ci sono.
+- `AVG`: calcola la media.
+- `MIN` e `MAX`: trovano il minimo e il massimo.
 
-### Query SQL (esempi aggregazioni)
+## GROUP BY e HAVING
+- `GROUP BY` crea gruppi di righe (es. per classe o per materia).
+- `HAVING` filtra i gruppi dopo l'aggregazione.
+- `WHERE` filtra le righe **prima** di raggruppare.
+
+## Query SQL (esempi aggregazioni)
 ```sql
 -- Numero di studenti per classe
 SELECT c.nome AS classe, COUNT(s.id) AS numero_studenti
@@ -281,19 +309,11 @@ HAVING AVG(v.voto) >= 7
 ORDER BY media DESC;
 ```
 
-### Spiegazione rapida
-- Le funzioni aggregate lavorano su piu righe.
-- `GROUP BY` crea gruppi (classe, studente, materia).
-- `HAVING` filtra i gruppi dopo l'aggregazione.
-
-### Esercizio
+## Esercizio
 1) Conta quanti voti ha ogni studente.
 2) Trova il voto minimo e massimo per ogni materia.
 3) Mostra solo gli studenti con media >= 7.5.
 
 
-## Conclusione
-- Sai creare tabelle con vincoli e relazioni.
-- Sai inserire, modificare ed eliminare dati.
-- Sai interrogare il database con SELECT, JOIN e aggregazioni.
-- Frase di chiusura: "La prossima volta useremo queste basi per costruire query piu complesse su database reali."
+# Conclusione
+Ora sai creare tabelle con vincoli e relazioni, inserire e modificare dati, e interrogare un database con SELECT, JOIN e aggregazioni. La prossima volta useremo queste basi per costruire query piu complesse su database reali.
