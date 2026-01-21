@@ -260,7 +260,7 @@ Esempio completo (versione file .html):
 ## Esercizio
 1) Aggiungi almeno una lista puntata e una numerata in sezioni diverse del tuo sito.
 2) Inserisci almeno due immagini: entrambe con `alt` significativo e dimensione impostata.
-3) Crea un piccolo menu con ancore interne che porti alle tue sezioni principali (almeno 3 link).
+3) Crea un piccolo menù con ancore interne che porti alle tue sezioni principali (almeno 3 link).
 4) Aggiungi una tabella con almeno 3 colonne e 4 righe di dati reali per il tuo tema (es. elenco prodotti, orario settimanale, tappe di viaggio).
 5) Inserisci un `<caption>` descrittivo.
 
@@ -383,7 +383,7 @@ https://formtester.goodbytes.be/post.php?nome=Mario&cognome=Rossi
 - `<input type="time">`: selezione ora (ora, minuto, secondo).
 - `<input type="checkbox">`: scelta multipla (opzioni selezionabili).
 - `<input type="radio">`: scelta singola (opzioni esclusive).
-- `<select>` e `<option>`: menu a tendina.
+- `<select>` e `<option>`: menù a tendina.
 - `<textarea>`: testo lungo (messaggio).
 - `<button type="submit">`: invia il form.
 
@@ -457,7 +457,7 @@ Quando invii il form, la pagina di test mostra i dati ricevuti.
 ## Scelta singola e scelta multipla
 - Scelta singola: si usa `<input type="radio">` con lo stesso `name`.
 - Scelta multipla: si usa `<input type="checkbox">` e si possono selezionare più opzioni (stesso `name[]`).
-- Scelta da menu a tendina: si usa `<select>` con più `<option>`.
+- Scelta da menù a tendina: si usa `<select>` con più `<option>`.
 
 ## Radio (scelta singola)
 Stesso `name`, `value` diverso per ogni opzione.
@@ -478,7 +478,7 @@ Ogni checkbox ha lo stesso `name[]` se vuoi inviare un elenco di preferenze. Il 
 <label><input type="checkbox" name="interessi[]" value="js"> JavaScript</label>
 ```
 
-## Select (menu a tendina)
+## Select (menù a tendina)
 ```html
 <label for="corso">Scegli un corso:</label>
 <select id="corso" name="corso">
@@ -509,6 +509,8 @@ Ogni checkbox ha lo stesso `name[]` se vuoi inviare un elenco di preferenze. Il 
     <option value="css">Corso CSS</option>
     <option value="js">Corso JavaScript</option>
   </select>
+
+  <button type="submit">Invia</button>
 </form>
 ```
 
@@ -519,7 +521,7 @@ Serve per verificare che radio e checkbox abbiano i nomi corretti.
 ## Esercizio
 1) Aggiungi all'esercizio precedente uno o più scelte singole con radio (es. metodo di contatto).
 2) Aggiungi una scelta multipla con checkbox (es. preferenze).
-3) Aggiungi una selezione da menu a tendina (es. corso di laurea).
+3) Aggiungi una selezione da menù a tendina (es. corso di laurea).
 
 Per verificare i dati, imposta `method="post"` e `action="https://formtester.goodbytes.be/post.php"`.
 Dopo l'invio, la pagina di test elenca tutte le scelte inviate dal form.
