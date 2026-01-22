@@ -1,15 +1,15 @@
 # Laboratorio SQL - PostgreSQL
 
 ## Prima di iniziare
-SQL e' il linguaggio con cui parliamo con un database. Un database serve a salvare dati in modo ordinato e a recuperarli quando servono. In questo laboratorio useremo PostgreSQL, che e' uno dei database piu usati nel mondo reale.
-
-Lavoreremo online con DB Fiddle per evitare installazioni: useremo un riquadro per lo schema (creazione tabelle) e un riquadro per le query (interrogazioni).
+SQL (Structured Query Language) è il linguaggio con cui parliamo con il database. Con SQL possiamo creare tabelle, inserire dati, modificarli e interrogarli: possiamo fare quindi tutti i tipi di transazioni che servono in un'applicazione. Generalmente è l'applicazione che utilizza SQL per gestire il database, ma è importante sapere come funziona per progettare e ottimizzare le operazioni.
 
 ## Dove scrivere il codice SQL
-Useremo https://www.db-fiddle.com/ con database **PostgreSQL**.
-
+Lavoreremo online con DB Fiddle per evitare installazioni: useremo https://www.db-fiddle.com/ con database **PostgreSQL**. L'interfaccia di DB Fiddle ha due sezioni principali:
 - **Schema SQL**: qui scrivi i comandi per creare le tabelle e inserire i dati iniziali.
 - **Query SQL**: qui scrivi le query da eseguire (SELECT, UPDATE, DELETE, ecc.).
+
+In alto a sinistra ci sono due pulsanti importanti:
+- **Build Schema**: crea il database con quello che hai scritto nello schema SQL.
 - **Run**: esegue quello che hai scritto e mostra il risultato.
 
 Regole importanti:
