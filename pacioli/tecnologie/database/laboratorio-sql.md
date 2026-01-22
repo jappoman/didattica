@@ -4,45 +4,50 @@
 SQL (Structured Query Language) è il linguaggio con cui parliamo con il database. Con SQL possiamo creare tabelle, inserire dati, modificarli e interrogarli: possiamo fare quindi tutti i tipi di transazioni che servono in un'applicazione. Generalmente è l'applicazione che utilizza SQL per gestire il database, ma è importante sapere come funziona per progettare e ottimizzare le operazioni.
 
 ## Dove scrivere il codice SQL
-Lavoreremo online con DB Fiddle per evitare installazioni: useremo https://www.db-fiddle.com/ con database **PostgreSQL**. L'interfaccia di DB Fiddle ha due sezioni principali:
-- **Schema SQL**: qui scrivi i comandi per creare le tabelle e inserire i dati iniziali.
-- **Query SQL**: qui scrivi le query da eseguire (SELECT, UPDATE, DELETE, ecc.).
+Lavoreremo online con DB Fiddle per evitare installazioni: useremo https://www.db-fiddle.com/ con database di tipo **PostgreSQL**. L'interfaccia di DB Fiddle ha due sezioni principali:
+- **Schema SQL**: qui vanno scritti i comandi per creare le tabelle e inserire i dati iniziali.
+- **Query SQL**: qui si scrivono le query da eseguire (SELECT, UPDATE, DELETE, ecc.).
 
-In alto a sinistra ci sono due pulsanti importanti:
-- **Build Schema**: crea il database con quello che hai scritto nello schema SQL.
-- **Run**: esegue quello che hai scritto e mostra il risultato.
+In alto ci sono due pulsanti importanti:
+- **Run**: esegue quello che è stato scritto (sia Schema SQL che Query SQL) e mostra il risultato.
+- **Save/Update**: salva il lavoro e crea un link condivisibile.
 
-Regole importanti:
-- Ogni comando termina con `;`.
-- Le stringhe vanno tra apici singoli, ad esempio `'Mario'`.
-- Le date si scrivono nel formato `AAAA-MM-GG`, ad esempio `'2008-02-10'`.
-
-
-# Lezione 1 - Creazione tabelle (DDL)
-
-## Perche ci serve il DDL
-DDL significa **Data Definition Language**. Sono i comandi che definiscono la struttura del database: tabelle, colonne, tipi di dato e regole. E' come disegnare l'architettura di una casa prima di arredarla.
-
-## Concetti fondamentali
+# Lezione 0 - Regole di base di SQL
+## Ripasso concetti fondamentali
 - **Tabella**: insieme di righe (record) con le stesse colonne.
 - **Colonna**: un singolo tipo di informazione (nome, data, voto, ecc.).
 - **PK (Primary Key)**: campo che identifica in modo unico ogni riga.
 - **FK (Foreign Key)**: campo che collega una tabella a un'altra.
 - **Vincoli**: regole che i dati devono rispettare (es. non vuoto, valore unico).
 
+## Regole sintattiche di base
+- Ogni comando termina con `;`.
+- Le stringhe vanno tra apici singoli, ad esempio `'Mario'`.
+- Le date si scrivono nel formato `AAAA-MM-GG`, ad esempio `'2008-02-10'`.
+- I nomi di tabelle e colonne non vanno tra apici.
+- Le parole chiave SQL (come `SELECT`, `FROM`, `WHERE`, ecc.) sono case-insensitive, ma si usano spesso in maiuscolo per chiarezza.
+- I commenti si scrivono con `--` per commenti su una riga.
+
+# Lezione 1 - Il DDL e la prima query
+## Il DDL: creare la struttura del database
+DDL significa **Data Definition Language**. È un insieme di comandi SQL che definiscono la struttura del database: tabelle, colonne, tipi di dato e regole e relazioni. E' come disegnare l'architettura di una casa prima di arredarla. Non comprende le query per manipolare i dati (quelle verranno identificate come DML, Data Manipulation Language).
+
 ## Tipi di dato di base
 - **SERIAL**: intero auto-incrementale (ottimo per le PK).
 - **INT**: numero intero.
 - **VARCHAR(n)**: testo con un massimo di n caratteri.
 - **DATE**: data (anno-mese-giorno).
+- **BOOLEAN**: vero/falso.
+- **TIME**: orario (ore:minuti:secondi).
+- **TIMESTAMP**: data e orario insieme.
 - **NUMERIC(3,1)**: numero con decimali controllati (es. 7.5).
 
 ## Vincoli piu usati
 - **NOT NULL**: il campo non puo essere vuoto.
 - **UNIQUE**: il valore non si puo ripetere.
-- **CHECK**: impone una regola, ad esempio un intervallo.
+- **CHECK**: il valore deve rispettare una condizione (es. tra 1 e 10).
 
-## Schema SQL (da incollare in DB Fiddle)
+## Esempio di schema SQL (da incollare nella parte Schema SQL in DB Fiddle)
 ```sql
 CREATE TABLE classi (
   id SERIAL PRIMARY KEY,
@@ -74,15 +79,28 @@ CREATE TABLE voti (
 ```
 
 ## Cosa succede qui dentro
-- `classi` contiene le classi, con anno e sezione.
-- `studenti` contiene gli studenti, collegati a `classi` tramite `classe_id`.
+Questo schema rappresenta un database per gestire le classi, gli studenti, le materie e i voti in una scuola. Le tabelle sono:
+- `classi` è una tabella che contiene le classi, con anno e sezione.
+- `studenti` tabella contenente gli studenti, collegati a `classi` tramite `classe_id` (relazione con cardinalità molti-a-uno).
 - `materie` contiene le materie scolastiche.
-- `voti` collega studenti e materie con un voto e una data.
+- `voti` collega studenti e materie con un voto e una data (relazione molti-a-molti che si appoggia a questa tabella intermedia).
+
+## Una semplice query di prova
+Questo è il codice di una query (interrogazione) che mostra tutti gli studenti con il loro nome, cognome e data di nascita:
+```sql
+SELECT nome, cognome, data_nascita
+FROM studenti;
+```
+Il suo risultato è vuoto per ora, perché non abbiamo ancora inserito dati. Per inserire i dati, utilizziamo una DML di prova:
+```sql
+INSERT INTO studenti (nome, cognome, data_nascita, classe_id)
+VALUES ('Mario', 'Rossi', '2008-02-10', 1);
+```
 
 ## Esercizio
 1) Aggiungi una tabella `docenti` con: id, nome, cognome, email (unica).
-2) Aggiungi alla tabella `materie` una colonna `ore_settimanali` (INT, NOT NULL).
-
+2) Verifica che lo schema sia corretto eseguendo il codice in DB Fiddle.
+3) Esegui la query SELECT di prova per vedere il risultato prima e dopo aver eseguito la query DML(dovrebbe essere vuoto per ora).
 
 # Lezione 2 - Inserimento e modifica dati (DML)
 
