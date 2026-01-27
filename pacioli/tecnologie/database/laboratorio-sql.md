@@ -112,10 +112,14 @@ DML significa **Data Manipulation Language**. Sono i comandi con cui inseriamo, 
 - `UPDATE`: modifica righe esistenti.
 - `DELETE`: elimina righe.
 
-Attenzione: senza `WHERE`, `UPDATE` e `DELETE` agiscono su **tutte** le righe.
+## Condizione WHERE
+Il `WHERE` serve per specificare quali righe sono interessate dai comandi che utilizziamo. Nella `SELECT`, il `WHERE` filtra i risultati. In `UPDATE` e `DELETE`, il `WHERE` indica quali righe modificare o eliminare.
+
+Attenzione: senza condizioni `WHERE`, `UPDATE` e `DELETE` agiscono su tutte le righe della tabella! Ad esempio, `DELETE FROM studenti;` elimina tutti gli studenti.
 
 ## Schema SQL (creazione + dati iniziali)
 ```sql
+-- Copia e incolla tutto questo nella sezione Schema SQL di DB Fiddle
 CREATE TABLE classi (
   id SERIAL PRIMARY KEY,
   nome VARCHAR(10) NOT NULL,
@@ -166,32 +170,71 @@ INSERT INTO voti (studente_id, materia_id, voto, data_prova) VALUES
 ```
 
 ## Query SQL (esempi DML)
+### Inserimento di un nuovo studente
 ```sql
+-- Verifica tutti gli studenti
+SELECT * FROM studenti;
+
 -- Inserisci un nuovo studente
 INSERT INTO studenti (nome, cognome, data_nascita, classe_id)
 VALUES ('Anna', 'Neri', '2008-09-05', 2);
+
+-- Ora verifica di nuovo tutti gli studenti
+--(lascia scritta anche la query precedente in modo da eseguirla di nuovo al nuovo Run)
+SELECT * FROM studenti;
+
+```
+
+### Modifica di un voto
+```sql
+-- Verifica il voto di uno studente
+SELECT * FROM voti
+WHERE studente_id = 2 AND materia_id = 2;
 
 -- Modifica il voto di uno studente
 UPDATE voti
 SET voto = 8.5
 WHERE studente_id = 2 AND materia_id = 2;
 
--- Elimina una materia (attenzione: se e' usata nei voti, il DB blocca)
+-- Verifica di nuovo il voto modificato
+-- Come prima, lascia scritta anche la query precedente per rieseguirla
+SELECT * FROM voti
+WHERE studente_id = 2 AND materia_id = 2;
+```
+
+### Eliminazione di una materia
+```sql
+-- Verifica tutte le materie
+SELECT * FROM materie;
+
+-- Elimina una materia inutile (es: Informatica)
+-- (attenzione: se e' usata nei voti, il DB stesso darà un errore)
 DELETE FROM materie
 WHERE nome = 'Italiano';
 ```
 
-## Spiegazione dei passaggi
-- Con `INSERT` indichi la tabella, le colonne e poi i valori.
-- Con `UPDATE` usi `SET` per dire cosa cambia.
-- Con `WHERE` scegli quali righe toccare.
-- Con `DELETE` elimini solo le righe selezionate dal `WHERE`.
+## Sintassi dei comandi
+- `INSERT` INTO `nome_tabella` (colonna1, colonna2, ...)
+  VALUES (valore1, valore2, ...);
+- `UPDATE` `nome_tabella`
+  SET colonna1 = valore1, colonna2 = valore2, ...
+  WHERE condizione;
+- `DELETE` FROM `nome_tabella`
+  WHERE condizione;
+
+## Sinstassi delle condizioni WHERE
+- `colonna = valore`: uguale a.
+- `colonna <> valore`: diverso da.
+- `colonna > valore`: maggiore di.
+- `colonna < valore`: minore di.
+- `colonna BETWEEN valore1 AND valore2`: compreso tra valore1 e valore2.
+- `colonna IS NULL`: valore nullo.
+- `colonna IS NOT NULL`: valore non nullo.
 
 ## Esercizio
-1) Aggiungi una nuova classe 4A e un nuovo studente in quella classe.
+1) Aggiungi una nuova classe 4A e un nuovo studente in quella classe (stampa la tabella delle classi per ottenere l'id corretto).
 2) Aggiorna la data di nascita di uno studente.
-3) Elimina il voto di uno studente in Informatica.
-
+3) Elimina il voto di uno studente in Informatica (stampa la tabella degli studenti e la tabella materie per ottenere gli id corretti).
 
 # Lezione 3 - SELECT base
 
