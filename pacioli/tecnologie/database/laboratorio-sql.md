@@ -52,7 +52,7 @@ DDL significa **Data Definition Language**. È un insieme di comandi SQL che def
 CREATE TABLE classi (
   id SERIAL PRIMARY KEY,
   nome VARCHAR(10) NOT NULL,
-  anno INT NOT NULL CHECK (anno BETWEEN 1 AND 5),
+  anno INT,
   sezione VARCHAR(2) NOT NULL
 );
 
@@ -73,7 +73,7 @@ CREATE TABLE voti (
   id SERIAL PRIMARY KEY,
   studente_id INT NOT NULL REFERENCES studenti(id),
   materia_id INT NOT NULL REFERENCES materie(id),
-  voto NUMERIC(3,1) NOT NULL CHECK (voto BETWEEN 1 AND 10),
+  voto NUMERIC,
   data_prova DATE NOT NULL
 );
 ```
@@ -91,8 +91,11 @@ Questo è il codice di una query (interrogazione) che mostra tutti gli studenti 
 SELECT nome, cognome, data_nascita
 FROM studenti;
 ```
-Il suo risultato è vuoto per ora, perché non abbiamo ancora inserito dati. Per inserire i dati, utilizziamo una DML di prova:
+Il suo risultato è vuoto per ora, perché non abbiamo ancora inserito dati. Per inserire i dati, utilizziamo due DML di prova:
 ```sql
+INSERT INTO classi (nome, anno, sezione)
+VALUES ('4A', 4, 'A');
+
 INSERT INTO studenti (nome, cognome, data_nascita, classe_id)
 VALUES ('Mario', 'Rossi', '2008-02-10', 1);
 ```
