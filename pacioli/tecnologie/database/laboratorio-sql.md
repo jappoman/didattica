@@ -30,7 +30,7 @@ In alto ci sono due pulsanti importanti:
 
 # Lezione 1 - Il DDL e la prima query
 ## Il DDL: creare la struttura del database
-DDL significa **Data Definition Language**. È un insieme di comandi SQL che definiscono la struttura del database: tabelle, colonne, tipi di dato e regole e relazioni. E' come disegnare l'architettura di una casa prima di arredarla. Non comprende le query per manipolare i dati (quelle verranno identificate come DML, Data Manipulation Language).
+DDL significa **Data Definition Language**. È un insieme di comandi SQL che definiscono la struttura del database: tabelle, colonne, tipi di dato e regole e relazioni. È come disegnare l'architettura di una casa prima di arredarla. Non comprende le query per manipolare i dati (quelle verranno identificate come DML, Data Manipulation Language).
 
 ## Tipi di dato di base
 - **SERIAL**: intero auto-incrementale (ottimo per le PK).
@@ -42,9 +42,9 @@ DDL significa **Data Definition Language**. È un insieme di comandi SQL che def
 - **TIMESTAMP**: data e orario insieme.
 - **NUMERIC(3,1)**: numero con decimali controllati (es. 7.5).
 
-## Vincoli piu usati
-- **NOT NULL**: il campo non puo essere vuoto.
-- **UNIQUE**: il valore non si puo ripetere.
+## Vincoli più usati
+- **NOT NULL**: il campo non può essere vuoto.
+- **UNIQUE**: il valore non può ripetersi.
 - **CHECK**: il valore deve rispettare una condizione (es. tra 1 e 10).
 
 ## Esempio di schema SQL (da incollare nella parte Schema SQL in DB Fiddle)
@@ -73,84 +73,13 @@ CREATE TABLE voti (
   id SERIAL PRIMARY KEY,
   studente_id INT NOT NULL REFERENCES studenti(id),
   materia_id INT NOT NULL REFERENCES materie(id),
-  voto NUMERIC,
+  voto NUMERIC(3,1),
   data_prova DATE NOT NULL
 );
 ```
 
-## Cosa succede qui dentro
-Questo schema rappresenta un database per gestire le classi, gli studenti, le materie e i voti in una scuola. Le tabelle sono:
-- `classi` è una tabella che contiene le classi, con anno e sezione.
-- `studenti` tabella contenente gli studenti, collegati a `classi` tramite `classe_id` (relazione con cardinalità molti-a-uno).
-- `materie` contiene le materie scolastiche.
-- `voti` collega studenti e materie con un voto e una data (relazione molti-a-molti che si appoggia a questa tabella intermedia).
-
-## Una semplice query di prova
-Questo è il codice di una query (interrogazione) che mostra tutti gli studenti con il loro nome, cognome e data di nascita:
+## Dati iniziali (per provare le query delle prossime lezioni)
 ```sql
-SELECT nome, cognome, data_nascita
-FROM studenti;
-```
-Il suo risultato è vuoto per ora, perché non abbiamo ancora inserito dati. Per inserire i dati, utilizziamo due DML di prova:
-```sql
-INSERT INTO classi (nome, anno, sezione)
-VALUES ('4A', 4, 'A');
-
-INSERT INTO studenti (nome, cognome, data_nascita, classe_id)
-VALUES ('Mario', 'Rossi', '2008-02-10', 1);
-```
-
-## Esercizio
-1) Aggiungi una tabella `docenti` con: id, nome, cognome, email (unica).
-2) Verifica che lo schema sia corretto eseguendo il codice in DB Fiddle.
-3) Esegui la query SELECT di prova per vedere il risultato prima e dopo aver eseguito la query DML(dovrebbe essere vuoto per ora).
-
-# Lezione 2 - Inserimento e modifica dati (DML)
-
-## Perche ci serve il DML
-DML significa **Data Manipulation Language**. Sono i comandi con cui inseriamo, modifichiamo ed eliminiamo i dati. Dopo aver creato le tabelle, dobbiamo riempirle.
-
-## Comandi principali
-- `INSERT`: aggiunge nuove righe.
-- `UPDATE`: modifica righe esistenti.
-- `DELETE`: elimina righe.
-
-## Condizione WHERE
-Il `WHERE` serve per specificare quali righe sono interessate dai comandi che utilizziamo. Nella `SELECT`, il `WHERE` filtra i risultati. In `UPDATE` e `DELETE`, il `WHERE` indica quali righe modificare o eliminare.
-
-Attenzione: senza condizioni `WHERE`, `UPDATE` e `DELETE` agiscono su tutte le righe della tabella! Ad esempio, `DELETE FROM studenti;` elimina tutti gli studenti.
-
-## Schema SQL (creazione + dati iniziali)
-```sql
--- Copia e incolla tutto questo nella sezione Schema SQL di DB Fiddle
-CREATE TABLE classi (
-  id SERIAL PRIMARY KEY,
-  nome VARCHAR(10) NOT NULL,
-  anno INT NOT NULL CHECK (anno BETWEEN 1 AND 5),
-  sezione VARCHAR(2) NOT NULL
-);
-
-CREATE TABLE studenti (
-  id SERIAL PRIMARY KEY,
-  nome VARCHAR(30) NOT NULL,
-  cognome VARCHAR(30) NOT NULL,
-  data_nascita DATE NOT NULL,
-  classe_id INT NOT NULL REFERENCES classi(id)
-);
-
-CREATE TABLE materie (
-  id SERIAL PRIMARY KEY,
-  nome VARCHAR(30) NOT NULL UNIQUE
-);
-
-CREATE TABLE voti (
-  id SERIAL PRIMARY KEY,
-  studente_id INT NOT NULL REFERENCES studenti(id),
-  materia_id INT NOT NULL REFERENCES materie(id),
-  voto NUMERIC(3,1) NOT NULL CHECK (voto BETWEEN 1 AND 10),
-  data_prova DATE NOT NULL
-);
-
 INSERT INTO classi (nome, anno, sezione) VALUES
   ('3A', 3, 'A'),
   ('3B', 3, 'B');
@@ -172,77 +101,38 @@ INSERT INTO voti (studente_id, materia_id, voto, data_prova) VALUES
   (3, 1, 7.0, '2025-11-11');
 ```
 
-## Query SQL (esempi DML)
-### Inserimento di un nuovo studente
-```sql
--- Verifica tutti gli studenti
-SELECT * FROM studenti;
+## Cosa succede qui dentro
+Questo schema rappresenta un database per gestire le classi, gli studenti, le materie e i voti in una scuola. Le tabelle sono:
+- `classi` è una tabella che contiene le classi, con anno e sezione.
+- `studenti` tabella contenente gli studenti, collegati a `classi` tramite `classe_id` (relazione con cardinalità molti-a-uno).
+- `materie` contiene le materie scolastiche.
+- `voti` collega studenti e materie con un voto e una data (relazione molti-a-molti che si appoggia a questa tabella intermedia).
 
--- Inserisci un nuovo studente
+## Una semplice query di prova
+Questo è il codice di una query (interrogazione) che mostra tutti gli studenti con il loro nome, cognome e data di nascita:
+```sql
+SELECT nome, cognome, data_nascita
+FROM studenti;
+```
+Se non hai ancora inserito i dati iniziali, il risultato è vuoto. Per inserire i dati, utilizziamo due DML di prova:
+```sql
+INSERT INTO classi (nome, anno, sezione)
+VALUES ('4A', 4, 'A');
+
 INSERT INTO studenti (nome, cognome, data_nascita, classe_id)
-VALUES ('Anna', 'Neri', '2008-09-05', 2);
-
--- Ora verifica di nuovo tutti gli studenti
---(lascia scritta anche la query precedente in modo da eseguirla di nuovo al nuovo Run)
-SELECT * FROM studenti;
-
+VALUES ('Mario', 'Rossi', '2008-02-10', 1);
 ```
-
-### Modifica di un voto
-```sql
--- Verifica il voto di uno studente
-SELECT * FROM voti
-WHERE studente_id = 2 AND materia_id = 2;
-
--- Modifica il voto di uno studente
-UPDATE voti
-SET voto = 8.5
-WHERE studente_id = 2 AND materia_id = 2;
-
--- Verifica di nuovo il voto modificato
--- Come prima, lascia scritta anche la query precedente per rieseguirla
-SELECT * FROM voti
-WHERE studente_id = 2 AND materia_id = 2;
-```
-
-### Eliminazione di una materia
-```sql
--- Verifica tutte le materie
-SELECT * FROM materie;
-
--- Elimina una materia inutile (es: Informatica)
--- (attenzione: se e' usata nei voti, il DB stesso darà un errore)
-DELETE FROM materie
-WHERE nome = 'Italiano';
-```
-
-## Sintassi dei comandi
-- `INSERT` INTO `nome_tabella` (colonna1, colonna2, ...)
-  VALUES (valore1, valore2, ...);
-- `UPDATE` `nome_tabella`
-  SET colonna1 = valore1, colonna2 = valore2, ...
-  WHERE condizione;
-- `DELETE` FROM `nome_tabella`
-  WHERE condizione;
-
-## Sinstassi delle condizioni WHERE
-- `colonna = valore`: uguale a.
-- `colonna <> valore`: diverso da.
-- `colonna > valore`: maggiore di.
-- `colonna < valore`: minore di.
-- `colonna BETWEEN valore1 AND valore2`: compreso tra valore1 e valore2.
-- `colonna IS NULL`: valore nullo.
-- `colonna IS NOT NULL`: valore non nullo.
 
 ## Esercizio
-1) Aggiungi una nuova classe 4A e un nuovo studente in quella classe (stampa la tabella delle classi per ottenere l'id corretto).
-2) Aggiorna la data di nascita di uno studente.
-3) Elimina il voto di uno studente in Informatica (stampa la tabella degli studenti e la tabella materie per ottenere gli id corretti).
+1) Aggiungi una tabella `docenti` con: id, nome, cognome, email (unica).
+2) Verifica che lo schema sia corretto eseguendo il codice in DB Fiddle.
+3) Esegui la query SELECT di prova per vedere il risultato prima e dopo aver eseguito la query DML (dovrebbe essere vuoto per ora).
 
-# Lezione 3 - SELECT base
+# Lezione 2 - SELECT e filtri (WHERE)
+## Perché ci serve SELECT
+Con `SELECT` leggiamo i dati. È il comando più usato: serve per vedere cosa c'è nel database e per rispondere a domande.
 
-## Perche ci serve SELECT
-Con `SELECT` leggiamo i dati. E' il comando piu usato: serve per vedere cosa c'e nel database e per rispondere a domande.
+Se non hai dati, usa lo schema e i dati iniziali della lezione 1.
 
 ## Parti principali di una SELECT
 - `SELECT`: quali colonne vuoi vedere.
@@ -255,6 +145,11 @@ Con `SELECT` leggiamo i dati. E' il comando piu usato: serve per vedere cosa c'e
 - `>` maggiore, `<` minore.
 - `AND` per condizioni multiple, `OR` per alternative.
 - `LIKE` per cercare testo con pattern (es. `LIKE 'Mar%'`).
+
+## Condizione WHERE
+Il `WHERE` serve per specificare quali righe sono interessate dai comandi che utilizziamo. Nella `SELECT`, il `WHERE` filtra i risultati. In `UPDATE` e `DELETE`, il `WHERE` indica quali righe modificare o eliminare.
+
+Attenzione: senza condizioni `WHERE`, `UPDATE` e `DELETE` agiscono su tutte le righe della tabella! Ad esempio, `DELETE FROM studenti;` elimina tutti gli studenti.
 
 ## Query SQL (esempi SELECT)
 ```sql
@@ -284,11 +179,88 @@ ORDER BY data_nascita;
 2) Mostra i voti di Matematica (materia_id = 2).
 3) Mostra gli studenti nati nel 2008.
 
+# Lezione 3 - Inserimento e modifica dati (DML)
+
+## Perché ci serve il DML
+DML significa **Data Manipulation Language**. Sono i comandi con cui inseriamo, modifichiamo ed eliminiamo i dati. Dopo aver creato le tabelle, dobbiamo riempirle.
+
+Se non hai dati, usa lo schema e i dati iniziali della lezione 1.
+
+## Comandi principali
+- `INSERT`: aggiunge nuove righe.
+- `UPDATE`: modifica righe esistenti.
+- `DELETE`: elimina righe.
+
+## Query SQL (esempi DML)
+### Inserimento di un nuovo studente
+```sql
+-- Verifica tutti gli studenti
+SELECT * FROM studenti;
+
+-- Inserisci un nuovo studente
+INSERT INTO studenti (nome, cognome, data_nascita, classe_id)
+VALUES ('Anna', 'Neri', '2008-09-05', 2);
+
+-- Ora verifica di nuovo tutti gli studenti
+-- (lascia scritta anche la query precedente in modo da eseguirla di nuovo al nuovo Run)
+SELECT * FROM studenti;
+```
+
+### Modifica di un voto
+```sql
+-- Verifica il voto di uno studente
+SELECT * FROM voti
+WHERE studente_id = 2 AND materia_id = 2;
+
+-- Modifica il voto di uno studente
+UPDATE voti
+SET voto = 8.5
+WHERE studente_id = 2 AND materia_id = 2;
+
+-- Verifica di nuovo il voto modificato
+-- Come prima, lascia scritta anche la query precedente per rieseguirla
+SELECT * FROM voti
+WHERE studente_id = 2 AND materia_id = 2;
+```
+
+### Eliminazione di una materia
+```sql
+-- Verifica tutte le materie
+SELECT * FROM materie;
+
+-- Elimina una materia inutile (es: Informatica)
+-- (attenzione: se è usata nei voti, il DB stesso darà un errore)
+DELETE FROM materie
+WHERE nome = 'Informatica';
+```
+
+## Sintassi dei comandi
+- `INSERT` INTO `nome_tabella` (colonna1, colonna2, ...)
+  VALUES (valore1, valore2, ...);
+- `UPDATE` `nome_tabella`
+  SET colonna1 = valore1, colonna2 = valore2, ...
+  WHERE condizione;
+- `DELETE` FROM `nome_tabella`
+  WHERE condizione;
+
+## Sintassi delle condizioni WHERE
+- `colonna = valore`: uguale a.
+- `colonna <> valore`: diverso da.
+- `colonna > valore`: maggiore di.
+- `colonna < valore`: minore di.
+- `colonna BETWEEN valore1 AND valore2`: compreso tra valore1 e valore2.
+- `colonna IS NULL`: valore nullo.
+- `colonna IS NOT NULL`: valore non nullo.
+
+## Esercizio
+1) Aggiungi una nuova classe 4A e un nuovo studente in quella classe (stampa la tabella delle classi per ottenere l'id corretto).
+2) Aggiorna la data di nascita di uno studente.
+3) Elimina il voto di uno studente in Informatica (stampa la tabella degli studenti e la tabella materie per ottenere gli id corretti).
 
 # Lezione 4 - JOIN e filtri
 
-## Perche ci serve la JOIN
-I dati spesso sono distribuiti in piu tabelle. Con la `JOIN` uniamo informazioni correlate. E' come collegare due elenchi usando una chiave comune.
+## Perché ci serve la JOIN
+I dati spesso sono distribuiti in più tabelle. Con la `JOIN` uniamo informazioni correlate. È come collegare due elenchi usando una chiave comune.
 
 ## Come si collega
 Nel nostro schema:
@@ -296,7 +268,7 @@ Nel nostro schema:
 - `voti.studente_id` punta a `studenti.id`.
 - `voti.materia_id` punta a `materie.id`.
 
-Usiamo spesso delle abbreviazioni (alias) per scrivere piu veloce:
+Usiamo spesso delle abbreviazioni (alias) per scrivere più veloce:
 - `studenti s`
 - `classi c`
 - `voti v`
@@ -335,7 +307,7 @@ ORDER BY v.voto DESC;
 
 # Lezione 5 - Aggregazioni
 
-## Perche ci servono le aggregazioni
+## Perché ci servono le aggregazioni
 Le funzioni aggregate riassumono i dati: contare, fare medie, trovare minimi e massimi. Sono utili per statistiche e riepiloghi.
 
 ## Funzioni principali
@@ -364,7 +336,7 @@ JOIN voti v ON v.studente_id = s.id
 GROUP BY s.nome, s.cognome
 ORDER BY media DESC;
 
--- Media voti per materia, solo se la media e' almeno 7
+-- Media voti per materia, solo se la media è almeno 7
 SELECT m.nome AS materia, ROUND(AVG(v.voto), 2) AS media
 FROM materie m
 JOIN voti v ON v.materia_id = m.id
@@ -380,4 +352,4 @@ ORDER BY media DESC;
 
 
 # Conclusione
-Ora sai creare tabelle con vincoli e relazioni, inserire e modificare dati, e interrogare un database con SELECT, JOIN e aggregazioni. La prossima volta useremo queste basi per costruire query piu complesse su database reali.
+Ora sai creare tabelle con vincoli e relazioni, inserire e modificare dati, e interrogare un database con SELECT, JOIN e aggregazioni. La prossima volta useremo queste basi per costruire query più complesse su database reali.
