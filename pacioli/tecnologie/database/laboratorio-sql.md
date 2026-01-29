@@ -40,7 +40,7 @@ DDL significa **Data Definition Language**. È un insieme di comandi SQL che def
 - **BOOLEAN**: vero/falso.
 - **TIME**: orario (ore:minuti:secondi).
 - **TIMESTAMP**: data e orario insieme.
-- **NUMERIC(3,1)**: numero con decimali controllati (es. 7.5).
+- **NUMERIC(3,1)**: numero con decimali controllati. Il primo numero è il totale di cifre, il secondo è il numero di cifre decimali. Nell'esempio, 3 cifre totali di cui 1 decimale (es. 10.5).
 
 ## Sintassi di base di CREATE TABLE
 La struttura generale è:
@@ -52,26 +52,28 @@ CREATE TABLE nome_tabella (
 );
 ```
 
-In questo laboratorio usiamo solo vincoli di colonna (scritti accanto alla colonna).
+In questo laboratorio useremo solo vincoli di colonna (scritti accanto alla colonna). Esistono anche vincoli di tabella (scritti alla fine, dopo tutte le colonne), ma per semplicità non li useremo.
 
 ## Vincoli più usati
-- **PRIMARY KEY**: identifica in modo univoco una riga.
+- **PRIMARY KEY**: campo che identificherà in modo univoco una riga.
 - **NOT NULL**: il campo non può essere vuoto.
 - **UNIQUE**: il valore non può ripetersi.
-- **FOREIGN KEY**: collega una tabella a un'altra.
 - **CHECK**: impone una condizione sui valori ammessi.
+- **REFERENCES**: definisce una chiave esterna (FK) che punta a un'altra tabella.
 
-## Vincoli di colonna (inline)
+## Esempio di vincoli di colonna (inline)
 ```sql
 CREATE TABLE docenti (
   id SERIAL PRIMARY KEY,
   nome VARCHAR(30) NOT NULL,
   cognome VARCHAR(30) NOT NULL,
-  email VARCHAR(50) UNIQUE
+  email VARCHAR(50) UNIQUE,
+  eta INT CHECK (eta >= 18)
 );
 ```
 
-## Vincolo CHECK (valori ammessi)
+### Dettaglio sul vincolo CHECK (valori ammessi)
+Il vincolo `CHECK` permette di specificare una condizione che i valori di una colonna devono rispettare. Ad esempio, per una colonna `voto` che deve essere compresa tra 1 e 10:
 ```sql
 CREATE TABLE voti (
   id SERIAL PRIMARY KEY,
@@ -80,13 +82,18 @@ CREATE TABLE voti (
 ```
 
 ## Sintassi della FOREIGN KEY (inline)
+La `FOREIGN KEY` può essere definita in due modi. Il modo più semplice è la forma inline, che si scrive accanto alla colonna che fa riferimento a un'altra tabella:
 ```sql
 -- Forma inline
 classe_id INT NOT NULL REFERENCES classi(id)
 ```
+Il significato è che `classe_id` nella tabella corrente fa riferimento alla colonna `id` della tabella `classi`.
 
 ## Ricostruire le relazioni in SQL
+Vediamo ora come rappresentare le relazioni viste a lezione nel modello relazionale SQL.
+
 ### Relazione 1:N (una classe -> molti studenti)
+Chiave esterna nella tabella "molti".
 ```sql
 CREATE TABLE classi (
   id SERIAL PRIMARY KEY,
@@ -101,7 +108,7 @@ CREATE TABLE studenti (
 ```
 
 ### Relazione N:M (studenti <-> materie)
-Serve una tabella ponte (associativa).
+Serve una tabella ponte (associativa). Chiavi esterne nella tabella ponte.
 ```sql
 CREATE TABLE studenti (
   id SERIAL PRIMARY KEY,
@@ -127,7 +134,7 @@ CREATE TABLE voti (
 CREATE TABLE classi (
   id SERIAL PRIMARY KEY,
   nome VARCHAR(10) NOT NULL,
-  anno INT,
+  anno INT NOT NULL CHECK (anno BETWEEN 1 AND 5),
   sezione VARCHAR(2) NOT NULL
 );
 
@@ -144,11 +151,12 @@ CREATE TABLE materie (
   nome VARCHAR(30) NOT NULL UNIQUE
 );
 
+-- Qui la N:M viene modellata con una tabella associativa che contiene anche attributi della relazione (voto e data).
 CREATE TABLE voti (
   id SERIAL PRIMARY KEY,
   studente_id INT NOT NULL REFERENCES studenti(id),
   materia_id INT NOT NULL REFERENCES materie(id),
-  voto NUMERIC(3,1),
+  voto NUMERIC(3,1) NOT NULL CHECK (voto BETWEEN 1 AND 10),
   data_prova DATE NOT NULL
 );
 ```
@@ -189,19 +197,21 @@ Questo è il codice di una query (interrogazione) che mostra tutti gli studenti 
 SELECT nome, cognome, data_nascita
 FROM studenti;
 ```
-Se non hai ancora inserito i dati iniziali, il risultato è vuoto. Per inserire i dati, utilizziamo due DML di prova:
-```sql
-INSERT INTO classi (nome, anno, sezione)
-VALUES ('4A', 4, 'A');
-
-INSERT INTO studenti (nome, cognome, data_nascita, classe_id)
-VALUES ('Mario', 'Rossi', '2008-02-10', 1);
-```
 
 ## Esercizio
-1) Aggiungi una tabella `docenti` con: id, nome, cognome, email (unica).
+1) Aggiungi una tabella `docenti` con: id (PK), nome (varchar 30, non nullo), cognome (varchar 30, non nullo), email (varchar 50, unico), età (intero, minimo 18), classe_id (FK verso classi).
 2) Verifica che lo schema sia corretto eseguendo il codice in DB Fiddle.
-3) Esegui la query SELECT di prova per vedere il risultato prima e dopo aver eseguito la query DML (dovrebbe essere vuoto per ora).
+3) Aggiungi un docente di prova nella tabella `docenti` con questa query:
+```sql
+INSERT INTO docenti (nome, cognome, email, eta, classe_id)
+VALUES ('Luisa', 'Verdi', 'luisa.verdi@scuola.it', 35, 1);
+```
+4) Esegui le seguenti query per vedere i dati:
+```sql
+SELECT * FROM docenti;
+SELECT * FROM classi;
+SELECT * FROM studenti;
+```
 
 # Lezione 2 - SELECT e filtri (WHERE)
 ## Perché ci serve SELECT
