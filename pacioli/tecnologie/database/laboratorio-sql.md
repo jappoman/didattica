@@ -46,8 +46,111 @@ DDL significa **Data Definition Language**. È un insieme di comandi SQL che def
 - **NOT NULL**: il campo non può essere vuoto.
 - **UNIQUE**: il valore non può ripetersi.
 - **CHECK**: il valore deve rispettare una condizione (es. tra 1 e 10).
+- **PRIMARY KEY**: identifica in modo univoco una riga.
+- **FOREIGN KEY**: collega una tabella a un'altra.
 
-## Esempio di schema SQL (da incollare nella parte Schema SQL in DB Fiddle)
+## Sintassi di base di CREATE TABLE
+La struttura generale è:
+```sql
+CREATE TABLE nome_tabella (
+  colonna1 TIPO [VINCOLI],
+  colonna2 TIPO [VINCOLI],
+  ...
+  [VINCOLI_DI_TABELLA]
+);
+```
+
+I vincoli possono essere:
+- **di colonna** (scritti accanto alla colonna),
+- **di tabella** (scritti in fondo, utili per chiavi composte).
+
+## Vincoli di colonna (inline)
+```sql
+CREATE TABLE docenti (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(30) NOT NULL,
+  cognome VARCHAR(30) NOT NULL,
+  email VARCHAR(50) UNIQUE
+);
+```
+
+## Vincoli di tabella (per chiavi composte o nomi espliciti)
+```sql
+CREATE TABLE iscrizioni (
+  studente_id INT NOT NULL,
+  materia_id INT NOT NULL,
+  anno INT NOT NULL,
+  CONSTRAINT pk_iscrizioni PRIMARY KEY (studente_id, materia_id),
+  CONSTRAINT fk_iscrizioni_studente FOREIGN KEY (studente_id) REFERENCES studenti(id),
+  CONSTRAINT fk_iscrizioni_materia FOREIGN KEY (materia_id) REFERENCES materie(id)
+);
+```
+
+## Sintassi della FOREIGN KEY
+Due forme equivalenti:
+```sql
+-- Forma inline
+classe_id INT NOT NULL REFERENCES classi(id)
+```
+```sql
+-- Forma a livello di tabella
+classe_id INT NOT NULL,
+CONSTRAINT fk_studenti_classi FOREIGN KEY (classe_id) REFERENCES classi(id)
+```
+
+## Ricostruire le relazioni in SQL
+### Relazione 1:N (una classe -> molti studenti)
+```sql
+CREATE TABLE classi (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE studenti (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(30) NOT NULL,
+  classe_id INT NOT NULL REFERENCES classi(id)
+);
+```
+
+### Relazione N:M (studenti <-> materie)
+Serve una tabella ponte (associativa).
+```sql
+CREATE TABLE studenti (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE materie (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE voti (
+  id SERIAL PRIMARY KEY,
+  studente_id INT NOT NULL REFERENCES studenti(id),
+  materia_id INT NOT NULL REFERENCES materie(id),
+  voto NUMERIC(3,1) NOT NULL CHECK (voto BETWEEN 1 AND 10),
+  data_prova DATE NOT NULL
+);
+```
+
+### Relazione 1:1 (caso più raro)
+Si usa una FK che è anche UNIQUE.
+```sql
+CREATE TABLE studenti (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE carte_identita (
+  id SERIAL PRIMARY KEY,
+  numero VARCHAR(20) NOT NULL UNIQUE,
+  studente_id INT NOT NULL UNIQUE REFERENCES studenti(id)
+);
+```
+
+## Esempio di schema SQL completo (da incollare nella parte Schema SQL in DB Fiddle)
 ```sql
 CREATE TABLE classi (
   id SERIAL PRIMARY KEY,
