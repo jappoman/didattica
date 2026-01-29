@@ -42,13 +42,6 @@ DDL significa **Data Definition Language**. È un insieme di comandi SQL che def
 - **TIMESTAMP**: data e orario insieme.
 - **NUMERIC(3,1)**: numero con decimali controllati (es. 7.5).
 
-## Vincoli più usati
-- **PRIMARY KEY**: identifica in modo univoco una riga.
-- **NOT NULL**: il campo non può essere vuoto.
-- **UNIQUE**: il valore non può ripetersi.
-- **FOREIGN KEY**: collega una tabella a un'altra.
-- **CHECK**: impone una condizione sui valori ammessi.
-
 ## Sintassi di base di CREATE TABLE
 La struttura generale è:
 ```sql
@@ -60,6 +53,13 @@ CREATE TABLE nome_tabella (
 ```
 
 In questo laboratorio usiamo solo vincoli di colonna (scritti accanto alla colonna).
+
+## Vincoli più usati
+- **PRIMARY KEY**: identifica in modo univoco una riga.
+- **NOT NULL**: il campo non può essere vuoto.
+- **UNIQUE**: il valore non può ripetersi.
+- **FOREIGN KEY**: collega una tabella a un'altra.
+- **CHECK**: impone una condizione sui valori ammessi.
 
 ## Vincoli di colonna (inline)
 ```sql
@@ -79,13 +79,10 @@ CREATE TABLE voti (
 );
 ```
 
-## Sintassi della FOREIGN KEY
-Due forme equivalenti:
+## Sintassi della FOREIGN KEY (inline)
 ```sql
 -- Forma inline
 classe_id INT NOT NULL REFERENCES classi(id)
-```
-```sql
 ```
 
 ## Ricostruire le relazioni in SQL
