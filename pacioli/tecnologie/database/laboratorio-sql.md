@@ -162,6 +162,7 @@ CREATE TABLE voti (
 ```
 
 ## Dati iniziali (per provare le query delle prossime lezioni)
+Copia questo codice nella sezione Schema SQL, subito dopo la creazione delle tabelle, per inserire dei dati di prova:
 ```sql
 INSERT INTO classi (nome, anno, sezione) VALUES
   ('3A', 3, 'A'),
@@ -192,14 +193,14 @@ Questo schema rappresenta un database per gestire le classi, gli studenti, le ma
 - `voti` collega studenti e materie con un voto e una data (relazione molti-a-molti che si appoggia a questa tabella intermedia).
 
 ## Una semplice query di prova
-Questo è il codice di una query (interrogazione) che mostra tutti gli studenti con il loro nome, cognome e data di nascita:
+Questo è il codice di una query (interrogazione) che mostra tutti gli studenti con il loro nome, cognome e data di nascita. Puoi incollarlo nella sezione Query SQL in DB Fiddle e premere Run per vedere il risultato:
 ```sql
 SELECT nome, cognome, data_nascita
 FROM studenti;
 ```
 
 ## Esercizio
-1) Aggiungi una tabella `docenti` con: id (PK), nome (varchar 30, non nullo), cognome (varchar 30, non nullo), email (varchar 50, unico), età (intero, minimo 18), classe_id (FK verso classi).
+1) Aggiungi una tabella `docenti` con: id (PK), nome (varchar 30, non nullo), cognome (varchar 30, non nullo), email (varchar 50, unico), età (intero, minimo 18), classe_id (FK verso classi). Mettila in fondo allo schema SQL.
 2) Verifica che lo schema sia corretto eseguendo il codice in DB Fiddle.
 3) Aggiungi un docente di prova nella tabella `docenti` con questa query:
 ```sql
