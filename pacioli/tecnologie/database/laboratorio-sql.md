@@ -169,25 +169,75 @@ CREATE TABLE voti (
 ## Dati iniziali (per provare le query delle prossime lezioni)
 Copia questo codice nella sezione Schema SQL, subito dopo la creazione delle tabelle, per inserire dei dati di prova:
 ```sql
+-- CLASSI
 INSERT INTO classi (nome, anno, sezione) VALUES
   ('3A', 3, 'A'),
-  ('3B', 3, 'B');
+  ('3B', 3, 'B'),
+  ('4A', 4, 'A'),
+  ('5B', 5, 'B');
 
+-- STUDENTI
 INSERT INTO studenti (nome, cognome, data_nascita, classe_id) VALUES
   ('Mario', 'Rossi', '2008-02-10', 1),
   ('Luca', 'Bianchi', '2008-11-23', 1),
-  ('Giulia', 'Verdi', '2008-05-18', 2);
+  ('Elena', 'Ferrari', '2008-06-15', 1),
 
+  ('Giulia', 'Verdi', '2008-05-18', 2),
+  ('Anna', 'Neri', '2008-09-05', 2),
+
+  ('Paolo', 'Gialli', '2007-03-12', 3),
+  ('Marco', 'Blu', '2007-12-01', 3),
+
+  ('Sara', 'Conti', '2006-01-20', 4),
+  ('Davide', 'Moretti', '2006-07-30', 4);
+
+-- MATERIE
 INSERT INTO materie (nome) VALUES
   ('Italiano'),
   ('Matematica'),
-  ('Informatica');
+  ('Informatica'),
+  ('Storia'),
+  ('Inglese');
 
+-- VOTI
 INSERT INTO voti (studente_id, materia_id, voto, data_prova) VALUES
+  -- Mario Rossi (3A)
+  (1, 1, 7.0, '2025-11-05'),
   (1, 2, 7.5, '2025-11-10'),
   (1, 3, 8.0, '2025-11-12'),
+
+  -- Luca Bianchi (3A)
+  (2, 1, 6.5, '2025-11-05'),
   (2, 2, 6.0, '2025-11-10'),
-  (3, 1, 7.0, '2025-11-11');
+
+  -- Elena Ferrari (3A)
+  (3, 2, 8.5, '2025-11-10'),
+  (3, 3, 9.0, '2025-11-12'),
+
+  -- Giulia Verdi (3B)
+  (4, 1, 7.0, '2025-11-06'),
+  (4, 4, 6.5, '2025-11-15'),
+
+  -- Anna Neri (3B)
+  (5, 2, 8.0, '2025-11-10'),
+  (5, 5, 7.5, '2025-11-18'),
+
+  -- Paolo Gialli (4A)
+  (6, 1, 6.0, '2025-11-07'),
+  (6, 3, 7.0, '2025-11-14'),
+
+  -- Marco Blu (4A)
+  (7, 2, 9.0, '2025-11-10'),
+  (7, 3, 8.5, '2025-11-14'),
+
+  -- Sara Conti (5B)
+  (8, 1, 7.5, '2025-11-08'),
+  (8, 5, 8.0, '2025-11-18'),
+
+  -- Davide Moretti (5B)
+  (9, 2, 6.0, '2025-11-10'),
+  (9, 4, 7.0, '2025-11-15');
+
 ```
 ### Cosa rappresenta questo schema
 Questo schema rappresenta un database per gestire le classi, gli studenti, le materie e i voti in una scuola. Le tabelle sono:
@@ -356,23 +406,54 @@ WHERE nome = 'Informatica';
 3) Elimina il voto di uno studente in Informatica (stampa la tabella degli studenti e la tabella materie per ottenere gli id corretti).
 
 # Lezione 4 - JOIN e filtri
+I dati spesso sono distribuiti in più tabelle collegate tra loro. Per ottenere informazioni complete, dobbiamo unire (JOIN) i dati di più tabelle. Esistono vari tipi di JOIN, ma in questo laboratorio useremo principalmente la `INNER JOIN`, che restituisce solo le righe che hanno corrispondenze in entrambe le tabelle. Per conoscenza, le altre tipologie di JOIN sono:
+- `LEFT JOIN`: restituisce tutte le righe della tabella di sinistra e le corrispondenze della tabella di destra (se non ci sono corrispondenze, i campi della tabella di destra saranno NULL).
+- `RIGHT JOIN`: restituisce tutte le righe della tabella di destra e le corrispondenze della tabella di sinistra (se non ci sono corrispondenze, i campi della tabella di sinistra saranno NULL).
+- `FULL JOIN`: restituisce tutte le righe di entrambe le tabelle, con NULL dove non ci sono corrispondenze.
 
-## Perché ci serve la JOIN
-I dati spesso sono distribuiti in più tabelle. Con la `JOIN` uniamo informazioni correlate. È come collegare due elenchi usando una chiave comune.
+## La dot notation e gli alias
+Quando si lavora con più tabelle, è utile specificare da quale tabella proviene ogni colonna usando la "dot notation": `tabella.colonna`. In questo modo è possibile individuare univocamente le colonne, soprattutto quando più tabelle hanno colonne con lo stesso nome.
+Esempio di dot notation:
+```sql
+SELECT studenti.nome, classi.nome
+FROM studenti
+JOIN classi ON studenti.classe_id = classi.id;
+```
+Per rendere le query più leggibili e veloci da scrivere invece, si usano spesso degli alias (abbreviazioni) per i nomi delle tabelle. Esempio con alias:
+```sql
+SELECT s.nome, c.nome AS classe
+FROM studenti s
+JOIN classi c ON s.classe_id = c.id;
+```
 
-## Come si collega
-Nel nostro schema:
+## Come si fanno i collegamenti tra tabelle con JOIN
+Innanzitutto ricordiamo le relazioni tra le tabelle del nostro schema, implementandole con la dot notation:
 - `studenti.classe_id` punta a `classi.id`.
 - `voti.studente_id` punta a `studenti.id`.
 - `voti.materia_id` punta a `materie.id`.
 
-Usiamo spesso delle abbreviazioni (alias) per scrivere più veloce:
+Poi, implementiamo degli alias per le tabelle coinvolte in modo da rendere le query più leggibili:
 - `studenti s`
 - `classi c`
 - `voti v`
 - `materie m`
 
+Infine, applichiamo le condizioni di join usando la clausola `ON` per specificare come le tabelle sono collegate tra loro. Ecco la sintassi generale di una JOIN:
+```sql
+SELECT colonne
+FROM tabella1 AS alias1
+JOIN tabella2 AS alias2
+ON alias1.colonnaX = alias2.colonnaY
+[WHERE condizione]
+[ORDER BY colonna [ASC|DESC]];
+```
+## Spiegazione della sintassi
+- `JOIN`: unisce due tabelle basandosi sulla condizione specificata nella clausola `ON`.
+- `ON`: specifica la condizione di join, indicando quali colonne delle due tabelle devono essere uguali per unire le righe.
+- `alias1`, `alias2`: sono gli alias delle tabelle, usati per semplificare la scrittura delle query.
+
 ## Query SQL (esempi JOIN)
+Utilizziamo lo schema e i dati iniziali della lezione 1 per questi esempi:
 ```sql
 -- Elenco studenti con nome classe
 SELECT s.nome, s.cognome, c.nome AS classe
@@ -398,10 +479,10 @@ ORDER BY v.voto DESC;
 ```
 
 ## Esercizio
+Scrivi le seguenti query utilizzando JOIN:
 1) Mostra nome, cognome e classe di tutti gli studenti della 3B.
 2) Mostra tutti i voti di uno studente a scelta (nome e cognome).
-3) Mostra le materie in cui compare almeno un voto maggiore o uguale a 8.
-
+3) Mostra tutti i voti di Matematica degli studenti delle terze superiori di tutte le sezioni, con nome, cognome, classe, voto e data della prova, ordinati per voto in ordine decrescente.
 
 # Lezione 5 - Aggregazioni
 
