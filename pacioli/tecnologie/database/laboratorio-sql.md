@@ -9,7 +9,7 @@ Lavoreremo online con DB Fiddle per evitare installazioni: useremo https://www.d
 - **Query SQL**: qui si scrivono le query da eseguire (SELECT, UPDATE, DELETE, ecc.).
 
 In alto ci sono due pulsanti importanti:
-- **Run**: esegue quello che è stato scritto (sia Schema SQL che Query SQL) e mostra il risultato.
+- **Run**: esegue quello che è stato scritto (sia Schema SQL che Query SQL) e mostra il risultato. Prima viene eseguito lo Schema SQL, poi la Query SQL.
 - **Save/Update**: salva il lavoro e crea un link condivisibile.
 
 # Lezione 0 - Regole di base di SQL
@@ -23,24 +23,17 @@ In alto ci sono due pulsanti importanti:
 ## Regole sintattiche di base
 - Ogni comando termina con `;`.
 - Le stringhe vanno tra apici singoli, ad esempio `'Mario'`.
-- Le date si scrivono nel formato `AAAA-MM-GG`, ad esempio `'2008-02-10'`.
+- Le date si scrivono nel formato `AAAA-MM-GG`, ad esempio `'2008-02-10'` e tra apici singoli.
 - I nomi di tabelle e colonne non vanno tra apici.
 - Le parole chiave SQL (come `SELECT`, `FROM`, `WHERE`, ecc.) sono case-insensitive, ma si usano spesso in maiuscolo per chiarezza.
-- I commenti si scrivono con `--` per commenti su una riga.
+- I commenti su una riga si scrivono con -- e tutto ciò che segue viene ignorato.
 
 # Lezione 1 - Il DDL e la prima query
 ## Il DDL: creare la struttura del database
 DDL significa **Data Definition Language**. È un insieme di comandi SQL che definiscono la struttura del database: tabelle, colonne, tipi di dato e regole e relazioni. È come disegnare l'architettura di una casa prima di arredarla. Non comprende le query per manipolare i dati (quelle verranno identificate come DML, Data Manipulation Language).
 
-## Tipi di dato di base
-- **SERIAL**: intero auto-incrementale (ottimo per le PK).
-- **INT**: numero intero.
-- **VARCHAR(n)**: testo con un massimo di n caratteri.
-- **DATE**: data (anno-mese-giorno).
-- **BOOLEAN**: vero/falso.
-- **TIME**: orario (ore:minuti:secondi).
-- **TIMESTAMP**: data e orario insieme.
-- **NUMERIC(3,1)**: numero con decimali controllati. Il primo numero è il totale di cifre, il secondo è il numero di cifre decimali. Nell'esempio, 3 cifre totali di cui 1 decimale (es. 10.5).
+## Come creare tabelle in SQL
+Il comando principale per creare tabelle è `CREATE TABLE`. Serve a definire una nuova tabella, specificando il nome, le colonne, i tipi di dato e i vincoli.
 
 ## Sintassi di base di CREATE TABLE
 La struttura generale è:
@@ -52,14 +45,26 @@ CREATE TABLE nome_tabella (
 );
 ```
 
-In questo laboratorio useremo solo vincoli di colonna (scritti accanto alla colonna). Esistono anche vincoli di tabella (scritti alla fine, dopo tutte le colonne), ma per semplicità non li useremo.
+## Tipi di dato di base
+I tipi di dato riguardano il tipo di informazione che una colonna può contenere. Ecco i tipi più comuni che useremo:
+- **SERIAL**: intero auto-incrementale (ottimo per le PK).
+- **INT**: numero intero.
+- **VARCHAR(n)**: testo con un massimo di n caratteri.
+- **DATE**: data (anno-mese-giorno).
+- **BOOLEAN**: vero/falso.
+- **TIME**: orario (ore:minuti:secondi).
+- **TIMESTAMP**: data e orario insieme.
+- **NUMERIC(3,1)**: numero con decimali controllati. Il primo numero è il totale di cifre, il secondo è il numero di cifre decimali. Nell'esempio, 3 cifre totali di cui 1 decimale (es. 10.5).
 
 ## Vincoli più usati
+I vincoli sono regole che i dati devono rispettare. Ecco i vincoli più comuni:
 - **PRIMARY KEY**: campo che identificherà in modo univoco una riga.
 - **NOT NULL**: il campo non può essere vuoto.
 - **UNIQUE**: il valore non può ripetersi.
 - **CHECK**: impone una condizione sui valori ammessi.
 - **REFERENCES**: definisce una chiave esterna (FK) che punta a un'altra tabella.
+
+In questo laboratorio useremo solo vincoli di colonna (scritti accanto alla colonna). Esistono anche vincoli di tabella (scritti alla fine, dopo la definizione di tutte le colonne), ma per semplicità non li useremo.
 
 ## Esempio di vincoli di colonna (inline)
 ```sql
@@ -82,7 +87,7 @@ CREATE TABLE voti (
 ```
 
 ## Sintassi della FOREIGN KEY (inline)
-La `FOREIGN KEY` può essere definita in due modi. Il modo più semplice è la forma inline, che si scrive accanto alla colonna che fa riferimento a un'altra tabella:
+La `FOREIGN KEY` è un vincolo che crea una relazione tra due tabelle, collegando una colonna di una tabella a una colonna (di solito la PK) di un'altra tabella. La sintassi che utilizzeremo è la forma inline, che si scrive accanto alla colonna che fa riferimento a un'altra tabella:
 ```sql
 -- Forma inline
 classe_id INT NOT NULL REFERENCES classi(id)
@@ -108,7 +113,7 @@ CREATE TABLE studenti (
 ```
 
 ### Relazione N:M (studenti <-> materie)
-Serve una tabella ponte (associativa). Chiavi esterne nella tabella ponte.
+Serve una tabella associativa (ponte), spesso contiene anche dati extra come voto e data. Le chiavi esterne vanno nella tabella associativa.
 ```sql
 CREATE TABLE studenti (
   id SERIAL PRIMARY KEY,
@@ -184,8 +189,7 @@ INSERT INTO voti (studente_id, materia_id, voto, data_prova) VALUES
   (2, 2, 6.0, '2025-11-10'),
   (3, 1, 7.0, '2025-11-11');
 ```
-
-## Cosa succede qui dentro
+### Cosa rappresenta questo schema
 Questo schema rappresenta un database per gestire le classi, gli studenti, le materie e i voti in una scuola. Le tabelle sono:
 - `classi` è una tabella che contiene le classi, con anno e sezione.
 - `studenti` tabella contenente gli studenti, collegati a `classi` tramite `classe_id` (relazione con cardinalità molti-a-uno).
@@ -215,29 +219,38 @@ SELECT * FROM studenti;
 ```
 
 # Lezione 2 - SELECT e filtri (WHERE)
-## Perché ci serve SELECT
-Con `SELECT` leggiamo i dati. È il comando più usato: serve per vedere cosa c'è nel database e per rispondere a domande.
+Il comando `SELECT` serve per interrogare il database e ottenere i dati che ci interessano.
 
-Se non hai dati, usa lo schema e i dati iniziali della lezione 1.
-
-## Parti principali di una SELECT
-- `SELECT`: quali colonne vuoi vedere.
-- `FROM`: da quale tabella.
-- `WHERE`: quali righe ti interessano.
-- `ORDER BY`: come ordinare il risultato.
-
-## Operatori utili
-- `=` uguale, `<>` diverso.
-- `>` maggiore, `<` minore.
-- `AND` per condizioni multiple, `OR` per alternative.
-- `LIKE` per cercare testo con pattern (es. `LIKE 'Mar%'`).
+## Sintassi di base di SELECT
+La struttura generale di una query `SELECT` è:
+```sql
+SELECT colonne
+FROM tabella
+[WHERE condizione]
+[ORDER BY colonna [ASC|DESC]];
+```
 
 ## Condizione WHERE
-Il `WHERE` serve per specificare quali righe sono interessate dai comandi che utilizziamo. Nella `SELECT`, il `WHERE` filtra i risultati. In `UPDATE` e `DELETE`, il `WHERE` indica quali righe modificare o eliminare.
+Il `WHERE` serve per specificare quali righe sono interessate dai comandi che utilizziamo. Nella `SELECT`, il `WHERE` filtra i risultati.
 
-Attenzione: senza condizioni `WHERE`, `UPDATE` e `DELETE` agiscono su tutte le righe della tabella! Ad esempio, `DELETE FROM studenti;` elimina tutti gli studenti.
+## Sintassi delle condizioni WHERE
+- `colonna = valore`: uguale a.
+- `colonna <> valore`: diverso da.
+- `colonna > valore`: maggiore di.
+- `colonna < valore`: minore di.
+- `colonna BETWEEN valore1 AND valore2`: compreso tra valore1 e valore2.
+- `colonna IS NULL`: valore nullo.
+- `colonna IS NOT NULL`: valore non nullo.
+- `colonna LIKE 'M%'`: inizia con 'M' (esempio di filtro su stringhe).
+  - 'M%' inizia con M
+  - '%i' finisce con i
+- `AND`, `OR`: combinano più condizioni.
+
+## Ordinamento ORDER BY
+L'`ORDER BY` serve per ordinare i risultati in base a una o più colonne. Di default l'ordinamento è crescente (`ASC`), ma si può specificare decrescente (`DESC`).
 
 ## Query SQL (esempi SELECT)
+Utilizziamo lo schema e i dati iniziali della lezione 1 per questi esempi:
 ```sql
 -- Seleziona nome e cognome di tutti gli studenti
 SELECT nome, cognome
@@ -266,18 +279,35 @@ ORDER BY data_nascita;
 3) Mostra gli studenti nati nel 2008.
 
 # Lezione 3 - Inserimento e modifica dati (DML)
-
-## Perché ci serve il DML
-DML significa **Data Manipulation Language**. Sono i comandi con cui inseriamo, modifichiamo ed eliminiamo i dati. Dopo aver creato le tabelle, dobbiamo riempirle.
-
-Se non hai dati, usa lo schema e i dati iniziali della lezione 1.
+DML significa **Data Manipulation Language**. Sono i comandi con cui inseriamo, modifichiamo ed eliminiamo i dati nelle tabelle del database.
 
 ## Comandi principali
 - `INSERT`: aggiunge nuove righe.
 - `UPDATE`: modifica righe esistenti.
 - `DELETE`: elimina righe.
 
+## Sintassi dei comandi
+### INSERT
+```sql
+INSERT INTO tabella (colonna1, colonna2, ...)
+VALUES (valore1, valore2, ...);
+```
+### UPDATE
+```sql
+UPDATE tabella
+SET colonna1 = valore1, colonna2 = valore2, ...
+WHERE condizione;
+```
+### DELETE
+```sql
+DELETE FROM tabella
+WHERE condizione;
+```
+## Perché usare il WHERE in UPDATE e DELETE
+È fondamentale usare il `WHERE` in `UPDATE` e `DELETE` per evitare di modificare o eliminare tutte le righe della tabella. Il `WHERE` specifica quali righe devono essere interessate dall'operazione.
+
 ## Query SQL (esempi DML)
+Utilizziamo lo schema e i dati iniziali della lezione 1 per questi esempi:
 ### Inserimento di un nuovo studente
 ```sql
 -- Verifica tutti gli studenti
@@ -319,24 +349,6 @@ SELECT * FROM materie;
 DELETE FROM materie
 WHERE nome = 'Informatica';
 ```
-
-## Sintassi dei comandi
-- `INSERT` INTO `nome_tabella` (colonna1, colonna2, ...)
-  VALUES (valore1, valore2, ...);
-- `UPDATE` `nome_tabella`
-  SET colonna1 = valore1, colonna2 = valore2, ...
-  WHERE condizione;
-- `DELETE` FROM `nome_tabella`
-  WHERE condizione;
-
-## Sintassi delle condizioni WHERE
-- `colonna = valore`: uguale a.
-- `colonna <> valore`: diverso da.
-- `colonna > valore`: maggiore di.
-- `colonna < valore`: minore di.
-- `colonna BETWEEN valore1 AND valore2`: compreso tra valore1 e valore2.
-- `colonna IS NULL`: valore nullo.
-- `colonna IS NOT NULL`: valore non nullo.
 
 ## Esercizio
 1) Aggiungi una nuova classe 4A e un nuovo studente in quella classe (stampa la tabella delle classi per ottenere l'id corretto).
