@@ -534,11 +534,23 @@ Il CSS (Cascading Style Sheets) serve per definire l'aspetto grafico della pagin
 
 ## Dove si scrive il CSS
 In JSFiddle ci sono tre riquadri principali: HTML, CSS e JS. Quando fai gli esercizi, il CSS va scritto nell'apposito riquadro CSS, non dentro l'HTML.
-Se invece lavori in un file locale, il CSS sta in un file .css collegato all'HTML con:
 
-```html
-<link rel="stylesheet" href="style.css">
+## Sintassi base del CSS
+Una regola CSS è composta da un selettore e un blocco di dichiarazioni:
+```css
+selettore {
+  proprieta1: valore1;
+  proprieta2: valore2;
+}
 ```
+Esempio:
+```css
+h1 {
+  color: darkblue;
+  font-family: Georgia, serif;
+}
+```
+Nell'esempio, `h1` è il selettore (tutti gli elementi `<h1>`), `color` e `font-family` sono le proprietà, e `darkblue` e `Georgia, serif` sono i valori assegnati a quelle proprietà.
 
 ## Selettori: come scegliere cosa stilizzare
 Un selettore indica quali elementi della pagina devono ricevere le regole CSS.
@@ -554,17 +566,17 @@ Selettori avanzati:
 - Gruppi: `h1, h2, h3` (stessa regola per più tag).
 
 ## Proprietà CSS principali
-- color: imposta il colore del testo (nome, esadecimale o RGB).
-- background-color: imposta il colore di sfondo dell'elemento.
-- font-family: sceglie il carattere tipografico, con eventuali font di riserva.
-- font-size: dimensione del testo (es. 16px, 1.2em, 120%).
-- line-height: distanza tra le righe; valori più alti aumentano la leggibilità.
-- margin: spazio esterno tra l'elemento e gli altri elementi.
-- padding: spazio interno tra contenuto e bordo dell'elemento.
-- border: disegna un bordo con spessore, stile e colore (es. 1px solid #ccc).
-- border-radius: arrotonda gli angoli del bordo (con valori in px o %, es. 8px).
-- text-align: allinea il testo (left, center, right, justify).
-- text-decoration: applica decorazioni al testo (underline, none, line-through).
+- color: imposta il colore del testo (nome, esadecimale o RGB). Esempio: `color: #333333;` o `color: rgb(51, 51, 51);`.
+- background-color: imposta il colore di sfondo dell'elemento. Esempio: `background-color: #f0f0f0;`.
+- font-family: sceglie il carattere tipografico, con eventuali font di riserva. Esempio: `font-family: "Arial", sans-serif;`.
+- font-size: dimensione del testo (es. 16px, 1.2em, 120%). Esempio: `font-size: 18px;`.
+- line-height: distanza tra le righe; valori più alti aumentano la leggibilità. Esempio: `line-height: 1.5;`.
+- margin: spazio esterno tra l'elemento e gli altri elementi. Esempio: `margin: 16px;` o `margin: 10px 0;` (10px sopra e sotto, 0 a destra e sinistra).
+- padding: spazio interno tra contenuto e bordo dell'elemento. Esempio: `padding: 12px;` o `padding: 8px 16px;` (8px sopra e sotto, 16px a destra e sinistra).
+- border: disegna un bordo con spessore, stile e colore (es. 1px solid #ccc). Esempio: `border: 2px dashed #000;`.
+- border-radius: arrotonda gli angoli del bordo (con valori in px o %, es. 8px). Esempio: `border-radius: 10px;`.
+- text-align: allinea il testo (left, center, right, justify). Esempio: `text-align: center;`.
+- text-decoration: applica decorazioni al testo (underline, none, line-through). Esempio: `text-decoration: underline;`.
 
 ## Esempio completo (da copiare nel riquadro CSS di JSFiddle)
 Applica questo CSS nella sezione CSS di JSFiddle:
@@ -632,8 +644,8 @@ Poi utilizza questo HTML di esempio da mettere nel riquadro HTML di JSFiddle:
 </div>
 ```
 
-
 ## Esercizio
+1) Cancella il CSS dell'esempio precedente e mantieni solo l'HTML.
 1) Crea almeno 3 selettori diversi: uno per tag, uno per classe e uno discendente.
 2) Applica almeno 6 proprietà diverse (es. color, background-color, font-size, margin, padding, border).
 3) Aggiungi una classe a un paragrafo e rendilo "evidenziato" con sfondo, bordo e padding.
