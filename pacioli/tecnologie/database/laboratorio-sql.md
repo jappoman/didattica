@@ -425,6 +425,7 @@ SELECT s.nome, c.nome AS classe
 FROM studenti s
 JOIN classi c ON s.classe_id = c.id;
 ```
+Gli alias vengono utilizzati anche per le colonne, come nell'esempio sopra con `c.nome AS classe`, che rinomina la colonna `nome` della tabella `classi` in `classe` nel risultato della query. L'intestazione della tabella risultante mostrerà quindi `classe` invece di `nome`.
 
 ## Come si fanno i collegamenti tra tabelle con JOIN
 Innanzitutto ricordiamo le relazioni tra le tabelle del nostro schema, implementandole con la dot notation:
