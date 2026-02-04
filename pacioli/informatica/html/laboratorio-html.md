@@ -698,12 +698,6 @@ Selettore CSS:
 Applica questo CSS nella sezione CSS di JSFiddle:
 
 ```css
-body {
-  font-family: "Georgia", serif;
-  background-color: #f4f1ea;
-  color: #2c2c2c;
-  margin: 24px;
-}
 
 h1 {
   color: #1f4e79;
@@ -767,7 +761,7 @@ Poi utilizza questo HTML di esempio da mettere nel riquadro HTML di JSFiddle:
 ## Esercizio
 
 1. Cancella il CSS dell'esempio precedente e mantieni solo l'HTML.
-1. Crea almeno 3 selettori diversi: uno per tag, uno per classe e uno discendente.
+1. Crea almeno 3 selettori diversi: uno per tag uno per classe e uno per id.
 1. Applica almeno 6 proprietà diverse (es. color, background-color, font-size, margin, padding, border).
 1. Aggiungi una classe a un paragrafo e rendilo "evidenziato" con sfondo, bordo e padding.
 1. Fai in modo che la pagina sia più leggibile aumentando spazi e line-height.
