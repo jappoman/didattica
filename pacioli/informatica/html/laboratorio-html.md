@@ -62,7 +62,13 @@ Esempi rapidi:
 - Link con descrizione e apertura in nuova scheda:
 
 ```html
-<a href="https://www.example.com" title="Sito di esempio" target="_blank" rel="noopener">Visita il sito</a>
+<a
+  href="https://www.example.com"
+  title="Sito di esempio"
+  target="_blank"
+  rel="noopener"
+  >Visita il sito</a
+>
 ```
 
 - Immagine con testo alternativo e dimensione:
@@ -81,7 +87,9 @@ E i colori o i font? In teoria li gestisce il CSS, ma per le prove rapide è pos
 
 ```html
 <h1 style="color: darkblue; font-family: Georgia, serif;">Titolo colorato</h1>
-<p style="color: #555; font-size: 18px;">Paragrafo con colore e dimensione personalizzati.</p>
+<p style="color: #555; font-size: 18px;">
+  Paragrafo con colore e dimensione personalizzati.
+</p>
 ```
 
 Usalo solo per esperimenti veloci; nei progetti veri conviene spostare questi stili in un file CSS o in una classe.
@@ -119,11 +127,23 @@ Esempio completo (versione file .html):
     <title>Homepage di Mario Rossi</title>
   </head>
   <body>
-    <h1 style="color: darkblue; font-family: Georgia, serif;">Benvenuti nella mia homepage</h1>
-    <p style="color: #555; font-size: 18px;">Mi chiamo Mario e questa è la mia prima pagina creata in HTML.</p>
-    <img src="https://placekitten.com/400/250" alt="Foto di esempio" width="320" />
+    <h1 style="color: darkblue; font-family: Georgia, serif;">
+      Benvenuti nella mia homepage
+    </h1>
+    <p style="color: #555; font-size: 18px;">
+      Mi chiamo Mario e questa è la mia prima pagina creata in HTML.
+    </p>
+    <img
+      src="https://placekitten.com/400/250"
+      alt="Foto di esempio"
+      width="320"
+    />
     <p style="color: #555;">Visita il mio sito preferito:</p>
-    <a href="https://www.wikipedia.org" style="color: seagreen; font-weight: bold;">Vai su Wikipedia</a>
+    <a
+      href="https://www.wikipedia.org"
+      style="color: seagreen; font-weight: bold;"
+      >Vai su Wikipedia</a
+    >
   </body>
 </html>
 ```
@@ -135,17 +155,16 @@ Esempio completo (versione file .html):
 - Mantieni il file ordinato e indentato per leggerlo facilmente.
 - Frase di chiusura: "Oggi abbiamo imparato a far comparire contenuti sullo schermo. Dalla prossima volta impareremo a organizzarli meglio".
 
-
-
 # Lezione 2: liste, immagini avanzate, ancore interne, tabelle
 
 ## Prima di iniziare
+
 - Non tradurre la pagina dall'inglese, rischia di creare errori nei tag.
 - Recupera il link del tuo progetto su JSFiddle e aprilo.
 - Ricordati di salvare spesso.
 
-
 ## `<section>` per organizzare la pagina
+
 - Raggruppa blocchi di contenuto che hanno un tema (es. “Biografia”, “Progetti”, “Contatti”) e li rende più chiari per browser, screen reader e per te che modifichi il codice.
 - Regola base: ogni `<section>` dovrebbe avere un titolo interno (di solito `<h2>`). Se la pagina ha un solo grande argomento, l' `<h1>` sta in cima alla pagina e gli `<h2>` sono i titoli delle sezioni.
 - Link interni: assegna un `id` alla `<section>` così che sarà possibile riferirsi ad essa per creare dei collegamenti.
@@ -154,7 +173,7 @@ Esempio completo (versione file .html):
 ```html
 <section id="chi-sono">
   <h2>Chi sono</h2>
-  <p>Mi chiamo Gabriele, studio informatica e mi piace  il web design.</p>
+  <p>Mi chiamo Gabriele, studio informatica e mi piace il web design.</p>
 </section>
 
 <section id="progetti">
@@ -172,6 +191,7 @@ Esempio completo (versione file .html):
 ```
 
 ## Liste
+
 - Liste puntate: `<ul>` è il tag che apre e chiude una lista. Ogni elemento della lista è racchiuso in `<li>`. Utile per elementi senza ordine preciso.
 - Liste numerate: `<ol>` con elementi `<li>`. Utile per sequenze o passi da seguire.
 - Liste annidate: è possibile avere elementi `<li>` che contengono delle nuove liste `<ul>` o `<ol>` per creare delle sotto-voci. Ricorda di chiudere correttamente tutti i tag.
@@ -181,7 +201,8 @@ Esempio completo (versione file .html):
   <h2>Cose da fare nel weekend</h2>
   <ul>
     <li>Visitare il museo</li>
-    <li>Provare un ristorante
+    <li>
+      Provare un ristorante
       <ol>
         <li>Cercare recensioni</li>
         <li>Prenotare il tavolo</li>
@@ -193,19 +214,23 @@ Esempio completo (versione file .html):
 ```
 
 ## Immagini avanzate
+
 - Attributo obbligatorio `alt="testo descrittivo"`. Viene in nostro aiuto se l'immagine non si dovesse caricare, oppure per i lettori di schermo usati da persone con disabilità visive.
 - Dimensioni: usa `width` e/o `height` in pixel per ridimensionare l'immagine a piacimento. Per ridimensionarla senza distorsioni, usa solo uno dei due e lascia l’altro vuoto. Esempio: `width="300"` ridimensiona l'immagine a 300 pixel di larghezza mantenendo le proporzioni originali.
 
 ```html
 <section id="galleria">
   <h2>Galleria</h2>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/SelbstPortrait_VG2.jpg"
-       alt="Ritratto dell'autore del sito"
-       width="400" />
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/SelbstPortrait_VG2.jpg"
+    alt="Ritratto dell'autore del sito"
+    width="400"
+  />
 </section>
 ```
 
 ## Ancore interne (link interni alla stessa pagina)
+
 - Aggiungi un `id` al blocco di destinazione.
 - Crea un link con `href="#id"` per saltare a quel punto.
 - Con il tag `<nav>` puoi racchiudere i link di navigazione principali della pagina in una sezione dedicata.
@@ -223,8 +248,8 @@ Esempio completo (versione file .html):
 </section>
 ```
 
-
 ## Tabelle
+
 - Struttura base: `<table>` contiene righe `<tr>`, intestazioni `<th>`, celle `<td>`.
 - Intestazione separata: racchiudi i titoli in `<thead>`, i dati in `<tbody>`.
 - Titolo tabella facoltativo: `<caption>`.
@@ -233,7 +258,9 @@ Esempio completo (versione file .html):
 <section id="programma">
   <h2>Programma settimana</h2>
   <table>
-    <caption>Attività principali</caption>
+    <caption>
+      Attività principali
+    </caption>
     <thead>
       <tr>
         <th>Giorno</th>
@@ -258,20 +285,22 @@ Esempio completo (versione file .html):
 ```
 
 ## Esercizio
-1) Aggiungi almeno una lista puntata e una numerata in sezioni diverse del tuo sito.
-2) Inserisci almeno due immagini: entrambe con `alt` significativo e dimensione impostata.
-3) Crea un piccolo menù con ancore interne che porti alle tue sezioni principali (almeno 3 link).
-4) Aggiungi una tabella con almeno 3 colonne e 4 righe di dati reali per il tuo tema (es. elenco prodotti, orario settimanale, tappe di viaggio).
-5) Inserisci un `<caption>` descrittivo.
 
+1. Aggiungi almeno una lista puntata e una numerata in sezioni diverse del tuo sito.
+2. Inserisci almeno due immagini: entrambe con `alt` significativo e dimensione impostata.
+3. Crea un piccolo menù con ancore interne che porti alle tue sezioni principali (almeno 3 link).
+4. Aggiungi una tabella con almeno 3 colonne e 4 righe di dati reali per il tuo tema (es. elenco prodotti, orario settimanale, tappe di viaggio).
+5. Inserisci un `<caption>` descrittivo.
 
 # Lezione 3: HTML5 multimedia
 
 ## Perchè usare `<video>` e `<audio>`
+
 HTML5 permette di inserire contenuti multimediali senza plugin esterni.
 Il browser gestisce direttamente riproduzione, pausa e volume.
 
 ## Tag `<video>`
+
 Struttura base:
 
 ```html
@@ -279,6 +308,7 @@ Struttura base:
 ```
 
 Attributi principali:
+
 - `controls`: mostra i comandi di riproduzione.
 - `width` e `height`: dimensioni del video.
 - `autoplay`: parte automaticamente (attenzione).
@@ -297,14 +327,18 @@ Se vuoi incorporare un video di YouTube non usare `<video>`, ma un `<iframe>` co
 
 ```html
 <iframe
-width="560" height="315"
-src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=JA_VG0TCtxwuzIlN" title="YouTube video player"
-allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-allowfullscreen>
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=JA_VG0TCtxwuzIlN"
+  title="YouTube video player"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen
+>
 </iframe>
 ```
 
 Un `<iframe>` e' una "finestra" che inserisce una pagina esterna dentro la tua pagina. Gli attributi principali qui sono:
+
 - `width` e `height`: dimensioni dell'area video.
 - `src`: URL del video incorporato.
 - `title`: descrizione per l'accessibilita.
@@ -312,6 +346,7 @@ Un `<iframe>` e' una "finestra" che inserisce una pagina esterna dentro la tua p
 - `allowfullscreen`: abilita il pulsante schermo intero.
 
 ## Tag `<audio>`
+
 Struttura base:
 
 ```html
@@ -321,12 +356,11 @@ Struttura base:
 Esempio:
 
 ```html
-<audio src="musica.mp3" controls>
-  Il tuo browser non supporta l'audio.
-</audio>
+<audio src="musica.mp3" controls>Il tuo browser non supporta l'audio.</audio>
 ```
 
 ## Uso corretto dei media
+
 - Non avviare audio o video automaticamente.
 - Usa dimensioni ragionevoli.
 - Inserisci sempre una frase di fallback tra i tag.
@@ -346,19 +380,22 @@ Esempio con sezione multimedia:
 ```
 
 ## Esercizio
-1) Inserisci un video e un audio nella tua pagina.
-2) Usa `controls` su entrambi.
-3) Racchiudi i media in una `<section>` con titolo.
-4) Imposta almeno una dimensione sul video.
 
+1. Inserisci un video e un audio nella tua pagina.
+2. Usa `controls` su entrambi.
+3. Racchiudi i media in una `<section>` con titolo.
+4. Imposta almeno una dimensione sul video.
 
 # Lezione 4: Form HTML
 
 ## A cosa serve un form
+
 Un form raccoglie dati inseriti dall'utente e li invia a un server. Anche senza server, è utile per imparare la struttura e i campi di input.
 
 ## Struttura base con `<form>`
+
 Il tag `<form>` contiene tutti i campi. Gli attributi principali:
+
 - `action`: dove inviare i dati (URL).
 - `method`: come inviarli (`get` o `post`). Il metodo `get` aggiunge i dati all'URL, `post` li invia in modo nascosto.
 
@@ -369,11 +406,13 @@ Il tag `<form>` contiene tutti i campi. Gli attributi principali:
 ```
 
 Esempio di url quando viene usato il metodo `get`:
+
 ```
 https://formtester.goodbytes.be/post.php?nome=Mario&cognome=Rossi
 ```
 
 ## Campi essenziali
+
 - `<label>`: descrive il campo; si collega con `for` uguale all'`id` dell'input.
 - `<input type="text">`: testo breve (nome, cognome).
 - `<input type="email">`: email con validazione base del browser.
@@ -388,10 +427,12 @@ https://formtester.goodbytes.be/post.php?nome=Mario&cognome=Rossi
 - `<button type="submit">`: invia il form.
 
 ## Attributo `required`
+
 `required` è un attributo booleano: se presente, il browser blocca l'invio finché il campo non è compilato.
 Puoi usarlo su `input` e `textarea` quando un dato è obbligatorio.
 
 ## Altri attributi utili
+
 - `placeholder`: suggerisce cosa scrivere nel campo (testo guida, sparisce quando si digita).
 - `name`: è il nome con cui il dato viene inviato al server; senza `name` il campo non viene inviato.
 - `id`: serve per collegare il `label` con `for` ed è utile per CSS/Javascript.
@@ -405,25 +446,25 @@ Esempio di form contatto con i campi essenziali:
 ```html
 <form action="https://formtester.goodbytes.be/post.php" method="post">
   <label for="nome">Nome</label>
-  <input type="text" id="nome" name="nome" required>
+  <input type="text" id="nome" name="nome" required />
 
   <label for="email">Email</label>
-  <input type="email" id="email" name="email" required>
+  <input type="email" id="email" name="email" required />
 
   <label for="messaggio">Messaggio</label>
   <textarea id="messaggio" name="messaggio" rows="4"></textarea>
 
   <label for="telefono">Telefono</label>
-  <input type="tel" id="telefono" name="telefono" required>
+  <input type="tel" id="telefono" name="telefono" required />
 
   <label for="numero">Numero</label>
-  <input type="number" id="numero" name="numero" required>
+  <input type="number" id="numero" name="numero" required />
 
   <label for="data">Data</label>
-  <input type="date" id="data" name="data" required>
+  <input type="date" id="data" name="data" required />
 
   <label for="ora">Ora</label>
-  <input type="time" id="ora" name="ora" required>
+  <input type="time" id="ora" name="ora" required />
 
   <button type="submit">Invia</button>
 </form>
@@ -432,53 +473,57 @@ Esempio di form contatto con i campi essenziali:
 Per simulare il server che riceve i dati, questo `action` invia il form a una pagina di test che mostra
 subito tutti i campi ricevuti. Se hai dimenticato un `name` o lo hai scritto male, lo vedi subito.
 
-
 ## Esercizio
-1) Crea un form "Iscrizione a un laboratorio" con `method="post"` e `action="https://formtester.goodbytes.be/post.php"`.
-2) Inserisci questi campi, tutti con `label` collegato tramite `for` e `id`:
+
+1. Crea un form "Iscrizione a un laboratorio" con `method="post"` e `action="https://formtester.goodbytes.be/post.php"`.
+2. Inserisci questi campi, tutti con `label` collegato tramite `for` e `id`:
    - Nome e cognome (`type="text"`), con `placeholder`, `maxlength="30"` e `required`.
    - Email (`type="email"`), con `placeholder` e `required`.
    - Password di accesso (`type="password"`), con `minlength="8"` e `placeholder`.
    - Età (`type="number"`), con `min="14"` e `max="99"`.
    - Data di nascita (`type="date"`).
    - Orario preferito (`type="time"`).
-3) Inserisci un `<textarea>` per "note aggiuntive" con `rows="6"` e `cols="40"`, con `placeholder`.
-4) Aggiungi un campo `tel` facoltativo con `placeholder` e `name` corretto.
-5) Imposta un valore predefinito (`value`) per almeno un campo.
-6) Chiudi con un bottone `type="submit"` con testo "Invia iscrizione".
+3. Inserisci un `<textarea>` per "note aggiuntive" con `rows="6"` e `cols="40"`, con `placeholder`.
+4. Aggiungi un campo `tel` facoltativo con `placeholder` e `name` corretto.
+5. Imposta un valore predefinito (`value`) per almeno un campo.
+6. Chiudi con un bottone `type="submit"` con testo "Invia iscrizione".
 
 Per provarlo senza server, imposta `method="post"` e `action="https://formtester.goodbytes.be/post.php"`.
 Quando invii il form, la pagina di test mostra i dati ricevuti.
 
-
-
 # Lezione 5: Form HTML - scelte
 
 ## Scelta singola e scelta multipla
+
 - Scelta singola: si usa `<input type="radio">` con lo stesso `name`.
 - Scelta multipla: si usa `<input type="checkbox">` e si possono selezionare più opzioni (stesso `name[]`).
 - Scelta da menù a tendina: si usa `<select>` con più `<option>`.
 
 ## Radio (scelta singola)
+
 Stesso `name`, `value` diverso per ogni opzione.
 
 ```html
 <p>Metodo di contatto preferito:</p>
-<label><input type="radio" name="contatto" value="email"> Email</label>
-<label><input type="radio" name="contatto" value="telefono"> Telefono</label>
+<label><input type="radio" name="contatto" value="email" /> Email</label>
+<label><input type="radio" name="contatto" value="telefono" /> Telefono</label>
 ```
 
 ## Checkbox (scelta multipla)
+
 Ogni checkbox ha lo stesso `name[]` se vuoi inviare un elenco di preferenze. Il server riceve tutti i valori selezionati come lista.
 
 ```html
 <p>Argomenti di interesse:</p>
-<label><input type="checkbox" name="interessi[]" value="html"> HTML</label>
-<label><input type="checkbox" name="interessi[]" value="css"> CSS</label>
-<label><input type="checkbox" name="interessi[]" value="js"> JavaScript</label>
+<label><input type="checkbox" name="interessi[]" value="html" /> HTML</label>
+<label><input type="checkbox" name="interessi[]" value="css" /> CSS</label>
+<label
+  ><input type="checkbox" name="interessi[]" value="js" /> JavaScript</label
+>
 ```
 
 ## Select (menù a tendina)
+
 ```html
 <label for="corso">Scegli un corso:</label>
 <select id="corso" name="corso">
@@ -493,15 +538,17 @@ Ogni checkbox ha lo stesso `name[]` se vuoi inviare un elenco di preferenze. Il 
 ```html
 <form action="https://formtester.goodbytes.be/post.php" method="post">
   <label for="nome">Nome</label>
-  <input type="text" id="nome" name="nome">
+  <input type="text" id="nome" name="nome" />
 
   <p>Metodo di contatto preferito:</p>
-  <label><input type="radio" name="contatto" value="email"> Email</label>
-  <label><input type="radio" name="contatto" value="telefono"> Telefono</label>
+  <label><input type="radio" name="contatto" value="email" /> Email</label>
+  <label
+    ><input type="radio" name="contatto" value="telefono" /> Telefono</label
+  >
 
   <p>Argomenti di interesse:</p>
-  <label><input type="checkbox" name="interessi[]" value="html"> HTML</label>
-  <label><input type="checkbox" name="interessi[]" value="css"> CSS</label>
+  <label><input type="checkbox" name="interessi[]" value="html" /> HTML</label>
+  <label><input type="checkbox" name="interessi[]" value="css" /> CSS</label>
 
   <label for="corso">Scegli un corso:</label>
   <select id="corso" name="corso">
@@ -517,55 +564,123 @@ Ogni checkbox ha lo stesso `name[]` se vuoi inviare un elenco di preferenze. Il 
 Anche qui, l'`action` punta alla pagina di test: dopo l'invio vedrai quali `name` sono arrivati e con che valore.
 Serve per verificare che radio e checkbox abbiano i nomi corretti.
 
-
 ## Esercizio
-1) Aggiungi all'esercizio precedente uno o più scelte singole con radio (es. metodo di contatto).
-2) Aggiungi una scelta multipla con checkbox (es. preferenze).
-3) Aggiungi una selezione da menù a tendina (es. corso di laurea).
+
+1. Aggiungi all'esercizio precedente uno o più scelte singole con radio (es. metodo di contatto).
+2. Aggiungi una scelta multipla con checkbox (es. preferenze).
+3. Aggiungi una selezione da menù a tendina (es. corso di laurea).
 
 Per verificare i dati, imposta `method="post"` e `action="https://formtester.goodbytes.be/post.php"`.
 Dopo l'invio, la pagina di test elenca tutte le scelte inviate dal form.
 
-
 # Lezione 6: CSS
 
 ## Cos'è il CSS
+
 Il CSS (Cascading Style Sheets) serve per definire l'aspetto grafico della pagina web: colori, font, spazi, dimensioni e bordi. L'HTML dice che cosa c'è nella pagina, il CSS dice come appare.
 
 ## Dove si scrive il CSS
+
 In JSFiddle ci sono tre riquadri principali: HTML, CSS e JS. Quando fai gli esercizi, il CSS va scritto nell'apposito riquadro CSS, non dentro l'HTML.
 
 ## Sintassi base del CSS
+
 Una regola CSS è composta da un selettore e un blocco di dichiarazioni:
+
 ```css
 selettore {
   proprieta1: valore1;
   proprieta2: valore2;
 }
 ```
+
 Esempio:
+
 ```css
 h1 {
   color: darkblue;
   font-family: Georgia, serif;
 }
 ```
+
 Nell'esempio, `h1` è il selettore (tutti gli elementi `<h1>`), `color` e `font-family` sono le proprietà, e `darkblue` e `Georgia, serif` sono i valori assegnati a quelle proprietà.
 
 ## Selettori: come scegliere cosa stilizzare
+
 Un selettore indica quali elementi della pagina devono ricevere le regole CSS.
 
 Selettori base:
+
 - Tag singoli: `h1`, `p`, `ul` (tutti gli elementi di quel tipo).
 - Classe: `.evidenziato` (tutti gli elementi con class="evidenziato"). Una classe è un'etichetta riutilizzabile che puoi assegnare a più elementi per applicare lo stesso stile.
 - ID: `#titolo` (un elemento con id="titolo", di solito unico).
 
 Selettori avanzati:
+
 - Combinati: `p.evidenziato` (solo i paragrafi con quella classe).
 - Discendenti: `section p` (tutti i p dentro una section).
 - Gruppi: `h1, h2, h3` (stessa regola per più tag).
 
+## Collegamento tra HTML e selettori CSS
+
+Il CSS non funziona da solo: per applicare uno stile deve “agganciarsi” agli elementi HTML tramite i selettori.
+Per questo motivo, nel codice HTML possono comparire `tag`, `classi` e `id`, che servono esclusivamente a permettere al CSS di individuare gli elementi da stilizzare.
+
+### Tag HTML
+
+Ogni elemento HTML ha un nome di tag (h1, p, div, ul, li, ecc.).
+Un selettore per tag applica lo stile a tutti gli elementi di quel tipo presenti nella pagina.
+
+Esempio:
+
+```css
+p {
+  color: blue;
+}
+```
+
+Tutti i paragrafi p della pagina verranno stilizzati.
+
+### Classi
+
+Una classe è un’etichetta assegnata a uno o più elementi HTML tramite l’attributo `class`. Le classi servono per applicare uno stile solo ad alcuni elementi, non a tutti.
+
+Esempio:
+
+```html
+<p class="testo-importante">Testo</p>
+```
+
+Selettore CSS corrispondente:
+
+```css
+.testo-importante {
+  background-color: yellow;
+}
+```
+
+La classe può essere riutilizzata più volte nella pagina.
+
+### ID
+
+Un id identifica un elemento specifico della pagina ed è pensato per essere unico.
+
+Esempio:
+
+```html
+<h1 id="titolo">Titolo</h1>
+```
+
+Selettore CSS:
+
+```css
+#titolo {
+  text-align: center;
+}
+```
+
 ## Proprietà CSS principali
+
 - color: imposta il colore del testo (nome, esadecimale o RGB). Esempio: `color: #333333;` o `color: rgb(51, 51, 51);`.
 - background-color: imposta il colore di sfondo dell'elemento. Esempio: `background-color: #f0f0f0;`.
 - font-family: sceglie il carattere tipografico, con eventuali font di riserva. Esempio: `font-family: "Arial", sans-serif;`.
@@ -579,6 +694,7 @@ Selettori avanzati:
 - text-decoration: applica decorazioni al testo (underline, none, line-through). Esempio: `text-decoration: underline;`.
 
 ## Esempio completo (da copiare nel riquadro CSS di JSFiddle)
+
 Applica questo CSS nella sezione CSS di JSFiddle:
 
 ```css
@@ -628,15 +744,19 @@ ul li {
 Poi utilizza questo HTML di esempio da mettere nel riquadro HTML di JSFiddle:
 
 ```html
-<h1>Mini pagina di prova</h1>
+<h1 id="titolo">Mini pagina di prova</h1>
 
 <div class="card">
-  <p>Questo e' un paragrafo dentro una card.</p>
-  <p class="evidenziato">Questo paragrafo e' evidenziato.</p>
+  <p>Questo è un paragrafo introduttivo.</p>
+
+  <p class="testo-importante">
+    Questo paragrafo sarà reso evidenziato tramite CSS.
+  </p>
+
   <p>Visita il mio <a href="https://www.wikipedia.org">sito preferito</a>.</p>
 
   <h2>Lista di cose</h2>
-  <ul>
+  <ul class="lista">
     <li>HTML</li>
     <li>CSS</li>
     <li>JavaScript</li>
@@ -645,8 +765,9 @@ Poi utilizza questo HTML di esempio da mettere nel riquadro HTML di JSFiddle:
 ```
 
 ## Esercizio
-1) Cancella il CSS dell'esempio precedente e mantieni solo l'HTML.
-1) Crea almeno 3 selettori diversi: uno per tag, uno per classe e uno discendente.
-2) Applica almeno 6 proprietà diverse (es. color, background-color, font-size, margin, padding, border).
-3) Aggiungi una classe a un paragrafo e rendilo "evidenziato" con sfondo, bordo e padding.
-4) Fai in modo che la pagina sia più leggibile aumentando spazi e line-height.
+
+1. Cancella il CSS dell'esempio precedente e mantieni solo l'HTML.
+1. Crea almeno 3 selettori diversi: uno per tag, uno per classe e uno discendente.
+1. Applica almeno 6 proprietà diverse (es. color, background-color, font-size, margin, padding, border).
+1. Aggiungi una classe a un paragrafo e rendilo "evidenziato" con sfondo, bordo e padding.
+1. Fai in modo che la pagina sia più leggibile aumentando spazi e line-height.
