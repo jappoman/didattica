@@ -294,7 +294,7 @@ Il `WHERE` serve per specificare quali righe sono interessate dai comandi che ut
 - `colonna LIKE 'M%'`: inizia con 'M' (esempio di filtro su stringhe).
   - 'M%' inizia con M
   - '%i' finisce con i
-- `AND`, `OR`: combinano più condizioni.
+- `AND`, `OR`: combinano più condizioni. È possibile utilizzare le parentesi per raggruppare le condizioni e controllare l'ordine di valutazione.
 
 ## Ordinamento ORDER BY
 L'`ORDER BY` serve per ordinare i risultati in base a una o più colonne. Di default l'ordinamento è crescente (`ASC`), ma si può specificare decrescente (`DESC`).
