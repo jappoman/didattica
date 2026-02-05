@@ -405,7 +405,7 @@ WHERE nome = 'Informatica';
 2) Aggiorna la data di nascita di uno studente.
 3) Elimina il voto di uno studente in Informatica (stampa la tabella degli studenti e la tabella materie per ottenere gli id corretti).
 
-# Lezione 4 - JOIN e filtri
+# Lezione 4 - JOIN tra tabelle
 I dati spesso sono distribuiti in più tabelle collegate tra loro. Per ottenere informazioni complete, dobbiamo unire (JOIN) i dati di più tabelle. Esistono vari tipi di JOIN, ma in questo laboratorio useremo principalmente la `INNER JOIN`, che restituisce solo le righe che hanno corrispondenze in entrambe le tabelle. Per conoscenza, le altre tipologie di JOIN sono:
 - `LEFT JOIN`: restituisce tutte le righe della tabella di sinistra e le corrispondenze della tabella di destra (se non ci sono corrispondenze, i campi della tabella di destra saranno NULL).
 - `RIGHT JOIN`: restituisce tutte le righe della tabella di destra e le corrispondenze della tabella di sinistra (se non ci sono corrispondenze, i campi della tabella di sinistra saranno NULL).
