@@ -679,26 +679,85 @@ Selettore CSS:
 }
 ```
 
+## Il tag div
+
+`<div>` è un contenitore generico usato per raggruppare altri elementi HTML. Non ha significato semantico, ma è utile per applicare stili CSS o per organizzare il layout. Esempio:
+
+HTML:
+
+```html
+<div class="card">
+  <h2>Titolo della card</h2>
+  <p>Contenuto della card.</p>
+</div>
+```
+
+Selettore CSS:
+
+```css
+.card {
+  border: 1px solid #ccc;
+  padding: 16px;
+  background-color: #f9f9f9;
+}
+```
+
+In questo caso abbiamo creato una "card" stilizzata usando un `<div>` con una classe.
+
 ## Proprietà CSS principali
 
-- color: imposta il colore del testo (nome, esadecimale o RGB). Esempio: `color: #333333;` o `color: rgb(51, 51, 51);`.
-- background-color: imposta il colore di sfondo dell'elemento. Esempio: `background-color: #f0f0f0;`.
-- font-family: sceglie il carattere tipografico, con eventuali font di riserva. Esempio: `font-family: "Arial", sans-serif;`.
-- font-size: dimensione del testo (es. 16px, 1.2em, 120%). Esempio: `font-size: 18px;`.
-- line-height: distanza tra le righe; valori più alti aumentano la leggibilità. Esempio: `line-height: 1.5;`.
-- margin: spazio esterno tra l'elemento e gli altri elementi. Esempio: `margin: 16px;` o `margin: 10px 0;` (10px sopra e sotto, 0 a destra e sinistra).
-- padding: spazio interno tra contenuto e bordo dell'elemento. Esempio: `padding: 12px;` o `padding: 8px 16px;` (8px sopra e sotto, 16px a destra e sinistra).
-- border: disegna un bordo con spessore, stile e colore (es. 1px solid #ccc). Esempio: `border: 2px dashed #000;`.
-- border-radius: arrotonda gli angoli del bordo (con valori in px o %, es. 8px). Esempio: `border-radius: 10px;`.
-- text-align: allinea il testo (left, center, right, justify). Esempio: `text-align: center;`.
-- text-decoration: applica decorazioni al testo (underline, none, line-through). Esempio: `text-decoration: underline;`.
+Testo e titoli
+
+- color: imposta il colore del testo. Esempio: `color: #333333;`.
+- font-family: sceglie il carattere tipografico. Esempio: `font-family: "Arial", sans-serif;`.
+- font-size: dimensione del testo. Esempio: `font-size: 18px;`.
+- font-weight: spessore del testo (normale, grassetto). Esempio: `font-weight: bold;` o `font-weight: 600;`.
+- text-align: allinea il testo. Esempio: `text-align: center;`.
+- line-height: distanza tra le righe. Esempio: `line-height: 1.5;`.
+- letter-spacing: spazio tra le lettere. Esempio: `letter-spacing: 1px;`.
+
+Spaziatura e contenitore
+
+- margin: spazio esterno tra l'elemento e gli altri. Esempio: `margin: 16px;`.
+- padding: spazio interno tra contenuto e bordo. Esempio: `padding: 12px;`.
+- border: bordo con spessore, stile e colore. Esempio: `border: 1px solid #ccc;`.
+- border-radius: arrotonda gli angoli. Esempio: `border-radius: 8px;`.
+- background-color: colore di sfondo. Esempio: `background-color: #f0f0f0;`.
+
+Link
+
+- color: colore del link. Esempio: `color: #c15a00;`.
+- text-decoration: decorazione del testo del link. Esempio: `text-decoration: underline;`.
+- font-weight: spessore del testo del link. Esempio: `font-weight: bold;`.
+- cursor: cursore del mouse sopra il link. Esempio: `cursor: pointer;`.
+
+Liste
+
+- list-style-type: tipo di pallino o numerazione. Esempio: `list-style-type: square;` o `list-style-type: decimal;`.
+- margin: spazio esterno della lista. Esempio: `margin: 12px 0;`.
+- padding: spazio interno della lista. Esempio: `padding: 20px;`.
+
+Tabelle
+
+- border: bordo di tabella e celle. Esempio: `border: 1px solid #999;`.
+- padding: spazio interno delle celle. Esempio: `padding: 8px;`.
+- text-align: allinea testo nelle celle. Esempio: `text-align: left;`.
+- background-color: colore di sfondo di righe o intestazioni. Esempio: `background-color: #f9f9f9;`.
+
+Form, input e bottoni
+
+- font-family: font dei campi e dei bottoni. Esempio: `font-family: "Arial", sans-serif;`.
+- font-size: dimensione del testo. Esempio: `font-size: 16px;`.
+- padding: spazio interno dei campi. Esempio: `padding: 8px 10px;`.
+- border: bordo dei campi. Esempio: `border: 1px solid #ccc;`.
+- border-radius: angoli arrotondati. Esempio: `border-radius: 6px;`.
+- background-color: colore di sfondo. Esempio: `background-color: #ffffff;`.
 
 ## Esempio completo (da copiare nel riquadro CSS di JSFiddle)
 
 Applica questo CSS nella sezione CSS di JSFiddle:
 
 ```css
-
 h1 {
   color: #1f4e79;
   text-align: center;
@@ -707,7 +766,8 @@ h1 {
 
 p {
   line-height: 1.6;
-  margin-bottom: 12px;
+  margin: 12px;
+  color: #333333;
 }
 
 .card {
@@ -715,23 +775,23 @@ p {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
-  max-width: 600px;
 }
 
 a {
   color: #c15a00;
   text-decoration: none;
   font-weight: bold;
+  cursor: pointer;
 }
 
-ul li {
-  margin-bottom: 6px;
+li {
+  margin: 6px;
 }
 
-.evidenziato {
+.testo-importante {
   background-color: #fff3b0;
   padding: 4px 8px;
-  border-left: 4px solid #f0b429;
+  border: 4px solid #f0b429;
 }
 ```
 
@@ -750,7 +810,7 @@ Poi utilizza questo HTML di esempio da mettere nel riquadro HTML di JSFiddle:
   <p>Visita il mio <a href="https://www.wikipedia.org">sito preferito</a>.</p>
 
   <h2>Lista di cose</h2>
-  <ul class="lista">
+  <ul>
     <li>HTML</li>
     <li>CSS</li>
     <li>JavaScript</li>
