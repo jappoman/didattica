@@ -825,3 +825,179 @@ Poi utilizza questo HTML di esempio da mettere nel riquadro HTML di JSFiddle:
 1. Applica almeno 6 proprietà diverse (es. color, background-color, font-size, margin, padding, border).
 1. Aggiungi una classe a un paragrafo e rendilo "evidenziato" con sfondo, bordo e padding.
 1. Fai in modo che la pagina sia più leggibile aumentando spazi e line-height.
+
+# Lezione 7: JavaScript
+
+## Cos'è JavaScript
+
+JavaScript è il linguaggio che rende una pagina web interattiva. Se HTML struttura i contenuti e CSS li rende belli, JavaScript aggiunge comportamenti: click, messaggi, aggiornamenti del testo, controlli sui dati. È un linguaggio di programmazione client side: viene eseguito direttamente dal browser dell'utente, senza bisogno di server.
+
+## Dove scrivere JavaScript in JSFiddle
+
+In JSFiddle usa il pannello `JS` per il codice JavaScript e il pannello `HTML` per gli elementi della pagina.
+Quando vuoi collegare JavaScript a un elemento HTML, assegna un `id` e recuperalo con JavaScript, così come abbiamo imparato con il CSS.
+
+## Primo concetto fondamentale: JavaScript aspetta eventi e lavora su elementi già presenti
+
+JavaScript rimane in attesa finché non si verifica un evento. Un evento è un'azione dell'utente, come un click, un passaggio del mouse o la pressione di un tasto. Quando l'evento si verifica, JavaScript esegue una funzione associata a quell'evento.
+
+JavaScript non può modificare un elemento HTML che non esiste ancora. Per questo motivo, è importante seguire un flusso logico: prima creare l'elemento in HTML, poi assegnargli un `id`, poi selezionarlo in JavaScript e infine modificarlo o assegnargli un comportamento.
+
+Il flusso è sempre questo:
+
+1. creo l’elemento in HTML
+2. gli assegno un `id`
+3. lo seleziono in JavaScript
+4. lo modifico o gli assegno un comportamento
+
+## Concetti base
+
+### Variabili
+
+Una variabile serve per **memorizzare un valore**. Esempio:
+
+```javascript
+let nome = "Luca";
+```
+
+Qui stiamo dicendo: creo una variabile che si chiama `nome` e dentro ci metto la scritta Luca. In JavaScript si usano spesso le variabili per salvare riferimenti agli elementi HTML, così da poterli modificare. Nel caso di variabili che rappresentano elementi HTML, è comune usare `const` (constant) invece di `let`, perché non cambieranno mai (non cambierà il riferimento all'elemento, anche se il contenuto dell'elemento può essere modificato). Esempio:
+
+```javascript
+const titolo = document.getElementById("titolo");
+```
+
+### Funzioni
+
+Una funzione è un blocco di codice che viene eseguito solo quando richiesto. La sintassi è questa:
+
+```javascript
+function saluta() {
+  console.log("Ciao!");
+}
+```
+
+`function` è la parola chiave per definire una funzione, `saluta` è il nome della funzione, tra le parentesi tonde ci vanno gli eventuali parametri della funzione e tra le parentesi graffe `{}` c'è il codice che verrà eseguito quando la funzione viene chiamata.
+
+In questo caso, questa funzione scrive il messaggio "Ciao!" nella console del browser quando viene chiamata. Finchè non viene chiamata, non fa nulla.
+
+### Eventi
+
+Un evento è un’azione dell’utente. Può essere ad esempio:
+
+- click
+- passaggio del mouse
+- pressione di un tasto
+
+JavaScript ascolta questi eventi e reagisce eseguendo una funzione.
+
+## Le 3 operazioni fondamentali in JavaScript
+
+Per iniziare con JavaScript è necessario conoscere almeno queste tre operazioni fondamentali:
+
+### 1. Selezionare un elemento HTML
+
+```javascript
+const elemento = document.getElementById("id-elemento");
+```
+
+Serve per creare un riferimento JavaScript ad un elemento della pagina.
+
+### 2. Reagire a un’azione dell’utente
+
+```javascript
+elemento.addEventListener("click", funzione);
+```
+
+Dice al browser di eseguire una funzione quando l’utente compie un’azione. La sintassi è `elemento.metodo(parametri)`. In questo caso, `addEventListener` è un metodo che permette di ascoltare un evento specifico (in questo caso, "click") su un elemento HTML. Quando l'utente clicca su quell'elemento, la funzione specificata come secondo parametro viene eseguita. Bisogna ricordarsi di definire in precedenza la funzione.
+
+### 3. Modificare il testo di un elemento
+
+```javascript
+elemento.textContent = "Nuovo testo";
+```
+
+Cambia il testo visibile nella pagina di quell'elemento. Nota come la sintassi sia `elemento.proprietà = valore`. In questo caso, `textContent` è la proprietà che rappresenta il testo di un elemento HTML, e noi stiamo assegnando a quella proprietà un nuovo valore, che è la stringa "Nuovo testo". Dopo questa operazione, il testo mostrato nella pagina per quell'elemento cambierà in "Nuovo testo". Questa istruzione va inserita all'interno di una funzione che viene chiamata quando si verifica un evento, come un click.
+
+## Lista delle principali proprietà e metodi per lavorare con elementi HTML
+
+In JavaScript:
+
+- le proprietà si modificano con `=`
+- gli stili CSS si modificano tramite `elemento.style.proprietàCSS`
+
+Ecco alcuni esempi di proprietà e metodi utili:
+
+- `elemento.textContent = "..."` cambia il testo di un elemento. Esempio: `elemento.textContent = "Ciao mondo!";`
+- `elemento.style.color = "...";` cambia il colore del testo. Esempio: `elemento.style.color = "red";`
+- `elemento.style.backgroundColor = "...";` cambia il colore di sfondo. Esempio: `elemento.style.backgroundColor = "yellow";`
+- `elemento.style.fontSize = "...";` cambia la dimensione del testo. Esempio: `elemento.style.fontSize = "20px";`
+- `elemento.style.display = "...";` cambia il modo in cui l'elemento viene visualizzato. Esempio: `elemento.style.display = "none";` nasconde l'elemento, `elemento.style.display = "block";` lo mostra.
+- `bottone.disabled = true;` disabilita un bottone, rendendolo non cliccabile. Esempio: `bottone.disabled = true;` disabilita il bottone, mentre `bottone.disabled = false;` lo riabilita.
+
+## Esempio pratico: bottone che cambia testo
+
+Copia e incolla questo codice in JSFiddle per vedere come funziona.
+
+HTML (pannello HTML in JSFiddle):
+
+```html
+<h1>Mini prova JavaScript</h1>
+<p id="messaggio">Premi il bottone per cambiare questo testo.</p>
+<button id="bottone-saluto">Clicca qui</button>
+```
+
+Qui abbiamo:
+
+- un paragrafo con id="messaggio"
+
+- un bottone con id="bottone-saluto"
+
+Gli id servono a JavaScript per riconoscere questi elementi.
+
+JavaScript (pannello JS in JSFiddle):
+
+```javascript
+const bottone = document.getElementById("bottone-saluto");
+const messaggio = document.getElementById("messaggio");
+
+function aggiornaMessaggio() {
+  messaggio.textContent = "Ottimo! Hai appena eseguito il tuo primo script.";
+}
+
+bottone.addEventListener("click", aggiornaMessaggio);
+```
+
+Vediamo riga per riga che cosa fa questo codice:
+
+```javascript
+const bottone = document.getElementById("bottone-saluto");
+```
+
+Seleziona il bottone HTML e lo salva nella variabile bottone.
+
+```javascript
+const messaggio = document.getElementById("messaggio");
+```
+
+Seleziona il paragrafo HTML.
+
+```javascript
+function aggiornaMessaggio() {
+  messaggio.textContent = "...";
+}
+```
+
+Definisce una funzione che cambia il testo del paragrafo.
+
+```javascript
+bottone.addEventListener("click", aggiornaMessaggio);
+```
+
+Dice al browser: “Quando l’utente clicca il bottone, esegui la funzione”. Quando l'utente cliccherà sul bottone, il testo del paragrafo cambierà in "Ottimo! Hai appena eseguito il tuo primo script.".
+
+## Esercizio
+
+1. Crea in HTML un titolo, un paragrafo con `id="stato"` e un bottone con `id="azione"`.
+2. In JavaScript seleziona i due elementi con `getElementById`.
+3. Al click del bottone cambia il testo del paragrafo in "Interazione riuscita".
+4. Come estensione, cambia anche il colore del testo del paragrafo usando JavaScript (esempio: `stato.style.color = "green";`).
