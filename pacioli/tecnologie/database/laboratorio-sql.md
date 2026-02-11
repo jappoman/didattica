@@ -134,7 +134,8 @@ CREATE TABLE voti (
 );
 ```
 
-## Esempio di schema SQL completo (da incollare nella parte Schema SQL in DB Fiddle)
+## Esempio di schema SQL completo (da incollare nella parte Schema SQL in DB Fiddle) con dati iniziali
+Copia questo codice nella sezione Schema SQL per creare le tabelle e inserire i dati
 ```sql
 CREATE TABLE classi (
   id SERIAL PRIMARY KEY,
@@ -164,11 +165,7 @@ CREATE TABLE voti (
   voto NUMERIC(3,1) NOT NULL CHECK (voto BETWEEN 1 AND 10),
   data_prova DATE NOT NULL
 );
-```
 
-## Dati iniziali (per provare le query delle prossime lezioni)
-Copia questo codice nella sezione Schema SQL, subito dopo la creazione delle tabelle, per inserire dei dati di prova:
-```sql
 -- CLASSI
 INSERT INTO classi (nome, anno, sezione) VALUES
   ('3A', 3, 'A'),
