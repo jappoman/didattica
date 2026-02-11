@@ -910,7 +910,7 @@ elemento.addEventListener("click", funzione);
 
 Dice al browser di eseguire una funzione quando l’utente compie un’azione. La sintassi è `elemento.metodo(parametri)`. In questo caso, `addEventListener` è un metodo che permette di ascoltare un evento specifico (in questo caso, "click") su un elemento HTML. Quando l'utente clicca su quell'elemento, la funzione specificata come secondo parametro viene eseguita. Bisogna ricordarsi di definire in precedenza la funzione.
 
-### 3. Modificare il testo di un elemento
+### 3. Fare qualcosa nella funzione, ad esempio: modificare il testo di un elemento
 
 ```javascript
 elemento.textContent = "Nuovo testo";
@@ -922,8 +922,8 @@ Cambia il testo visibile nella pagina di quell'elemento. Nota come la sintassi s
 
 In JavaScript:
 
-- le proprietà si modificano con `=`
-- gli stili CSS si modificano tramite `elemento.style.proprietàCSS`
+- le proprietà si modificano con `elemento.proprietà = valore`
+- gli stili CSS si modificano tramite `elemento.style.proprietàCSS = valore`
 
 Ecco alcuni esempi di proprietà e metodi utili:
 
