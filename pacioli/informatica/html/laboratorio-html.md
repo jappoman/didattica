@@ -1001,3 +1001,100 @@ Dice al browser: “Quando l’utente clicca il bottone, esegui la funzione”. 
 2. In JavaScript seleziona i due elementi con `getElementById`.
 3. Al click del bottone cambia il testo del paragrafo in "Interazione riuscita".
 4. Come estensione, cambia anche il colore del testo del paragrafo usando JavaScript (esempio: `stato.style.color = "green";`).
+
+# Lezione 8: Metodo per affrontare verifiche HTML CSS JavaScript
+
+In questa lezione vedremo i passaggi fondamentali per affrontare un esercizio o una verifica su HTML, CSS e JavaScript. Grazie a questa guida saremo in grado di analizzare in modo efficace le richieste ed eseguire qualsiasi prova senza andare nel panico.
+
+## Passo 0: devo aver studiato bene
+
+Devo sapere cosa sono HTML, CSS e JavaScript. Devo capire i loro ruoli all'interno di una pagina web. Devo sapere cos'è un tag, e saperlo aprire e chiudere. Devo sapere dove si scrivono gli attributi dei tag, dove si scrivono le proprieta' del CSS e dove si scrivono le funzioni di JavaScript. Devo capire il concetto di evento, listener e funzione.
+Devo avere chiaro come CSS e JavaScript si agganciano all'HTML.
+Devo conoscere la sintassi base di HTML, CSS e JavaScript.
+Se non ho queste basi, devo rivedere le lezioni precedenti.
+
+## Passo 1: leggo bene tutta la consegna senza scrivere codice
+
+Tutto quello che devo fare è gia' scritto nella consegna in modo molto dettagliato. Non devo inventare nulla: mi basta leggere con attenzione e applicare ciò che c'è scritto. Grazie alle mie conoscenze so che un tag HTML va in un certo posto, un attributo in un altro, lo stile in un altro ancora e così via. Devo saper comprendere ed organizzare ciò che leggo. Se non lo sto comprendendo, torno al punto 0.
+
+## Passo 2: separo il lavoro in HTML, CSS, JS
+
+Domanda guida: "Questa richiesta riguarda struttura, aspetto o comportamento?"
+
+- HTML: struttura e contenuti (`h1`, `section`, `form`, `input`, testi)
+- CSS: aspetto (colori, margini, bordi, font)
+- JavaScript: comportamento (click, modifiche testo, controlli, eventi)
+
+In base a questa classificazione so dove scrivere il codice e in che forma va scritto nelle varie sezioni di JSFiddle.
+
+## Passo 3: parto dalla struttura HTML
+
+Inizio dall'alto verso il basso, analizzando passo passo le richieste che incontro. Mi devo ricordare quali tag sono autochiudenti e quali, invece, hanno un tag di apertura e uno di chiusura. Chiudo subito i tag aperti, in modo da ottenere a ogni aggiunta una struttura sempre senza errori.
+Esempio: devo inserire un titolo con dei parametri. Apro il tag `h1`, scrivo il titolo, poi lo chiudo subito e faccio Run.
+Anche senza tutti i dettagli, una struttura completa mi permette di fare Run in JSFiddle molto spesso, per verificare immediatamente se ci sono errori di sintassi, tag non chiusi correttamente ecc.
+Quando verifico di non avere errori strutturali, posso arricchire la struttura con `id`, placeholder particolari, classi CSS ecc.: riempio il tag con gli attributi richiesti dalla prova.
+Quando sono a posto con tag e attributi di una determinata richiesta, passo alla richiesta successiva.
+
+## Passo 4: struttura specifica del form
+
+Il form non è nient'altro che un tag HTML. Anche lui si apre e si chiude, e ha le sue proprietà, come `action` e `method`. Tra il tag di apertura e quello di chiusura di un form ci deve sempre essere un submit, quasi sempre un bottone. Verifico di avere form aperto, form chiuso e bottone prima di procedere.
+Poi posso continuare inserendo i vari input: sono all'interno del form, hanno i loro attributi, devono essere chiusi correttamente e devono avere sicuramente un `id` e un `name`. L'`id` verrà usato per agganciarci la label, il `name` per mandare il valore al server. Anche qui, a ogni aggiunta di un input, faccio Run per verificare che non ci siano errori di sintassi o tag non chiusi. Se non ci sono, mi assicuro di inserire tutti gli attributi richiesti dalla consegna.
+Per ogni input inserito va aggiunta quasi sempre una label (mi basta leggere bene la consegna per capirlo). La label si apre e si chiude, e il valore che voglio mostrare sta tra i due tag. L'unico attributo della label che mi devo ricordare è `for`, che deve puntare all'`id` dell'input a cui è collegata. Anche qui, a ogni aggiunta di una label, faccio Run per verificare che non ci siano errori di sintassi o tag non chiusi. Oltre ad aver fatto Run, a ogni input che aggiungo verifico l'invio del form facendo click sul submit: se usiamo il solito URL di test come action, devo vedere che ciò che ho scritto come valore dell'input mi torni nella pagina di test. Se così non è, controllo subito perchè quell'input manca.
+Una volta che tutto funziona, passo all'input successivo, ripetendo i test a ogni nuovo input inserito, finchè non arrivo al form completo.
+
+## Passo 5: aggiungo CSS solo dopo che l'HTML e' corretto
+
+Una volta terminato con l'HTML, posso passare al CSS.
+Inizio con un blocco alla volta. Che tipo di collegamento all'HTML mi viene richiesto? A un elemento HTML su tutta la pagina (`h1`, `p` ecc.), a una specifica classe o a un elemento specifico tramite il suo `id`? A seconda di quello che mi viene chiesto, metto il selettore CSS corretto, dopo di che apro e chiudo subito le graffe, poi inserisco le proprietà richieste, una alla volta, all'interno delle graffe. A ogni proprietà inserita faccio Run e verifico che l'elemento che mi aspettavo abbia preso lo stile che mi aspettavo. Se è così, proseguo aggiungendo le altre proprietà richieste all'interno delle graffe dello stesso selettore.
+Una volta che l'elemento ha tutti gli stili richiesti, posso passare al selettore successivo e al blocco CSS successivo.
+
+## Passo 6: aggiungo JavaScript come ultimo passo
+
+Scrivo il JavaScript per ottenere i comportamenti richiesti (cambio colore, scritta o altri tipi di interazione con la pagina). Il JavaScript funziona sempre con questo flusso:
+
+1. L'elemento HTML che mi interessa deve avere un `id`
+2. Prendo in JavaScript l'elemento che mi interessa tramite la funzione `getElementById`. Mi interessano sia gli elementi che mi permetteranno di interagire con la pagina, sia gli elementi che subiranno i cambiamenti tramite JavaScript
+3. Metto gli elementi presi tramite `getElementById` in delle costanti, così da riferirmi a essi in quel modo successivamente nel mio codice
+4. Aggiungo un listener all'elemento che voglio rendere interattivo; è quello che mi dirà: quando interagisci con questo elemento, fai scattare questa funzione. Esempio: `addEventListener("click", funzione)`
+5. Scrivo la funzione che mi serve per ottenere il comportamento richiesto. Ad esempio, se devo cambiare il testo di un paragrafo, scrivo una funzione che prende un paragrafo e ne cambia il `textContent`. Il paragrafo da cambiare, solitamente, è l'altro elemento che sono andato a prendere con `getElementById`
+6. Testo che i miei elementi rispondano come volevo alla mia interazione. Se qualcosa non va, ricontrollo tutto per bene, immaginando mentalmente il flusso che il JavaScript deve fare: prendo l'elemento, reagisco all'evento, eseguo la funzione
+
+## Passo 7: test finali
+
+Testo tutto quello che ho fatto. Se ho testato man mano che scrivevo il codice, dovrei ritrovarmi già in una situazione corretta. Posso non aver completato tutto, ma quello che c'è dovrebbe essere corretto.
+JSFiddle mi permette di auto-formattare il codice (tasto bianco). Se il codice non si auto-formatta, c'è qualche errore strutturale. Cerco dei colori sbagliati (segno che la struttura è sbagliata in quel punto), controllo l'indentazione (quanto rientrano i tag) ecc., perchè teoricamente dovrebbe essere tutto a posto automaticamente.
+Faccio Run e controllo che la pagina abbia l'aspetto che desidero.
+Se c'è un form, controllo che facendo submit tutti i valori che ho inserito nei campi mi tornino indietro.
+Controllo che gli elementi della pagina abbiano tutti gli stili CSS richiesti. Controllo anche che gli stili siano applicati agli elementi richiesti e non a più elementi del dovuto.
+Controllo che, interagendo con la pagina nel modo richiesto, succedano le cose richieste (cambi di colore, di testo ecc.).
+
+## Esercizio
+
+Crea una mini pagina evento con:
+
+- Titolo principale <h1>: Incontro di orientamento
+- Un menu <nav> con 2 link interni:
+  - Dettagli che porta a #dettagli
+  - Stato che porta a #stato
+- Una sezione <section id="dettagli"> con:
+  - <h2>: Dettagli
+  - un paragrafo di 2 righe
+  - una lista puntata <ul> con 3 punti
+- Una sezione <section id="stato"> con:
+  - <h2>: Stato evento
+  - un paragrafo con id="messaggio" e testo iniziale: Evento non confermato
+  - un bottone con id="btn" e testo: Conferma evento
+
+Applica questi stili:
+
+- Tutti i section: bordo, padding, margin
+- Il nav a: togli la sottolineatura e metti il testo in grassetto
+- Il paragrafo #messaggio: font più grande del normale
+
+JavaScript (1 interazione)
+
+Quando l’utente clicca il bottone:
+
+- il testo di #messaggio diventa Evento confermato
+- il colore del testo di #messaggio diventa verde
+- il bottone viene disabilitato
