@@ -1072,16 +1072,16 @@ Controllo che, interagendo con la pagina nel modo richiesto, succedano le cose r
 
 Crea una mini pagina evento con:
 
-- Titolo principale <h1>: Incontro di orientamento
-- Un menu <nav> con 2 link interni:
+- Titolo principale `<h1>`: Incontro di orientamento
+- Un menu `<nav>` con 2 link interni:
   - Dettagli che porta a #dettagli
   - Stato che porta a #stato
-- Una sezione <section id="dettagli"> con:
-  - <h2>: Dettagli
+- Una sezione `<section id="dettagli">` con:
+  - `<h2>`: Dettagli
   - un paragrafo di 2 righe
-  - una lista puntata <ul> con 3 punti
-- Una sezione <section id="stato"> con:
-  - <h2>: Stato evento
+  - una lista puntata `<ul>` con 3 punti
+- Una sezione `<section id="stato">` con:
+  - `<h2>`: Stato evento
   - un paragrafo con id="messaggio" e testo iniziale: Evento non confermato
   - un bottone con id="btn" e testo: Conferma evento
 
