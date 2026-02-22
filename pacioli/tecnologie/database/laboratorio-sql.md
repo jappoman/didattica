@@ -743,3 +743,133 @@ ORDER BY media DESC;
 2. Trova il voto minimo per ogni materia
 3. Trova il voto massimo per ogni materia
 4. Mostra solo gli studenti con media >= 7.5.
+
+# Schema e dati di partenza per esercitazioni future (da incollare nella sezione Schema SQL in DB Fiddle)
+
+```sql
+-- Tabella biblioteche: contiene le informazioni sulle biblioteche (id, nome, città, indirizzo)
+CREATE TABLE biblioteche (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(50) NOT NULL,
+  citta VARCHAR(30) NOT NULL,
+  indirizzo VARCHAR(80) NOT NULL
+);
+
+-- Tabella utenti: ogni utente è associato ad una sola biblioteca (FK verso biblioteche). 1:N tra biblioteche e utenti.
+CREATE TABLE utenti (
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(30) NOT NULL,
+  cognome VARCHAR(30) NOT NULL,
+  biblioteca_id INT NOT NULL REFERENCES biblioteche(id)
+);
+
+-- Tabella libri: ogni libro è associato ad una sola biblioteca (FK verso biblioteche). 1:N tra biblioteche e libri.
+CREATE TABLE libri (
+  id SERIAL PRIMARY KEY,
+  titolo VARCHAR(80) NOT NULL,
+  autore VARCHAR(60) NOT NULL,
+  anno_pubblicazione INT NOT NULL CHECK (anno_pubblicazione BETWEEN 1900 AND 2026),
+  isbn VARCHAR(13) NOT NULL UNIQUE,
+  biblioteca_id INT NOT NULL REFERENCES biblioteche(id)
+);
+
+-- Tabella prestiti: tabella associativa che mette in relazione utenti e libri (FK verso utenti e FK verso libri). N:M tra utenti e libri. Contiene anche data_prestito e restituito (booleano).
+CREATE TABLE prestiti (
+  id SERIAL PRIMARY KEY,
+  utente_id INT NOT NULL REFERENCES utenti(id),
+  libro_id INT NOT NULL REFERENCES libri(id),
+  data_prestito DATE NOT NULL,
+  restituito BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+-- Dati per la tabella biblioteche
+INSERT INTO biblioteche (nome, citta, indirizzo) VALUES
+  ('Biblioteca Centrale', 'Cremona', 'Via Roma 10'),
+  ('Biblioteca Quartiere Sud', 'Crema', 'Viale Europa 22'),
+  ('Biblioteca Civica', 'Lodi', 'Piazza Duomo 3'),
+  ('Biblioteca Universitaria', 'Milano', 'Via Brera 5'),
+  ('Biblioteca Nord', 'Brescia', 'Via Milano 12'),
+  ('Biblioteca Est', 'Bergamo', 'Via Dante 45');
+
+-- Dati per la tabella utenti
+INSERT INTO utenti (nome, cognome, biblioteca_id) VALUES
+  ('Marco', 'Rinaldi', 1),
+  ('Giulia', 'Martini', 1),
+  ('Luca', 'Seri', 2),
+  ('Elena', 'Ferri', 2),
+  ('Sara', 'Colombo', 2),
+  ('Paolo', 'Gatti', 3),
+  ('Anna', 'Moretti', 3),
+  ('Davide', 'Neri', 4),
+  ('Chiara', 'Bianchi', 4),
+  ('Francesca', 'Rossi', 5),
+  ('Alessandro', 'Villa', 5),
+  ('Marta', 'Grandi', 6),
+  ('Stefano', 'Russo', 6),
+  ('Laura', 'Marini', 1),
+  ('Giorgio', 'Conti', 2);
+
+-- Dati per la tabella libri
+INSERT INTO libri (titolo, autore, anno_pubblicazione, isbn, biblioteca_id) VALUES
+  ('Il nome della rosa', 'Umberto Eco', 1980, '9780000000001', 1),
+  ('Fondazione', 'Isaac Asimov', 1951, '9780000000002', 1),
+  ('1984', 'George Orwell', 1949, '9780000000003', 2),
+  ('Il signore degli anelli', 'J.R.R. Tolkien', 1954, '9780000000004', 2),
+  ('Sapiens', 'Yuval Noah Harari', 2011, '9780000000005', 3),
+  ('Clean Code', 'Robert C. Martin', 2008, '9780000000006', 4),
+  ('Dune', 'Frank Herbert', 1965, '9780000000007', 3),
+  ('Norwegian Wood', 'Haruki Murakami', 1987, '9780000000008', 1),
+  ('La coscienza di Zeno', 'Italo Svevo', 1923, '9780000000009', 1),
+  ('Il piccolo principe', 'Antoine de Saint-Exupery', 1943, '9780000000010', 2),
+  ('Neuromante', 'William Gibson', 1984, '9780000000011', 3),
+  ('Il codice da Vinci', 'Dan Brown', 2003, '9780000000012', 4),
+  ('Il processo', 'Franz Kafka', 1925, '9780000000013', 5),
+  ('Orgoglio e pregiudizio', 'Jane Austen', 1913, '9780000000014', 6);
+
+-- Dati per la tabella prestiti
+INSERT INTO prestiti (utente_id, libro_id, data_prestito, restituito) VALUES
+  (1, 1, '2025-11-01', TRUE),
+  (2, 2, '2025-11-02', FALSE),
+  (1, 8, '2025-11-03', FALSE),
+  (3, 3, '2025-11-01', TRUE),
+  (4, 4, '2025-11-04', FALSE),
+  (5, 3, '2025-11-05', FALSE),
+  (6, 5, '2025-11-02', TRUE),
+  (7, 7, '2025-11-06', FALSE),
+  (6, 7, '2025-11-07', FALSE),
+  (8, 6, '2025-11-03', TRUE),
+  (9, 6, '2025-11-08', FALSE),
+  (8, 6, '2025-11-09', FALSE),
+  (1, 2, '2025-11-10', TRUE),
+  (1, 3, '2025-11-11', FALSE),
+  (1, 9, '2025-11-12', FALSE),
+  (10, 3, '2025-11-10', TRUE),
+  (11, 3, '2025-11-11', FALSE),
+  (12, 3, '2025-11-12', FALSE),
+  (10, 13, '2025-11-05', TRUE),
+  (11, 13, '2025-11-06', FALSE),
+  (12, 14, '2025-11-07', TRUE),
+  (13, 14, '2025-11-08', FALSE),
+  (14, 1, '2025-11-15', FALSE),
+  (14, 4, '2025-11-16', FALSE),
+  (14, 6, '2025-11-17', TRUE),
+  (15, 10, '2025-11-18', TRUE);
+```
+
+## Esercizio
+
+1. Mostra tutte le biblioteche, ordinate prima per città e poi per nome.
+2. Mostra nome e cognome di tutti gli utenti, ordinati alfabeticamente per cognome.
+3. Mostra titolo, autore e anno di pubblicazione dei libri pubblicati dopo il 2000, ordinati per anno e titolo.
+4. Mostra titolo, autore e anno di pubblicazione dei libri presenti nella “Biblioteca Centrale”, ordinati per titolo.
+5. Mostra nome, cognome e nome della biblioteca di iscrizione per tutti gli utenti, ordinando per biblioteca e poi per cognome.
+6. Mostra tutti i prestiti non restituiti, indicando nome utente, cognome, titolo del libro e data del prestito, ordinati per data.
+7. Mostra tutti i prestiti effettuati da “Marco Rinaldi”, indicando titolo del libro, data del prestito e stato di restituzione.
+8. Mostra tutti i prestiti con nome e cognome dell’utente, nome della biblioteca, titolo del libro, data del prestito e stato di restituzione, ordinati per biblioteca e utente.
+9. Conta quanti utenti sono iscritti a ogni biblioteca. Mostra nome biblioteca e numero utenti.
+10. Conta quanti libri sono presenti in ogni biblioteca. Mostra nome biblioteca e numero libri.
+11. Calcola il numero di prestiti effettuati da ogni utente. Mostra nome, cognome e numero di prestiti, ordinando dal maggiore al minore.
+12. Mostra solo gli utenti che hanno effettuato almeno 2 prestiti, indicando nome, cognome e numero di prestiti.
+13. Calcola quante volte è stato prestato ogni libro. Mostra titolo e numero di prestiti, ordinando dal più prestato al meno prestato.
+14. Mostra solo i libri che sono stati prestati almeno 2 volte.
+15. Calcola quanti prestiti non restituiti ci sono per ogni biblioteca (in base alla biblioteca dell’utente).
