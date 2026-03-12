@@ -39,14 +39,22 @@ Crea un file chiamato `modulo3-foglio-calcolo-avanzato` e prepara questi fogli:
 
 Consigli pratici:
 
-- usa intestazioni chiare in riga 1
-- evita colonne vuote dentro le tabelle
-- non unire celle nelle zone dati
-- applica formati coerenti (valuta, percentuale, data)
+- usa intestazioni chiare in riga 1:
+  `Data`, `Reparto`, `Prodotto`, `Quantità`, `Prezzo`, `Importo`.
+  Evita nomi generici come `Dato1`, `Varie`, `Info`.
+- evita colonne vuote dentro la tabella:
+  i dati devono stare in un blocco continuo (es. da colonna `A` a `F` senza buchi),
+  altrimenti filtri, ordinamenti e formule possono funzionare male.
+- non unire celle nelle zone dati:
+  non usare `Unisci celle` nelle righe dei record, perché può bloccare ordinamento e filtro.
+  Se vuoi un titolo grande, mettilo sopra la tabella, non dentro i dati.
+- applica formati coerenti per colonna:
+  `Prezzo` in valuta (euro), `Sconto` in percentuale, `Data` in formato data.
+  Non mischiare nella stessa colonna numeri, testo e simboli scritti a mano.
 
 ---
 
-# Lezione 1 - Ripresa solida: struttura del foglio e formule corrette
+# Lezione 1 - Ripasso: struttura del foglio e formule corrette
 
 ## Obiettivi della lezione
 
@@ -58,11 +66,11 @@ A fine lezione devi saper:
 - leggere e correggere gli errori più comuni
 - arrotondare risultati monetari in modo corretto
 
-## 1) Dato, formula, funzione: differenze operative
+## Dato, formula, funzione: differenze operative
 
 ### Dato
 
-Un dato è un valore scritto in cella:
+Un dato è un valore scritto in cella. Può essere di vari tipi:
 
 - testo: `Monitor 24"`
 - numero: `249,90`
@@ -71,7 +79,7 @@ Un dato è un valore scritto in cella:
 
 ### Formula
 
-Una formula inizia sempre con `=` e combina celle/operatori.
+Una formula inizia sempre con `=` e combina celle/espressioni mediante operatori matematici o logici.
 
 Esempio:
 
@@ -81,7 +89,14 @@ Esempio:
 
 ### Funzione
 
-Una funzione è una formula predefinita del programma.
+Una funzione è una formula predefinita fornita dal programma. La sua sintassi è:
+
+```text
+=FUNZIONE(argomento1; argomento2; ...)
+```
+
+- FUNZIONE è il nome della funzione (es. `SOMMA`, `MEDIA`, `SE`)
+- argomenti sono i valori o intervalli su cui la funzione opera o i parametri che ne definiscono il comportamento.
 
 Esempio:
 
@@ -89,7 +104,17 @@ Esempio:
 =SOMMA(D2:D20)
 ```
 
-## 2) Operatori essenziali
+Per importi con valori decimali useremo spesso la funzione `ARROTONDA. Ecco la sua sintassi:
+
+```text
+=ARROTONDA(B2*C2;2)
+```
+
+Il primo parametro rappresenta il numero da arrotondare, mentre il secondo indica a quante cifre decimali arrotondare (in questo caso 2, per i centesimi).
+
+## Operatori essenziali
+
+Sono i simboli usati nelle formule per fare operazioni tra numeri o testo:
 
 - `+` somma
 - `-` sottrazione
@@ -108,15 +133,13 @@ Esempi:
 =A2&" - "&B2
 ```
 
-Per importi economici usa spesso `ARROTONDA`, così eviti decimali troppo lunghi:
+## Riferimenti: relativo, assoluto, misto
 
-```text
-=ARROTONDA(B2*C2;2)
-```
-
-## 3) Riferimenti: relativo, assoluto, misto
+I riferimenti indicano a quale cella o intervallo si riferisce la formula. Possono essere di vari tipi:
 
 ### Riferimento relativo
+
+Il riferimento relativo è un riferimetno ad una cella che si adatta quando la formula viene copiata o trascinata in altre celle. Ad esempio, se hai la formula in `D2`:
 
 ```text
 =B2*C2
@@ -124,15 +147,21 @@ Per importi economici usa spesso `ARROTONDA`, così eviti decimali troppo lunghi
 
 Se trascini in basso diventa `=B3*C3`, `=B4*C4`, ecc.
 
+`Nota bene:` trascinare una formula significa usare il mouse per prendere l'angolo in basso a destra della cella e spostarlo verso le celle vicine. In questo modo la formula si copia adattando i riferimenti relativi.
+
 ### Riferimento assoluto
+
+Il riferimento assoluto è un riferimento ad una cella che resta fisso quando la formula viene copiata o trascinata. Si indica con il simbolo `$` prima della lettera della colonna e del numero della riga.
 
 ```text
 =D2*$H$1
 ```
 
-`$H$1` resta fisso quando trascini.
+`$H$1` resta fisso quando trascini e punterà sempre alla cella H1.
 
 ### Riferimento misto
+
+Il riferimento misto blocca solo la colonna o solo la riga. Esempio:
 
 ```text
 =$B2*C$1
@@ -141,53 +170,34 @@ Se trascini in basso diventa `=B3*C3`, `=B4*C4`, ecc.
 - `$B2` blocca la colonna B
 - `C$1` blocca la riga 1
 
-## 4) Errori frequenti e come risolverli
+Quindi trascinando la formula in basso diventa `=$B3*C$1`, trascinando a destra diventa `=$B2*D$1`.
+
+## Errori frequenti e come risolverli
 
 ### `#NOME?`
 
-Causa tipica:
-
-- funzione scritta male (`=SOMA(A1:A5)`)
-
-Soluzione:
-
-- controlla nome funzione e sintassi
+- `Causa tipica:` funzione scritta male (`=SOMA(A1:A5)`)
+- `Soluzione:` controlla nome funzione e sintassi
 
 ### `#VALORE!`
 
-Causa tipica:
-
-- operazione tra numero e testo
-
-Soluzione:
-
-- verifica formato celle
-- rimuovi spazi o simboli non numerici
+- `Causa tipica:` operazione su tipi incompatibili (es. testo \* numero)
+- `Soluzione:` verifica che i dati siano del tipo giusto (es. prezzo come numero, non testo)
 
 ### `#DIV/0!`
 
-Causa tipica:
+- `Causa tipica:` divisione per zero o cella vuota
+- `Soluzione:` controlla denominatore, usa `SE.ERRORE` per gestire
 
-- divisione per zero
+### Risultato "strano" senza errore visibile
 
-Soluzione:
+- `Causa tipica:` riferimento sbagliato dopo trascinamento
+- `Soluzione:` controlla se serve `$` per fissare la riga, la colonna o la cella
 
-- controlla divisore
-- usa `SE` o `SE.ERRORE`
+## Esempio guidato completo: listino con sconto e IVA
 
-### risultato "strano" senza errore visibile
-
-Causa tipica:
-
-- riferimento sbagliato dopo trascinamento
-
-Soluzione:
-
-- controlla se serve `$` per fissare cella
-
-## 5) Esempio guidato completo: listino con sconto e IVA
-
-Crea questa struttura:
+Crea questa struttura in `L1_Formule`:
+Intestazione colonna (riga 1):
 
 - `A` Prodotto
 - `B` Prezzo
@@ -198,20 +208,16 @@ Crea questa struttura:
 - `G` IVA
 - `H` Totale finale
 
-In `K1` inserisci aliquota IVA: `0,22`
+In `K1` inserisci l'aliquota IVA, cioè: `0,22`
 
 Formule (riga 2):
 
-```text
-D2 = B2*C2
-F2 = D2-(D2*E2)
-G2 = F2*$K$1
-H2 = ARROTONDA(F2+G2;2)
-```
+- in D2: =B2*C2
+- in F2: =D2-(D2*E2)
+- in G2: =F2*$K$1
+- in H2: =ARROTONDA(F2+G2;2)
 
-Trascina fino a riga 15.
-
-## 6) Esercizi Lezione 1
+Trascina fino a riga 15, controlla che i riferimenti siano corretti e che non ci siano errori, poi prosegui con gli esercizi sottostanti.
 
 ### Esercizio 1 - Base
 
