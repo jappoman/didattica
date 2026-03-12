@@ -194,7 +194,7 @@ Quindi trascinando la formula in basso diventa `=$B3*C$1`, trascinando a destra 
 - `Causa tipica:` riferimento sbagliato dopo trascinamento
 - `Soluzione:` controlla se serve `$` per fissare la riga, la colonna o la cella
 
-## Esempio guidato completo: listino con sconto e IVA
+## Esercizio: listino con sconto e IVA
 
 Crea questa struttura in `L1_Formule`:
 Intestazione colonna (riga 1):
@@ -212,40 +212,21 @@ In `K1` inserisci l'aliquota IVA, cioè: `0,22`
 
 Formule (riga 2):
 
-- in D2: =B2*C2
-- in F2: =D2-(D2*E2)
-- in G2: =F2*$K$1
-- in H2: =ARROTONDA(F2+G2;2)
+- in D2: una formula per calcolare il subtotale (prezzo * quantità)
+- in F2: una formula per calcolare il netto dopo sconto (subtotale - sconto)
+- in G2: una formula per calcolare l'IVA (netto * aliquota)
+- in H2: una formula per calcolare il totale finale (netto + IVA), arrotondato a 2 decimali
 
-Trascina fino a riga 15, controlla che i riferimenti siano corretti e che non ci siano errori, poi prosegui con gli esercizi sottostanti.
+Compila poi 10 prodotti, applica le formule su tutti e 10 e verifica che i calcoli siano corretti.
 
-### Esercizio 1 - Base
-
-Compila 12 prodotti e calcola:
-
-- subtotale
-- sconto in euro
-- totale netto
-
-### Esercizio 2 - Riferimenti assoluti
-
-Usa una cella fissa per IVA e calcola l'imposta su tutte le righe.
-
-### Esercizio 3 - Debug
-
-Il docente fornisce un file con 6 formule errate.
-Correggi gli errori e annota il tipo di errore trovato.
-
-### Esercizio 4 - Controllo finale
-
-Aggiungi in fondo alla tabella:
+In seguito aggiungi in fondo alla tabella:
 
 - totale generale
 - media prezzo
 - valore minimo
 - valore massimo
 
-### Esercizio 5 - Arrotondamento e gestione errore
+Poi gestisci arrotondamento e gestione errore:
 
 1. Crea una colonna `Prezzo medio unitario = Totale/Quantità`.
 2. Arrotonda il risultato a 2 decimali con `ARROTONDA`.
@@ -254,8 +235,6 @@ Aggiungi in fondo alla tabella:
 ```text
 =SE.ERRORE(ARROTONDA(H2/C2;2);"Dato non valido")
 ```
-
----
 
 # Lezione 2 - Funzioni avanzate essenziali per analizzare dati
 
