@@ -50,7 +50,7 @@ Consigli pratici:
   Se vuoi un titolo grande, mettilo sopra la tabella, non dentro i dati.
 - applica formati coerenti per colonna:
   `Prezzo` in valuta (euro), `Sconto` in percentuale, `Data` in formato data.
-  Non mischiare nella stessa colonna numeri, testo e simboli scritti a mano.
+  Non mischiare nella stessa colonna numeri, testo e simboli scritti a mano. Per applicare un formato, seleziona la colonna (o riga, o cella) e scegli il formato numerico adatto (es. `Valuta`, `Percentuale`, `Data`).
 
 ---
 
@@ -196,8 +196,7 @@ Quindi trascinando la formula in basso diventa `=$B3*C$1`, trascinando a destra 
 
 ## Esercizio: listino con sconto e IVA
 
-Crea questa struttura in `L1_Formule`:
-Intestazione colonna (riga 1):
+Crea nel foglio `L1_Formule` una tabella con queste intestazioni (riga 1):
 
 - `A` Prodotto
 - `B` Prezzo
@@ -208,33 +207,23 @@ Intestazione colonna (riga 1):
 - `G` IVA
 - `H` Totale finale
 
-In `K1` inserisci l'aliquota IVA, cioè: `0,22`
+Inserisci in `K1` l'aliquota IVA: `0,22`.
 
-Formule (riga 2):
+Scrivi poi le formule in riga 2:
 
-- in D2: una formula per calcolare il subtotale (prezzo * quantità)
-- in F2: una formula per calcolare il netto dopo sconto (subtotale - sconto)
-- in G2: una formula per calcolare l'IVA (netto * aliquota)
-- in H2: una formula per calcolare il totale finale (netto + IVA), arrotondato a 2 decimali
+- in `D2`: calcola il subtotale (`Prezzo * Quantità`)
+- in `F2`: calcola il netto dopo lo sconto (`Subtotale - sconto`)
+- in `G2`: calcola l'IVA (`Netto * aliquota`)
+- in `H2`: calcola il totale finale (`Netto + IVA`) arrotondato a 2 decimali
 
-Compila poi 10 prodotti, applica le formule su tutti e 10 e verifica che i calcoli siano corretti.
+Compila almeno 10 prodotti, trascina le formule su tutte le righe e controlla che i risultati siano coerenti (nella colonna Sconto % devi inserire un numero seguito dal simbolo `%`, es. `15%`). A fine tabella aggiungi una piccola area riepilogo con:
 
-In seguito aggiungi in fondo alla tabella:
+- Totale generale
+- Media prezzo
 
-- totale generale
-- media prezzo
-- valore minimo
-- valore massimo
+Ed usa delle formule appropriate per calcolare questi valori.
 
-Poi gestisci arrotondamento e gestione errore:
-
-1. Crea una colonna `Prezzo medio unitario = Totale/Quantità`.
-2. Arrotonda il risultato a 2 decimali con `ARROTONDA`.
-3. Gestisci divisioni non valide con:
-
-```text
-=SE.ERRORE(ARROTONDA(H2/C2;2);"Dato non valido")
-```
+Infine aggiungi la colonna **Prezzo medio unitario**, dato dal totale finale diviso la quantità, arrotondato a 2 decimali.
 
 # Lezione 2 - Funzioni avanzate essenziali per analizzare dati
 
