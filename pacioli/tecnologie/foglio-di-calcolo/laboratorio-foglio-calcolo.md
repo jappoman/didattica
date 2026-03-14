@@ -341,18 +341,14 @@ Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo
 2026-03-02,Amministrazione,Risma A4,20,4.8,96
 2026-03-02,Magazzino,Scatole,15,2.5,37.5
 2026-03-03,Informatica,Tastiera,8,24,192
+2026-03-03,Vendite,Notebook,2,650,1300
+2026-03-04,Amministrazione,Penne,30,1.2,36
+2026-03-04,Magazzino,Nastro,10,3.4,34
 ```
 
 ## 5) Esempio guidato
 
-Importa un file CSV con una tabella vendite che contenga almeno queste colonne:
-
-- `Data`
-- `Reparto`
-- `Prodotto`
-- `Quantità`
-- `Prezzo unitario`
-- `Importo`
+Importa il `CSV di lavoro` qui sopra.
 
 Dopo l'import:
 
@@ -372,7 +368,7 @@ H6 = CONTA.NUMERI(F2:F200)
 
 ## 6) Esercizio Lezione 2
 
-Nel foglio `L2_CSV_Funzioni_Base` importa un CSV fornito dal docente con un dataset vendite.
+Nel foglio `L2_CSV_Funzioni_Base` importa il `CSV di lavoro` di questa lezione.
 
 Consegna:
 
@@ -442,9 +438,16 @@ Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo,Stato
 2026-03-02,Amministrazione,Risma A4,20,4.8,96,Aperto
 2026-03-03,Vendite,Cuffie,3,35,105,Aperto
 2026-03-03,Informatica,Tastiera,8,24,192,Chiuso
+2026-03-04,Informatica,Monitor,6,140,840,Aperto
+2026-03-04,Amministrazione,Penne,10,1.2,12,Aperto
+2026-03-05,Vendite,Notebook,2,650,1300,Aperto
+2026-03-05,Magazzino,Nastro,15,3.4,51,Chiuso
+2026-03-06,Amministrazione,Raccoglitore,4,6.5,26,Aperto
 ```
 
 ## 3) Esempio guidato completo: mini report vendite
+
+Usa il `CSV di lavoro` qui sopra.
 
 Struttura dati (`A:G`):
 
@@ -488,7 +491,7 @@ G2 = SE(D2<10;"Riordinare";"OK")
 
 ## 4) Esercizio Lezione 3
 
-Nel foglio `L3_Funzioni_Criteri` importa o incolla un dataset vendite con almeno 30 righe e le colonne `Data`, `Reparto`, `Prodotto`, `Quantità`, `Prezzo unitario`, `Importo`, `Stato`.
+Nel foglio `L3_Funzioni_Criteri` importa il `CSV di lavoro` di questa lezione.
 
 Consegna:
 
@@ -585,7 +588,7 @@ Uso corretto:
 
 ## CSV di lavoro
 
-Per questa lezione usa due piccoli CSV: uno per `Ordini` e uno per `Listino`.
+Per questa lezione usa due CSV: uno per `Ordini` e uno per `Listino`.
 
 CSV `Ordini`:
 
@@ -596,6 +599,8 @@ P003
 P999
 P002
 P777
+P004
+P001
 ```
 
 CSV `Listino`:
@@ -606,9 +611,12 @@ P001,Mouse,Informatica,18.5
 P002,Tastiera,Informatica,24
 P003,Risma A4,Amministrazione,4.8
 P004,Toner,Vendite,42
+P005,Cuffie,Vendite,35
 ```
 
 ## 5) Esempio guidato completo
+
+Importa i due `CSV di lavoro` qui sopra.
 
 Foglio `Ordini`:
 
@@ -633,7 +641,7 @@ C2 = SE.ERRORE(CERCA.X(A2;Listino!A:A;Listino!C:C;"Codice non trovato");"Codice 
 
 ## 6) Esercizio Lezione 4
 
-Nel foglio `L4_Ricerche` prepara una tabella `Ordini` con la colonna `Codice` e un foglio `Listino` con le colonne `Codice`, `Descrizione`, `Reparto`, `Prezzo`.
+Nel foglio `L4_Ricerche` importa i due `CSV di lavoro` di questa lezione in due fogli separati: `Ordini` e `Listino`.
 
 Consegna:
 
@@ -813,11 +821,17 @@ Data,Reparto,Prodotto,Quantità,Importo,Stato
 2026-03-03,Vendite,Cuffie,3,105,Aperto
 2026-03-03,Informatica,Tastiera,8,192,Chiuso
 2026-03-04,Magazzino,Scatole,15,37.5,Aperto
+2026-03-05,Vendite,Notebook,2,1300,Aperto
+2026-03-05,Informatica,Monitor,6,840,Aperto
+2026-03-06,Amministrazione,Penne,30,36,Chiuso
+2026-03-06,Magazzino,Nastro,10,34,Aperto
+2026-03-07,Vendite,Webcam,7,280,Aperto
+2026-03-07,Informatica,Hub USB,9,171,Chiuso
 ```
 
 ## 11) Esempio guidato completo
 
-Dataset `Ordini_Annuali` con 100 righe.
+Usa il `CSV di lavoro` qui sopra.
 
 Consegna guidata:
 
@@ -831,7 +845,7 @@ Consegna guidata:
 
 ## 12) Esercizio Lezione 5
 
-Nel foglio `L5_Tabelle_Filtri_Pivot` crea o incolla un dataset ordini con almeno 50 righe.
+Nel foglio `L5_Tabelle_Filtri_Pivot` importa il `CSV di lavoro` di questa lezione.
 
 Consegna:
 
@@ -953,7 +967,7 @@ Anche se non richiesta in verifica, aiuta molto nella revisione.
 
 ## CSV di lavoro
 
-Importa un CSV volutamente sporco, ad esempio:
+Importa questo `CSV di lavoro` volutamente sporco:
 
 ```csv
 ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
@@ -962,20 +976,22 @@ ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
 3,,Amministrazione,Risma A4,20,4.8,APERTO,ORD-2026-003
 3,04/03/2026, Magazzino ,Scatole,15,2.5,In lavorazione,ORD-2026-004
 5,35/03/2026,Informatica,Tastiera,8,24,Aperto,ORD-2026-005
+6,06/03/2026,Vendite,Cuffie,-2,35,Chiuso,ORD-2026-006
+7,07/03/2026,Amministrazione,Penne,10,1.2,chiuso,ORD-2026-007
 ```
 
 ## 7) Esempio guidato completo
 
-1. Crea tabella Ordini con 20 righe.
+1. Importa il `CSV di lavoro`.
 2. Applica convalide su reparto, quantità, data, stato.
 3. Pulisci una colonna con `ANNULLA.SPAZI`.
 4. Estrai una parte del codice con `STRINGA.ESTRAI`.
-5. Inserisci volontariamente 5 errori.
-6. Osserva quali errori vengono bloccati.
+5. Individua errori, duplicati e valori incoerenti già presenti nel CSV.
+6. Osserva quali errori vengono bloccati e quali vanno corretti manualmente.
 
 ## 8) Esercizio Lezione 6
 
-Nel foglio `L6_Convalida_Pulizia` costruisci una tabella `Ordini` con almeno 20 righe e alcune celle volutamente sporche o sbagliate.
+Nel foglio `L6_Convalida_Pulizia` importa il `CSV di lavoro` di questa lezione.
 
 Consegna:
 
@@ -1066,24 +1082,27 @@ Usa un CSV vendite mensili come questo:
 Mese,Reparto,Importo
 Gennaio,Informatica,820
 Gennaio,Vendite,640
+Gennaio,Amministrazione,310
 Febbraio,Informatica,910
 Febbraio,Vendite,700
+Febbraio,Amministrazione,330
 Marzo,Informatica,880
 Marzo,Vendite,760
+Marzo,Amministrazione,290
+Aprile,Informatica,950
+Aprile,Vendite,720
+Aprile,Amministrazione,340
 ```
 
 ## 4) Esempio guidato completo
 
-1. Tabella `Vendite_Mensili` con colonne:
-   - Mese
-   - Reparto
-   - Importo
-2. Crea grafico a colonne per confronto reparti.
-3. Crea grafico a linee per andamento mensile.
+1. Importa il `CSV di lavoro`.
+2. Crea un grafico a colonne per confrontare i reparti.
+3. Crea un grafico a linee per mostrare l'andamento mensile.
 
 ## 5) Esercizio Lezione 7
 
-Nel foglio `L7_Grafici` prepara una tabella `Vendite_Mensili` con colonne `Mese`, `Reparto`, `Importo`.
+Nel foglio `L7_Grafici` importa il `CSV di lavoro` di questa lezione.
 
 Consegna:
 
@@ -1168,183 +1187,3 @@ Dopo la simulazione:
 - confronto tra soluzioni diverse
 - discussione sugli errori più frequenti
 - strategia per migliorare velocità e precisione
-
----
-
-# Lezione 9 - Verifica finale Modulo 3
-
-## Tipologia
-
-**Prova pratica al PC**, coerente con le competenze del modulo.
-
-## Struttura della prova
-
-- 4 esercizi formule/funzioni (inclusa almeno una ricerca dati)
-- 1 operazione di import/export CSV
-- 1 esercizio convalida dati
-- 1 esercizio pulizia dato
-- 1 esercizio ordinamento/filtri/tabella
-- 1 grafico
-- 1 domanda breve o micro-operazione su CSV
-
-## Tempo previsto
-
-1 ora.
-
-## Materiale consentito
-
-- file consegnato dal docente
-- strumenti standard del foglio di calcolo
-- non è consentito usare file esterni non autorizzati
-
-## Criteri di valutazione
-
-### Correttezza operativa
-
-- formule giuste
-- filtri/ordinamenti corretti
-- grafico coerente
-
-### Autonomia
-
-- svolgimento senza guida continua
-- gestione problemi di base in autonomia
-
-### Ordine del file
-
-- struttura chiara
-- intestazioni corrette
-- formati coerenti
-
-### Comprensione consegna
-
-- rispetto di tutte le richieste
-- attenzione ai dettagli (criteri, soglie, range)
-
-### Uso strumenti base e avanzati
-
-- formule con criterio
-- funzioni di ricerca
-- gestione CSV
-- convalida dati
-- pulizia dati
-- filtri e tabelle
-- grafici
-
-## Esempio di traccia verifica
-
-Dataset fornito con colonne:
-
-- Data
-- Reparto
-- Prodotto
-- Quantità
-- Prezzo
-- Stato
-
-Richieste:
-
-1. calcolare importo
-2. aggiungere stato scorta con `SE`
-3. sommare importi reparto `Vendite` con una funzione a più criteri
-4. recuperare un prezzo da listino con una funzione di ricerca
-5. importare oppure esportare correttamente un CSV
-6. convalidare quantità 1..100
-7. pulire una colonna testo oppure estrarre una parte di un codice
-8. trasformare il dataset in tabella
-9. ordinare per reparto + importo desc
-10. filtrare ordini `Aperto` con importo > 300
-11. creare una tabella pivot semplice per reparto
-12. creare grafico a colonne per reparto
-
-## Motivazione didattica della prova pratica
-
-La prova pratica misura le abilità realmente richieste dal modulo:
-
-- applicare formule avanzate
-- gestire dati importati da CSV
-- garantire qualità del dato
-- leggere dati con filtri, tabelle e pivot
-- rappresentare informazioni con grafici
-- gestire scambio dati tramite CSV
-
-È quindi la scelta più coerente con gli obiettivi formativi.
-
----
-
-# Appendice A - Formula sheet rapido
-
-## Operatori
-
-```text
-+  somma
--  sottrazione
-*  moltiplicazione
-/  divisione
-^  potenza
-&  unione testo
-```
-
-## Funzioni principali
-
-```text
-=SOMMA(intervallo)
-=MEDIA(intervallo)
-=MIN(intervallo)
-=MAX(intervallo)
-=ARROTONDA(numero;num_cifre)
-=SE(test;vero;falso)
-=SOMMA.PIÙ.SE(intervallo_somma;intervallo_criterio1;criterio1;...)
-=CONTA.PIÙ.SE(intervallo_criterio1;criterio1;...)
-=CERCA.VERT(chiave;tabella;indice_colonna;FALSO)
-=CERCA.X(chiave;matrice_ricerca;matrice_risultato;"non trovato")
-=UNICI(intervallo)
-=STRINGA.ESTRAI(testo;posizione_iniziale;numero_caratteri)
-=SE.ERRORE(formula;valore_se_errore)
-=SUBTOTALE(codice_funzione;intervallo)
-```
-
-## Riferimenti
-
-```text
-A1   relativo
-$A$1 assoluto
-$A1  colonna fissa
-A$1  riga fissa
-```
-
----
-
-# Appendice B - Checklist finale studente
-
-Prima di consegnare qualsiasi esercizio:
-
-1. ho controllato che tutte le formule inizino con `=`
-2. ho verificato che i riferimenti siano corretti dopo trascinamento
-3. ho verificato i formati (numero, %, data, valuta)
-4. ho controllato se ci sono errori visibili (`#NOME?`, `#VALORE!`, `#DIV/0!`)
-5. ho rimosso filtri non necessari
-6. ho dato un titolo chiaro al grafico
-7. ho controllato che il CSV si apra correttamente
-
----
-
-# Appendice C - Mini rubriche valutazione esercizi (auto-valutazione)
-
-## Livello Base
-
-- esegue formule semplici
-- applica filtri base
-- crea un grafico essenziale
-
-## Livello Intermedio
-
-- usa funzioni con criterio
-- applica convalida dati in modo corretto
-- interpreta risultati filtrati
-
-## Livello Avanzato
-
-- combina più funzioni con logica corretta
-- evita errori strutturali
-- produce file ordinato, leggibile, esportabile
