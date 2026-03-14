@@ -31,13 +31,12 @@ Crea un file chiamato `modulo3-foglio-calcolo-avanzato` e prepara questi fogli:
 
 - `L1_Formule`
 - `L2_CSV_Funzioni_Base`
-- `L3_Funzioni_Criteri`
-- `L4_Ricerche`
-- `L5_Tabelle_Filtri_Pivot`
-- `L6_Convalida_Pulizia`
-- `L7_Grafici`
+- `L3_Convalida_Pulizia`
+- `L4_Funzioni_Criteri`
+- `L5_Ricerche`
+- `L6_Tabelle_Filtri`
+- `L7_Grafici_Pivot`
 - `L8_Simulazione`
-- `L9_Verifica`
 
 Consigli pratici:
 
@@ -380,7 +379,149 @@ Consegna:
 
 ---
 
-# Lezione 3 - Funzioni essenziali: riepilogo, SE e criteri
+# Lezione 3 - Qualità del dato: convalida, pulizia e coerenza
+
+## Obiettivi della lezione
+
+A fine lezione devi saper:
+
+- prevenire errori in inserimento
+- costruire convalide efficaci
+- pulire testi e codici già inseriti
+- migliorare affidabilità del file
+
+## 1) Perché la qualità del dato è centrale
+
+Regola fondamentale:
+
+- se i dati sono sporchi, i risultati sono inutili
+
+Errori tipici in classe e in azienda:
+
+- reparti scritti in modi diversi (`Vendite`, `vendite`, `Vendita`)
+- date non valide
+- quantità negative
+- codici non univoci
+- campi vuoti dove non dovrebbero esserci
+
+## 2) Convalida dati: idea e tipi principali
+
+La convalida è un filtro in ingresso.
+Accetta solo valori conformi a una regola.
+
+Tipi usati nel modulo:
+
+- numero intero
+- numero decimale
+- data
+- elenco
+- lunghezza testo
+
+## 3) Regole consigliate per tabella Ordini
+
+Campi:
+
+- `ID Ordine`
+- `Data Ordine`
+- `Reparto`
+- `Prodotto`
+- `Quantità`
+- `Prezzo`
+- `Stato`
+
+Convalide:
+
+- `ID Ordine`: intero > 0
+- `Data Ordine`: tra `01/01/2025` e `31/12/2026`
+- `Reparto`: elenco prefissato
+- `Quantità`: intero tra 1 e 100
+- `Prezzo`: numero > 0
+- `Stato`: elenco `Aperto`, `In lavorazione`, `Chiuso`
+
+## 4) Liste di supporto (buona pratica)
+
+Crea un'area laterale (es. `M1:M10`) con valori elenco:
+
+- Informatica
+- Amministrazione
+- Vendite
+- Magazzino
+
+Poi usa quella gamma come sorgente della convalida.
+Vantaggio: se cambia un reparto, aggiorni solo la lista.
+
+## 5) Pulizia base dei dati già inseriti
+
+Operazioni utili:
+
+- rimuovere spazi iniziali/finali
+- uniformare maiuscole/minuscole
+- estrarre parti utili da un codice
+- correggere formati data
+- trovare duplicati
+
+Funzioni utili (se disponibili):
+
+```text
+=ANNULLA.SPAZI(A2)
+=MAIUSC(A2)
+=MINUSC(A2)
+=STRINGA.ESTRAI(A2;4;3)
+```
+
+Esempio pratico:
+
+- da `ORD-2026-015` puoi estrarre `2026` oppure `015` per costruire controlli o colonne di supporto
+
+## 6) Evidenziazione errori (formattazione condizionale)
+
+Esempi:
+
+- quantità < 1 o > 100 in rosso
+- data vuota in giallo
+- stato diverso da elenco in arancione
+
+Anche se non richiesta in verifica, aiuta molto nella revisione.
+
+## CSV di lavoro
+
+Importa questo `CSV di lavoro` volutamente sporco:
+
+```csv
+ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
+1,01/03/2026,Informatica,Mouse,12,18.5,Aperto,ORD-2026-001
+2,02/03/2026,vendite,Toner,0,42,Chiuso,ORD-2026-002
+3,,Amministrazione,Risma A4,20,4.8,APERTO,ORD-2026-003
+3,04/03/2026, Magazzino ,Scatole,15,2.5,In lavorazione,ORD-2026-004
+5,35/03/2026,Informatica,Tastiera,8,24,Aperto,ORD-2026-005
+6,06/03/2026,Vendite,Cuffie,-2,35,Chiuso,ORD-2026-006
+7,07/03/2026,Amministrazione,Penne,10,1.2,chiuso,ORD-2026-007
+```
+
+## 7) Esempio guidato
+
+1. Importa il `CSV di lavoro`.
+2. Applica convalide su reparto, quantità, data, stato.
+3. Pulisci una colonna con `ANNULLA.SPAZI`.
+4. Estrai una parte del codice con `STRINGA.ESTRAI`.
+5. Individua errori, duplicati e valori incoerenti già presenti nel CSV.
+6. Osserva quali errori vengono bloccati e quali vanno corretti manualmente.
+
+## 8) Esercizio Lezione 3
+
+Nel foglio `L3_Convalida_Pulizia` importa il `CSV di lavoro` di questa lezione.
+
+Consegna:
+
+- applica le convalide su `Data`, `Reparto`, `Quantità` e `Stato`
+- crea una piccola lista di supporto per il campo `Reparto`
+- pulisci una colonna testo con `ANNULLA.SPAZI`
+- usa `STRINGA.ESTRAI` per ricavare una parte utile da un codice
+- individua almeno 2 errori o duplicati e correggili
+
+---
+
+# Lezione 4 - Funzioni essenziali: riepilogo, SE e criteri
 
 ## Obiettivi della lezione
 
@@ -445,7 +586,7 @@ Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo,Stato
 2026-03-06,Amministrazione,Raccoglitore,4,6.5,26,Aperto
 ```
 
-## 3) Esempio guidato completo: mini report vendite
+## 3) Esempio guidato: mini report vendite
 
 Usa il `CSV di lavoro` qui sopra.
 
@@ -472,8 +613,9 @@ Area riepilogo (`H:K`):
 - importo minimo
 - importo massimo
 - numero righe compilate
-- totale ordini reparto Informatica con quantità >= 5
-- totale ordini reparto Vendite con importo >= 100
+- totale importi reparto Informatica con quantità >= 5
+- numero ordini reparto Vendite con stato `Aperto`
+- totale importi reparto Vendite con quantità >= 100
 
 Formule possibili:
 
@@ -489,9 +631,9 @@ H9 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Vendite";D2:D200;">=100")
 G2 = SE(D2<10;"Riordinare";"OK")
 ```
 
-## 4) Esercizio Lezione 3
+## 4) Esercizio Lezione 4
 
-Nel foglio `L3_Funzioni_Criteri` importa il `CSV di lavoro` di questa lezione.
+Nel foglio `L4_Funzioni_Criteri` importa il `CSV di lavoro` di questa lezione.
 
 Consegna:
 
@@ -504,7 +646,7 @@ Consegna:
 
 ---
 
-# Lezione 4 - Ricerca dati: CERCA.VERT, CERCA.X e SE.ERRORE
+# Lezione 5 - Ricerca dati: CERCA.VERT, CERCA.X e SE.ERRORE
 
 ## Obiettivi della lezione
 
@@ -567,8 +709,6 @@ Vantaggi:
 - può cercare sia a destra sia a sinistra
 - può già mostrare un messaggio se il codice manca
 
-
-
 ## 4) SE.ERRORE
 
 Serve per evitare messaggi tecnici in output finale.
@@ -614,7 +754,7 @@ P004,Toner,Vendite,42
 P005,Cuffie,Vendite,35
 ```
 
-## 5) Esempio guidato completo
+## 5) Esempio guidato
 
 Importa i due `CSV di lavoro` qui sopra.
 
@@ -639,9 +779,9 @@ B2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;2;FALSO);"Codice non trovato")
 C2 = SE.ERRORE(CERCA.X(A2;Listino!A:A;Listino!C:C;"Codice non trovato");"Codice non trovato")
 ```
 
-## 6) Esercizio Lezione 4
+## 6) Esercizio Lezione 5
 
-Nel foglio `L4_Ricerche` importa i due `CSV di lavoro` di questa lezione in due fogli separati: `Ordini` e `Listino`.
+Nel foglio `L5_Ricerche` importa i due `CSV di lavoro` di questa lezione in due fogli separati: `Ordini` e `Listino`.
 
 Consegna:
 
@@ -651,9 +791,10 @@ Consegna:
 - gestisci i codici non trovati con `SE.ERRORE`
 - scrivi in 2 righe quale funzione ti sembra più comoda tra `CERCA.VERT` e `CERCA.X`
 
+
 ---
 
-# Lezione 5 - Tabelle, filtri e tabelle pivot
+# Lezione 6 - Tabelle, filtri e analisi operativa
 
 ## Obiettivi della lezione
 
@@ -664,9 +805,7 @@ A fine lezione devi saper:
 - applicare filtri testuali, numerici e per data
 - bloccare le prime righe per lavorare meglio su dataset lunghi
 - usare `SUBTOTALE` su dati filtrati
-- creare una tabella pivot molto semplice
 - rispondere a domande reali con i dati filtrati
-- distinguere tra filtro sul foglio base e analisi con pivot
 
 ## 1) Dato grezzo vs tabella leggibile
 
@@ -760,38 +899,7 @@ Altri codici utili:
 
 Questa funzione è utile perché, in pratica, si comporta come un riepilogo rapido dei dati selezionati dal filtro.
 
-## 8) Tabelle pivot: primo contatto
-
-Una tabella pivot serve per riassumere molti dati senza scrivere formule lunghe.
-
-Esempio base:
-
-- righe = `Reparto`
-- valori = somma `Importo`
-- filtri = `Stato`
-
-Uso didattico della lezione:
-
-- mostrare che dal foglio base puoi filtrare e controllare i dati originali
-- mostrare che la pivot serve invece per riassumere gli stessi dati in modo più veloce
-
-## 9) Ordinamento multiplo: esempio operativo
-
-Tabella:
-
-- `Reparto`
-- `Stato`
-- `Importo`
-
-Obiettivo:
-
-1. prima `Reparto` A-Z
-2. poi `Stato` (`Aperto` prima di `Chiuso`)
-3. poi `Importo` decrescente
-
-Risultato: lettura più rapida per blocchi logici.
-
-## 10) Attenzione agli errori frequenti
+## 8) Attenzione agli errori frequenti
 
 Errore 1:
 
@@ -829,7 +937,7 @@ Data,Reparto,Prodotto,Quantità,Importo,Stato
 2026-03-07,Informatica,Hub USB,9,171,Chiuso
 ```
 
-## 11) Esempio guidato completo
+## 9) Esempio guidato
 
 Usa il `CSV di lavoro` qui sopra.
 
@@ -841,11 +949,10 @@ Consegna guidata:
 4. filtra `Stato = Aperto`
 5. filtra anche `Importo > 250`
 6. calcola totale visibile con `SUBTOTALE`
-7. crea una tabella pivot con somma importi per reparto
 
-## 12) Esercizio Lezione 5
+## 10) Esercizio Lezione 6
 
-Nel foglio `L5_Tabelle_Filtri_Pivot` importa il `CSV di lavoro` di questa lezione.
+Nel foglio `L6_Tabelle_Filtri` importa il `CSV di lavoro` di questa lezione.
 
 Consegna:
 
@@ -854,156 +961,10 @@ Consegna:
 - ordina i dati per `Reparto` e poi per `Importo` decrescente
 - filtra solo gli ordini `Aperto` con importo >= 200
 - calcola il totale dei record visibili con `SUBTOTALE`
-- crea una tabella pivot con somma `Importo` per `Reparto`
-
 
 ---
 
-# Lezione 6 - Qualità del dato: convalida, pulizia e coerenza
-
-## Obiettivi della lezione
-
-A fine lezione devi saper:
-
-- prevenire errori in inserimento
-- costruire convalide efficaci
-- pulire testi e codici già inseriti
-- migliorare affidabilità del file
-
-## 1) Perché la qualità del dato è centrale
-
-Regola fondamentale:
-
-- se i dati sono sporchi, i risultati sono inutili
-
-Errori tipici in classe e in azienda:
-
-- reparti scritti in modi diversi (`Vendite`, `vendite`, `Vendita`)
-- date non valide
-- quantità negative
-- codici non univoci
-- campi vuoti dove non dovrebbero esserci
-
-## 2) Convalida dati: idea e tipi principali
-
-La convalida è un filtro in ingresso.
-Accetta solo valori conformi a una regola.
-
-Tipi usati nel modulo:
-
-- numero intero
-- numero decimale
-- data
-- elenco
-- lunghezza testo
-
-## 3) Regole consigliate per tabella Ordini
-
-Campi:
-
-- `ID Ordine`
-- `Data Ordine`
-- `Reparto`
-- `Prodotto`
-- `Quantità`
-- `Prezzo`
-- `Stato`
-
-Convalide:
-
-- `ID Ordine`: intero > 0
-- `Data Ordine`: tra `01/01/2025` e `31/12/2026`
-- `Reparto`: elenco prefissato
-- `Quantità`: intero tra 1 e 100
-- `Prezzo`: numero > 0
-- `Stato`: elenco `Aperto`, `In lavorazione`, `Chiuso`
-
-## 4) Liste di supporto (buona pratica)
-
-Crea un'area laterale (es. `M1:M10`) con valori elenco:
-
-- Informatica
-- Amministrazione
-- Vendite
-- Magazzino
-
-Poi usa quella gamma come sorgente della convalida.
-Vantaggio: se cambia un reparto, aggiorni solo la lista.
-
-
-
-## 5) Pulizia base dei dati già inseriti
-
-Operazioni utili:
-
-- rimuovere spazi iniziali/finali
-- uniformare maiuscole/minuscole
-- estrarre parti utili da un codice
-- correggere formati data
-- trovare duplicati
-
-Funzioni utili (se disponibili):
-
-```text
-=ANNULLA.SPAZI(A2)
-=MAIUSC(A2)
-=MINUSC(A2)
-=STRINGA.ESTRAI(A2;4;3)
-```
-
-Esempio pratico:
-
-- da `ORD-2026-015` puoi estrarre `2026` oppure `015` per costruire controlli o colonne di supporto
-
-## 6) Evidenziazione errori (formattazione condizionale)
-
-Esempi:
-
-- quantità < 1 o > 100 in rosso
-- data vuota in giallo
-- stato diverso da elenco in arancione
-
-Anche se non richiesta in verifica, aiuta molto nella revisione.
-
-## CSV di lavoro
-
-Importa questo `CSV di lavoro` volutamente sporco:
-
-```csv
-ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
-1,01/03/2026,Informatica,Mouse,12,18.5,Aperto,ORD-2026-001
-2,02/03/2026,vendite,Toner,0,42,Chiuso,ORD-2026-002
-3,,Amministrazione,Risma A4,20,4.8,APERTO,ORD-2026-003
-3,04/03/2026, Magazzino ,Scatole,15,2.5,In lavorazione,ORD-2026-004
-5,35/03/2026,Informatica,Tastiera,8,24,Aperto,ORD-2026-005
-6,06/03/2026,Vendite,Cuffie,-2,35,Chiuso,ORD-2026-006
-7,07/03/2026,Amministrazione,Penne,10,1.2,chiuso,ORD-2026-007
-```
-
-## 7) Esempio guidato completo
-
-1. Importa il `CSV di lavoro`.
-2. Applica convalide su reparto, quantità, data, stato.
-3. Pulisci una colonna con `ANNULLA.SPAZI`.
-4. Estrai una parte del codice con `STRINGA.ESTRAI`.
-5. Individua errori, duplicati e valori incoerenti già presenti nel CSV.
-6. Osserva quali errori vengono bloccati e quali vanno corretti manualmente.
-
-## 8) Esercizio Lezione 6
-
-Nel foglio `L6_Convalida_Pulizia` importa il `CSV di lavoro` di questa lezione.
-
-Consegna:
-
-- applica le convalide su `Data`, `Reparto`, `Quantità` e `Stato`
-- crea una piccola lista di supporto per il campo `Reparto`
-- pulisci una colonna testo con `ANNULLA.SPAZI`
-- usa `STRINGA.ESTRAI` per ricavare una parte utile da un codice
-- individua almeno 2 errori o duplicati e correggili
-
----
-
-# Lezione 7 - Grafici: comunicare i dati
+# Lezione 7 - Grafici e tabelle pivot: sintetizzare i dati
 
 ## Obiettivi della lezione
 
@@ -1012,6 +973,7 @@ A fine lezione devi saper:
 - scegliere il grafico adatto al problema
 - costruire grafici leggibili
 - leggere un dataset già preparato o già importato
+- usare una tabella pivot come sintesi rapida a supporto dei grafici
 
 ## 1) Perché usare i grafici
 
@@ -1074,6 +1036,22 @@ Da evitare:
 - colori casuali senza significato
 - asse non leggibile
 
+## 4) Tabelle pivot come supporto ai grafici
+
+Una tabella pivot serve per riassumere velocemente i dati prima di trasformarli in un grafico.
+
+Uso pratico nella lezione:
+
+- costruisci un riepilogo per mese e reparto
+- controlli subito i totali
+- usi la pivot come base per creare un grafico piu pulito
+
+Esempio base:
+
+- righe = `Mese`
+- colonne = `Reparto`
+- valori = somma `Importo`
+
 ## CSV di lavoro
 
 Usa un CSV vendite mensili come questo:
@@ -1094,18 +1072,20 @@ Aprile,Vendite,720
 Aprile,Amministrazione,340
 ```
 
-## 4) Esempio guidato completo
+## 5) Esempio guidato
 
 1. Importa il `CSV di lavoro`.
-2. Crea un grafico a colonne per confrontare i reparti.
-3. Crea un grafico a linee per mostrare l'andamento mensile.
+2. Crea una tabella pivot con somma importi per `Mese` e `Reparto`.
+3. Crea un grafico a colonne per confrontare i reparti.
+4. Crea un grafico a linee per mostrare l'andamento mensile.
 
-## 5) Esercizio Lezione 7
+## 6) Esercizio Lezione 7
 
-Nel foglio `L7_Grafici` importa il `CSV di lavoro` di questa lezione.
+Nel foglio `L7_Grafici_Pivot` importa il `CSV di lavoro` di questa lezione.
 
 Consegna:
 
+- crea una tabella pivot che riassuma gli importi per mese e reparto
 - crea un grafico a colonne per confrontare i reparti
 - crea un grafico a linee per mostrare l'andamento mensile
 - scrivi in 2 righe quale dei due grafici comunica meglio ciascuna informazione
@@ -1150,10 +1130,10 @@ Usa un file con dati ordini/vendite e completa tutte le richieste.
 8. Ordina per Reparto e Importo desc.
 9. Filtra ordini aperti con importo > 250.
 10. Calcola totale visibile con `SUBTOTALE`.
-11. Crea una tabella pivot base per reparto.
 
 ### Parte E - Comunicazione dati
 
+11. Crea una tabella pivot base da usare come supporto al grafico.
 12. Crea grafico corretto con titolo e legenda.
 13. Esporta il foglio in CSV.
 
