@@ -272,23 +272,6 @@ Esempi:
 =SE(E2>500;"Bonus";"No bonus")
 ```
 
-## 3) Funzioni con un criterio
-
-### SOMMA.SE
-
-```text
-=SOMMA.SE(A2:A100;"Informatica";D2:D100)
-```
-
-Somma importi solo dove reparto = Informatica.
-
-### CONTA.SE
-
-```text
-=CONTA.SE(B2:B100;"Mouse")
-```
-
-Conta quante righe hanno prodotto = Mouse.
 
 ## 4) Funzioni con più criteri
 
@@ -458,21 +441,7 @@ Vantaggi:
 - può cercare sia a destra sia a sinistra
 - può già mostrare un messaggio se il codice manca
 
-## 4) INDICE + CONFRONTA
 
-È la soluzione più flessibile quando vuoi separare ricerca e risultato.
-
-Esempio:
-
-```text
-=INDICE(Listino!D:D;CONFRONTA(A2;Listino!A:A;0))
-```
-
-Quando preferirla:
-
-- tabella che cambia spesso struttura
-- modelli più robusti nel tempo
-- necessità di gestire ricerche più personalizzate
 
 ## 5) SE.ERRORE
 
@@ -526,9 +495,7 @@ Recupera `Descrizione`, `Reparto` e `Prezzo` partendo solo dal codice prodotto.
 Risolvi la stessa ricerca con `CERCA.X`.
 Se la funzione non è disponibile nello strumento usato, annotalo e passa all'esercizio successivo.
 
-### Esercizio 3 - INDICE + CONFRONTA
 
-Ricostruisci la colonna `Prezzo` con `INDICE` + `CONFRONTA`.
 
 ### Esercizio 4 - Gestione errore
 
@@ -536,7 +503,7 @@ Inserisci 3 codici inesistenti e gestisci il risultato con `SE.ERRORE`.
 
 ### Esercizio 5 - Confronto ragionato
 
-Scrivi 4 righe: quale funzione preferisci tra `CERCA.VERT`, `CERCA.X` e `INDICE` + `CONFRONTA`, e in quale situazione la useresti.
+Scrivi 4 righe: quale funzione preferisci tra `CERCA.VERT` e `CERCA.X` e in quale situazione la useresti.
 
 ---
 
@@ -742,13 +709,6 @@ Crea una pivot che mostri:
 - somma importi per reparto
 - numero ordini per stato
 
-### Esercizio 6 - Domande di comprensione
-
-Rispondi in celle dedicate:
-
-- quale reparto ha più ordini aperti?
-- quale prodotto compare più spesso?
-- qual è l'importo massimo in `Informatica`?
 
 ---
 
@@ -823,24 +783,7 @@ Crea un'area laterale (es. `M1:M10`) con valori elenco:
 Poi usa quella gamma come sorgente della convalida.
 Vantaggio: se cambia un reparto, aggiorni solo la lista.
 
-Se hai un archivio con reparti ripetuti, puoi generare la lista in automatico con `UNICI`:
 
-```text
-=UNICI(B2:B200)
-```
-
-In questo modo la convalida pesca valori già puliti e senza duplicati.
-
-## 5) Messaggi di input e avviso errore
-
-Quando possibile configura:
-
-- messaggio input (cosa inserire)
-- avviso errore (cosa è stato rifiutato)
-
-Esempio messaggio:
-
-- "Inserire quantità intera da 1 a 100"
 
 ## 6) Pulizia base dei dati già inseriti
 
@@ -910,13 +853,7 @@ Da un codice del tipo `CLI-2026-045`, estrai:
 
 Segna eventuali ID ordine ripetuti e correggili.
 
-### Esercizio 6 - Elenco dinamico per convalida
 
-1. Crea un elenco reparti con `UNICI` a partire dai dati ordini.
-2. Usa quell'elenco come origine della convalida dati nella colonna `Reparto`.
-3. Aggiungi un nuovo reparto nei dati e verifica che la lista si aggiorni.
-
----
 
 # Lezione 6 - Grafici e formato CSV: comunicare e scambiare dati
 
@@ -990,18 +927,7 @@ Da evitare:
 - colori casuali senza significato
 - asse non leggibile
 
-## 4) Grafico da tabella pivot (opzionale avanzato)
 
-Se disponibile nello strumento:
-
-1. crea tabella pivot da dataset ordini
-2. righe = reparto
-3. valori = somma importo
-4. inserisci grafico da pivot
-
-Vantaggio:
-
-- aggiornamento veloce quando i dati cambiano
 
 ## 5) CSV: cos'è e a cosa serve
 
@@ -1116,7 +1042,7 @@ Usa un file con dati ordini/vendite e completa tutte le richieste.
 1. Calcola `Importo = Quantità*Prezzo`.
 2. Crea `Stato scorta` con `SE`.
 3. Calcola totale vendite reparto `Informatica` con funzione a criterio.
-4. Recupera il prezzo da un foglio `Listino` con `CERCA.VERT`, `CERCA.X` oppure `INDICE+CONFRONTA`.
+4. Recupera il prezzo da un foglio `Listino` con `CERCA.VERT` oppure `CERCA.X`
 
 ### Parte B - Qualità dato
 
