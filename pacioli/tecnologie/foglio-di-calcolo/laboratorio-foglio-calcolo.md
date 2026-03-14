@@ -195,7 +195,34 @@ Quindi trascinando la formula in basso diventa `=$B3*C$1`, trascinando a destra 
 - `Causa tipica:` riferimento sbagliato dopo trascinamento
 - `Soluzione:` controlla se serve `$` per fissare la riga, la colonna o la cella
 
-## Esercizio: listino con sconto e IVA
+## Esempio guidato
+
+Nel foglio `L1_Formule` imposta una piccola tabella con queste colonne:
+
+- `A` Prodotto
+- `B` Prezzo
+- `C` Quantità
+- `D` Totale lordo
+- `E` IVA
+- `F` Totale finale
+
+Inserisci in `H1` l'aliquota IVA: `0,22`.
+
+Esempio di formule in riga 2:
+
+```text
+D2 = B2*C2
+E2 = D2*$H$1
+F2 = ARROTONDA(D2+E2;2)
+```
+
+In questo esempio:
+
+- `B2*C2` usa riferimenti relativi
+- `$H$1` è un riferimento assoluto
+- `ARROTONDA(...;2)` serve per ottenere un importo monetario corretto
+
+## Esercizio Lezione 1
 
 Crea nel foglio `L1_Formule` una tabella con queste intestazioni (riga 1):
 
