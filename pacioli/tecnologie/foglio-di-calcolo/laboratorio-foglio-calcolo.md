@@ -552,10 +552,10 @@ Esempi:
 ### SOMMA.PIÙ.SE
 
 ```text
-=SOMMA.PIÙ.SE(E2:E200;A2:A200;"Vendite";D2:D200;">=100")
+=SOMMA.PIÙ.SE(F2:F200;B2:B200;"Vendite";D2:D200;">=100")
 ```
 
-Somma `E` dove:
+Somma `F` dove:
 
 - reparto = Vendite
 - quantità >= 100
@@ -563,7 +563,7 @@ Somma `E` dove:
 ### CONTA.PIÙ.SE
 
 ```text
-=CONTA.PIÙ.SE(A2:A200;"Vendite";F2:F200;"Aperto")
+=CONTA.PIÙ.SE(B2:B200;"Vendite";G2:G200;"Aperto")
 ```
 
 Conta ordini aperti nel reparto Vendite.
@@ -590,7 +590,7 @@ Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo,Stato
 
 Usa il `CSV di lavoro` qui sopra.
 
-Struttura dati (`A:G`):
+Struttura dati (`A:H`):
 
 - Data
 - Reparto
@@ -599,6 +599,7 @@ Struttura dati (`A:G`):
 - Prezzo unitario
 - Importo
 - Stato
+- Stato scorta
 
 In `F2`:
 
@@ -606,7 +607,13 @@ In `F2`:
 =D2*E2
 ```
 
-Area riepilogo (`H:K`):
+In `H2`:
+
+```text
+=SE(D2<10;"Riordinare";"OK")
+```
+
+Area riepilogo (`J:K`):
 
 - totale vendite
 - media importo
@@ -620,15 +627,14 @@ Area riepilogo (`H:K`):
 Formule possibili:
 
 ```text
-H2 = SOMMA(F2:F200)
-H3 = MEDIA(F2:F200)
-H4 = MIN(F2:F200)
-H5 = MAX(F2:F200)
-H6 = CONTA.VALORI(C2:C200)
-H7 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Informatica";D2:D200;">=5")
-H8 = CONTA.PIÙ.SE(B2:B200;"Vendite";G2:G200;"Aperto")
-H9 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Vendite";D2:D200;">=100")
-G2 = SE(D2<10;"Riordinare";"OK")
+J2 = SOMMA(F2:F200)
+J3 = MEDIA(F2:F200)
+J4 = MIN(F2:F200)
+J5 = MAX(F2:F200)
+J6 = CONTA.VALORI(C2:C200)
+J7 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Informatica";D2:D200;">=5")
+J8 = CONTA.PIÙ.SE(B2:B200;"Vendite";G2:G200;"Aperto")
+J9 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Vendite";D2:D200;">=100")
 ```
 
 ## 4) Esercizio Lezione 4
@@ -818,10 +824,15 @@ Prima regola:
 - non devono esserci righe o colonne vuote interne
 - il blocco dati deve essere continuo
 
-Nel lavoro reale, soprattutto in Excel, conviene spesso usare `Formatta come tabella`.
-Questo rende più leggibile il dataset e attiva strumenti pratici di filtro e riepilogo.
+Nel lavoro reale, anche in Google Fogli, conviene rendere il dataset leggibile con:
 
-## 2) Trasforma in tabella e usa i filtri tabella
+- filtro attivo sull'intervallo
+- intestazione ben formattata
+- colori alternati
+
+Questo rende più chiaro il dataset e aiuta a lavorare meglio con ordinamenti, filtri e riepiloghi.
+
+## 2) Prepara l'intervallo e attiva i filtri
 
 Vantaggi pratici:
 
@@ -833,7 +844,7 @@ Vantaggi pratici:
 Idea chiave della lezione:
 
 - alcune operazioni di filtro si possono fare direttamente sul foglio base
-- se trasformi l'intervallo in tabella, soprattutto in Excel, hai anche strumenti dedicati nella scheda `Tabella`
+- in Google Fogli è utile applicare `Crea un filtro` e, se vuoi, usare colori alternati per leggere meglio il dataset
 
 ## 3) Blocca la visualizzazione: prime righe e intestazione
 
@@ -943,7 +954,7 @@ Usa il `CSV di lavoro` qui sopra.
 
 Consegna guidata:
 
-1. trasforma l'intervallo in tabella
+1. seleziona l'intervallo dati e attiva `Crea un filtro`
 2. blocca la riga delle intestazioni
 3. ordina per `Reparto`, poi `Importo` desc
 4. filtra `Stato = Aperto`
@@ -956,7 +967,7 @@ Nel foglio `L6_Tabelle_Filtri` importa il `CSV di lavoro` di questa lezione.
 
 Consegna:
 
-- trasforma l'intervallo in tabella
+- attiva il filtro sull'intervallo dati
 - blocca la riga delle intestazioni
 - ordina i dati per `Reparto` e poi per `Importo` decrescente
 - filtra solo gli ordini `Aperto` con importo >= 200
@@ -1126,7 +1137,7 @@ Usa un file con dati ordini/vendite e completa tutte le richieste.
 
 ### Parte D - Analisi
 
-7. Trasforma il dataset in tabella.
+7. Attiva il filtro sul dataset e rendilo leggibile con intestazione chiara e, se vuoi, colori alternati.
 8. Ordina per Reparto e Importo desc.
 9. Filtra ordini aperti con importo > 250.
 10. Calcola totale visibile con `SUBTOTALE`.
