@@ -234,7 +234,6 @@ A fine lezione devi saper:
 
 - ripassare le funzioni base di riepilogo
 - usare `SE` per creare decisioni automatiche
-- applicare un criterio singolo con `SOMMA.SE` e `CONTA.SE`
 - applicare più criteri con `SOMMA.PIÙ.SE` e `CONTA.PIÙ.SE`
 - costruire una piccola area report leggibile e automatica
 
@@ -272,8 +271,7 @@ Esempi:
 =SE(E2>500;"Bonus";"No bonus")
 ```
 
-
-## 4) Funzioni con più criteri
+## 3) Funzioni con più criteri
 
 ### SOMMA.PIÙ.SE
 
@@ -294,7 +292,7 @@ Somma `E` dove:
 
 Conta ordini aperti nel reparto Vendite.
 
-## 5) Esempio guidato completo: mini report vendite
+## 4) Esempio guidato completo: mini report vendite
 
 Struttura dati (`A:G`):
 
@@ -319,8 +317,7 @@ Area riepilogo (`H:K`):
 - importo minimo
 - importo massimo
 - numero righe compilate
-- vendite reparto Informatica
-- numero ordini con stato Aperto
+- totale ordini reparto Informatica con quantità >= 5
 - totale ordini reparto Vendite con importo >= 100
 
 Formule possibili:
@@ -331,61 +328,35 @@ H3 = MEDIA(F2:F200)
 H4 = MIN(F2:F200)
 H5 = MAX(F2:F200)
 H6 = CONTA.VALORI(C2:C200)
-H7 = SOMMA.SE(B2:B200;"Informatica";F2:F200)
-H8 = CONTA.SE(G2:G200;"Aperto")
+H7 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Informatica";D2:D200;">=5")
+H8 = CONTA.PIÙ.SE(B2:B200;"Vendite";G2:G200;"Aperto")
 H9 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Vendite";D2:D200;">=100")
 G2 = SE(D2<10;"Riordinare";"OK")
 ```
 
-## 6) Esercizi Lezione 2
+## 5) Esercizio Lezione 2
 
-### Esercizio 1 - Riepilogo base
+Nel foglio `L2_Funzioni_Criteri` crea una tabella vendite con almeno 30 righe e le colonne `Data`, `Reparto`, `Prodotto`, `Quantità`, `Prezzo unitario`, `Importo`, `Stato`.
 
-Su 30 righe di vendite calcola:
+Consegna:
 
-- totale
-- media
-- minimo
-- massimo
-
-### Esercizio 2 - Regola automatica
-
-Crea colonna `Stato scorta` con `SE`:
-
-- `Riordinare` se quantità < soglia
-- `OK` altrimenti
-
-### Esercizio 3 - Criteri
-
-Calcola:
-
-- totale vendite del reparto `Amministrazione`
-- numero ordini con stato `Aperto`
-- totale importi del prodotto `Mouse`
-
-### Esercizio 4 - Multi-criterio
-
-Calcola:
-
-- totale ordini del reparto `Informatica` con quantità >= 5
-- numero ordini del reparto `Vendite` con stato `Aperto`
-
-Usa `SOMMA.PIÙ.SE` e `CONTA.PIÙ.SE`.
-
-### Esercizio 5 - Mini dashboard
-
-Costruisci una piccola dashboard con almeno 6 indicatori automatici e una colonna `Stato scorta` calcolata con `SE`.
+- calcola `Importo`
+- crea la colonna `Stato scorta` con `SE`
+- costruisci una piccola area riepilogo con `SOMMA`, `MEDIA`, `MIN`, `MAX` e una funzione di conta
+- calcola il totale del reparto `Informatica` con quantità >= 5 usando `SOMMA.PIÙ.SE`
+- conta gli ordini del reparto `Vendite` con stato `Aperto` usando `CONTA.PIÙ.SE`
+- calcola il totale del reparto `Amministrazione` con quantità >= 3 usando `SOMMA.PIÙ.SE`
 
 ---
 
-# Lezione 3 - Ricerca dati: CERCA.VERT, CERCA.X, INDICE/CONFRONTA, SE.ERRORE
+# Lezione 3 - Ricerca dati: CERCA.VERT, CERCA.X e SE.ERRORE
 
 ## Obiettivi della lezione
 
 A fine lezione devi saper:
 
 - recuperare dati da una tabella di supporto
-- distinguere tra `CERCA.VERT`, `CERCA.X` e `INDICE`/`CONFRONTA`
+- distinguere tra `CERCA.VERT` e `CERCA.X`
 - scegliere la funzione di ricerca più adatta al caso
 - gestire gli errori in modo leggibile con `SE.ERRORE`
 
@@ -443,7 +414,7 @@ Vantaggi:
 
 
 
-## 5) SE.ERRORE
+## 4) SE.ERRORE
 
 Serve per evitare messaggi tecnici in output finale.
 
@@ -451,7 +422,7 @@ Esempi:
 
 ```text
 =SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
-=SE.ERRORE(INDICE(Listino!D:D;CONFRONTA(A2;Listino!A:A;0));"Codice non trovato")
+=SE.ERRORE(CERCA.X(A2;Listino!A:A;Listino!D:D;"Codice non trovato");"Codice non trovato")
 ```
 
 Uso corretto:
@@ -460,7 +431,7 @@ Uso corretto:
 - mostra un messaggio utile a chi legge il file
 - non sostituisce il controllo dei dati sorgente
 
-## 6) Esempio guidato completo
+## 5) Esempio guidato completo
 
 Foglio `Ordini`:
 
@@ -481,29 +452,19 @@ Formule possibili:
 ```text
 B2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;2;FALSO);"Codice non trovato")
 C2 = SE.ERRORE(CERCA.X(A2;Listino!A:A;Listino!C:C;"Codice non trovato");"Codice non trovato")
-D2 = SE.ERRORE(INDICE(Listino!D:D;CONFRONTA(A2;Listino!A:A;0));"Codice non trovato")
 ```
 
-## 7) Esercizi Lezione 3
+## 6) Esercizio Lezione 3
 
-### Esercizio 1 - CERCA.VERT base
+Nel foglio `L3_Ricerche` prepara una tabella `Ordini` con la colonna `Codice` e un foglio `Listino` con le colonne `Codice`, `Descrizione`, `Reparto`, `Prezzo`.
 
-Recupera `Descrizione`, `Reparto` e `Prezzo` partendo solo dal codice prodotto.
+Consegna:
 
-### Esercizio 2 - CERCA.X
-
-Risolvi la stessa ricerca con `CERCA.X`.
-Se la funzione non è disponibile nello strumento usato, annotalo e passa all'esercizio successivo.
-
-
-
-### Esercizio 4 - Gestione errore
-
-Inserisci 3 codici inesistenti e gestisci il risultato con `SE.ERRORE`.
-
-### Esercizio 5 - Confronto ragionato
-
-Scrivi 4 righe: quale funzione preferisci tra `CERCA.VERT` e `CERCA.X` e in quale situazione la useresti.
+- recupera `Descrizione` e `Prezzo` con `CERCA.VERT`
+- recupera `Reparto` con `CERCA.X`
+- inserisci almeno 3 codici inesistenti
+- gestisci i codici non trovati con `SE.ERRORE`
+- scrivi in 2 righe quale funzione ti sembra più comoda tra `CERCA.VERT` e `CERCA.X`
 
 ---
 
@@ -677,37 +638,18 @@ Consegna guidata:
 6. calcola totale visibile con `SUBTOTALE`
 7. crea una tabella pivot con somma importi per reparto
 
-## 12) Esercizi Lezione 4
+## 12) Esercizio Lezione 4
 
-### Esercizio 1 - Ricerca top valori
+Nel foglio `L4_Tabelle_Filtri_Pivot` crea o incolla un dataset ordini con almeno 50 righe.
 
-Trova i 5 ordini con importo maggiore e copia i risultati in una sezione report.
+Consegna:
 
-### Esercizio 2 - Filtri combinati
-
-Mostra solo:
-
-- reparto `Vendite`
-- stato `Aperto`
-- importo >= 200
-
-### Esercizio 3 - Analisi per data
-
-Filtra gli ordini del mese di marzo e calcola:
-
-- totale importo
-- media importo
-
-### Esercizio 4 - Tabella con subtotale
-
-Trasforma il dataset in tabella e mostra, con `SUBTOTALE`, il totale dei soli record visibili dopo un filtro per reparto.
-
-### Esercizio 5 - Tabella pivot base
-
-Crea una pivot che mostri:
-
-- somma importi per reparto
-- numero ordini per stato
+- trasforma l'intervallo in tabella
+- blocca la riga delle intestazioni
+- ordina i dati per `Reparto` e poi per `Importo` decrescente
+- filtra solo gli ordini `Aperto` con importo >= 200
+- calcola il totale dei record visibili con `SUBTOTALE`
+- crea una tabella pivot con somma `Importo` per `Reparto`
 
 
 ---
@@ -785,7 +727,7 @@ Vantaggio: se cambia un reparto, aggiorni solo la lista.
 
 
 
-## 6) Pulizia base dei dati già inseriti
+## 5) Pulizia base dei dati già inseriti
 
 Operazioni utili:
 
@@ -808,7 +750,7 @@ Esempio pratico:
 
 - da `ORD-2026-015` puoi estrarre `2026` oppure `015` per costruire controlli o colonne di supporto
 
-## 7) Evidenziazione errori (formattazione condizionale)
+## 6) Evidenziazione errori (formattazione condizionale)
 
 Esempi:
 
@@ -818,7 +760,7 @@ Esempi:
 
 Anche se non richiesta in verifica, aiuta molto nella revisione.
 
-## 8) Esempio guidato completo
+## 7) Esempio guidato completo
 
 1. Crea tabella Ordini con 20 righe.
 2. Applica convalide su reparto, quantità, data, stato.
@@ -827,33 +769,19 @@ Anche se non richiesta in verifica, aiuta molto nella revisione.
 5. Inserisci volontariamente 5 errori.
 6. Osserva quali errori vengono bloccati.
 
-## 9) Esercizi Lezione 5
+## 8) Esercizio Lezione 5
 
-### Esercizio 1 - Setup convalida completo
+Nel foglio `L5_Convalida_Pulizia` costruisci una tabella `Ordini` con almeno 20 righe e alcune celle volutamente sporche o sbagliate.
 
-Costruisci tabella e applica tutte le convalide richieste.
+Consegna:
 
-### Esercizio 2 - Test di robustezza
+- applica le convalide su `Data`, `Reparto`, `Quantità` e `Stato`
+- crea una piccola lista di supporto per il campo `Reparto`
+- pulisci una colonna testo con `ANNULLA.SPAZI`
+- usa `STRINGA.ESTRAI` per ricavare una parte utile da un codice
+- individua almeno 2 errori o duplicati e correggili
 
-Prova 8 inserimenti, di cui 4 sbagliati.
-Annota quali passano e quali no.
-
-### Esercizio 3 - Uniformità dati
-
-Correggi un dataset "sporco" fornito dal docente (reparti incoerenti, date miste, spazi).
-
-### Esercizio 4 - Stringa estrai
-
-Da un codice del tipo `CLI-2026-045`, estrai:
-
-- il blocco anno
-- il numero finale
-
-### Esercizio 5 - Controllo duplicati
-
-Segna eventuali ID ordine ripetuti e correggili.
-
-
+---
 
 # Lezione 6 - Grafici e formato CSV: comunicare e scambiare dati
 
@@ -929,7 +857,7 @@ Da evitare:
 
 
 
-## 5) CSV: cos'è e a cosa serve
+## 4) CSV: cos'è e a cosa serve
 
 CSV = `Comma-Separated Values`.
 È un file di testo con campi separati da un delimitatore.
@@ -946,7 +874,7 @@ Limiti:
 - niente formule complesse salvate come struttura di foglio
 - niente grafici incorporati
 
-## 6) Export CSV: controlli importanti
+## 5) Export CSV: controlli importanti
 
 Prima di esportare:
 
@@ -961,7 +889,7 @@ Dopo esportazione:
 - controlla se colonne sono allineate
 - verifica caratteri speciali
 
-## 7) Import CSV: problemi comuni
+## 6) Import CSV: problemi comuni
 
 Problema 1:
 
@@ -991,7 +919,7 @@ Soluzione:
 
 - imposta colonna come testo
 
-## 8) Esempio guidato completo
+## 7) Esempio guidato completo
 
 1. Tabella `Vendite_Mensili` con colonne:
    - Mese
@@ -1003,23 +931,17 @@ Soluzione:
 5. Importa il CSV in un nuovo file.
 6. Confronta originale e importato.
 
-## 9) Esercizi Lezione 6
+## 8) Esercizio Lezione 6
 
-### Esercizio 1 - Grafico confronto
+Nel foglio `L6_Grafici_CSV` prepara una tabella `Vendite_Mensili` con colonne `Mese`, `Reparto`, `Importo`.
 
-Crea un grafico a colonne con titolo `Confronto vendite reparti`.
+Consegna:
 
-### Esercizio 2 - Grafico trend
-
-Crea un grafico a linee con asse temporale ordinato.
-
-### Esercizio 3 - Scelta motivata
-
-Scrivi 4 righe: quale grafico comunica meglio e perché.
-
-### Esercizio 4 - Export/Import CSV
-
-Esporta, reimporta, poi elenca almeno 3 differenze rispetto al file originale.
+- crea un grafico a colonne per confrontare i reparti
+- crea un grafico a linee per mostrare l'andamento mensile
+- scrivi in 2 righe quale dei due grafici comunica meglio ciascuna informazione
+- esporta la tabella in CSV
+- importa il CSV in un nuovo foglio e controlla che colonne e date siano corrette
 
 ---
 
@@ -1081,7 +1003,7 @@ Usa un file con dati ordini/vendite e completa tutte le richieste.
 
 ## Errori tipici da evitare
 
-- usare `SOMMA` dove serve `SOMMA.SE`
+- usare `SOMMA` dove serve `SOMMA.PIÙ.SE`
 - dimenticare `FALSO` in `CERCA.VERT` quando serve corrispondenza esatta
 - usare `CERCA.VERT` su una tabella dove la chiave non è nella prima colonna
 - filtro applicato alla colonna sbagliata
@@ -1219,13 +1141,10 @@ La prova pratica misura le abilità realmente richieste dal modulo:
 =MAX(intervallo)
 =ARROTONDA(numero;num_cifre)
 =SE(test;vero;falso)
-=SOMMA.SE(intervallo_criterio;criterio;intervallo_somma)
-=CONTA.SE(intervallo;criterio)
 =SOMMA.PIÙ.SE(intervallo_somma;intervallo_criterio1;criterio1;...)
 =CONTA.PIÙ.SE(intervallo_criterio1;criterio1;...)
 =CERCA.VERT(chiave;tabella;indice_colonna;FALSO)
 =CERCA.X(chiave;matrice_ricerca;matrice_risultato;"non trovato")
-=INDICE(intervallo_ritorno;CONFRONTA(chiave;intervallo_ricerca;0))
 =UNICI(intervallo)
 =STRINGA.ESTRAI(testo;posizione_iniziale;numero_caratteri)
 =SE.ERRORE(formula;valore_se_errore)
