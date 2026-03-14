@@ -30,12 +30,13 @@ Esempio:
 Crea un file chiamato `modulo3-foglio-calcolo-avanzato` e prepara questi fogli:
 
 - `L1_Formule`
-- `L2_Funzioni`
-- `L3_Convalida`
-- `L4_Ordinamento_Filtri`
-- `L5_Grafici_CSV`
-- `L6_Simulazione`
-- `L7_Verifica`
+- `L2_Funzioni_Criteri`
+- `L3_Ricerche`
+- `L4_Tabelle_Filtri_Pivot`
+- `L5_Convalida_Pulizia`
+- `L6_Grafici_CSV`
+- `L7_Simulazione`
+- `L8_Verifica`
 
 Consigli pratici:
 
@@ -225,27 +226,27 @@ Ed usa delle formule appropriate per calcolare questi valori.
 
 Infine aggiungi la colonna **Prezzo medio unitario**, dato dal totale finale diviso la quantità, arrotondato a 2 decimali.
 
-# Lezione 2 - Funzioni avanzate essenziali per analizzare dati
+# Lezione 2 - Funzioni essenziali: riepilogo, SE e criteri
 
 ## Obiettivi della lezione
 
 A fine lezione devi saper:
 
-- usare funzioni statistiche e logiche
-- applicare criteri nelle formule
-- combinare più funzioni nella stessa tabella
-- costruire celle di riepilogo automatico
-- recuperare dati da una tabella di riferimento con funzioni di ricerca
+- ripassare le funzioni base di riepilogo
+- usare `SE` per creare decisioni automatiche
+- applicare un criterio singolo con `SOMMA.SE` e `CONTA.SE`
+- applicare più criteri con `SOMMA.PIÙ.SE` e `CONTA.PIÙ.SE`
+- costruire una piccola area report leggibile e automatica
 
-## 1) Funzioni di riepilogo indispensabili
+## 1) Ripasso formule base: somma, media, minimo, massimo e conta
 
 ```text
 =SOMMA(D2:D100)
 =MEDIA(D2:D100)
 =MIN(D2:D100)
 =MAX(D2:D100)
-=CONTA.VALORI(A2:A100)
 =CONTA.NUMERI(D2:D100)
+=CONTA.VALORI(A2:A100)
 ```
 
 Quando usarle:
@@ -253,9 +254,9 @@ Quando usarle:
 - `SOMMA`: totale vendite/costi
 - `MEDIA`: valore medio per periodo
 - `MIN`/`MAX`: estremi
-- `CONTA`: numero record
+- `CONTA.NUMERI`/`CONTA.VALORI`: numero di celle compilate o numeriche
 
-## 2) Funzione SE: decisioni automatiche
+## 2) Funzione SE
 
 Sintassi:
 
@@ -271,20 +272,7 @@ Esempi:
 =SE(E2>500;"Bonus";"No bonus")
 ```
 
-## 3) SE annidato (livelli)
-
-Esempio fascia vendite:
-
-```text
-=SE(D2<200;"Basso";SE(D2<500;"Medio";"Alto"))
-```
-
-Uso corretto:
-
-- massimo 2-3 livelli in terza
-- se diventa troppo lungo, spezza in colonne di supporto
-
-## 4) Funzioni con criterio
+## 3) Funzioni con un criterio
 
 ### SOMMA.SE
 
@@ -302,66 +290,7 @@ Somma importi solo dove reparto = Informatica.
 
 Conta quante righe hanno prodotto = Mouse.
 
-### MEDIA.SE
-
-```text
-=MEDIA.SE(A2:A100;"Vendite";D2:D100)
-```
-
-Media importo solo per un reparto.
-
-## 5) CERCA.VERT: recuperare dati da una tabella
-
-`CERCA.VERT` è fondamentale quando hai un codice e vuoi recuperare in automatico un'informazione collegata.
-
-Scenario tipico:
-
-- nel foglio `Ordini` hai il `Codice prodotto`
-- nel foglio `Listino` hai `Codice`, `Descrizione`, `Reparto`, `Prezzo`
-
-Formula:
-
-```text
-=CERCA.VERT(A2;Listino!A:D;4;FALSO)
-```
-
-Significato argomenti:
-
-- `A2`: valore da cercare (codice)
-- `Listino!A:D`: tabella dove cercare
-- `4`: colonna da restituire (prezzo)
-- `FALSO`: corrispondenza esatta (sempre consigliata nei casi gestionali)
-
-Versione robusta:
-
-```text
-=SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
-```
-
-## 6) INDICE + CONFRONTA: ricerca più flessibile
-
-`CERCA.VERT` richiede che la chiave sia nella prima colonna della tabella.
-`INDICE` + `CONFRONTA` è più flessibile e robusto.
-
-Esempio: recuperare prezzo dal foglio `Listino` cercando il codice in colonna `A`.
-
-```text
-=INDICE(Listino!D:D;CONFRONTA(A2;Listino!A:A;0))
-```
-
-Versione con gestione errore:
-
-```text
-=SE.ERRORE(INDICE(Listino!D:D;CONFRONTA(A2;Listino!A:A;0));"Codice non trovato")
-```
-
-Quando preferirla:
-
-- tabella che cambia spesso struttura
-- ricerca verso sinistra/destra senza vincoli
-- modelli più stabili nel tempo
-
-## 7) Funzioni con più criteri (livello avanzato)
+## 4) Funzioni con più criteri
 
 ### SOMMA.PIÙ.SE
 
@@ -382,23 +311,9 @@ Somma `E` dove:
 
 Conta ordini aperti nel reparto Vendite.
 
-## 8) Gestione errori formula
+## 5) Esempio guidato completo: mini report vendite
 
-Con `SE.ERRORE` eviti messaggi tecnici in output finale.
-
-```text
-=SE.ERRORE(B2/C2;0)
-```
-
-o
-
-```text
-=SE.ERRORE(B2/C2;"Dato non valido")
-```
-
-## 9) Esempio guidato completo: dashboard mini vendite + listino
-
-Struttura dati (`A:F`):
+Struttura dati (`A:G`):
 
 - Data
 - Reparto
@@ -406,13 +321,7 @@ Struttura dati (`A:F`):
 - Quantità
 - Prezzo unitario
 - Importo
-
-Foglio di supporto `Listino`:
-
-- `A` Codice
-- `B` Descrizione
-- `C` Reparto
-- `D` Prezzo listino
+- Stato
 
 In `F2`:
 
@@ -424,20 +333,28 @@ Area riepilogo (`H:K`):
 
 - totale vendite
 - media importo
+- importo minimo
+- importo massimo
+- numero righe compilate
 - vendite reparto Informatica
-- ordini aperti > 300
+- numero ordini con stato Aperto
+- totale ordini reparto Vendite con importo >= 100
 
 Formule possibili:
 
 ```text
 H2 = SOMMA(F2:F200)
 H3 = MEDIA(F2:F200)
-H4 = SOMMA.SE(B2:B200;"Informatica";F2:F200)
-H5 = CONTA.PIÙ.SE(B2:B200;"Vendite";F2:F200;">300")
-G2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
+H4 = MIN(F2:F200)
+H5 = MAX(F2:F200)
+H6 = CONTA.VALORI(C2:C200)
+H7 = SOMMA.SE(B2:B200;"Informatica";F2:F200)
+H8 = CONTA.SE(G2:G200;"Aperto")
+H9 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Vendite";D2:D200;">=100")
+G2 = SE(D2<10;"Riordinare";"OK")
 ```
 
-## 10) Esercizi Lezione 2
+## 6) Esercizi Lezione 2
 
 ### Esercizio 1 - Riepilogo base
 
@@ -461,41 +378,381 @@ Calcola:
 
 - totale vendite del reparto `Amministrazione`
 - numero ordini con stato `Aperto`
-- media importi per reparto `Vendite`
+- totale importi del prodotto `Mouse`
 
 ### Esercizio 4 - Multi-criterio
 
-Conta ordini:
+Calcola:
 
-- reparto `Informatica`
-- stato `Aperto`
-- importo > 200
+- totale ordini del reparto `Informatica` con quantità >= 5
+- numero ordini del reparto `Vendite` con stato `Aperto`
 
-Usa `CONTA.PIÙ.SE`.
+Usa `SOMMA.PIÙ.SE` e `CONTA.PIÙ.SE`.
 
-### Esercizio 5 - CERCA.VERT su listino
+### Esercizio 5 - Mini dashboard
 
-Hai una tabella `Ordini` con solo codice prodotto.
-Recupera automaticamente:
-
-- descrizione
-- reparto
-- prezzo
-
-usando `CERCA.VERT` con corrispondenza esatta.
-
-### Esercizio 6 - Confronto CERCA.VERT vs INDICE+CONFRONTA
-
-Risolvi la stessa ricerca in due modi:
-
-1. con `CERCA.VERT`
-2. con `INDICE+CONFRONTA`
-
-Poi scrivi 3 righe su quale soluzione preferisci e perché.
+Costruisci una piccola dashboard con almeno 6 indicatori automatici e una colonna `Stato scorta` calcolata con `SE`.
 
 ---
 
-# Lezione 3 - Qualità del dato: convalida, pulizia e coerenza
+# Lezione 3 - Ricerca dati: CERCA.VERT, CERCA.X, INDICE/CONFRONTA, SE.ERRORE
+
+## Obiettivi della lezione
+
+A fine lezione devi saper:
+
+- recuperare dati da una tabella di supporto
+- distinguere tra `CERCA.VERT`, `CERCA.X` e `INDICE`/`CONFRONTA`
+- scegliere la funzione di ricerca più adatta al caso
+- gestire gli errori in modo leggibile con `SE.ERRORE`
+
+## 1) Perché servono le funzioni di ricerca
+
+Scenario tipico:
+
+- nel foglio `Ordini` hai solo il codice prodotto
+- nel foglio `Listino` hai `Codice`, `Descrizione`, `Reparto`, `Prezzo`
+
+Obiettivo:
+
+- inserire il codice una sola volta
+- far compilare in automatico le altre informazioni
+
+## 2) CERCA.VERT
+
+Formula base:
+
+```text
+=CERCA.VERT(A2;Listino!A:D;4;FALSO)
+```
+
+Significato argomenti:
+
+- `A2`: valore da cercare
+- `Listino!A:D`: tabella di riferimento
+- `4`: colonna da restituire
+- `FALSO`: corrispondenza esatta
+
+Punto forte:
+
+- semplice e immediato
+
+Limite:
+
+- cerca solo verso destra
+- la chiave deve stare nella prima colonna della tabella
+
+## 3) CERCA.X
+
+Se disponibile nello strumento, `CERCA.X` è più leggibile.
+
+Esempio:
+
+```text
+=CERCA.X(A2;Listino!A:A;Listino!D:D;"Codice non trovato")
+```
+
+Vantaggi:
+
+- non devi contare il numero della colonna
+- può cercare sia a destra sia a sinistra
+- può già mostrare un messaggio se il codice manca
+
+## 4) INDICE + CONFRONTA
+
+È la soluzione più flessibile quando vuoi separare ricerca e risultato.
+
+Esempio:
+
+```text
+=INDICE(Listino!D:D;CONFRONTA(A2;Listino!A:A;0))
+```
+
+Quando preferirla:
+
+- tabella che cambia spesso struttura
+- modelli più robusti nel tempo
+- necessità di gestire ricerche più personalizzate
+
+## 5) SE.ERRORE
+
+Serve per evitare messaggi tecnici in output finale.
+
+Esempi:
+
+```text
+=SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
+=SE.ERRORE(INDICE(Listino!D:D;CONFRONTA(A2;Listino!A:A;0));"Codice non trovato")
+```
+
+Uso corretto:
+
+- nasconde l'errore tecnico
+- mostra un messaggio utile a chi legge il file
+- non sostituisce il controllo dei dati sorgente
+
+## 6) Esempio guidato completo
+
+Foglio `Ordini`:
+
+- `A` Codice
+- `B` Descrizione
+- `C` Reparto
+- `D` Prezzo
+
+Foglio `Listino`:
+
+- `A` Codice
+- `B` Descrizione
+- `C` Reparto
+- `D` Prezzo listino
+
+Formule possibili:
+
+```text
+B2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;2;FALSO);"Codice non trovato")
+C2 = SE.ERRORE(CERCA.X(A2;Listino!A:A;Listino!C:C;"Codice non trovato");"Codice non trovato")
+D2 = SE.ERRORE(INDICE(Listino!D:D;CONFRONTA(A2;Listino!A:A;0));"Codice non trovato")
+```
+
+## 7) Esercizi Lezione 3
+
+### Esercizio 1 - CERCA.VERT base
+
+Recupera `Descrizione`, `Reparto` e `Prezzo` partendo solo dal codice prodotto.
+
+### Esercizio 2 - CERCA.X
+
+Risolvi la stessa ricerca con `CERCA.X`.
+Se la funzione non è disponibile nello strumento usato, annotalo e passa all'esercizio successivo.
+
+### Esercizio 3 - INDICE + CONFRONTA
+
+Ricostruisci la colonna `Prezzo` con `INDICE` + `CONFRONTA`.
+
+### Esercizio 4 - Gestione errore
+
+Inserisci 3 codici inesistenti e gestisci il risultato con `SE.ERRORE`.
+
+### Esercizio 5 - Confronto ragionato
+
+Scrivi 4 righe: quale funzione preferisci tra `CERCA.VERT`, `CERCA.X` e `INDICE` + `CONFRONTA`, e in quale situazione la useresti.
+
+---
+
+# Lezione 4 - Tabelle, filtri e tabelle pivot
+
+## Obiettivi della lezione
+
+A fine lezione devi saper:
+
+- trasformare un intervallo dati in una tabella leggibile
+- ordinare per una o più colonne
+- applicare filtri testuali, numerici e per data
+- bloccare le prime righe per lavorare meglio su dataset lunghi
+- usare `SUBTOTALE` su dati filtrati
+- creare una tabella pivot molto semplice
+- rispondere a domande reali con i dati filtrati
+- distinguere tra filtro sul foglio base e analisi con pivot
+
+## 1) Dato grezzo vs tabella leggibile
+
+Una tabella non ordinata può contenere le informazioni giuste ma essere poco utile.
+Ordinare e filtrare significa trasformare dati in risposte.
+
+Prima regola:
+
+- i dati devono avere intestazioni chiare
+- non devono esserci righe o colonne vuote interne
+- il blocco dati deve essere continuo
+
+Nel lavoro reale, soprattutto in Excel, conviene spesso usare `Formatta come tabella`.
+Questo rende più leggibile il dataset e attiva strumenti pratici di filtro e riepilogo.
+
+## 2) Trasforma in tabella e usa i filtri tabella
+
+Vantaggi pratici:
+
+- intestazione evidenziata
+- filtri attivi subito su ogni colonna
+- lettura più chiara
+- aggiornamento più semplice quando aggiungi nuove righe
+
+Idea chiave della lezione:
+
+- alcune operazioni di filtro si possono fare direttamente sul foglio base
+- se trasformi l'intervallo in tabella, soprattutto in Excel, hai anche strumenti dedicati nella scheda `Tabella`
+
+## 3) Blocca la visualizzazione: prime righe e intestazione
+
+Ordine consigliato in un file ordinato:
+
+- in alto eventuali righe con filtri o criteri
+- subito sotto l'intestazione della tabella
+- poi il blocco dei dati
+
+Quando il dataset è lungo, blocca le prime righe così intestazioni e criteri restano sempre visibili.
+
+## 4) Ordinamento: regole corrette
+
+Prima di ordinare:
+
+- seleziona tutta la tabella
+- verifica intestazioni corrette
+- evita righe vuote interne
+
+Tipi:
+
+- crescente (A-Z, 0-9)
+- decrescente (Z-A, 9-0)
+- ordinamento multiplo (prima reparto, poi importo)
+
+## 5) Filtri automatici: uso pratico
+
+Filtri principali:
+
+- per testo (contiene, inizia con)
+- per numero (> < = tra)
+- per data (mese, anno, intervallo)
+- per colore (se usato)
+
+Esempi:
+
+- ordini `Aperto`
+- importo > 300
+- reparto = Informatica
+- data nel mese di marzo
+
+## 6) Domande tipiche da risolvere con filtri
+
+- quali prodotti sono sotto scorta?
+- quanti ordini aperti ha il reparto X?
+- quali sono i 10 importi maggiori?
+- quante spese superano 500 euro?
+
+## 7) `SUBTOTALE` sui dati filtrati
+
+Quando filtri la tabella, `SUBTOTALE` calcola solo i record visibili.
+
+```text
+=SUBTOTALE(9;E2:E200)
+```
+
+`9` corrisponde alla somma.
+
+Altri codici utili:
+
+- `1` media
+- `2` conta numeri
+
+Questa funzione è utile perché, in pratica, si comporta come un riepilogo rapido dei dati selezionati dal filtro.
+
+## 8) Tabelle pivot: primo contatto
+
+Una tabella pivot serve per riassumere molti dati senza scrivere formule lunghe.
+
+Esempio base:
+
+- righe = `Reparto`
+- valori = somma `Importo`
+- filtri = `Stato`
+
+Uso didattico della lezione:
+
+- mostrare che dal foglio base puoi filtrare e controllare i dati originali
+- mostrare che la pivot serve invece per riassumere gli stessi dati in modo più veloce
+
+## 9) Ordinamento multiplo: esempio operativo
+
+Tabella:
+
+- `Reparto`
+- `Stato`
+- `Importo`
+
+Obiettivo:
+
+1. prima `Reparto` A-Z
+2. poi `Stato` (`Aperto` prima di `Chiuso`)
+3. poi `Importo` decrescente
+
+Risultato: lettura più rapida per blocchi logici.
+
+## 10) Attenzione agli errori frequenti
+
+Errore 1:
+
+- ordinare una sola colonna e non tutta la tabella
+
+Errore 2:
+
+- lasciare filtro attivo e fare calcoli pensando di vedere tutto
+
+Errore 3:
+
+- confondere record nascosti con record eliminati
+
+Buona pratica:
+
+- prima di consegna, rimuovi tutti i filtri e ricontrolla
+
+## 11) Esempio guidato completo
+
+Dataset `Ordini_Annuali` con 100 righe.
+
+Consegna guidata:
+
+1. trasforma l'intervallo in tabella
+2. blocca la riga delle intestazioni
+3. ordina per `Reparto`, poi `Importo` desc
+4. filtra `Stato = Aperto`
+5. filtra anche `Importo > 250`
+6. calcola totale visibile con `SUBTOTALE`
+7. crea una tabella pivot con somma importi per reparto
+
+## 12) Esercizi Lezione 4
+
+### Esercizio 1 - Ricerca top valori
+
+Trova i 5 ordini con importo maggiore e copia i risultati in una sezione report.
+
+### Esercizio 2 - Filtri combinati
+
+Mostra solo:
+
+- reparto `Vendite`
+- stato `Aperto`
+- importo >= 200
+
+### Esercizio 3 - Analisi per data
+
+Filtra gli ordini del mese di marzo e calcola:
+
+- totale importo
+- media importo
+
+### Esercizio 4 - Tabella con subtotale
+
+Trasforma il dataset in tabella e mostra, con `SUBTOTALE`, il totale dei soli record visibili dopo un filtro per reparto.
+
+### Esercizio 5 - Tabella pivot base
+
+Crea una pivot che mostri:
+
+- somma importi per reparto
+- numero ordini per stato
+
+### Esercizio 6 - Domande di comprensione
+
+Rispondi in celle dedicate:
+
+- quale reparto ha più ordini aperti?
+- quale prodotto compare più spesso?
+- qual è l'importo massimo in `Informatica`?
+
+---
+
+# Lezione 5 - Qualità del dato: convalida, pulizia e coerenza
 
 ## Obiettivi della lezione
 
@@ -503,7 +760,7 @@ A fine lezione devi saper:
 
 - prevenire errori in inserimento
 - costruire convalide efficaci
-- riconoscere incoerenze nei dati
+- pulire testi e codici già inseriti
 - migliorare affidabilità del file
 
 ## 1) Perché la qualità del dato è centrale
@@ -591,6 +848,7 @@ Operazioni utili:
 
 - rimuovere spazi iniziali/finali
 - uniformare maiuscole/minuscole
+- estrarre parti utili da un codice
 - correggere formati data
 - trovare duplicati
 
@@ -600,7 +858,12 @@ Funzioni utili (se disponibili):
 =ANNULLA.SPAZI(A2)
 =MAIUSC(A2)
 =MINUSC(A2)
+=STRINGA.ESTRAI(A2;4;3)
 ```
+
+Esempio pratico:
+
+- da `ORD-2026-015` puoi estrarre `2026` oppure `015` per costruire controlli o colonne di supporto
 
 ## 7) Evidenziazione errori (formattazione condizionale)
 
@@ -616,11 +879,12 @@ Anche se non richiesta in verifica, aiuta molto nella revisione.
 
 1. Crea tabella Ordini con 20 righe.
 2. Applica convalide su reparto, quantità, data, stato.
-3. Inserisci volontariamente 5 errori.
-4. Osserva quali errori vengono bloccati.
-5. Scrivi un breve report: "errori prevenuti".
+3. Pulisci una colonna con `ANNULLA.SPAZI`.
+4. Estrai una parte del codice con `STRINGA.ESTRAI`.
+5. Inserisci volontariamente 5 errori.
+6. Osserva quali errori vengono bloccati.
 
-## 9) Esercizi Lezione 3
+## 9) Esercizi Lezione 5
 
 ### Esercizio 1 - Setup convalida completo
 
@@ -635,11 +899,18 @@ Annota quali passano e quali no.
 
 Correggi un dataset "sporco" fornito dal docente (reparti incoerenti, date miste, spazi).
 
-### Esercizio 4 - Controllo duplicati
+### Esercizio 4 - Stringa estrai
+
+Da un codice del tipo `CLI-2026-045`, estrai:
+
+- il blocco anno
+- il numero finale
+
+### Esercizio 5 - Controllo duplicati
 
 Segna eventuali ID ordine ripetuti e correggili.
 
-### Esercizio 5 - Elenco dinamico per convalida
+### Esercizio 6 - Elenco dinamico per convalida
 
 1. Crea un elenco reparti con `UNICI` a partire dai dati ordini.
 2. Usa quell'elenco come origine della convalida dati nella colonna `Reparto`.
@@ -647,184 +918,7 @@ Segna eventuali ID ordine ripetuti e correggili.
 
 ---
 
-# Lezione 4 - Ordinamento e filtri per analisi operativa
-
-## Obiettivi della lezione
-
-A fine lezione devi saper:
-
-- ordinare per una o più colonne
-- applicare filtri testuali, numerici e per data
-- rispondere a domande reali con i dati filtrati
-- evitare errori di analisi dopo filtri/ordinamenti
-
-## 1) Dato grezzo vs dato leggibile
-
-Una tabella non ordinata può contenere le informazioni giuste ma essere poco utile.
-Ordinare e filtrare significa trasformare dati in risposte.
-
-## 2) Ordinamento: regole corrette
-
-Prima di ordinare:
-
-- seleziona tutta la tabella
-- verifica intestazioni corrette
-- evita righe vuote interne
-
-Tipi:
-
-- crescente (A-Z, 0-9)
-- decrescente (Z-A, 9-0)
-- ordinamento multiplo (prima reparto, poi importo)
-
-## 3) Filtri automatici: uso pratico
-
-Filtri principali:
-
-- per testo (contiene, inizia con)
-- per numero (> < = tra)
-- per data (mese, anno, intervallo)
-- per colore (se usato)
-
-Esempi:
-
-- ordini `Aperto`
-- importo > 300
-- reparto = Informatica
-- data nel mese di marzo
-
-## 4) FILTRO: vista dinamica con formula
-
-Oltre al filtro manuale, in Google Fogli puoi usare `FILTRO` per creare una vista dinamica in un'altra area del foglio.
-
-Esempio: mostra solo ordini aperti con importo > 250.
-
-```text
-=FILTRO(A2:F200;F2:F200="Aperto";E2:E200>250)
-```
-
-Vantaggi:
-
-- non tocchi la tabella originale
-- ottieni un output aggiornato automaticamente
-- puoi usare più condizioni in una sola formula
-
-Gestione caso senza risultati:
-
-```text
-=SE.ERRORE(FILTRO(A2:F200;F2:F200="Aperto";E2:E200>250);"Nessun risultato")
-```
-
-## 5) Domande tipiche da risolvere con filtri
-
-- quali prodotti sono sotto scorta?
-- quanti ordini aperti ha il reparto X?
-- quali sono i 10 importi maggiori?
-- quante spese superano 500 euro?
-
-## 6) Ordinamento multiplo: esempio operativo
-
-Tabella:
-
-- `Reparto`
-- `Stato`
-- `Importo`
-
-Obiettivo:
-
-1. prima `Reparto` A-Z
-2. poi `Stato` (`Aperto` prima di `Chiuso`)
-3. poi `Importo` decrescente
-
-Risultato: lettura più rapida per blocchi logici.
-
-## 7) Attenzione agli errori frequenti
-
-Errore 1:
-
-- ordinare una sola colonna e non tutta la tabella
-
-Errore 2:
-
-- lasciare filtro attivo e fare calcoli pensando di vedere tutto
-
-Errore 3:
-
-- confondere record nascosti con record eliminati
-
-Buona pratica:
-
-- prima di consegna, rimuovi tutti i filtri e ricontrolla
-
-## 8) Funzioni utili insieme ai filtri
-
-Quando hai filtri attivi puoi usare:
-
-```text
-=SUBTOTALE(9;E2:E200)
-```
-
-`9` corrisponde alla somma dei soli record visibili.
-
-Altri codici utili:
-
-- `1` media
-- `2` conta numeri
-
-## 9) Esempio guidato completo
-
-Dataset `Ordini_Annuali` con 100 righe.
-
-Consegna guidata:
-
-1. ordina per `Reparto`, poi `Importo` desc
-2. filtra `Stato = Aperto`
-3. filtra anche `Importo > 250`
-4. calcola totale visibile con `SUBTOTALE`
-5. rispondi: quanti record restano?
-
-## 10) Esercizi Lezione 4
-
-### Esercizio 1 - Ricerca top valori
-
-Trova i 5 ordini con importo maggiore e copia i risultati in una sezione report.
-
-### Esercizio 2 - Filtri combinati
-
-Mostra solo:
-
-- reparto `Vendite`
-- stato `Aperto`
-- importo >= 200
-
-### Esercizio 3 - Analisi per data
-
-Filtra gli ordini del mese di marzo e calcola:
-
-- totale importo
-- media importo
-
-### Esercizio 4 - FILTRO con condizioni
-
-In un'area report separata, usa una formula `FILTRO` che mostri solo:
-
-- reparto `Informatica`
-- stato `Aperto`
-- importo > 300
-
-Gestisci il caso senza risultati con `SE.ERRORE`.
-
-### Esercizio 5 - Domande di comprensione
-
-Rispondi in celle dedicate:
-
-- quale reparto ha più ordini aperti?
-- quale prodotto compare più spesso?
-- qual è l'importo massimo in `Informatica`?
-
----
-
-# Lezione 5 - Grafici e formato CSV: comunicare e scambiare dati
+# Lezione 6 - Grafici e formato CSV: comunicare e scambiare dati
 
 ## Obiettivi della lezione
 
@@ -983,7 +1077,7 @@ Soluzione:
 5. Importa il CSV in un nuovo file.
 6. Confronta originale e importato.
 
-## 9) Esercizi Lezione 5
+## 9) Esercizi Lezione 6
 
 ### Esercizio 1 - Grafico confronto
 
@@ -1003,7 +1097,7 @@ Esporta, reimporta, poi elenca almeno 3 differenze rispetto al file originale.
 
 ---
 
-# Lezione 6 - Simulazione verifica (prova guidata)
+# Lezione 7 - Simulazione verifica (prova guidata)
 
 ## Obiettivo
 
@@ -1022,32 +1116,40 @@ Usa un file con dati ordini/vendite e completa tutte le richieste.
 1. Calcola `Importo = Quantità*Prezzo`.
 2. Crea `Stato scorta` con `SE`.
 3. Calcola totale vendite reparto `Informatica` con funzione a criterio.
-4. Recupera il prezzo da un foglio `Listino` con `CERCA.VERT` oppure `INDICE+CONFRONTA`.
+4. Recupera il prezzo da un foglio `Listino` con `CERCA.VERT`, `CERCA.X` oppure `INDICE+CONFRONTA`.
 
 ### Parte B - Qualità dato
 
-4. Applica convalida su:
+5. Applica convalida su:
    - Reparto da elenco
    - Quantità 1..100
    - Data valida
 
-### Parte C - Analisi
+### Parte C - Pulizia e controllo
 
-5. Ordina per Reparto e Importo desc.
-6. Filtra ordini aperti con importo > 250.
-7. Calcola totale visibile con `SUBTOTALE`.
+6. Pulisci una colonna testo con `ANNULLA.SPAZI` oppure estrai una parte del codice con `STRINGA.ESTRAI`.
 
-### Parte D - Comunicazione dati
+### Parte D - Analisi
 
-8. Crea grafico corretto con titolo e legenda.
-9. Esporta il foglio in CSV.
+7. Trasforma il dataset in tabella.
+8. Ordina per Reparto e Importo desc.
+9. Filtra ordini aperti con importo > 250.
+10. Calcola totale visibile con `SUBTOTALE`.
+11. Crea una tabella pivot base per reparto.
+
+### Parte E - Comunicazione dati
+
+12. Crea grafico corretto con titolo e legenda.
+13. Esporta il foglio in CSV.
 
 ## Griglia di autocontrollo prima consegna
 
 - formule trascinate correttamente
 - nessun riferimento errato
 - convalide attive
+- pulizia dati eseguita dove richiesta
 - filtro coerente con richiesta
+- pivot leggibile
 - grafico leggibile
 - file ordinato e intestazioni chiare
 
@@ -1055,7 +1157,9 @@ Usa un file con dati ordini/vendite e completa tutte le richieste.
 
 - usare `SOMMA` dove serve `SOMMA.SE`
 - dimenticare `FALSO` in `CERCA.VERT` quando serve corrispondenza esatta
+- usare `CERCA.VERT` su una tabella dove la chiave non è nella prima colonna
 - filtro applicato alla colonna sbagliata
+- non bloccare l'intestazione in un dataset lungo
 - grafico senza titolo
 - CSV esportato con foglio sbagliato
 
@@ -1069,7 +1173,7 @@ Dopo la simulazione:
 
 ---
 
-# Lezione 7 - Verifica finale Modulo 3
+# Lezione 8 - Verifica finale Modulo 3
 
 ## Tipologia
 
@@ -1079,7 +1183,8 @@ Dopo la simulazione:
 
 - 4 esercizi formule/funzioni (inclusa almeno una ricerca dati)
 - 1 esercizio convalida dati
-- 1 esercizio ordinamento/filtri
+- 1 esercizio pulizia dato
+- 1 esercizio ordinamento/filtri/tabella
 - 1 grafico
 - 1 domanda breve o micro-operazione su CSV
 
@@ -1120,8 +1225,10 @@ Dopo la simulazione:
 ### Uso strumenti base e avanzati
 
 - formule con criterio
+- funzioni di ricerca
 - convalida dati
-- filtri
+- pulizia dati
+- filtri e tabelle
 - CSV
 
 ## Esempio di traccia verifica
@@ -1140,11 +1247,15 @@ Richieste:
 1. calcolare importo
 2. aggiungere stato scorta con `SE`
 3. sommare importi solo reparto `Vendite`
-4. convalidare quantità 1..100
-5. ordinare per reparto + importo desc
-6. filtrare ordini `Aperto` con importo > 300
-7. creare grafico a colonne per reparto
-8. esportare in CSV
+4. recuperare un prezzo da listino con una funzione di ricerca
+5. convalidare quantità 1..100
+6. pulire una colonna testo oppure estrarre una parte di un codice
+7. trasformare il dataset in tabella
+8. ordinare per reparto + importo desc
+9. filtrare ordini `Aperto` con importo > 300
+10. creare una tabella pivot semplice per reparto
+11. creare grafico a colonne per reparto
+12. esportare in CSV
 
 ## Motivazione didattica della prova pratica
 
@@ -1152,7 +1263,7 @@ La prova pratica misura le abilità realmente richieste dal modulo:
 
 - applicare formule avanzate
 - garantire qualità del dato
-- leggere dati con filtri e ordinamenti
+- leggere dati con filtri, tabelle e pivot
 - rappresentare informazioni con grafici
 - gestire scambio dati tramite CSV
 
@@ -1187,9 +1298,10 @@ La prova pratica misura le abilità realmente richieste dal modulo:
 =SOMMA.PIÙ.SE(intervallo_somma;intervallo_criterio1;criterio1;...)
 =CONTA.PIÙ.SE(intervallo_criterio1;criterio1;...)
 =CERCA.VERT(chiave;tabella;indice_colonna;FALSO)
+=CERCA.X(chiave;matrice_ricerca;matrice_risultato;"non trovato")
 =INDICE(intervallo_ritorno;CONFRONTA(chiave;intervallo_ricerca;0))
-=FILTRO(intervallo;condizione1;condizione2;...)
 =UNICI(intervallo)
+=STRINGA.ESTRAI(testo;posizione_iniziale;numero_caratteri)
 =SE.ERRORE(formula;valore_se_errore)
 =SUBTOTALE(codice_funzione;intervallo)
 ```
