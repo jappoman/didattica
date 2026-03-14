@@ -53,8 +53,6 @@ Consigli pratici:
   `Prezzo` in valuta (euro), `Sconto` in percentuale, `Data` in formato data.
   Non mischiare nella stessa colonna numeri, testo e simboli scritti a mano. Per applicare un formato, seleziona la colonna (o riga, o cella) e scegli il formato numerico adatto (es. `Valuta`, `Percentuale`, `Data`).
 
----
-
 # Lezione 1 - Ripasso: struttura del foglio e formule corrette
 
 ## Obiettivi della lezione
@@ -377,8 +375,6 @@ Consegna:
 - esporta di nuovo il foglio in CSV
 - riapri il CSV esportato e verifica che i dati siano ancora corretti
 
----
-
 # Lezione 3 - Qualità del dato: convalida, pulizia e coerenza
 
 ## Obiettivi della lezione
@@ -519,8 +515,6 @@ Consegna:
 - usa `STRINGA.ESTRAI` per ricavare una parte utile da un codice
 - individua almeno 2 errori o duplicati e correggili
 
----
-
 # Lezione 4 - Funzioni essenziali: riepilogo, SE e criteri
 
 ## Obiettivi della lezione
@@ -649,8 +643,6 @@ Consegna:
 - calcola il totale del reparto `Informatica` con quantità >= 5 usando `SOMMA.PIÙ.SE`
 - conta gli ordini del reparto `Vendite` con stato `Aperto` usando `CONTA.PIÙ.SE`
 - calcola il totale del reparto `Amministrazione` con quantità >= 3 usando `SOMMA.PIÙ.SE`
-
----
 
 # Lezione 5 - Ricerca dati: CERCA.VERT, CERCA.X e SE.ERRORE
 
@@ -796,9 +788,6 @@ Consegna:
 - inserisci almeno 3 codici inesistenti
 - gestisci i codici non trovati con `SE.ERRORE`
 - scrivi in 2 righe quale funzione ti sembra più comoda tra `CERCA.VERT` e `CERCA.X`
-
-
----
 
 # Lezione 6 - Tabelle, filtri e analisi operativa
 
@@ -973,8 +962,6 @@ Consegna:
 - filtra solo gli ordini `Aperto` con importo >= 200
 - calcola il totale dei record visibili con `SUBTOTALE`
 
----
-
 # Lezione 7 - Grafici e tabelle pivot: sintetizzare i dati
 
 ## Obiettivi della lezione
@@ -1100,8 +1087,6 @@ Consegna:
 - crea un grafico a colonne per confrontare i reparti
 - crea un grafico a linee per mostrare l'andamento mensile
 - scrivi in 2 righe quale dei due grafici comunica meglio ciascuna informazione
-
----
 
 # Lezione 8 - Simulazione verifica (prova guidata)
 
