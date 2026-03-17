@@ -309,24 +309,6 @@ Dopo l'export:
 - controlla che il contenuto sia leggibile
 - verifica che importi e date siano rimasti corretti
 
-## 4) Ripasso formule base: somma, media, minimo, massimo e conta
-
-```text
-=SOMMA(D2:D100)
-=MEDIA(D2:D100)
-=MIN(D2:D100)
-=MAX(D2:D100)
-=CONTA.NUMERI(D2:D100)
-=CONTA.VALORI(A2:A100)
-```
-
-Quando usarle:
-
-- `SOMMA`: totale vendite/costi
-- `MEDIA`: valore medio per periodo
-- `MIN`/`MAX`: estremi
-- `CONTA.NUMERI`/`CONTA.VALORI`: numero di celle compilate o numeriche
-
 ## CSV di lavoro
 
 Usa un file CSV con una struttura simile a questa:
@@ -343,9 +325,16 @@ Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo
 2026-03-04,Magazzino,Nastro,10,3.4,34
 ```
 
-## 5) Esempio guidato
+## 4) Esempio guidato
 
-Importa il `CSV di lavoro` qui sopra.
+### Importazione
+
+Seleziona i dati qui sopra, copiali e incollali in un file di testo. Salva questo file come `CSV_di_lavoro.csv` (o un nome simile) e soprattutto con estensione `.csv`.
+
+In Google Fogli poi vai sul foglio della lezione 2; successivamene  importa il file con `File` > `Importa` > `Carica` e seleziona il file CSV appena creato.
+
+Google Fogli ti chiederà come importare il file: scegli `Sostituisci i dati nella cella selezionata` e assicurati che il separatore sia `Virgola` (oppure `Rileva automaticamente`. Spunta anche la casella `Converti il testo in numeri, date e formule` se disponibile).
+Dopo aver confermato, i dati dovrebbero essere importati correttamente nelle colonne separate.
 
 Dopo l'import:
 
@@ -353,27 +342,20 @@ Dopo l'import:
 - verifica che `Quantità` e `Importo` siano numeri
 - crea una piccola area riepilogo a lato del dataset
 
-Formule possibili:
+### Esportazione
+Dopo aver lavorato sui dati, prova a esportare il foglio in CSV con `File` > `Scarica` > `Valori separati da virgola (.csv)`.
 
-```text
-H2 = SOMMA(F2:F200)
-H3 = MEDIA(F2:F200)
-H4 = MIN(F2:F200)
-H5 = MAX(F2:F200)
-H6 = CONTA.NUMERI(F2:F200)
-```
-
-## 6) Esercizio Lezione 2
+## 5) Esercizio Lezione 2
 
 Nel foglio `L2_CSV_Funzioni_Base` importa il `CSV di lavoro` di questa lezione.
 
 Consegna:
 
-- importa correttamente il file
+- importa correttamente i dati tramite l'import via csv
 - controlla che date, numeri e intestazioni siano leggibili
-- costruisci una piccola area riepilogo con `SOMMA`, `MEDIA`, `MIN`, `MAX` e una funzione di conta
+- aggiungi una colonna `Subtotale` che moltiplica `Quantità` per `Prezzo unitario`
 - esporta di nuovo il foglio in CSV
-- riapri il CSV esportato e verifica che i dati siano ancora corretti
+- importa nuovamente il CSV esportato sotto la tabella originale e verifica che i dati siano ancora corretti.
 
 # Lezione 3 - Qualità del dato: convalida, pulizia e coerenza
 
