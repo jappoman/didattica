@@ -76,6 +76,62 @@ Un dato è un valore scritto in cella. Può essere di vari tipi:
 - percentuale: `15%`
 - data: `18/03/2026`
 
+Quando inserisci una percentuale in una cella, ad esempio `15%`, Google Fogli la interpreta come valore numerico `0,15`.
+Questo significa che il simbolo `%` non è solo una scrittura grafica: per il foglio di calcolo quel valore diventa un numero decimale utilizzabile nelle formule.
+
+Quindi:
+
+- `15%` = `0,15`
+- `22%` = `0,22`
+- `5%` = `0,05`
+
+Per lavorare correttamente con le percentuali devi quindi ragionare matematicamente sul risultato che vuoi ottenere.
+
+Se vuoi sapere quanto vale la percentuale su un importo, devi moltiplicare:
+
+- sconto di `15%` su `100` -> `=100*15%` oppure `=100*0,15` -> risultato `15`
+- IVA del `22%` su `85` -> `=85*22%` oppure `=85*0,22` -> risultato `18,70`
+
+Se invece vuoi ottenere direttamente il valore finale, devi usare `1` come valore iniziale intero:
+
+- `1 - percentuale` = la parte che rimane dopo una sottrazione
+- `1 + percentuale` = il valore iniziale più la parte aggiunta
+
+Esempi:
+
+- prezzo con sconto -> `=prezzo*(1-sconto%)`
+- prezzo con IVA aggiunta -> `=prezzo*(1+iva%)`
+
+Esempi pratici:
+
+```text
+=B2*E2
+=D2*(1-E2)
+=F2*(1+$K$1)
+```
+
+Spiegazione dei tre casi:
+
+- `=B2*E2` calcola quanto vale lo sconto in euro
+- `=D2*(1-E2)` calcola il prezzo dopo aver tolto lo sconto
+- `=F2*(1+$K$1)` calcola il prezzo dopo aver aggiunto l'IVA
+
+Esempio numerico sullo sconto:
+
+- se `D2` vale `100`
+- e `E2` contiene `15%`
+- allora `E2` viene letto come `0,15`
+- quindi `1-E2` diventa `1-0,15 = 0,85`
+- perciò `=D2*(1-E2)` diventa `=100*0,85 = 85`
+
+Esempio numerico sull'IVA:
+
+- se `F2` vale `85`
+- e `K1` contiene `22%`
+- allora `K1` viene letto come `0,22`
+- quindi `1+$K$1` diventa `1+0,22 = 1,22`
+- perciò `=F2*(1+$K$1)` diventa `=85*1,22 = 103,70`
+
 ### Formula
 
 Una formula inizia sempre con `=` e combina celle/espressioni mediante operatori matematici o logici.
@@ -204,7 +260,7 @@ Nel foglio `L1_Formule` imposta una piccola tabella con queste colonne:
 - `E` IVA
 - `F` Totale finale
 
-Inserisci in `H1` l'aliquota IVA: `0,22`.
+Inserisci in `H1` l'aliquota IVA: `22%`.
 
 Esempio di formule in riga 2:
 
@@ -219,6 +275,7 @@ In questo esempio:
 - `B2*C2` usa riferimenti relativi
 - `$H$1` è un riferimento assoluto
 - `ARROTONDA(...;2)` serve per ottenere un importo monetario corretto
+- se in `H1` scrivi `22%`, Google Fogli userà automaticamente il valore `0,22` nel calcolo
 
 ## Esercizio Lezione 1
 
@@ -233,7 +290,7 @@ Crea nel foglio `L1_Formule` una tabella con queste intestazioni (riga 1):
 - `G` IVA
 - `H` Totale finale
 
-Inserisci in `K1` l'aliquota IVA: `0,22`.
+Inserisci in `K1` l'aliquota IVA: `22%`.
 
 Scrivi poi le formule in riga 2:
 
@@ -241,6 +298,27 @@ Scrivi poi le formule in riga 2:
 - in `F2`: calcola il netto dopo lo sconto (`Subtotale - sconto`)
 - in `G2`: calcola l'IVA (`Netto * aliquota`)
 - in `H2`: calcola il totale finale (`Netto + IVA`) arrotondato a 2 decimali
+
+Formule possibili:
+
+```text
+D2 = B2*C2
+F2 = D2*(1-E2)
+G2 = F2*$K$1
+H2 = ARROTONDA(F2+G2;2)
+```
+
+Ricorda il significato matematico delle formule:
+
+- `D2*(1-E2)` significa: prendi il subtotale intero (`1`) e togli la percentuale di sconto
+- `F2*$K$1` significa: calcola solo il valore dell'IVA
+- `F2*(1+$K$1)` significa: prendi il netto intero (`1`) e aggiungi la percentuale di IVA
+
+In alternativa, il totale finale con IVA può essere scritto anche cosi:
+
+```text
+H2 = ARROTONDA(F2*(1+$K$1);2)
+```
 
 Compila almeno 10 prodotti, trascina le formule su tutte le righe e controlla che i risultati siano coerenti (nella colonna Sconto % devi inserire un numero seguito dal simbolo `%`, es. `15%`). A fine tabella aggiungi una piccola area riepilogo con:
 
