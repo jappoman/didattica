@@ -76,6 +76,8 @@ Un dato è un valore scritto in cella. Può essere di vari tipi:
 - percentuale: `15%`
 - data: `18/03/2026`
 
+#### Approfondimento sulle percentuali
+
 Quando inserisci una percentuale in una cella, ad esempio `15%`, Google Fogli la interpreta come valore numerico `0,15`.
 Questo significa che il simbolo `%` non è solo una scrittura grafica: per il foglio di calcolo quel valore diventa un numero decimale utilizzabile nelle formule.
 
@@ -409,7 +411,7 @@ Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo
 
 Seleziona i dati qui sopra, copiali e incollali in un file di testo. Salva questo file come `CSV_di_lavoro.csv` (o un nome simile) e soprattutto con estensione `.csv`.
 
-In Google Fogli poi vai sul foglio della lezione 2; successivamene  importa il file con `File` > `Importa` > `Carica` e seleziona il file CSV appena creato.
+In Google Fogli poi vai sul foglio della lezione 2; successivamene importa il file con `File` > `Importa` > `Carica` e seleziona il file CSV appena creato.
 
 Google Fogli ti chiederà come importare il file: scegli `Sostituisci i dati nella cella selezionata` e assicurati che il separatore sia `Virgola` (oppure `Rileva automaticamente`. Spunta anche la casella `Converti il testo in numeri, date e formule` se disponibile).
 Dopo aver confermato, i dati dovrebbero essere importati correttamente nelle colonne separate.
@@ -421,6 +423,7 @@ Dopo l'import:
 - crea una piccola area riepilogo a lato del dataset
 
 ### Esportazione
+
 Dopo aver lavorato sui dati, prova a esportare il foglio in CSV con `File` > `Scarica` > `Valori separati da virgola (.csv)`.
 
 ## 5) Esercizio Lezione 2
