@@ -371,9 +371,9 @@ Quando importi un CSV controlla subito:
 
 Problemi comuni:
 
-- tutte le colonne finiscono in una sola cella
-- date interpretate male
-- simboli o accenti letti in modo strano
+- tutte le colonne finiscono in una sola cella -> soluzione: scegli il separatore giusto (es. `Virgola`)
+- date interpretate male -> soluzione: controlla formato data e impostazioni locali
+- simboli o accenti letti in modo strano -> soluzione: verifica codifica del file (es. UTF-8)
 
 ## 3) Export CSV: cosa ricordare
 
@@ -409,7 +409,7 @@ Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo
 
 ### Importazione
 
-Seleziona i dati qui sopra, copiali e incollali in un file di testo. Salva questo file come `CSV_di_lavoro.csv` (o un nome simile) e soprattutto con estensione `.csv`.
+Seleziona i dati qui sopra, copiali e incollali in un file di testo. Salva questo file come `CSV_di_lavoro.csv` (o un nome simile) e soprattutto con estensione `.csv`. Attento ad elimnare l'estensione `.txt` se il tuo editor la aggiunge automaticamente.
 
 In Google Fogli poi vai sul foglio della lezione 2; successivamene importa il file con `File` > `Importa` > `Carica` e seleziona il file CSV appena creato.
 
