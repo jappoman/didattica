@@ -588,7 +588,11 @@ Se ti serve solo controllare che sia una vera data, senza limitare il periodo, n
 
 ## 6) Pulizia base dei dati già inseriti
 
-Operazioni utili:
+La convalida serve soprattutto a bloccare gli errori nuovi, cioè quelli che vengono inseriti dopo aver creato la regola. Se però importi un file CSV o ricevi un foglio già compilato, gli errori possono essere già presenti nei dati.
+
+In questi casi serve una fase di pulizia.
+
+Le operazioni più comuni sono:
 
 - rimuovere spazi iniziali/finali
 - uniformare maiuscole/minuscole
@@ -596,18 +600,84 @@ Operazioni utili:
 - correggere formati data
 - trovare duplicati
 
-Funzioni utili (se disponibili):
+Alcune funzioni sono particolarmente utili:
 
 ```text
 =ANNULLA.SPAZI(A2)
 =MAIUSC(A2)
 =MINUSC(A2)
-=STRINGA.ESTRAI(A2;4;3)
+=STRINGA.ESTRAI(A2;5;4)
 ```
 
-Esempio pratico:
+### `ANNULLA.SPAZI`
 
-- da `ORD-2026-015` puoi estrarre `2026` oppure `015` per costruire controlli o colonne di supporto
+Questa funzione elimina gli spazi inutili all'inizio e alla fine del testo e riduce gli spazi doppi interni a uno solo.
+
+È utile quando un dato sembra corretto a video, ma in realtà contiene spazi nascosti che impediscono confronti, filtri o convalide corrette.
+
+Esempio:
+
+- se una cella contiene ` Magazzino `
+- con `=ANNULLA.SPAZI(A2)` il risultato diventa `Magazzino`
+
+Questa funzione è molto utile nel CSV di questa lezione, perché alcuni reparti possono arrivare con spazi indesiderati.
+
+### `MAIUSC`
+
+Questa funzione trasforma tutto il testo in lettere maiuscole.
+
+È utile quando si vogliono uniformare valori scritti in modi diversi, ad esempio:
+
+- `aperto`
+- `Aperto`
+- `APERTO`
+
+Con `=MAIUSC(A2)` tutti questi valori diventano `APERTO`.
+
+Serve quindi a rendere coerenti i dati prima di analizzarli o confrontarli.
+
+### `MINUSC`
+
+Questa funzione trasforma tutto il testo in lettere minuscole.
+
+È utile per lo stesso motivo di `MAIUSC`, ma nel caso in cui si scelga di uniformare tutto in minuscolo.
+
+Esempio:
+
+- `Vendite` diventa `vendite`
+- `CHIUSO` diventa `chiuso`
+
+L'importante non è scegliere per forza maiuscolo o minuscolo, ma usare un criterio coerente in tutta la colonna.
+
+### `STRINGA.ESTRAI`
+
+Questa funzione estrae una parte del testo a partire da una certa posizione e per un certo numero di caratteri.
+
+La sintassi è:
+
+```text
+=STRINGA.ESTRAI(testo; posizione_iniziale; numero_caratteri)
+```
+
+Nell'esempio:
+
+```text
+=STRINGA.ESTRAI(A2;5;4)
+```
+
+la funzione prende il testo contenuto in `A2`, parte dal quinto carattere ed estrae quattro caratteri.
+
+Se in `A2` c'è `ORD-2026-015`, il risultato sarà `2026`.
+
+Per estrarre parti diverse dello stesso codice bisogna quindi cambiare posizione iniziale e lunghezza. Per esempio, da `ORD-2026-015` si può estrarre:
+
+- l'anno con `=STRINGA.ESTRAI(A2;5;4)`
+- il numero finale con `=STRINGA.ESTRAI(A2;10;3)`
+- una sezione utile per controlli o colonne di supporto
+
+Questa funzione serve quando un codice contiene più informazioni tutte insieme e vogliamo separarle.
+
+In generale, la pulizia dei dati serve a rendere omogenei i valori già presenti nel foglio, così convalide, filtri, formule e analisi successive funzionano meglio.
 
 ## 7) Evidenziazione errori (formattazione condizionale)
 
