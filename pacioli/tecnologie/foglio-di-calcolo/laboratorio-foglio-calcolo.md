@@ -451,30 +451,41 @@ A fine lezione devi saper:
 
 ## 1) Perché la qualità del dato è centrale
 
-Regola fondamentale:
+I dati che entrano nel sistema devono essere corretti, coerenti e completi. Se i dati sono sporchi o errati, anche le formule più sofisticate restituiranno risultati sbagliati. Ecco degli esempi di errori che possono verificarsi:
 
-- se i dati sono sporchi, i risultati sono inutili
-
-Errori tipici in classe e in azienda:
-
-- reparti scritti in modi diversi (`Vendite`, `vendite`, `Vendita`)
-- date non valide
-- quantità negative
-- codici non univoci
-- campi vuoti dove non dovrebbero esserci
+- reparti scritti in modi diversi (ad esempio: `Vendite`, `vendite`, `Vendita`); questo rende difficile filtrare o fare analisi per reparto
+- date non valide: ad esempio `35/03/2026` o `2026-15-01` non vengono riconosciute come date e non possono essere usate in formule o filtri per data
+- quantità negative: ad esempio `-5` in una colonna `Quantità` non ha senso e può falsare i totali
+- codici non univoci: ad esempio `ORD-2026-001` e `ORD-2026-001` (duplicato) oppure `ORD-2026-001` e `ORD-2026-1` (incoerente)
+- campi vuoti dove non dovrebbero esserci: ad esempio `Data Ordine` vuota rende difficile sapere quando è stato fatto l'ordine
 
 ## 2) Convalida dati: idea e tipi principali
 
-La convalida è un filtro in ingresso.
-Accetta solo valori conformi a una regola.
+La convalida è un filtro in fase di inserimento che blocca o avvisa l'utente quando il dato non rispetta le regole stabilite. Serve a prevenire errori e mantenere la coerenza del dataset.
 
-Tipi usati nel modulo:
+In Google Fogli la trovi in `Dati` > `Convalida dei dati`.
 
-- numero intero
-- numero decimale
-- data
-- elenco
-- lunghezza testo
+Si aprirà il pannello a destra:
+
+1. fai clic su `Aggiungi regola`
+2. controlla il campo `Applica all'intervallo` per applicare la regola alla colonna o alle celle giuste
+3. apri il menu a tendina sotto `Criteri`
+4. scegli il tipo di regola giusto
+5. compila i valori richiesti
+6. conferma con `Fine`
+
+In queste lezioni useremo soprattutto questi criteri del menu:
+
+- `Menu a discesa`
+- `Menu a discesa (da un intervallo)`
+- `È una data valida`
+- `La data è compresa`
+- `Maggiore di`
+- `Maggiore o uguale a`
+- `Minore di`
+- `Minore o uguale a`
+- `È compreso tra`
+- `Il testo è esattamente`
 
 ## 3) Regole consigliate per tabella Ordini
 
@@ -499,17 +510,92 @@ Convalide:
 
 ## 4) Liste di supporto (buona pratica)
 
-Crea un'area laterale (es. `M1:M10`) con valori elenco:
+Crea un'area laterale (es. `M1:M10`) con i valori da usare nei menu a discesa, nel nostro caso per il campo `Reparto`:
 
 - Informatica
 - Amministrazione
 - Vendite
 - Magazzino
 
-Poi usa quella gamma come sorgente della convalida.
+Poi usa quell'intervallo come sorgente della convalida.
 Vantaggio: se cambia un reparto, aggiorni solo la lista.
 
-## 5) Pulizia base dei dati già inseriti
+## 5) Procedura guidata: come inserire una regola
+
+Ogni volta il ragionamento è questo:
+
+1. seleziona prima la cella o l'intervallo da controllare
+2. vai su `Dati` > `Convalida dei dati`
+3. nel pannello a destra fai clic su `Aggiungi regola`
+4. nel campo `Applica all'intervallo` verifica che Google Fogli abbia selezionato la cella o la colonna giusta
+5. nel menu `Criteri` scegli il tipo corretto di controllo
+6. inserisci i valori richiesti dalla regola
+7. premi `Fine`
+
+### Esempio A - Reparto con elenco fisso scritto a mano
+
+Se vuoi creare direttamente un elenco nella regola:
+
+1. seleziona le celle del reparto, ad esempio `C2:C100`
+2. vai su `Dati` > `Convalida dei dati`
+3. fai clic su `Aggiungi regola`
+4. controlla che in `Applica all'intervallo` compaia `C2:C100`
+5. nel menu `Criteri` scegli `Menu a discesa`
+6. inserisci una voce per volta:
+   `Informatica`, `Amministrazione`, `Vendite`, `Magazzino`
+7. premi `Fine`
+
+Questa soluzione va bene se l'elenco è corto e non cambierà spesso.
+
+### Esempio B - Reparto con elenco preso da celle del foglio
+
+Se invece hai già scritto i reparti nell'area di supporto:
+
+1. scrivi i reparti in `M1:M4`
+2. seleziona le celle del reparto, ad esempio `C2:C100`
+3. vai su `Dati` > `Convalida dei dati`
+4. fai clic su `Aggiungi regola`
+5. nel menu `Criteri` scegli `Menu a discesa (da un intervallo)`
+6. nel campo dell'intervallo indica `M1:M4` oppure selezionalo con il pulsante a griglia
+7. premi `Fine`
+
+Questa soluzione è la migliore perché permette di aggiornare l'elenco senza rifare la regola.
+
+### Esempio C - Quantità tra 1 e 100
+
+1. seleziona le celle quantità, ad esempio `E2:E100`
+2. vai su `Dati` > `Convalida dei dati`
+3. fai clic su `Aggiungi regola`
+4. controlla `Applica all'intervallo`
+5. nel menu `Criteri` scegli `È compreso tra`
+6. inserisci `1` come valore minimo
+7. inserisci `100` come valore massimo
+8. premi `Fine`
+
+In questo modo non saranno accettate quantità come `0`, `-2` o `150`.
+
+### Esempio D - Prezzo maggiore di 0
+
+1. seleziona le celle prezzo, ad esempio `F2:F100`
+2. vai su `Dati` > `Convalida dei dati`
+3. fai clic su `Aggiungi regola`
+4. nel menu `Criteri` scegli `Maggiore di`
+5. inserisci `0`
+6. premi `Fine`
+
+### Esempio E - Data ordine compresa in un intervallo
+
+1. seleziona le celle data, ad esempio `B2:B100`
+2. vai su `Dati` > `Convalida dei dati`
+3. fai clic su `Aggiungi regola`
+4. nel menu `Criteri` scegli `La data è compresa`
+5. inserisci data iniziale `01/01/2025`
+6. inserisci data finale `31/12/2026`
+7. premi `Fine`
+
+Se ti serve solo controllare che sia una vera data, senza limitare il periodo, nel menu puoi scegliere `È una data valida`.
+
+## 6) Pulizia base dei dati già inseriti
 
 Operazioni utili:
 
@@ -532,7 +618,7 @@ Esempio pratico:
 
 - da `ORD-2026-015` puoi estrarre `2026` oppure `015` per costruire controlli o colonne di supporto
 
-## 6) Evidenziazione errori (formattazione condizionale)
+## 7) Evidenziazione errori (formattazione condizionale)
 
 Esempi:
 
@@ -557,16 +643,22 @@ ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
 7,07/03/2026,Amministrazione,Penne,10,1.2,chiuso,ORD-2026-007
 ```
 
-## 7) Esempio guidato
+## 8) Esempio guidato
 
 1. Importa il `CSV di lavoro`.
-2. Applica convalide su reparto, quantità, data, stato.
-3. Pulisci una colonna con `ANNULLA.SPAZI`.
-4. Estrai una parte del codice con `STRINGA.ESTRAI`.
-5. Individua errori, duplicati e valori incoerenti già presenti nel CSV.
-6. Osserva quali errori vengono bloccati e quali vanno corretti manualmente.
+2. Crea in una zona laterale del foglio un piccolo elenco reparti con:
+   `Informatica`, `Amministrazione`, `Vendite`, `Magazzino`.
+3. Seleziona la colonna `Reparto`, apri `Dati` > `Convalida dei dati`, fai clic su `Aggiungi regola` e nel menu `Criteri` scegli `Menu a discesa (da un intervallo)`.
+4. Indica come sorgente l'intervallo dove hai scritto i reparti e conferma con `Fine`.
+5. Seleziona la colonna `Quantità`, fai `Aggiungi regola` e nel menu `Criteri` scegli `È compreso tra`, poi inserisci `1` e `100`.
+6. Seleziona la colonna `Data Ordine`, fai `Aggiungi regola` e nel menu `Criteri` scegli `La data è compresa`, poi inserisci `01/01/2025` e `31/12/2026`.
+7. Seleziona la colonna `Stato`, fai `Aggiungi regola` e nel menu `Criteri` scegli `Menu a discesa`, poi inserisci `Aperto`, `In lavorazione`, `Chiuso`.
+8. Pulisci una colonna con `ANNULLA.SPAZI`.
+9. Estrai una parte del codice con `STRINGA.ESTRAI`.
+10. Individua errori, duplicati e valori incoerenti già presenti nel CSV.
+11. Osserva quali errori vengono bloccati e quali vanno corretti manualmente.
 
-## 8) Esercizio Lezione 3
+## 9) Esercizio Lezione 3
 
 Nel foglio `L3_Convalida_Pulizia` importa il `CSV di lavoro` di questa lezione.
 
