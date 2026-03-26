@@ -396,6 +396,7 @@ Problemi comuni:
 
 - tutte le colonne finiscono in una sola cella -> soluzione: scegli il separatore giusto (es. `Virgola`)
 - date interpretate male -> soluzione: controlla formato data e impostazioni locali
+- numeri decimali con il punto (es. `39.9`) non riconosciuti come numeri nel formato italiano -> soluzione: correggi i decimali sostituendo il punto con la virgola prima di applicare il formato numerico o valuta
 - simboli o accenti letti in modo strano -> soluzione: verifica codifica del file (es. UTF-8)
 
 ## 3) Export CSV: cosa ricordare
@@ -439,17 +440,30 @@ In Google Fogli poi vai sul foglio della lezione 2; successivamente importa il f
 Google Fogli ti chiederà come importare il file: scegli `Sostituisci i dati nella cella selezionata` e assicurati che il separatore sia `Virgola` (oppure `Rileva automaticamente`. Spunta anche la casella `Converti il testo in numeri, date e formule` se disponibile).
 Dopo aver confermato, i dati dovrebbero essere importati correttamente nelle colonne separate.
 
+Attenzione pratica:
+
+- nel CSV i campi sono separati da virgola, quindi i valori decimali di esempio sono scritti con il punto (es. `39.9`, `159.6`)
+- in un file Google Fogli con impostazioni locali italiane, quei valori possono essere interpretati come testo e non come numeri
+- se succede, applicare direttamente il formato `Valuta` non basta: prima il valore deve essere riconosciuto come numero
+- in questa lezione, se succede, la soluzione pratica è semplice: correggi i decimali sostituendo il punto con la virgola e poi applica il formato corretto
+- quindi il controllo corretto non è solo "applica il formato", ma prima "controlla i decimali e sistemali nel formato italiano"
+
 Dopo l'import:
 
 - controlla che i dati siano in colonne separate
-- verifica che `Quantità` e `Importo` siano numeri
+- verifica che `Quantità`, `Prezzo unitario` e `Importo` siano numeri veri e non testo
 - verifica che la colonna `Data` sia riconosciuta come data
-- crea una piccola area riepilogo a lato del dataset.
-Per ripassare le funzioni base, nella piccola area riepilogo puoi calcolare almeno:
-
-- la somma totale degli importi
-- la media degli importi
-- il valore massimo o minimo della colonna `Importo`
+- se i valori decimali sono scritti con il punto e non vengono letti come numeri, correggili usando la virgola
+- applica un formato adatto alle colonne:
+  `Data` come data,
+  `Quantità` come numero senza decimali,
+  `Prezzo unitario` e `Importo` come numero con 2 decimali o come valuta
+- poi seleziona ogni colonna e usa `Formato` > `Numero` per scegliere il formato più adatto
+- `Importo` è il totale della riga, cioè `Quantità * Prezzo unitario`
+- crea una piccola area riepilogo a lato del dataset. Per ripassare le funzioni base, nella piccola area riepilogo calcola almeno:
+  - la somma totale degli importi
+  - la media degli importi
+  - il valore massimo o minimo della colonna `Importo`
 
 ### Esportazione
 
@@ -477,12 +491,19 @@ Nel foglio `L2_CSV_Funzioni_Base` importa il `CSV per l'esercizio` di questa lez
 
 Consegna:
 
+- Elimina i dati importati nell'esempio guidato, così da avere un foglio pulito per l'esercizio
 - importa correttamente i dati tramite l'import via csv
 - controlla che date, numeri e intestazioni siano leggibili
+- correggi i decimali con il punto in modo da avere la virgola dove serve, così i valori vengono riconosciuti correttamente come numeri
+- formatta correttamente le colonne dopo l'import:
+  `Data` come data,
+  `Quantità` come numero,
+  `Prezzo unitario` e `Importo` come numero con 2 decimali o valuta
 - aggiungi una colonna `Subtotale` che moltiplica `Quantità` per `Prezzo unitario`
+- confronta `Subtotale` con `Importo` per verificare che i dati importati siano coerenti
 - crea una piccola area riepilogo con almeno due funzioni base, ad esempio `SOMMA`, `MEDIA`, `MIN` o `MAX`
 - esporta di nuovo il foglio in CSV
-- importa nuovamente il CSV esportato sotto la tabella originale e verifica che i dati siano ancora corretti.
+- importa nuovamente il CSV esportato sotto la tabella originale (seleziona una casella sottostante prima di importare il CSV) e verifica che i dati siano ancora corretti. Eventualmente sistema le colonne e i formati se qualcosa è andato storto.
 
 # Lezione 3 - Qualità del dato: convalida, pulizia e coerenza
 
