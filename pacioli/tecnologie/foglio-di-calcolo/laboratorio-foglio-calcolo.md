@@ -229,6 +229,17 @@ Il riferimento misto blocca solo la colonna o solo la riga. Esempio:
 
 Quindi trascinando la formula in basso diventa `=$B3*C$1`, trascinando a destra diventa `=$B2*D$1`.
 
+## Range di celle
+
+Un range di celle è un intervallo che comprende più celle. Si indica con i due punti `:` tra la cella iniziale e quella finale.
+Esempio:
+
+```text
+=SOMMA(B2:B20)
+```
+
+In questo caso `B2:B20` indica tutte le celle dalla B2 alla B20, e la funzione `SOMMA` calcola la somma di tutti quei valori.
+
 ## Errori frequenti e come risolverli
 
 ### `#NOME?`
@@ -520,12 +531,12 @@ A fine lezione devi saper:
 
 ## 1) Perché la qualità del dato è centrale
 
-I dati che entrano nel sistema devono essere corretti, coerenti e completi. Se i dati sono sporchi o errati, anche le formule più sofisticate restituiranno risultati sbagliati. Ecco degli esempi di errori che possono verificarsi:
+I dati che entrano nel sistema devono essere corretti, coerenti e completi. Se i dati sono sporchi o errati, delle formule corrette restituiranno comunque sbagliati. Ecco degli esempi di errori che possono verificarsi:
 
 - reparti scritti in modi diversi (ad esempio: `Vendite`, `vendite`, `Vendita`); questo rende difficile filtrare o fare analisi per reparto
 - date non valide: ad esempio `35/03/2026` o `2026-15-01` non vengono riconosciute come date e non possono essere usate in formule o filtri per data
 - quantità negative: ad esempio `-5` in una colonna `Quantità` non ha senso e può falsare i totali
-- codici non univoci: ad esempio `ORD-2026-001` e `ORD-2026-001` (duplicato) oppure `ORD-2026-001` e `ORD-2026-1` (incoerente)
+- codici non univoci: ad esempio codici duplicati oppure `ORD-2026-001` e `ORD-2026-1` (incoerenti tra loro) rendono difficile identificare univocamente un ordine
 - campi vuoti dove non dovrebbero esserci: ad esempio `Data Ordine` vuota rende difficile sapere quando è stato fatto l'ordine
 
 ## 2) Convalida dati: idea e tipi principali
@@ -684,7 +695,7 @@ Questa funzione elimina gli spazi inutili all'inizio e alla fine del testo e rid
 
 Esempio:
 
-- se una cella contiene ` Magazzino `
+- se una cella contiene `Magazzino` (con spazi prima e dopo), il confronto con `Magazzino` restituirà `FALSO`
 - con `=ANNULLA.SPAZI(A2)` il risultato diventa `Magazzino`
 
 Questa funzione è molto utile nel CSV di questa lezione, perché alcuni reparti possono arrivare con spazi indesiderati.
@@ -746,29 +757,19 @@ Questa funzione serve quando un codice contiene più informazioni tutte insieme 
 
 In generale, la pulizia dei dati serve a rendere omogenei i valori già presenti nel foglio, così convalide, filtri, formule e analisi successive funzionano meglio.
 
-## 7) Evidenziazione errori (formattazione condizionale)
-
-Esempi:
-
-- quantità < 1 o > 100 in rosso
-- data vuota in giallo
-- stato diverso da elenco in arancione
-
-Anche se non richiesta in verifica, aiuta molto nella revisione.
-
 ## CSV per l'esempio guidato
 
 Importa questo `CSV di lavoro` volutamente sporco:
 
 ```csv
 ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
-1,01/03/2026,Informatica,Mouse,12,18.5,Aperto,ORD-2026-001
-2,02/03/2026,vendite,Toner,0,42,Chiuso,ORD-2026-002
+1,01/03/2026,Informatica,Mouse ,12,18.5,Aperto,ORD-2026-001
+2,02/03/2026,vendite, Toner ,0,42,Chiuso,ORD-2026-002
 3,,Amministrazione,Risma A4,20,4.8,APERTO,ORD-2026-003
-3,04/03/2026, Magazzino ,Scatole,15,2.5,In lavorazione,ORD-2026-004
-5,35/03/2026,Informatica,Tastiera,8,24,Aperto,ORD-2026-005
+3,04/03/2026, Magazzino ,Scatole ,15,2.5,In lavorazione,ORD-2026-004
+5,35/03/2026,Informatica, Tastiera,8,24,Aperto,ORD-2026-005
 6,06/03/2026,Vendite,Cuffie,-2,35,Chiuso,ORD-2026-006
-7,07/03/2026,Amministrazione,Penne,10,1.2,chiuso,ORD-2026-007
+7,07/03/2026,Amministrazione, Penne,10,1.2,chiuso,ORD-2026-007
 ```
 
 ## 8) Esempio guidato
@@ -776,31 +777,28 @@ ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
 1. Importa il `CSV per l'esempio guidato`.
 2. Crea in una zona laterale del foglio un piccolo elenco reparti con:
    `Informatica`, `Amministrazione`, `Vendite`, `Magazzino`.
-3. Seleziona la colonna `Reparto`, apri `Dati` > `Convalida dei dati`, fai clic su `Aggiungi regola` e nel menu `Criteri` scegli `Menu a discesa (da un intervallo)`.
-4. Indica come sorgente l'intervallo dove hai scritto i reparti e conferma con `Fine`.
-5. Seleziona la colonna `Quantità`, fai `Aggiungi regola` e nel menu `Criteri` scegli `È compreso tra`, poi inserisci `1` e `100`.
-6. Seleziona la colonna `Prezzo`, fai `Aggiungi regola` e nel menu `Criteri` scegli `Maggiore di`, poi inserisci `0`.
-7. Seleziona la colonna `Data Ordine`, fai `Aggiungi regola` e nel menu `Criteri` scegli `La data è compresa`, poi inserisci `01/01/2025` e `31/12/2026`.
-8. Seleziona la colonna `Stato`, fai `Aggiungi regola` e nel menu `Criteri` scegli `Menu a discesa`, poi inserisci `Aperto`, `In lavorazione`, `Chiuso`.
-9. Pulisci la colonna `Reparto` oppure un'altra colonna testo con `ANNULLA.SPAZI`.
-10. Uniforma una colonna testo con `MAIUSC` o `MINUSC`, se necessario.
-11. Estrai una parte del codice con `STRINGA.ESTRAI`.
-12. Individua errori, duplicati e valori incoerenti già presenti nel CSV.
-13. Evidenzia almeno un tipo di errore con la formattazione condizionale, ad esempio quantità fuori intervallo o date mancanti.
-14. Osserva quali errori vengono bloccati dalla convalida e quali vanno corretti manualmente perché erano già presenti nei dati importati.
+3. Seleziona le celle della colonna `Data Ordine` (non l'intestazione), fai `Aggiungi regola` e nel menu `Criteri` scegli `La data è compresa`, poi inserisci `01/01/2025` e `31/12/2026`.
+4. Seleziona le celle della colonna `Reparto` (non l'intestazione), apri `Dati` > `Convalida dei dati`, fai clic su `Aggiungi regola` e nel menu `Criteri` scegli `Menu a discesa (da un intervallo)`.
+5. Indica come sorgente l'intervallo dove hai scritto i reparti e conferma con `Fine`.
+6. Crea una nuova colonna a fianco a quella `Prodotto` chiamata `Prodotto normalizzato` e usa `ANNULLA.SPAZI` per pulire i nomi dei prodotti.
+7. Seleziona le celle della colonna `Quantità` (non l'intestazione), fai `Aggiungi regola` e nel menu `Criteri` scegli `Tra`, poi inserisci `1` e `100`.
+8. Seleziona le celle della colonna `Prezzo` (non l'intestazione), fai `Aggiungi regola` e nel menu `Criteri` scegli `Maggiore di`, poi inserisci `0`.
+9. Seleziona le celle della colonna `Stato` (non l'intestazione), fai `Aggiungi regola` e nel menu `Criteri` scegli `Menu a discesa`, poi inserisci `Aperto`, `In lavorazione`, `Chiuso`.
+10. Fai una nuova colonna `Anno` e estrai l'anno dal codice con `STRINGA.ESTRAI`.
+11. Osserva quali errori vengono bloccati dalla convalida e correggili manualmente.
 
 ## CSV per l'esercizio
 
-Per l'esercizio usa un secondo CSV sporco, costruito in modo simile ma non identico:
+Per l'esercizio usa un secondo CSV sporco:
 
 ```csv
 ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
-11,10/03/2026,Informatica,Webcam,5,39.9,Aperto,ORD-2026-011
-12,11/03/2026, vendite ,Cartucce,101,28,chiuso,ORD-2026-012
-13,12/03/2026,Amministrazione,Cartelle,14,2.2,APERTO,ORD-2026-013
-13,44/03/2026,Magazzino,Etichette,8,0,In lavorazione,ORD-2026-014
-15,,Informatica,Hub USB,9,19,Aperto,ORD-2026-015
-16,15/03/2026,Vendite,Notebook,-1,650,Chiuso,ORD-2026-016
+11,10/03/2026,Informatica, Webcam,5,39.9,Aperto,ORD-2026-011
+12,11/03/2026, vendite , Cartucce ,101,28,chiuso,ORD-2026-012
+13,12/03/2026,Amministrazione,Cartelle ,14,2.2,APERTO,ORD-2026-013
+13,44/03/2026,Magazzino,Etichette  ,8,0,In lavorazione,ORD-2026-014
+15,,Informatica,  Hub  USB,9,19,Aperto,ORD-2026-015
+16,15/03/2026,Vendite, Notebook ,-1,650,Chiuso,ORD-2026-016
 17,16/03/2026,Amministrazione,Penne,20,1.2,In lavorazione,ORD-2026-017
 ```
 
@@ -809,16 +807,12 @@ ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
 Nel foglio `L3_Convalida_Pulizia` importa il `CSV per l'esercizio` di questa lezione.
 
 Consegna:
-
-- applica le convalide su `Data`, `Reparto`, `Quantità` e `Stato`
-- applica anche una convalida su `Prezzo` in modo che siano accettati solo valori maggiori di `0`
+- importa il nuovo CSV di lavoro sotto alla tabella dell'esempio guidato
+- pulisci i prodotti con `ANNULLA.SPAZI` in una nuova colonna `Prodotto normalizzato`
+- applica le convalide su `Data Ordine`, `Reparto`, `Quantità`, `Stato` e `Prezzo`
 - crea una piccola lista di supporto per il campo `Reparto`
-- pulisci una colonna testo con `ANNULLA.SPAZI`
-- uniforma almeno una colonna testuale con `MAIUSC` oppure `MINUSC`
 - usa `STRINGA.ESTRAI` per ricavare una parte utile da un codice
-- evidenzia almeno un tipo di errore con la formattazione condizionale
-- individua almeno 2 errori o duplicati e correggili
-- scrivi in una breve nota finale quali errori sono stati bloccati dalla convalida e quali invece erano già presenti nel CSV
+- correggi gli errori individuati dai vari controlli
 
 # Lezione 4 - Funzioni essenziali: riepilogo, SE e criteri
 
