@@ -809,8 +809,8 @@ Nel foglio `L3_Convalida_Pulizia` importa il `CSV per l'esercizio` di questa lez
 Consegna:
 - importa il nuovo CSV di lavoro sotto alla tabella dell'esempio guidato
 - pulisci i prodotti con `ANNULLA.SPAZI` in una nuova colonna `Prodotto normalizzato`
-- applica le convalide su `Data Ordine`, `Reparto`, `Quantità`, `Stato` e `Prezzo`
 - crea una piccola lista di supporto per il campo `Reparto`
+- applica le convalide su `Data Ordine`, `Reparto`, `Quantità`, `Prezzo` e `Stato`
 - usa `STRINGA.ESTRAI` per ricavare una parte utile da un codice
 - correggi gli errori individuati dai vari controlli
 
