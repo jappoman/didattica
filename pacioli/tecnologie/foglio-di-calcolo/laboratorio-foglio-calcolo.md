@@ -30,12 +30,13 @@ Esempio:
 Crea un file chiamato `modulo3-foglio-calcolo-avanzato` e prepara questi fogli:
 
 - `L1_Formule`
-- `L2_Funzioni`
-- `L3_Convalida`
-- `L4_Ordinamento_Filtri`
-- `L5_Grafici_CSV`
-- `L6_Simulazione`
-- `L7_Verifica`
+- `L2_CSV_Funzioni_Base`
+- `L3_Convalida_Pulizia`
+- `L4_Funzioni_Criteri`
+- `L5_Ricerche`
+- `L6_Tabelle_Filtri`
+- `L7_Grafici_Pivot`
+- `L8_Simulazione`
 
 Consigli pratici:
 
@@ -51,8 +52,6 @@ Consigli pratici:
 - applica formati coerenti per colonna:
   `Prezzo` in valuta (euro), `Sconto` in percentuale, `Data` in formato data.
   Non mischiare nella stessa colonna numeri, testo e simboli scritti a mano. Per applicare un formato, seleziona la colonna (o riga, o cella) e scegli il formato numerico adatto (es. `Valuta`, `Percentuale`, `Data`).
-
----
 
 # Lezione 1 - Ripasso: struttura del foglio e formule corrette
 
@@ -76,6 +75,64 @@ Un dato è un valore scritto in cella. Può essere di vari tipi:
 - numero: `249,90`
 - percentuale: `15%`
 - data: `18/03/2026`
+
+#### Approfondimento sulle percentuali
+
+Quando inserisci una percentuale in una cella, ad esempio `15%`, Google Fogli la interpreta come valore numerico `0,15`.
+Questo significa che il simbolo `%` non è solo una scrittura grafica: per il foglio di calcolo quel valore diventa un numero decimale utilizzabile nelle formule.
+
+Quindi:
+
+- `15%` = `0,15`
+- `22%` = `0,22`
+- `5%` = `0,05`
+
+Per lavorare correttamente con le percentuali devi quindi ragionare matematicamente sul risultato che vuoi ottenere.
+
+Se vuoi sapere quanto vale la percentuale su un importo, devi moltiplicare:
+
+- sconto di `15%` su `100` -> `=100*15%` oppure `=100*0,15` -> risultato `15`
+- IVA del `22%` su `85` -> `=85*22%` oppure `=85*0,22` -> risultato `18,70`
+
+Se invece vuoi ottenere direttamente il valore finale, devi usare `1` come valore iniziale intero:
+
+- `1 - percentuale` = la parte che rimane dopo una sottrazione
+- `1 + percentuale` = il valore iniziale più la parte aggiunta
+
+Esempi:
+
+- prezzo con sconto -> `=prezzo*(1-sconto%)`
+- prezzo con IVA aggiunta -> `=prezzo*(1+iva%)`
+
+Esempi pratici:
+
+```text
+=B2*E2
+=D2*(1-E2)
+=F2*(1+$K$1)
+```
+
+Spiegazione dei tre casi:
+
+- `=B2*E2` calcola quanto vale lo sconto in euro
+- `=D2*(1-E2)` calcola il prezzo dopo aver tolto lo sconto
+- `=F2*(1+$K$1)` calcola il prezzo dopo aver aggiunto l'IVA
+
+Esempio numerico sullo sconto:
+
+- se `D2` vale `100`
+- e `E2` contiene `15%`
+- allora `E2` viene letto come `0,15`
+- quindi `1-E2` diventa `1-0,15 = 0,85`
+- perciò `=D2*(1-E2)` diventa `=100*0,85 = 85`
+
+Esempio numerico sull'IVA:
+
+- se `F2` vale `85`
+- e `K1` contiene `22%`
+- allora `K1` viene letto come `0,22`
+- quindi `1+$K$1` diventa `1+0,22 = 1,22`
+- perciò `=F2*(1+$K$1)` diventa `=85*1,22 = 103,70`
 
 ### Formula
 
@@ -194,7 +251,41 @@ Quindi trascinando la formula in basso diventa `=$B3*C$1`, trascinando a destra 
 - `Causa tipica:` riferimento sbagliato dopo trascinamento
 - `Soluzione:` controlla se serve `$` per fissare la riga, la colonna o la cella
 
-## Esercizio: listino con sconto e IVA
+## Esempio guidato
+
+Nel foglio `L1_Formule` imposta una piccola tabella con queste colonne:
+
+- `A` Prodotto
+- `B` Prezzo
+- `C` Quantità
+- `D` Totale lordo
+- `E` IVA
+- `F` Totale finale
+
+Inserisci in `H1` l'aliquota IVA: `22%`.
+
+Per provare l'esempio guidato puoi usare dati semplici come questi:
+
+- `Mouse` | `18,50` | `2`
+- `Tastiera` | `24` | `3`
+- `Monitor` | `140` | `1`
+
+Esempio di formule in riga 2:
+
+```text
+D2 = B2*C2
+E2 = D2*$H$1
+F2 = ARROTONDA(D2+E2;2)
+```
+
+In questo esempio:
+
+- `B2*C2` usa riferimenti relativi
+- `$H$1` è un riferimento assoluto
+- `ARROTONDA(...;2)` serve per ottenere un importo monetario corretto
+- se in `H1` scrivi `22%`, Google Fogli userà automaticamente il valore `0,22` nel calcolo
+
+## Esercizio Lezione 1
 
 Crea nel foglio `L1_Formule` una tabella con queste intestazioni (riga 1):
 
@@ -208,7 +299,9 @@ Crea nel foglio `L1_Formule` una tabella con queste intestazioni (riga 1):
 - `H` Importo IVA
 - `I` Totale finale
 
-Inserisci in `K1` l'aliquota IVA: `0,22`.
+Inserisci in `K1` l'aliquota IVA: `22%`.
+
+Per l'esercizio usa invece almeno 10 righe con prodotti e valori diversi dall'esempio guidato, ad esempio articoli come `Webcam`, `Hub USB`, `Notebook`, `Stampante`, `Cuffie`.
 
 In questa lezione usa un metodo a passaggi separati, senza mescolare formule compatte come `*(1-sconto)` o `*(1+IVA)`.
 L'obiettivo è vedere bene il significato di ogni colonna.
@@ -231,6 +324,27 @@ H2 = G2*$K$1
 I2 = ARROTONDA(G2+H2;2)
 ```
 
+Formule possibili:
+
+```text
+D2 = B2*C2
+F2 = D2*(1-E2)
+G2 = F2*$K$1
+H2 = ARROTONDA(F2+G2;2)
+```
+
+Ricorda il significato matematico delle formule:
+
+- `D2*(1-E2)` significa: prendi il subtotale intero (`1`) e togli la percentuale di sconto
+- `F2*$K$1` significa: calcola solo il valore dell'IVA
+- `F2*(1+$K$1)` significa: prendi il netto intero (`1`) e aggiungi la percentuale di IVA
+
+In alternativa, il totale finale con IVA può essere scritto anche cosi:
+
+```text
+H2 = ARROTONDA(F2*(1+$K$1);2)
+```
+
 Compila almeno 10 prodotti, trascina le formule su tutte le righe e controlla che i risultati siano coerenti (nella colonna Sconto % devi inserire un numero seguito dal simbolo `%`, es. `15%`). A fine tabella aggiungi una piccola area riepilogo con:
 
 - Totale generale
@@ -240,37 +354,462 @@ Ed usa delle formule appropriate per calcolare questi valori.
 
 Infine aggiungi la colonna **Prezzo medio unitario**, dato dal totale finale diviso la quantità, arrotondato a 2 decimali.
 
-# Lezione 2 - Funzioni avanzate essenziali per analizzare dati
+# Lezione 2 - CSV e ripasso funzioni base
 
 ## Obiettivi della lezione
 
 A fine lezione devi saper:
 
-- usare funzioni statistiche e logiche
-- applicare criteri nelle formule
-- combinare più funzioni nella stessa tabella
-- costruire celle di riepilogo automatico
-- recuperare dati da una tabella di riferimento con funzioni di ricerca
+- capire cos'è un file CSV e a cosa serve
+- importare dati da CSV in un foglio di calcolo
+- esportare correttamente un foglio in CSV
+- ripassare le funzioni base di riepilogo
+- controllare i dati importati prima di usarli negli esercizi successivi
 
-## 1) Funzioni di riepilogo indispensabili
+## 1) CSV: cos'è e a cosa serve
 
-```text
-=SOMMA(D2:D100)
-=MEDIA(D2:D100)
-=MIN(D2:D100)
-=MAX(D2:D100)
-=CONTA.VALORI(A2:A100)
-=CONTA.NUMERI(D2:D100)
+CSV = `Comma-Separated Values`.
+È un file di testo in cui i dati sono organizzati per righe e colonne tramite un separatore.
+
+Serve per:
+
+- scambiare dati tra software diversi
+- importare dati in modo rapido
+- lavorare su file esportati da gestionali, siti o database
+
+Caratteristiche principali:
+
+- è leggero
+- non conserva formule, colori o grafici
+- conserva soprattutto i dati grezzi
+
+## 2) Import CSV: controlli importanti
+
+Quando importi un CSV controlla subito:
+
+- che le colonne siano separate correttamente
+- che le date siano riconosciute come date
+- che i numeri siano numeri e non testo
+- che eventuali codici con zeri iniziali non vengano alterati
+
+Problemi comuni:
+
+- tutte le colonne finiscono in una sola cella -> soluzione: scegli il separatore giusto (es. `Virgola`)
+- date interpretate male -> soluzione: controlla formato data e impostazioni locali
+- simboli o accenti letti in modo strano -> soluzione: verifica codifica del file (es. UTF-8)
+
+## 3) Export CSV: cosa ricordare
+
+Prima di esportare:
+
+- controlla i nomi delle colonne
+- verifica che i dati siano puliti
+- ricorda che il CSV salverà i dati e non la struttura completa del foglio
+
+Dopo l'export:
+
+- riapri il file
+- controlla che il contenuto sia leggibile
+- verifica che importi e date siano rimasti corretti
+
+## CSV per l'esempio guidato
+
+Usa un file CSV con una struttura simile a questa:
+
+```csv
+Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo
+2026-03-01,Informatica,Mouse,12,18.5,222
+2026-03-01,Vendite,Toner,5,42,210
+2026-03-02,Amministrazione,Risma A4,20,4.8,96
+2026-03-02,Magazzino,Scatole,15,2.5,37.5
+2026-03-03,Informatica,Tastiera,8,24,192
+2026-03-03,Vendite,Notebook,2,650,1300
+2026-03-04,Amministrazione,Penne,30,1.2,36
+2026-03-04,Magazzino,Nastro,10,3.4,34
 ```
 
-Quando usarle:
+## 4) Esempio guidato
 
-- `SOMMA`: totale vendite/costi
-- `MEDIA`: valore medio per periodo
-- `MIN`/`MAX`: estremi
-- `CONTA`: numero record
+### Importazione
 
-## 2) Funzione SE: decisioni automatiche
+Seleziona i dati qui sopra, copiali e incollali in un file di testo. Salva questo file come `CSV_di_lavoro.csv` (o un nome simile) e soprattutto con estensione `.csv`. Attento a eliminare l'estensione `.txt` se il tuo editor la aggiunge automaticamente.
+
+In Google Fogli poi vai sul foglio della lezione 2; successivamente importa il file con `File` > `Importa` > `Carica` e seleziona il file CSV appena creato.
+
+Google Fogli ti chiederà come importare il file: scegli `Sostituisci i dati nella cella selezionata` e assicurati che il separatore sia `Virgola` (oppure `Rileva automaticamente`. Spunta anche la casella `Converti il testo in numeri, date e formule` se disponibile).
+Dopo aver confermato, i dati dovrebbero essere importati correttamente nelle colonne separate.
+
+Dopo l'import:
+
+- controlla che i dati siano in colonne separate
+- verifica che `Quantità` e `Importo` siano numeri
+- verifica che la colonna `Data` sia riconosciuta come data
+- crea una piccola area riepilogo a lato del dataset.
+Per ripassare le funzioni base, nella piccola area riepilogo puoi calcolare almeno:
+
+- la somma totale degli importi
+- la media degli importi
+- il valore massimo o minimo della colonna `Importo`
+
+### Esportazione
+
+Dopo aver lavorato sui dati, prova a esportare il foglio in CSV con `File` > `Scarica` > `Valori separati da virgola (.csv)`.
+
+## CSV per l'esercizio
+
+Per l'esercizio usa invece un secondo CSV, simile nella struttura ma con valori diversi:
+
+```csv
+Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo
+2026-03-06,Informatica,Webcam,4,39.9,159.6
+2026-03-06,Vendite,Cartucce,6,28,168
+2026-03-07,Amministrazione,Evidenziatori,18,1.5,27
+2026-03-07,Magazzino,Etichette,25,0.8,20
+2026-03-08,Informatica,Hub USB,7,19,133
+2026-03-08,Vendite,Smartphone,3,320,960
+2026-03-09,Amministrazione,Cartelle,12,2.2,26.4
+2026-03-09,Magazzino,Bobine,9,5.5,49.5
+```
+
+## 5) Esercizio Lezione 2
+
+Nel foglio `L2_CSV_Funzioni_Base` importa il `CSV per l'esercizio` di questa lezione.
+
+Consegna:
+
+- importa correttamente i dati tramite l'import via csv
+- controlla che date, numeri e intestazioni siano leggibili
+- aggiungi una colonna `Subtotale` che moltiplica `Quantità` per `Prezzo unitario`
+- crea una piccola area riepilogo con almeno due funzioni base, ad esempio `SOMMA`, `MEDIA`, `MIN` o `MAX`
+- esporta di nuovo il foglio in CSV
+- importa nuovamente il CSV esportato sotto la tabella originale e verifica che i dati siano ancora corretti.
+
+# Lezione 3 - Qualità del dato: convalida, pulizia e coerenza
+
+## Obiettivi della lezione
+
+A fine lezione devi saper:
+
+- prevenire errori in inserimento
+- costruire convalide efficaci
+- pulire testi e codici già inseriti
+- migliorare affidabilità del file
+
+## Parte teorica
+
+## 1) Perché la qualità del dato è centrale
+
+I dati che entrano nel sistema devono essere corretti, coerenti e completi. Se i dati sono sporchi o errati, anche le formule più sofisticate restituiranno risultati sbagliati. Ecco degli esempi di errori che possono verificarsi:
+
+- reparti scritti in modi diversi (ad esempio: `Vendite`, `vendite`, `Vendita`); questo rende difficile filtrare o fare analisi per reparto
+- date non valide: ad esempio `35/03/2026` o `2026-15-01` non vengono riconosciute come date e non possono essere usate in formule o filtri per data
+- quantità negative: ad esempio `-5` in una colonna `Quantità` non ha senso e può falsare i totali
+- codici non univoci: ad esempio `ORD-2026-001` e `ORD-2026-001` (duplicato) oppure `ORD-2026-001` e `ORD-2026-1` (incoerente)
+- campi vuoti dove non dovrebbero esserci: ad esempio `Data Ordine` vuota rende difficile sapere quando è stato fatto l'ordine
+
+## 2) Convalida dati: idea e tipi principali
+
+La convalida è un filtro in fase di inserimento che blocca o avvisa l'utente quando il dato non rispetta le regole stabilite. Serve a prevenire errori e mantenere la coerenza del dataset.
+
+In Google Fogli la trovi in `Dati` > `Convalida dei dati`.
+
+Quando si apre il pannello a destra, la logica generale è sempre questa:
+
+- si fa clic su `Aggiungi regola`
+- si controlla il campo `Applica all'intervallo` per applicare la regola alla colonna o alle celle giuste
+- si apre il menu a tendina sotto `Criteri`
+- si sceglie il tipo di regola giusto
+- si compilano i valori richiesti
+- si conferma con `Fine`
+
+In queste lezioni useremo soprattutto questi criteri del menu:
+
+- `Menu a discesa`
+- `Menu a discesa (da un intervallo)`
+- `È una data valida`
+- `La data è compresa`
+- `Maggiore di`
+- `Maggiore o uguale a`
+- `Minore di`
+- `Minore o uguale a`
+- `È compreso tra`
+- `Il testo è esattamente`
+
+## 3) Regole consigliate per tabella Ordini
+
+In una tabella ordini come quella usata in questa lezione, alcuni campi si prestano bene alla convalida perché devono rispettare regole molto precise.
+
+I campi tipici sono:
+
+- `ID Ordine`
+- `Data Ordine`
+- `Reparto`
+- `Prodotto`
+- `Quantità`
+- `Prezzo`
+- `Stato`
+
+Per questi campi, le regole più adatte sono normalmente queste:
+
+- `ID Ordine`: numero intero maggiore di `0`
+- `Data Ordine`: data compresa tra `01/01/2025` e `31/12/2026`
+- `Reparto`: elenco prefissato
+- `Quantità`: numero compreso tra `1` e `100`
+- `Prezzo`: numero maggiore di `0`
+- `Stato`: elenco con i valori `Aperto`, `In lavorazione`, `Chiuso`
+
+Questa sezione serve quindi come schema di riferimento: spiega quale regola conviene associare a ciascun campo. L'applicazione pratica vera e propria si trova più sotto, nell'esempio guidato e nell'esercizio.
+
+## 4) Liste di supporto (buona pratica)
+
+Quando si usa una convalida con elenco, spesso conviene preparare una piccola lista di supporto in una zona laterale del foglio.
+
+Per esempio, per il campo `Reparto`, la lista potrebbe contenere:
+
+- Informatica
+- Amministrazione
+- Vendite
+- Magazzino
+
+Questa lista può essere scritta, ad esempio, nell'area `M1:M4` e poi usata come sorgente della convalida.
+
+Il vantaggio è semplice: se un valore cambia, non serve rifare tutta la regola, ma basta aggiornare la lista di supporto.
+
+Anche qui stiamo ancora descrivendo una buona pratica generale. L'applicazione concreta di questa idea compare più sotto, nell'esempio guidato.
+
+## 5) Come funziona l'inserimento di una regola
+
+Ogni regola di convalida segue sempre la stessa logica:
+
+- prima si seleziona la cella o l'intervallo da controllare
+- poi si apre `Dati` > `Convalida dei dati`
+- nel pannello a destra si fa clic su `Aggiungi regola`
+- si controlla il campo `Applica all'intervallo`
+- dal menu `Criteri` si sceglie il tipo corretto di controllo
+- si inseriscono i valori richiesti
+- infine si conferma con `Fine`
+
+### Caso A - Reparto con elenco fisso scritto a mano
+
+Se si vuole creare direttamente un elenco dentro la regola, si selezionano le celle del reparto, ad esempio `C2:C100`, poi si apre `Dati` > `Convalida dei dati` e si fa clic su `Aggiungi regola`.
+
+Nel campo `Applica all'intervallo` deve comparire l'intervallo corretto, mentre nel menu `Criteri` si sceglie `Menu a discesa`.
+
+Le voci da inserire una per volta sono:
+
+- `Informatica`
+- `Amministrazione`
+- `Vendite`
+- `Magazzino`
+
+Questa soluzione va bene se l'elenco è corto e non cambierà spesso.
+
+### Caso B - Reparto con elenco preso da celle del foglio
+
+Se invece i reparti sono già stati scritti nell'area di supporto, ad esempio in `M1:M4`, conviene usare `Menu a discesa (da un intervallo)`.
+
+In questo caso si selezionano le celle del reparto, si apre `Dati` > `Convalida dei dati`, si aggiunge una regola e come sorgente si indica l'intervallo `M1:M4`, oppure lo si seleziona con il pulsante a griglia.
+
+Questa soluzione è la migliore perché permette di aggiornare l'elenco senza rifare la regola.
+
+### Caso C - Quantità tra 1 e 100
+
+Per la colonna `Quantità`, ad esempio `E2:E100`, il criterio più adatto è `È compreso tra`.
+
+Nel pannello della convalida si imposta quindi un valore minimo pari a `1` e un valore massimo pari a `100`.
+
+In questo modo non saranno accettate quantità come `0`, `-2` o `150`.
+
+### Caso D - Prezzo maggiore di 0
+
+Per la colonna `Prezzo`, ad esempio `F2:F100`, si può usare il criterio `Maggiore di` e indicare come soglia `0`.
+
+In questo modo si evita l'inserimento di prezzi nulli o negativi.
+
+### Caso E - Data ordine compresa in un intervallo
+
+Per la colonna `Data Ordine`, ad esempio `B2:B100`, si può scegliere il criterio `La data è compresa` e impostare come estremi `01/01/2025` e `31/12/2026`.
+
+Se ti serve solo controllare che sia una vera data, senza limitare il periodo, nel menu puoi scegliere `È una data valida`.
+
+## 6) Pulizia base dei dati già inseriti
+
+La convalida serve soprattutto a bloccare gli errori nuovi, cioè quelli che vengono inseriti dopo aver creato la regola. Se però importi un file CSV o ricevi un foglio già compilato, gli errori possono essere già presenti nei dati.
+
+In questi casi serve una fase di pulizia.
+
+Le operazioni più comuni sono:
+
+- rimuovere spazi iniziali/finali
+- uniformare maiuscole/minuscole
+- estrarre parti utili da un codice
+- correggere formati data
+- trovare duplicati
+
+Alcune funzioni sono particolarmente utili:
+
+```text
+=ANNULLA.SPAZI(A2)
+=MAIUSC(A2)
+=MINUSC(A2)
+=STRINGA.ESTRAI(A2;5;4)
+```
+
+### `ANNULLA.SPAZI`
+
+Questa funzione elimina gli spazi inutili all'inizio e alla fine del testo e riduce gli spazi doppi interni a uno solo.
+
+È utile quando un dato sembra corretto a video, ma in realtà contiene spazi nascosti che impediscono confronti, filtri o convalide corrette.
+
+Esempio:
+
+- se una cella contiene ` Magazzino `
+- con `=ANNULLA.SPAZI(A2)` il risultato diventa `Magazzino`
+
+Questa funzione è molto utile nel CSV di questa lezione, perché alcuni reparti possono arrivare con spazi indesiderati.
+
+### `MAIUSC`
+
+Questa funzione trasforma tutto il testo in lettere maiuscole.
+
+È utile quando si vogliono uniformare valori scritti in modi diversi, ad esempio:
+
+- `aperto`
+- `Aperto`
+- `APERTO`
+
+Con `=MAIUSC(A2)` tutti questi valori diventano `APERTO`.
+
+Serve quindi a rendere coerenti i dati prima di analizzarli o confrontarli.
+
+### `MINUSC`
+
+Questa funzione trasforma tutto il testo in lettere minuscole.
+
+È utile per lo stesso motivo di `MAIUSC`, ma nel caso in cui si scelga di uniformare tutto in minuscolo.
+
+Esempio:
+
+- `Vendite` diventa `vendite`
+- `CHIUSO` diventa `chiuso`
+
+L'importante non è scegliere per forza maiuscolo o minuscolo, ma usare un criterio coerente in tutta la colonna.
+
+### `STRINGA.ESTRAI`
+
+Questa funzione estrae una parte del testo a partire da una certa posizione e per un certo numero di caratteri.
+
+La sintassi è:
+
+```text
+=STRINGA.ESTRAI(testo; posizione_iniziale; numero_caratteri)
+```
+
+Nell'esempio:
+
+```text
+=STRINGA.ESTRAI(A2;5;4)
+```
+
+la funzione prende il testo contenuto in `A2`, parte dal quinto carattere ed estrae quattro caratteri.
+
+Se in `A2` c'è `ORD-2026-015`, il risultato sarà `2026`.
+
+Per estrarre parti diverse dello stesso codice bisogna quindi cambiare posizione iniziale e lunghezza. Per esempio, da `ORD-2026-015` si può estrarre:
+
+- l'anno con `=STRINGA.ESTRAI(A2;5;4)`
+- il numero finale con `=STRINGA.ESTRAI(A2;10;3)`
+- una sezione utile per controlli o colonne di supporto
+
+Questa funzione serve quando un codice contiene più informazioni tutte insieme e vogliamo separarle.
+
+In generale, la pulizia dei dati serve a rendere omogenei i valori già presenti nel foglio, così convalide, filtri, formule e analisi successive funzionano meglio.
+
+## 7) Evidenziazione errori (formattazione condizionale)
+
+Esempi:
+
+- quantità < 1 o > 100 in rosso
+- data vuota in giallo
+- stato diverso da elenco in arancione
+
+Anche se non richiesta in verifica, aiuta molto nella revisione.
+
+## CSV per l'esempio guidato
+
+Importa questo `CSV di lavoro` volutamente sporco:
+
+```csv
+ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
+1,01/03/2026,Informatica,Mouse,12,18.5,Aperto,ORD-2026-001
+2,02/03/2026,vendite,Toner,0,42,Chiuso,ORD-2026-002
+3,,Amministrazione,Risma A4,20,4.8,APERTO,ORD-2026-003
+3,04/03/2026, Magazzino ,Scatole,15,2.5,In lavorazione,ORD-2026-004
+5,35/03/2026,Informatica,Tastiera,8,24,Aperto,ORD-2026-005
+6,06/03/2026,Vendite,Cuffie,-2,35,Chiuso,ORD-2026-006
+7,07/03/2026,Amministrazione,Penne,10,1.2,chiuso,ORD-2026-007
+```
+
+## 8) Esempio guidato
+
+1. Importa il `CSV per l'esempio guidato`.
+2. Crea in una zona laterale del foglio un piccolo elenco reparti con:
+   `Informatica`, `Amministrazione`, `Vendite`, `Magazzino`.
+3. Seleziona la colonna `Reparto`, apri `Dati` > `Convalida dei dati`, fai clic su `Aggiungi regola` e nel menu `Criteri` scegli `Menu a discesa (da un intervallo)`.
+4. Indica come sorgente l'intervallo dove hai scritto i reparti e conferma con `Fine`.
+5. Seleziona la colonna `Quantità`, fai `Aggiungi regola` e nel menu `Criteri` scegli `È compreso tra`, poi inserisci `1` e `100`.
+6. Seleziona la colonna `Prezzo`, fai `Aggiungi regola` e nel menu `Criteri` scegli `Maggiore di`, poi inserisci `0`.
+7. Seleziona la colonna `Data Ordine`, fai `Aggiungi regola` e nel menu `Criteri` scegli `La data è compresa`, poi inserisci `01/01/2025` e `31/12/2026`.
+8. Seleziona la colonna `Stato`, fai `Aggiungi regola` e nel menu `Criteri` scegli `Menu a discesa`, poi inserisci `Aperto`, `In lavorazione`, `Chiuso`.
+9. Pulisci la colonna `Reparto` oppure un'altra colonna testo con `ANNULLA.SPAZI`.
+10. Uniforma una colonna testo con `MAIUSC` o `MINUSC`, se necessario.
+11. Estrai una parte del codice con `STRINGA.ESTRAI`.
+12. Individua errori, duplicati e valori incoerenti già presenti nel CSV.
+13. Evidenzia almeno un tipo di errore con la formattazione condizionale, ad esempio quantità fuori intervallo o date mancanti.
+14. Osserva quali errori vengono bloccati dalla convalida e quali vanno corretti manualmente perché erano già presenti nei dati importati.
+
+## CSV per l'esercizio
+
+Per l'esercizio usa un secondo CSV sporco, costruito in modo simile ma non identico:
+
+```csv
+ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
+11,10/03/2026,Informatica,Webcam,5,39.9,Aperto,ORD-2026-011
+12,11/03/2026, vendite ,Cartucce,101,28,chiuso,ORD-2026-012
+13,12/03/2026,Amministrazione,Cartelle,14,2.2,APERTO,ORD-2026-013
+13,44/03/2026,Magazzino,Etichette,8,0,In lavorazione,ORD-2026-014
+15,,Informatica,Hub USB,9,19,Aperto,ORD-2026-015
+16,15/03/2026,Vendite,Notebook,-1,650,Chiuso,ORD-2026-016
+17,16/03/2026,Amministrazione,Penne,20,1.2,In lavorazione,ORD-2026-017
+```
+
+## 9) Esercizio Lezione 3
+
+Nel foglio `L3_Convalida_Pulizia` importa il `CSV per l'esercizio` di questa lezione.
+
+Consegna:
+
+- applica le convalide su `Data`, `Reparto`, `Quantità` e `Stato`
+- applica anche una convalida su `Prezzo` in modo che siano accettati solo valori maggiori di `0`
+- crea una piccola lista di supporto per il campo `Reparto`
+- pulisci una colonna testo con `ANNULLA.SPAZI`
+- uniforma almeno una colonna testuale con `MAIUSC` oppure `MINUSC`
+- usa `STRINGA.ESTRAI` per ricavare una parte utile da un codice
+- evidenzia almeno un tipo di errore con la formattazione condizionale
+- individua almeno 2 errori o duplicati e correggili
+- scrivi in una breve nota finale quali errori sono stati bloccati dalla convalida e quali invece erano già presenti nel CSV
+
+# Lezione 4 - Funzioni essenziali: riepilogo, SE e criteri
+
+## Obiettivi della lezione
+
+A fine lezione devi saper:
+
+- usare `SE` per creare decisioni automatiche
+- applicare più criteri con `SOMMA.PIÙ.SE` e `CONTA.PIÙ.SE`
+- costruire una piccola area report leggibile e automatica su dati già importati
+
+## 1) Funzione SE
 
 Sintassi:
 
@@ -286,105 +825,15 @@ Esempi:
 =SE(E2>500;"Bonus";"No bonus")
 ```
 
-## 3) SE annidato (livelli)
-
-Esempio fascia vendite:
-
-```text
-=SE(D2<200;"Basso";SE(D2<500;"Medio";"Alto"))
-```
-
-Uso corretto:
-
-- massimo 2-3 livelli in terza
-- se diventa troppo lungo, spezza in colonne di supporto
-
-## 4) Funzioni con criterio
-
-### SOMMA.SE
-
-```text
-=SOMMA.SE(A2:A100;"Informatica";D2:D100)
-```
-
-Somma importi solo dove reparto = Informatica.
-
-### CONTA.SE
-
-```text
-=CONTA.SE(B2:B100;"Mouse")
-```
-
-Conta quante righe hanno prodotto = Mouse.
-
-### MEDIA.SE
-
-```text
-=MEDIA.SE(A2:A100;"Vendite";D2:D100)
-```
-
-Media importo solo per un reparto.
-
-## 5) CERCA.VERT: recuperare dati da una tabella
-
-`CERCA.VERT` è fondamentale quando hai un codice e vuoi recuperare in automatico un'informazione collegata.
-
-Scenario tipico:
-
-- nel foglio `Ordini` hai il `Codice prodotto`
-- nel foglio `Listino` hai `Codice`, `Descrizione`, `Reparto`, `Prezzo`
-
-Formula:
-
-```text
-=CERCA.VERT(A2;Listino!A:D;4;FALSO)
-```
-
-Significato argomenti:
-
-- `A2`: valore da cercare (codice)
-- `Listino!A:D`: tabella dove cercare
-- `4`: colonna da restituire (prezzo)
-- `FALSO`: corrispondenza esatta (sempre consigliata nei casi gestionali)
-
-Versione robusta:
-
-```text
-=SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
-```
-
-## 6) INDICE + CONFRONTA: ricerca più flessibile
-
-`CERCA.VERT` richiede che la chiave sia nella prima colonna della tabella.
-`INDICE` + `CONFRONTA` è più flessibile e robusto.
-
-Esempio: recuperare prezzo dal foglio `Listino` cercando il codice in colonna `A`.
-
-```text
-=INDICE(Listino!D:D;CONFRONTA(A2;Listino!A:A;0))
-```
-
-Versione con gestione errore:
-
-```text
-=SE.ERRORE(INDICE(Listino!D:D;CONFRONTA(A2;Listino!A:A;0));"Codice non trovato")
-```
-
-Quando preferirla:
-
-- tabella che cambia spesso struttura
-- ricerca verso sinistra/destra senza vincoli
-- modelli più stabili nel tempo
-
-## 7) Funzioni con più criteri (livello avanzato)
+## 2) Funzioni con più criteri
 
 ### SOMMA.PIÙ.SE
 
 ```text
-=SOMMA.PIÙ.SE(E2:E200;A2:A200;"Vendite";D2:D200;">=100")
+=SOMMA.PIÙ.SE(F2:F200;B2:B200;"Vendite";D2:D200;">=100")
 ```
 
-Somma `E` dove:
+Somma `F` dove:
 
 - reparto = Vendite
 - quantità >= 100
@@ -392,28 +841,36 @@ Somma `E` dove:
 ### CONTA.PIÙ.SE
 
 ```text
-=CONTA.PIÙ.SE(A2:A200;"Vendite";F2:F200;"Aperto")
+=CONTA.PIÙ.SE(B2:B200;"Vendite";G2:G200;"Aperto")
 ```
 
 Conta ordini aperti nel reparto Vendite.
 
-## 8) Gestione errori formula
+Le sezioni precedenti servono come spiegazione e come riferimento delle formule. L'applicazione operativa delle funzioni compare nel `CSV di lavoro`, nell'esempio guidato e nell'esercizio.
 
-Con `SE.ERRORE` eviti messaggi tecnici in output finale.
+## CSV per l'esempio guidato
 
-```text
-=SE.ERRORE(B2/C2;0)
+Importa o incolla un CSV con colonne come queste:
+
+```csv
+Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo,Stato
+2026-03-01,Informatica,Mouse,12,18.5,222,Aperto
+2026-03-01,Vendite,Toner,5,42,210,Chiuso
+2026-03-02,Amministrazione,Risma A4,20,4.8,96,Aperto
+2026-03-03,Vendite,Cuffie,3,35,105,Aperto
+2026-03-03,Informatica,Tastiera,8,24,192,Chiuso
+2026-03-04,Informatica,Monitor,6,140,840,Aperto
+2026-03-04,Amministrazione,Penne,10,1.2,12,Aperto
+2026-03-05,Vendite,Notebook,2,650,1300,Aperto
+2026-03-05,Magazzino,Nastro,15,3.4,51,Chiuso
+2026-03-06,Amministrazione,Raccoglitore,4,6.5,26,Aperto
 ```
 
-o
+## 3) Esempio guidato: mini report vendite
 
-```text
-=SE.ERRORE(B2/C2;"Dato non valido")
-```
+Usa il `CSV per l'esempio guidato` qui sopra.
 
-## 9) Esempio guidato completo: dashboard mini vendite + listino
-
-Struttura dati (`A:F`):
+Struttura dati (`A:H`):
 
 - Data
 - Reparto
@@ -421,13 +878,8 @@ Struttura dati (`A:F`):
 - Quantità
 - Prezzo unitario
 - Importo
-
-Foglio di supporto `Listino`:
-
-- `A` Codice
-- `B` Descrizione
-- `C` Reparto
-- `D` Prezzo listino
+- Stato
+- Stato scorta
 
 In `F2`:
 
@@ -435,250 +887,310 @@ In `F2`:
 =D2*E2
 ```
 
-Area riepilogo (`H:K`):
+In `H2`:
+
+```text
+=SE(D2<10;"Riordinare";"OK")
+```
+
+Area riepilogo (`J:K`):
 
 - totale vendite
 - media importo
-- vendite reparto Informatica
-- ordini aperti > 300
+- importo minimo
+- importo massimo
+- numero righe compilate
+- totale importi reparto Informatica con quantità >= 5
+- numero ordini reparto Vendite con stato `Aperto`
+- totale importi reparto Vendite con quantità >= 100
 
 Formule possibili:
 
 ```text
-H2 = SOMMA(F2:F200)
-H3 = MEDIA(F2:F200)
-H4 = SOMMA.SE(B2:B200;"Informatica";F2:F200)
-H5 = CONTA.PIÙ.SE(B2:B200;"Vendite";F2:F200;">300")
-G2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
+J2 = SOMMA(F2:F200)
+J3 = MEDIA(F2:F200)
+J4 = MIN(F2:F200)
+J5 = MAX(F2:F200)
+J6 = CONTA.VALORI(C2:C200)
+J7 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Informatica";D2:D200;">=5")
+J8 = CONTA.PIÙ.SE(B2:B200;"Vendite";G2:G200;"Aperto")
+J9 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Vendite";D2:D200;">=100")
 ```
 
-## 10) Esercizi Lezione 2
+Questo esempio serve a mostrare come si passa dal dataset a una piccola area report leggibile. Nell'esercizio sotto dovrai costruire un riepilogo simile cambiando almeno una parte dei criteri.
 
-### Esercizio 1 - Riepilogo base
+## CSV per l'esercizio
 
-Su 30 righe di vendite calcola:
+Per l'esercizio usa invece questo secondo dataset:
 
-- totale
-- media
-- minimo
-- massimo
+```csv
+Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo,Stato
+2026-03-07,Informatica,Webcam,4,39.9,159.6,Aperto
+2026-03-07,Vendite,Cartucce,6,28,168,Chiuso
+2026-03-08,Amministrazione,Cartelle,12,2.2,26.4,Aperto
+2026-03-08,Vendite,Stampante,1,180,180,Aperto
+2026-03-09,Informatica,Hub USB,9,19,171,Chiuso
+2026-03-09,Informatica,Notebook,3,650,1950,Aperto
+2026-03-10,Amministrazione,Evidenziatori,25,1.5,37.5,Aperto
+2026-03-10,Magazzino,Bobine,11,5.5,60.5,Chiuso
+2026-03-11,Vendite,Monitor,2,140,280,Aperto
+2026-03-11,Amministrazione,Raccoglitori,5,6.5,32.5,Aperto
+```
 
-### Esercizio 2 - Regola automatica
+## 4) Esercizio Lezione 4
 
-Crea colonna `Stato scorta` con `SE`:
+Nel foglio `L4_Funzioni_Criteri` importa il `CSV per l'esercizio` di questa lezione.
 
-- `Riordinare` se quantità < soglia
-- `OK` altrimenti
+Consegna:
 
-### Esercizio 3 - Criteri
+- calcola `Importo`
+- crea la colonna `Stato scorta` con `SE`
+- costruisci una piccola area riepilogo con `SOMMA`, `MEDIA`, `MIN`, `MAX` e una funzione di conta
+- calcola il totale del reparto `Informatica` con quantità >= 5 usando `SOMMA.PIÙ.SE`
+- conta gli ordini del reparto `Vendite` con stato `Aperto` usando `CONTA.PIÙ.SE`
+- calcola il totale del reparto `Amministrazione` con quantità >= 3 usando `SOMMA.PIÙ.SE`
+- aggiungi una breve riga finale in cui spieghi con parole tue quando conviene usare `SE`, `SOMMA.PIÙ.SE` e `CONTA.PIÙ.SE`
 
-Calcola:
-
-- totale vendite del reparto `Amministrazione`
-- numero ordini con stato `Aperto`
-- media importi per reparto `Vendite`
-
-### Esercizio 4 - Multi-criterio
-
-Conta ordini:
-
-- reparto `Informatica`
-- stato `Aperto`
-- importo > 200
-
-Usa `CONTA.PIÙ.SE`.
-
-### Esercizio 5 - CERCA.VERT su listino
-
-Hai una tabella `Ordini` con solo codice prodotto.
-Recupera automaticamente:
-
-- descrizione
-- reparto
-- prezzo
-
-usando `CERCA.VERT` con corrispondenza esatta.
-
-### Esercizio 6 - Confronto CERCA.VERT vs INDICE+CONFRONTA
-
-Risolvi la stessa ricerca in due modi:
-
-1. con `CERCA.VERT`
-2. con `INDICE+CONFRONTA`
-
-Poi scrivi 3 righe su quale soluzione preferisci e perché.
-
----
-
-# Lezione 3 - Qualità del dato: convalida, pulizia e coerenza
+# Lezione 5 - Ricerca dati: CERCA.VERT, CERCA.X e SE.ERRORE
 
 ## Obiettivi della lezione
 
 A fine lezione devi saper:
 
-- prevenire errori in inserimento
-- costruire convalide efficaci
-- riconoscere incoerenze nei dati
-- migliorare affidabilità del file
+- recuperare dati da una tabella di supporto
+- distinguere tra `CERCA.VERT` e `CERCA.X`
+- scegliere la funzione di ricerca più adatta al caso
+- gestire gli errori in modo leggibile con `SE.ERRORE`
 
-## 1) Perché la qualità del dato è centrale
+## 1) Perché servono le funzioni di ricerca
 
-Regola fondamentale:
+Scenario tipico:
 
-- se i dati sono sporchi, i risultati sono inutili
+- nel foglio `Ordini` hai solo il codice prodotto
+- nel foglio `Listino` hai `Codice`, `Descrizione`, `Reparto`, `Prezzo`
 
-Errori tipici in classe e in azienda:
+Obiettivo:
 
-- reparti scritti in modi diversi (`Vendite`, `vendite`, `Vendita`)
-- date non valide
-- quantità negative
-- codici non univoci
-- campi vuoti dove non dovrebbero esserci
+- inserire il codice una sola volta
+- far compilare in automatico le altre informazioni
 
-## 2) Convalida dati: idea e tipi principali
+## 2) CERCA.VERT
 
-La convalida è un filtro in ingresso.
-Accetta solo valori conformi a una regola.
-
-Tipi usati nel modulo:
-
-- numero intero
-- numero decimale
-- data
-- elenco
-- lunghezza testo
-
-## 3) Regole consigliate per tabella Ordini
-
-Campi:
-
-- `ID Ordine`
-- `Data Ordine`
-- `Reparto`
-- `Prodotto`
-- `Quantità`
-- `Prezzo`
-- `Stato`
-
-Convalide:
-
-- `ID Ordine`: intero > 0
-- `Data Ordine`: tra `01/01/2025` e `31/12/2026`
-- `Reparto`: elenco prefissato
-- `Quantità`: intero tra 1 e 100
-- `Prezzo`: numero > 0
-- `Stato`: elenco `Aperto`, `In lavorazione`, `Chiuso`
-
-## 4) Liste di supporto (buona pratica)
-
-Crea un'area laterale (es. `M1:M10`) con valori elenco:
-
-- Informatica
-- Amministrazione
-- Vendite
-- Magazzino
-
-Poi usa quella gamma come sorgente della convalida.
-Vantaggio: se cambia un reparto, aggiorni solo la lista.
-
-Se hai un archivio con reparti ripetuti, puoi generare la lista in automatico con `UNICI`:
+Formula base:
 
 ```text
-=UNICI(B2:B200)
+=CERCA.VERT(A2;Listino!A:D;4;FALSO)
 ```
 
-In questo modo la convalida pesca valori già puliti e senza duplicati.
+Significato argomenti:
 
-## 5) Messaggi di input e avviso errore
+- `A2`: valore da cercare
+- `Listino!A:D`: tabella di riferimento
+- `4`: colonna da restituire
+- `FALSO`: corrispondenza esatta
 
-Quando possibile configura:
+Punto forte:
 
-- messaggio input (cosa inserire)
-- avviso errore (cosa è stato rifiutato)
+- semplice e immediato
 
-Esempio messaggio:
+Limite:
 
-- "Inserire quantità intera da 1 a 100"
+- cerca solo verso destra
+- la chiave deve stare nella prima colonna della tabella
 
-## 6) Pulizia base dei dati già inseriti
+## 3) CERCA.X
 
-Operazioni utili:
+Se disponibile nello strumento, `CERCA.X` è più leggibile.
 
-- rimuovere spazi iniziali/finali
-- uniformare maiuscole/minuscole
-- correggere formati data
-- trovare duplicati
-
-Funzioni utili (se disponibili):
+Esempio:
 
 ```text
-=ANNULLA.SPAZI(A2)
-=MAIUSC(A2)
-=MINUSC(A2)
+=CERCA.X(A2;Listino!A:A;Listino!D:D;"Codice non trovato")
 ```
 
-## 7) Evidenziazione errori (formattazione condizionale)
+Vantaggi:
+
+- non devi contare il numero della colonna
+- può cercare sia a destra sia a sinistra
+- può già mostrare un messaggio se il codice manca
+
+## 4) SE.ERRORE
+
+Serve per evitare messaggi tecnici in output finale.
 
 Esempi:
 
-- quantità < 1 o > 100 in rosso
-- data vuota in giallo
-- stato diverso da elenco in arancione
+```text
+=SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
+=SE.ERRORE(CERCA.X(A2;Listino!A:A;Listino!D:D;"Codice non trovato");"Codice non trovato")
+```
 
-Anche se non richiesta in verifica, aiuta molto nella revisione.
+Uso corretto:
 
-## 8) Esempio guidato completo
+- nasconde l'errore tecnico
+- mostra un messaggio utile a chi legge il file
+- non sostituisce il controllo dei dati sorgente
 
-1. Crea tabella Ordini con 20 righe.
-2. Applica convalide su reparto, quantità, data, stato.
-3. Inserisci volontariamente 5 errori.
-4. Osserva quali errori vengono bloccati.
-5. Scrivi un breve report: "errori prevenuti".
+Anche in questa lezione, le sezioni qui sopra spiegano come funzionano le formule e quando usarle. Il lavoro pratico vero e proprio inizia con i due `CSV di lavoro` e continua nell'esempio guidato e nell'esercizio.
 
-## 9) Esercizi Lezione 3
+## CSV per l'esempio guidato
 
-### Esercizio 1 - Setup convalida completo
+Per questa lezione usa due CSV: uno per `Ordini` e uno per `Listino`.
 
-Costruisci tabella e applica tutte le convalide richieste.
+CSV `Ordini`:
 
-### Esercizio 2 - Test di robustezza
+```csv
+Codice
+P001
+P003
+P999
+P002
+P777
+P004
+P001
+```
 
-Prova 8 inserimenti, di cui 4 sbagliati.
-Annota quali passano e quali no.
+CSV `Listino`:
 
-### Esercizio 3 - Uniformità dati
+```csv
+Codice,Descrizione,Reparto,Prezzo
+P001,Mouse,Informatica,18.5
+P002,Tastiera,Informatica,24
+P003,Risma A4,Amministrazione,4.8
+P004,Toner,Vendite,42
+P005,Cuffie,Vendite,35
+```
 
-Correggi un dataset "sporco" fornito dal docente (reparti incoerenti, date miste, spazi).
+## 5) Esempio guidato
 
-### Esercizio 4 - Controllo duplicati
+Importa i due `CSV per l'esempio guidato` qui sopra.
 
-Segna eventuali ID ordine ripetuti e correggili.
+Foglio `Ordini`:
 
-### Esercizio 5 - Elenco dinamico per convalida
+- `A` Codice
+- `B` Descrizione
+- `C` Reparto
+- `D` Prezzo
 
-1. Crea un elenco reparti con `UNICI` a partire dai dati ordini.
-2. Usa quell'elenco come origine della convalida dati nella colonna `Reparto`.
-3. Aggiungi un nuovo reparto nei dati e verifica che la lista si aggiorni.
+Foglio `Listino`:
 
----
+- `A` Codice
+- `B` Descrizione
+- `C` Reparto
+- `D` Prezzo listino
 
-# Lezione 4 - Ordinamento e filtri per analisi operativa
+Formule possibili:
+
+```text
+B2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;2;FALSO);"Codice non trovato")
+C2 = SE.ERRORE(CERCA.X(A2;Listino!A:A;Listino!C:C;"Codice non trovato");"Codice non trovato")
+D2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
+```
+
+In questo esempio:
+
+- `CERCA.VERT` recupera dati da una colonna posta a destra della chiave
+- `CERCA.X` rende piu leggibile la ricerca e non obbliga a contare la colonna
+- `SE.ERRORE` evita la comparsa di messaggi tecnici quando un codice non esiste nel listino
+
+## CSV per l'esercizio
+
+Per l'esercizio usa invece questi due CSV:
+
+CSV `Ordini`:
+
+```csv
+Codice
+P010
+P012
+P999
+P011
+P777
+P013
+P010
+```
+
+CSV `Listino`:
+
+```csv
+Codice,Descrizione,Reparto,Prezzo
+P010,Webcam,Informatica,39.9
+P011,Hub USB,Informatica,19
+P012,Cartelle,Amministrazione,2.2
+P013,Cartucce,Vendite,28
+P014,Etichette,Magazzino,0.8
+```
+
+## 6) Esercizio Lezione 5
+
+Nel foglio `L5_Ricerche` importa i due `CSV per l'esercizio` di questa lezione in due fogli separati: `Ordini` e `Listino`.
+
+Consegna:
+
+- recupera `Descrizione` e `Prezzo` con `CERCA.VERT`
+- recupera `Reparto` con `CERCA.X`
+- recupera anche `Prezzo` o `Descrizione` con una seconda formula di ricerca a tua scelta
+- inserisci almeno 3 codici inesistenti
+- gestisci i codici non trovati con `SE.ERRORE`
+- scrivi in 2 righe quale funzione ti sembra più comoda tra `CERCA.VERT` e `CERCA.X`
+
+# Lezione 6 - Tabelle, filtri e analisi operativa
 
 ## Obiettivi della lezione
 
 A fine lezione devi saper:
 
+- trasformare un intervallo dati in una tabella leggibile
 - ordinare per una o più colonne
 - applicare filtri testuali, numerici e per data
+- bloccare le prime righe per lavorare meglio su dataset lunghi
+- usare `SUBTOTALE` su dati filtrati
 - rispondere a domande reali con i dati filtrati
-- evitare errori di analisi dopo filtri/ordinamenti
 
-## 1) Dato grezzo vs dato leggibile
+## 1) Dato grezzo vs tabella leggibile
 
 Una tabella non ordinata può contenere le informazioni giuste ma essere poco utile.
 Ordinare e filtrare significa trasformare dati in risposte.
 
-## 2) Ordinamento: regole corrette
+Prima regola:
+
+- i dati devono avere intestazioni chiare
+- non devono esserci righe o colonne vuote interne
+- il blocco dati deve essere continuo
+
+Nel lavoro reale, anche in Google Fogli, conviene rendere il dataset leggibile con:
+
+- filtro attivo sull'intervallo
+- intestazione ben formattata
+- colori alternati
+
+Questo rende più chiaro il dataset e aiuta a lavorare meglio con ordinamenti, filtri e riepiloghi.
+
+## 2) Prepara l'intervallo e attiva i filtri
+
+Vantaggi pratici:
+
+- intestazione evidenziata
+- filtri attivi subito su ogni colonna
+- lettura più chiara
+- aggiornamento più semplice quando aggiungi nuove righe
+
+Idea chiave della lezione:
+
+- alcune operazioni di filtro si possono fare direttamente sul foglio base
+- in Google Fogli è utile applicare `Crea un filtro` e, se vuoi, usare colori alternati per leggere meglio il dataset
+
+## 3) Blocca la visualizzazione: prime righe e intestazione
+
+Ordine consigliato in un file ordinato:
+
+- in alto eventuali righe con filtri o criteri
+- subito sotto l'intestazione della tabella
+- poi il blocco dei dati
+
+Quando il dataset è lungo, blocca le prime righe così intestazioni e criteri restano sempre visibili.
+
+## 4) Ordinamento: regole corrette
 
 Prima di ordinare:
 
@@ -692,7 +1204,7 @@ Tipi:
 - decrescente (Z-A, 9-0)
 - ordinamento multiplo (prima reparto, poi importo)
 
-## 3) Filtri automatici: uso pratico
+## 5) Filtri automatici: uso pratico
 
 Filtri principali:
 
@@ -708,52 +1220,31 @@ Esempi:
 - reparto = Informatica
 - data nel mese di marzo
 
-## 4) FILTRO: vista dinamica con formula
-
-Oltre al filtro manuale, in Google Fogli puoi usare `FILTRO` per creare una vista dinamica in un'altra area del foglio.
-
-Esempio: mostra solo ordini aperti con importo > 250.
-
-```text
-=FILTRO(A2:F200;F2:F200="Aperto";E2:E200>250)
-```
-
-Vantaggi:
-
-- non tocchi la tabella originale
-- ottieni un output aggiornato automaticamente
-- puoi usare più condizioni in una sola formula
-
-Gestione caso senza risultati:
-
-```text
-=SE.ERRORE(FILTRO(A2:F200;F2:F200="Aperto";E2:E200>250);"Nessun risultato")
-```
-
-## 5) Domande tipiche da risolvere con filtri
+## 6) Domande tipiche da risolvere con filtri
 
 - quali prodotti sono sotto scorta?
 - quanti ordini aperti ha il reparto X?
 - quali sono i 10 importi maggiori?
 - quante spese superano 500 euro?
 
-## 6) Ordinamento multiplo: esempio operativo
+## 7) `SUBTOTALE` sui dati filtrati
 
-Tabella:
+Quando filtri la tabella, `SUBTOTALE` calcola solo i record visibili.
 
-- `Reparto`
-- `Stato`
-- `Importo`
+```text
+=SUBTOTALE(9;E2:E200)
+```
 
-Obiettivo:
+`9` corrisponde alla somma.
 
-1. prima `Reparto` A-Z
-2. poi `Stato` (`Aperto` prima di `Chiuso`)
-3. poi `Importo` decrescente
+Altri codici utili:
 
-Risultato: lettura più rapida per blocchi logici.
+- `1` media
+- `2` conta numeri
 
-## 7) Attenzione agli errori frequenti
+Questa funzione è utile perché, in pratica, si comporta come un riepilogo rapido dei dati selezionati dal filtro.
+
+## 8) Attenzione agli errori frequenti
 
 Errore 1:
 
@@ -771,75 +1262,73 @@ Buona pratica:
 
 - prima di consegna, rimuovi tutti i filtri e ricontrolla
 
-## 8) Funzioni utili insieme ai filtri
+Queste sezioni descrivono quindi il metodo di lavoro corretto su tabelle e filtri. L'attività concreta comincia dal `CSV di lavoro` che segue.
 
-Quando hai filtri attivi puoi usare:
+## CSV per l'esempio guidato
 
-```text
-=SUBTOTALE(9;E2:E200)
+Usa un CSV ordini con una struttura simile a questa:
+
+```csv
+Data,Reparto,Prodotto,Quantità,Importo,Stato
+2026-03-01,Informatica,Mouse,12,222,Aperto
+2026-03-01,Vendite,Toner,5,210,Chiuso
+2026-03-02,Amministrazione,Risma A4,20,96,Aperto
+2026-03-03,Vendite,Cuffie,3,105,Aperto
+2026-03-03,Informatica,Tastiera,8,192,Chiuso
+2026-03-04,Magazzino,Scatole,15,37.5,Aperto
+2026-03-05,Vendite,Notebook,2,1300,Aperto
+2026-03-05,Informatica,Monitor,6,840,Aperto
+2026-03-06,Amministrazione,Penne,30,36,Chiuso
+2026-03-06,Magazzino,Nastro,10,34,Aperto
+2026-03-07,Vendite,Webcam,7,280,Aperto
+2026-03-07,Informatica,Hub USB,9,171,Chiuso
 ```
 
-`9` corrisponde alla somma dei soli record visibili.
+## 9) Esempio guidato
 
-Altri codici utili:
+Usa il `CSV per l'esempio guidato` qui sopra.
 
-- `1` media
-- `2` conta numeri
+1. seleziona l'intervallo dati e attiva `Crea un filtro`
+2. blocca la riga delle intestazioni
+3. ordina per `Reparto`, poi `Importo` desc
+4. filtra `Stato = Aperto`
+5. filtra anche `Importo > 250`
+6. calcola totale visibile con `SUBTOTALE`
 
-## 9) Esempio guidato completo
+Questo esempio guidato mostra una sequenza completa di lavoro sul dataset: prima si prepara la tabella, poi si filtra, infine si legge il risultato con `SUBTOTALE`.
 
-Dataset `Ordini_Annuali` con 100 righe.
+## CSV per l'esercizio
 
-Consegna guidata:
+Per l'esercizio usa invece questo dataset:
 
-1. ordina per `Reparto`, poi `Importo` desc
-2. filtra `Stato = Aperto`
-3. filtra anche `Importo > 250`
-4. calcola totale visibile con `SUBTOTALE`
-5. rispondi: quanti record restano?
+```csv
+Data,Reparto,Prodotto,Quantità,Importo,Stato
+2026-03-08,Informatica,Webcam,4,159.6,Aperto
+2026-03-08,Vendite,Cartucce,6,168,Chiuso
+2026-03-09,Amministrazione,Cartelle,12,26.4,Aperto
+2026-03-09,Vendite,Stampante,1,180,Aperto
+2026-03-10,Informatica,Notebook,3,1950,Aperto
+2026-03-10,Magazzino,Etichette,25,20,Aperto
+2026-03-11,Amministrazione,Evidenziatori,18,27,Chiuso
+2026-03-11,Magazzino,Bobine,9,49.5,Aperto
+2026-03-12,Vendite,Monitor,2,280,Aperto
+2026-03-12,Informatica,Hub USB,9,171,Chiuso
+```
 
-## 10) Esercizi Lezione 4
+## 10) Esercizio Lezione 6
 
-### Esercizio 1 - Ricerca top valori
+Nel foglio `L6_Tabelle_Filtri` importa il `CSV per l'esercizio` di questa lezione.
 
-Trova i 5 ordini con importo maggiore e copia i risultati in una sezione report.
+Consegna:
 
-### Esercizio 2 - Filtri combinati
+- attiva il filtro sull'intervallo dati
+- blocca la riga delle intestazioni
+- ordina i dati per `Reparto` e poi per `Importo` decrescente
+- filtra solo gli ordini `Aperto` con importo >= 200
+- calcola il totale dei record visibili con `SUBTOTALE`
+- scrivi in una riga quali record restano visibili dopo il filtro
 
-Mostra solo:
-
-- reparto `Vendite`
-- stato `Aperto`
-- importo >= 200
-
-### Esercizio 3 - Analisi per data
-
-Filtra gli ordini del mese di marzo e calcola:
-
-- totale importo
-- media importo
-
-### Esercizio 4 - FILTRO con condizioni
-
-In un'area report separata, usa una formula `FILTRO` che mostri solo:
-
-- reparto `Informatica`
-- stato `Aperto`
-- importo > 300
-
-Gestisci il caso senza risultati con `SE.ERRORE`.
-
-### Esercizio 5 - Domande di comprensione
-
-Rispondi in celle dedicate:
-
-- quale reparto ha più ordini aperti?
-- quale prodotto compare più spesso?
-- qual è l'importo massimo in `Informatica`?
-
----
-
-# Lezione 5 - Grafici e formato CSV: comunicare e scambiare dati
+# Lezione 7 - Grafici e tabelle pivot: sintetizzare i dati
 
 ## Obiettivi della lezione
 
@@ -847,8 +1336,8 @@ A fine lezione devi saper:
 
 - scegliere il grafico adatto al problema
 - costruire grafici leggibili
-- esportare e importare CSV
-- riconoscere limiti del formato CSV
+- leggere un dataset già preparato o già importato
+- usare una tabella pivot come sintesi rapida a supporto dei grafici
 
 ## 1) Perché usare i grafici
 
@@ -911,114 +1400,86 @@ Da evitare:
 - colori casuali senza significato
 - asse non leggibile
 
-## 4) Grafico da tabella pivot (opzionale avanzato)
+## 4) Tabelle pivot come supporto ai grafici
 
-Se disponibile nello strumento:
+Una tabella pivot serve per riassumere velocemente i dati prima di trasformarli in un grafico.
 
-1. crea tabella pivot da dataset ordini
-2. righe = reparto
-3. valori = somma importo
-4. inserisci grafico da pivot
+Uso pratico nella lezione:
 
-Vantaggio:
+- costruisci un riepilogo per mese e reparto
+- controlli subito i totali
+- usi la pivot come base per creare un grafico piu pulito
 
-- aggiornamento veloce quando i dati cambiano
+Esempio base:
 
-## 5) CSV: cos'è e a cosa serve
+- righe = `Mese`
+- colonne = `Reparto`
+- valori = somma `Importo`
 
-CSV = `Comma-Separated Values`.
-È un file di testo con campi separati da un delimitatore.
+Questa parte serve come spiegazione del criterio di scelta. L'applicazione concreta arriva nel dataset qui sotto, poi nell'esempio guidato e nell'esercizio.
 
-Vantaggi:
+## CSV per l'esempio guidato
 
-- interscambio tra software diversi
-- file leggero
-- facile importazione in database e applicazioni
+Usa un CSV vendite mensili come questo:
 
-Limiti:
+```csv
+Mese,Reparto,Importo
+Gennaio,Informatica,820
+Gennaio,Vendite,640
+Gennaio,Amministrazione,310
+Febbraio,Informatica,910
+Febbraio,Vendite,700
+Febbraio,Amministrazione,330
+Marzo,Informatica,880
+Marzo,Vendite,760
+Marzo,Amministrazione,290
+Aprile,Informatica,950
+Aprile,Vendite,720
+Aprile,Amministrazione,340
+```
 
-- niente formattazione grafica
-- niente formule complesse salvate come struttura di foglio
-- niente grafici incorporati
+## 5) Esempio guidato
 
-## 6) Export CSV: controlli importanti
+1. Importa il `CSV per l'esempio guidato`.
+2. Crea una tabella pivot con somma importi per `Mese` e `Reparto`.
+3. Crea un grafico a colonne per confrontare i reparti.
+4. Crea un grafico a linee per mostrare l'andamento mensile.
 
-Prima di esportare:
+In questo esempio il punto importante non è solo creare due grafici, ma capire che i due grafici servono a leggere due aspetti diversi dello stesso dataset: confronto tra categorie e andamento nel tempo.
 
-- rimuovi filtri non desiderati
-- controlla intestazioni colonna
-- verifica formato data
-- verifica separatore decimale
+## CSV per l'esercizio
 
-Dopo esportazione:
+Usa invece questo secondo CSV:
 
-- riapri CSV
-- controlla se colonne sono allineate
-- verifica caratteri speciali
+```csv
+Mese,Reparto,Importo
+Maggio,Informatica,1020
+Maggio,Vendite,780
+Maggio,Amministrazione,360
+Giugno,Informatica,980
+Giugno,Vendite,810
+Giugno,Amministrazione,345
+Luglio,Informatica,1100
+Luglio,Vendite,790
+Luglio,Amministrazione,370
+Agosto,Informatica,1050
+Agosto,Vendite,830
+Agosto,Amministrazione,355
+```
 
-## 7) Import CSV: problemi comuni
+## 6) Esercizio Lezione 7
 
-Problema 1:
+Nel foglio `L7_Grafici_Pivot` importa il `CSV per l'esercizio` di questa lezione.
 
-- tutte le colonne in una sola cella
+Consegna:
 
-Causa:
+- crea una tabella pivot che riassuma gli importi per mese e reparto
+- crea un grafico a colonne per confrontare i reparti
+- crea un grafico a linee per mostrare l'andamento mensile
+- scrivi in 2 righe quale dei due grafici comunica meglio ciascuna informazione
+- controlla che entrambi i grafici abbiano titolo leggibile e legenda chiara
 
-- delimitatore non riconosciuto
-
-Soluzione:
-
-- usa import guidato e scegli il separatore corretto (`;` o `,`)
-
-Problema 2:
-
-- date convertite male
-
-Soluzione:
-
-- imposta formato data durante import
-
-Problema 3:
-
-- zeri iniziali persi (codici)
-
-Soluzione:
-
-- imposta colonna come testo
-
-## 8) Esempio guidato completo
-
-1. Tabella `Vendite_Mensili` con colonne:
-   - Mese
-   - Reparto
-   - Importo
-2. Crea grafico a colonne per confronto reparti.
-3. Crea grafico a linee per andamento mensile.
-4. Esporta la tabella in CSV.
-5. Importa il CSV in un nuovo file.
-6. Confronta originale e importato.
-
-## 9) Esercizi Lezione 5
-
-### Esercizio 1 - Grafico confronto
-
-Crea un grafico a colonne con titolo `Confronto vendite reparti`.
-
-### Esercizio 2 - Grafico trend
-
-Crea un grafico a linee con asse temporale ordinato.
-
-### Esercizio 3 - Scelta motivata
-
-Scrivi 4 righe: quale grafico comunica meglio e perché.
-
-### Esercizio 4 - Export/Import CSV
-
-Esporta, reimporta, poi elenca almeno 3 differenze rispetto al file originale.
-
----
-
-# Lezione 6 - Simulazione verifica (prova guidata)
+# Lezione 8 - Simulazione verifica (prova guidata)
 
 ## Obiettivo
 
@@ -1032,45 +1493,59 @@ Allenarsi in condizioni simili alla verifica reale, con tempi e consegna struttu
 
 Usa un file con dati ordini/vendite e completa tutte le richieste.
 
+Le parti qui sotto sono tutte operative: questa lezione non introduce nuova teoria, ma riunisce in un'unica prova guidata le competenze già allenate nelle lezioni precedenti.
+
 ### Parte A - Formule e funzioni
 
 1. Calcola `Importo = Quantità*Prezzo`.
 2. Crea `Stato scorta` con `SE`.
-3. Calcola totale vendite reparto `Informatica` con funzione a criterio.
-4. Recupera il prezzo da un foglio `Listino` con `CERCA.VERT` oppure `INDICE+CONFRONTA`.
+3. Calcola totale vendite reparto `Informatica` con funzione a più criteri.
+4. Recupera il prezzo da un foglio `Listino` con `CERCA.VERT` oppure `CERCA.X`
 
 ### Parte B - Qualità dato
 
-4. Applica convalida su:
+5. Applica convalida su:
    - Reparto da elenco
    - Quantità 1..100
    - Data valida
 
-### Parte C - Analisi
+### Parte C - Pulizia e controllo
 
-5. Ordina per Reparto e Importo desc.
-6. Filtra ordini aperti con importo > 250.
-7. Calcola totale visibile con `SUBTOTALE`.
+6. Pulisci una colonna testo con `ANNULLA.SPAZI` oppure estrai una parte del codice con `STRINGA.ESTRAI`.
 
-### Parte D - Comunicazione dati
+### Parte D - Analisi
 
-8. Crea grafico corretto con titolo e legenda.
-9. Esporta il foglio in CSV.
+7. Attiva il filtro sul dataset e rendilo leggibile con intestazione chiara e, se vuoi, colori alternati.
+8. Ordina per Reparto e Importo desc.
+9. Filtra ordini aperti con importo > 250.
+10. Calcola totale visibile con `SUBTOTALE`.
+
+### Parte E - Comunicazione dati
+
+11. Crea una tabella pivot base da usare come supporto al grafico.
+12. Crea grafico corretto con titolo e legenda.
+13. Esporta il foglio in CSV.
 
 ## Griglia di autocontrollo prima consegna
 
 - formule trascinate correttamente
+- import CSV eseguito correttamente
 - nessun riferimento errato
 - convalide attive
+- pulizia dati eseguita dove richiesta
 - filtro coerente con richiesta
+- pivot leggibile
 - grafico leggibile
 - file ordinato e intestazioni chiare
 
 ## Errori tipici da evitare
 
-- usare `SOMMA` dove serve `SOMMA.SE`
+- usare `SOMMA` dove serve `SOMMA.PIÙ.SE`
 - dimenticare `FALSO` in `CERCA.VERT` quando serve corrispondenza esatta
+- non controllare le colonne dopo un import CSV
+- usare `CERCA.VERT` su una tabella dove la chiave non è nella prima colonna
 - filtro applicato alla colonna sbagliata
+- non bloccare l'intestazione in un dataset lungo
 - grafico senza titolo
 - CSV esportato con foglio sbagliato
 
@@ -1081,175 +1556,3 @@ Dopo la simulazione:
 - confronto tra soluzioni diverse
 - discussione sugli errori più frequenti
 - strategia per migliorare velocità e precisione
-
----
-
-# Lezione 7 - Verifica finale Modulo 3
-
-## Tipologia
-
-**Prova pratica al PC**, coerente con le competenze del modulo.
-
-## Struttura della prova
-
-- 4 esercizi formule/funzioni (inclusa almeno una ricerca dati)
-- 1 esercizio convalida dati
-- 1 esercizio ordinamento/filtri
-- 1 grafico
-- 1 domanda breve o micro-operazione su CSV
-
-## Tempo previsto
-
-1 ora.
-
-## Materiale consentito
-
-- file consegnato dal docente
-- strumenti standard del foglio di calcolo
-- non è consentito usare file esterni non autorizzati
-
-## Criteri di valutazione
-
-### Correttezza operativa
-
-- formule giuste
-- filtri/ordinamenti corretti
-- grafico coerente
-
-### Autonomia
-
-- svolgimento senza guida continua
-- gestione problemi di base in autonomia
-
-### Ordine del file
-
-- struttura chiara
-- intestazioni corrette
-- formati coerenti
-
-### Comprensione consegna
-
-- rispetto di tutte le richieste
-- attenzione ai dettagli (criteri, soglie, range)
-
-### Uso strumenti base e avanzati
-
-- formule con criterio
-- convalida dati
-- filtri
-- CSV
-
-## Esempio di traccia verifica
-
-Dataset fornito con colonne:
-
-- Data
-- Reparto
-- Prodotto
-- Quantità
-- Prezzo
-- Stato
-
-Richieste:
-
-1. calcolare importo
-2. aggiungere stato scorta con `SE`
-3. sommare importi solo reparto `Vendite`
-4. convalidare quantità 1..100
-5. ordinare per reparto + importo desc
-6. filtrare ordini `Aperto` con importo > 300
-7. creare grafico a colonne per reparto
-8. esportare in CSV
-
-## Motivazione didattica della prova pratica
-
-La prova pratica misura le abilità realmente richieste dal modulo:
-
-- applicare formule avanzate
-- garantire qualità del dato
-- leggere dati con filtri e ordinamenti
-- rappresentare informazioni con grafici
-- gestire scambio dati tramite CSV
-
-È quindi la scelta più coerente con gli obiettivi formativi.
-
----
-
-# Appendice A - Formula sheet rapido
-
-## Operatori
-
-```text
-+  somma
--  sottrazione
-*  moltiplicazione
-/  divisione
-^  potenza
-&  unione testo
-```
-
-## Funzioni principali
-
-```text
-=SOMMA(intervallo)
-=MEDIA(intervallo)
-=MIN(intervallo)
-=MAX(intervallo)
-=ARROTONDA(numero;num_cifre)
-=SE(test;vero;falso)
-=SOMMA.SE(intervallo_criterio;criterio;intervallo_somma)
-=CONTA.SE(intervallo;criterio)
-=SOMMA.PIÙ.SE(intervallo_somma;intervallo_criterio1;criterio1;...)
-=CONTA.PIÙ.SE(intervallo_criterio1;criterio1;...)
-=CERCA.VERT(chiave;tabella;indice_colonna;FALSO)
-=INDICE(intervallo_ritorno;CONFRONTA(chiave;intervallo_ricerca;0))
-=FILTRO(intervallo;condizione1;condizione2;...)
-=UNICI(intervallo)
-=SE.ERRORE(formula;valore_se_errore)
-=SUBTOTALE(codice_funzione;intervallo)
-```
-
-## Riferimenti
-
-```text
-A1   relativo
-$A$1 assoluto
-$A1  colonna fissa
-A$1  riga fissa
-```
-
----
-
-# Appendice B - Checklist finale studente
-
-Prima di consegnare qualsiasi esercizio:
-
-1. ho controllato che tutte le formule inizino con `=`
-2. ho verificato che i riferimenti siano corretti dopo trascinamento
-3. ho verificato i formati (numero, %, data, valuta)
-4. ho controllato se ci sono errori visibili (`#NOME?`, `#VALORE!`, `#DIV/0!`)
-5. ho rimosso filtri non necessari
-6. ho dato un titolo chiaro al grafico
-7. ho controllato che il CSV si apra correttamente
-
----
-
-# Appendice C - Mini rubriche valutazione esercizi (auto-valutazione)
-
-## Livello Base
-
-- esegue formule semplici
-- applica filtri base
-- crea un grafico essenziale
-
-## Livello Intermedio
-
-- usa funzioni con criterio
-- applica convalida dati in modo corretto
-- interpreta risultati filtrati
-
-## Livello Avanzato
-
-- combina più funzioni con logica corretta
-- evita errori strutturali
-- produce file ordinato, leggibile, esportabile
