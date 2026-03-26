@@ -203,18 +203,33 @@ Crea nel foglio `L1_Formule` una tabella con queste intestazioni (riga 1):
 - `C` Quantità
 - `D` Subtotale
 - `E` Sconto %
-- `F` Netto
-- `G` IVA
-- `H` Totale finale
+- `F` Sconto in euro
+- `G` Netto
+- `H` Importo IVA
+- `I` Totale finale
 
 Inserisci in `K1` l'aliquota IVA: `0,22`.
+
+In questa lezione usa un metodo a passaggi separati, senza mescolare formule compatte come `*(1-sconto)` o `*(1+IVA)`.
+L'obiettivo è vedere bene il significato di ogni colonna.
 
 Scrivi poi le formule in riga 2:
 
 - in `D2`: calcola il subtotale (`Prezzo * Quantità`)
-- in `F2`: calcola il netto dopo lo sconto (`Subtotale - sconto`)
-- in `G2`: calcola l'IVA (`Netto * aliquota`)
-- in `H2`: calcola il totale finale (`Netto + IVA`) arrotondato a 2 decimali
+- in `F2`: calcola lo sconto in euro (`Subtotale * Sconto %`)
+- in `G2`: calcola il netto dopo lo sconto (`Subtotale - Sconto in euro`)
+- in `H2`: calcola l'importo IVA (`Netto * aliquota`)
+- in `I2`: calcola il totale finale (`Netto + IVA`) arrotondato a 2 decimali
+
+Formule possibili:
+
+```text
+D2 = B2*C2
+F2 = D2*E2
+G2 = D2-F2
+H2 = G2*$K$1
+I2 = ARROTONDA(G2+H2;2)
+```
 
 Compila almeno 10 prodotti, trascina le formule su tutte le righe e controlla che i risultati siano coerenti (nella colonna Sconto % devi inserire un numero seguito dal simbolo `%`, es. `15%`). A fine tabella aggiungi una piccola area riepilogo con:
 
