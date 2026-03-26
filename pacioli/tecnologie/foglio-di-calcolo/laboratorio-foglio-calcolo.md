@@ -264,6 +264,12 @@ Nel foglio `L1_Formule` imposta una piccola tabella con queste colonne:
 
 Inserisci in `H1` l'aliquota IVA: `22%`.
 
+Per provare l'esempio guidato puoi usare dati semplici come questi:
+
+- `Mouse` | `18,50` | `2`
+- `Tastiera` | `24` | `3`
+- `Monitor` | `140` | `1`
+
 Esempio di formule in riga 2:
 
 ```text
@@ -293,6 +299,8 @@ Crea nel foglio `L1_Formule` una tabella con queste intestazioni (riga 1):
 - `H` Totale finale
 
 Inserisci in `K1` l'aliquota IVA: `22%`.
+
+Per l'esercizio usa invece almeno 10 righe con prodotti e valori diversi dall'esempio guidato, ad esempio articoli come `Webcam`, `Hub USB`, `Notebook`, `Stampante`, `Cuffie`.
 
 Scrivi poi le formule in riga 2:
 
@@ -389,7 +397,7 @@ Dopo l'export:
 - controlla che il contenuto sia leggibile
 - verifica che importi e date siano rimasti corretti
 
-## CSV di lavoro
+## CSV per l'esempio guidato
 
 Usa un file CSV con una struttura simile a questa:
 
@@ -409,9 +417,9 @@ Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo
 
 ### Importazione
 
-Seleziona i dati qui sopra, copiali e incollali in un file di testo. Salva questo file come `CSV_di_lavoro.csv` (o un nome simile) e soprattutto con estensione `.csv`. Attento ad elimnare l'estensione `.txt` se il tuo editor la aggiunge automaticamente.
+Seleziona i dati qui sopra, copiali e incollali in un file di testo. Salva questo file come `CSV_di_lavoro.csv` (o un nome simile) e soprattutto con estensione `.csv`. Attento a eliminare l'estensione `.txt` se il tuo editor la aggiunge automaticamente.
 
-In Google Fogli poi vai sul foglio della lezione 2; successivamene importa il file con `File` > `Importa` > `Carica` e seleziona il file CSV appena creato.
+In Google Fogli poi vai sul foglio della lezione 2; successivamente importa il file con `File` > `Importa` > `Carica` e seleziona il file CSV appena creato.
 
 Google Fogli ti chiederà come importare il file: scegli `Sostituisci i dati nella cella selezionata` e assicurati che il separatore sia `Virgola` (oppure `Rileva automaticamente`. Spunta anche la casella `Converti il testo in numeri, date e formule` se disponibile).
 Dopo aver confermato, i dati dovrebbero essere importati correttamente nelle colonne separate.
@@ -420,21 +428,44 @@ Dopo l'import:
 
 - controlla che i dati siano in colonne separate
 - verifica che `Quantità` e `Importo` siano numeri
-- crea una piccola area riepilogo a lato del dataset
+- verifica che la colonna `Data` sia riconosciuta come data
+- crea una piccola area riepilogo a lato del dataset.
+Per ripassare le funzioni base, nella piccola area riepilogo puoi calcolare almeno:
+
+- la somma totale degli importi
+- la media degli importi
+- il valore massimo o minimo della colonna `Importo`
 
 ### Esportazione
 
 Dopo aver lavorato sui dati, prova a esportare il foglio in CSV con `File` > `Scarica` > `Valori separati da virgola (.csv)`.
 
+## CSV per l'esercizio
+
+Per l'esercizio usa invece un secondo CSV, simile nella struttura ma con valori diversi:
+
+```csv
+Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo
+2026-03-06,Informatica,Webcam,4,39.9,159.6
+2026-03-06,Vendite,Cartucce,6,28,168
+2026-03-07,Amministrazione,Evidenziatori,18,1.5,27
+2026-03-07,Magazzino,Etichette,25,0.8,20
+2026-03-08,Informatica,Hub USB,7,19,133
+2026-03-08,Vendite,Smartphone,3,320,960
+2026-03-09,Amministrazione,Cartelle,12,2.2,26.4
+2026-03-09,Magazzino,Bobine,9,5.5,49.5
+```
+
 ## 5) Esercizio Lezione 2
 
-Nel foglio `L2_CSV_Funzioni_Base` importa il `CSV di lavoro` di questa lezione.
+Nel foglio `L2_CSV_Funzioni_Base` importa il `CSV per l'esercizio` di questa lezione.
 
 Consegna:
 
 - importa correttamente i dati tramite l'import via csv
 - controlla che date, numeri e intestazioni siano leggibili
 - aggiungi una colonna `Subtotale` che moltiplica `Quantità` per `Prezzo unitario`
+- crea una piccola area riepilogo con almeno due funzioni base, ad esempio `SOMMA`, `MEDIA`, `MIN` o `MAX`
 - esporta di nuovo il foglio in CSV
 - importa nuovamente il CSV esportato sotto la tabella originale e verifica che i dati siano ancora corretti.
 
@@ -689,9 +720,7 @@ Esempi:
 
 Anche se non richiesta in verifica, aiuta molto nella revisione.
 
-## Parte pratica
-
-## CSV di lavoro
+## CSV per l'esempio guidato
 
 Importa questo `CSV di lavoro` volutamente sporco:
 
@@ -708,7 +737,7 @@ ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
 
 ## 8) Esempio guidato
 
-1. Importa il `CSV di lavoro`.
+1. Importa il `CSV per l'esempio guidato`.
 2. Crea in una zona laterale del foglio un piccolo elenco reparti con:
    `Informatica`, `Amministrazione`, `Vendite`, `Magazzino`.
 3. Seleziona la colonna `Reparto`, apri `Dati` > `Convalida dei dati`, fai clic su `Aggiungi regola` e nel menu `Criteri` scegli `Menu a discesa (da un intervallo)`.
@@ -724,9 +753,24 @@ ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
 13. Evidenzia almeno un tipo di errore con la formattazione condizionale, ad esempio quantità fuori intervallo o date mancanti.
 14. Osserva quali errori vengono bloccati dalla convalida e quali vanno corretti manualmente perché erano già presenti nei dati importati.
 
+## CSV per l'esercizio
+
+Per l'esercizio usa un secondo CSV sporco, costruito in modo simile ma non identico:
+
+```csv
+ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
+11,10/03/2026,Informatica,Webcam,5,39.9,Aperto,ORD-2026-011
+12,11/03/2026, vendite ,Cartucce,101,28,chiuso,ORD-2026-012
+13,12/03/2026,Amministrazione,Cartelle,14,2.2,APERTO,ORD-2026-013
+13,44/03/2026,Magazzino,Etichette,8,0,In lavorazione,ORD-2026-014
+15,,Informatica,Hub USB,9,19,Aperto,ORD-2026-015
+16,15/03/2026,Vendite,Notebook,-1,650,Chiuso,ORD-2026-016
+17,16/03/2026,Amministrazione,Penne,20,1.2,In lavorazione,ORD-2026-017
+```
+
 ## 9) Esercizio Lezione 3
 
-Nel foglio `L3_Convalida_Pulizia` importa il `CSV di lavoro` di questa lezione.
+Nel foglio `L3_Convalida_Pulizia` importa il `CSV per l'esercizio` di questa lezione.
 
 Consegna:
 
@@ -787,7 +831,9 @@ Somma `F` dove:
 
 Conta ordini aperti nel reparto Vendite.
 
-## CSV di lavoro
+Le sezioni precedenti servono come spiegazione e come riferimento delle formule. L'applicazione operativa delle funzioni compare nel `CSV di lavoro`, nell'esempio guidato e nell'esercizio.
+
+## CSV per l'esempio guidato
 
 Importa o incolla un CSV con colonne come queste:
 
@@ -807,7 +853,7 @@ Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo,Stato
 
 ## 3) Esempio guidato: mini report vendite
 
-Usa il `CSV di lavoro` qui sopra.
+Usa il `CSV per l'esempio guidato` qui sopra.
 
 Struttura dati (`A:H`):
 
@@ -856,9 +902,29 @@ J8 = CONTA.PIÙ.SE(B2:B200;"Vendite";G2:G200;"Aperto")
 J9 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Vendite";D2:D200;">=100")
 ```
 
+Questo esempio serve a mostrare come si passa dal dataset a una piccola area report leggibile. Nell'esercizio sotto dovrai costruire un riepilogo simile cambiando almeno una parte dei criteri.
+
+## CSV per l'esercizio
+
+Per l'esercizio usa invece questo secondo dataset:
+
+```csv
+Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo,Stato
+2026-03-07,Informatica,Webcam,4,39.9,159.6,Aperto
+2026-03-07,Vendite,Cartucce,6,28,168,Chiuso
+2026-03-08,Amministrazione,Cartelle,12,2.2,26.4,Aperto
+2026-03-08,Vendite,Stampante,1,180,180,Aperto
+2026-03-09,Informatica,Hub USB,9,19,171,Chiuso
+2026-03-09,Informatica,Notebook,3,650,1950,Aperto
+2026-03-10,Amministrazione,Evidenziatori,25,1.5,37.5,Aperto
+2026-03-10,Magazzino,Bobine,11,5.5,60.5,Chiuso
+2026-03-11,Vendite,Monitor,2,140,280,Aperto
+2026-03-11,Amministrazione,Raccoglitori,5,6.5,32.5,Aperto
+```
+
 ## 4) Esercizio Lezione 4
 
-Nel foglio `L4_Funzioni_Criteri` importa il `CSV di lavoro` di questa lezione.
+Nel foglio `L4_Funzioni_Criteri` importa il `CSV per l'esercizio` di questa lezione.
 
 Consegna:
 
@@ -868,6 +934,7 @@ Consegna:
 - calcola il totale del reparto `Informatica` con quantità >= 5 usando `SOMMA.PIÙ.SE`
 - conta gli ordini del reparto `Vendite` con stato `Aperto` usando `CONTA.PIÙ.SE`
 - calcola il totale del reparto `Amministrazione` con quantità >= 3 usando `SOMMA.PIÙ.SE`
+- aggiungi una breve riga finale in cui spieghi con parole tue quando conviene usare `SE`, `SOMMA.PIÙ.SE` e `CONTA.PIÙ.SE`
 
 # Lezione 5 - Ricerca dati: CERCA.VERT, CERCA.X e SE.ERRORE
 
@@ -949,7 +1016,9 @@ Uso corretto:
 - mostra un messaggio utile a chi legge il file
 - non sostituisce il controllo dei dati sorgente
 
-## CSV di lavoro
+Anche in questa lezione, le sezioni qui sopra spiegano come funzionano le formule e quando usarle. Il lavoro pratico vero e proprio inizia con i due `CSV di lavoro` e continua nell'esempio guidato e nell'esercizio.
+
+## CSV per l'esempio guidato
 
 Per questa lezione usa due CSV: uno per `Ordini` e uno per `Listino`.
 
@@ -979,7 +1048,7 @@ P005,Cuffie,Vendite,35
 
 ## 5) Esempio guidato
 
-Importa i due `CSV di lavoro` qui sopra.
+Importa i due `CSV per l'esempio guidato` qui sopra.
 
 Foglio `Ordini`:
 
@@ -1000,16 +1069,52 @@ Formule possibili:
 ```text
 B2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;2;FALSO);"Codice non trovato")
 C2 = SE.ERRORE(CERCA.X(A2;Listino!A:A;Listino!C:C;"Codice non trovato");"Codice non trovato")
+D2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
+```
+
+In questo esempio:
+
+- `CERCA.VERT` recupera dati da una colonna posta a destra della chiave
+- `CERCA.X` rende piu leggibile la ricerca e non obbliga a contare la colonna
+- `SE.ERRORE` evita la comparsa di messaggi tecnici quando un codice non esiste nel listino
+
+## CSV per l'esercizio
+
+Per l'esercizio usa invece questi due CSV:
+
+CSV `Ordini`:
+
+```csv
+Codice
+P010
+P012
+P999
+P011
+P777
+P013
+P010
+```
+
+CSV `Listino`:
+
+```csv
+Codice,Descrizione,Reparto,Prezzo
+P010,Webcam,Informatica,39.9
+P011,Hub USB,Informatica,19
+P012,Cartelle,Amministrazione,2.2
+P013,Cartucce,Vendite,28
+P014,Etichette,Magazzino,0.8
 ```
 
 ## 6) Esercizio Lezione 5
 
-Nel foglio `L5_Ricerche` importa i due `CSV di lavoro` di questa lezione in due fogli separati: `Ordini` e `Listino`.
+Nel foglio `L5_Ricerche` importa i due `CSV per l'esercizio` di questa lezione in due fogli separati: `Ordini` e `Listino`.
 
 Consegna:
 
 - recupera `Descrizione` e `Prezzo` con `CERCA.VERT`
 - recupera `Reparto` con `CERCA.X`
+- recupera anche `Prezzo` o `Descrizione` con una seconda formula di ricerca a tua scelta
 - inserisci almeno 3 codici inesistenti
 - gestisci i codici non trovati con `SE.ERRORE`
 - scrivi in 2 righe quale funzione ti sembra più comoda tra `CERCA.VERT` e `CERCA.X`
@@ -1142,7 +1247,9 @@ Buona pratica:
 
 - prima di consegna, rimuovi tutti i filtri e ricontrolla
 
-## CSV di lavoro
+Queste sezioni descrivono quindi il metodo di lavoro corretto su tabelle e filtri. L'attività concreta comincia dal `CSV di lavoro` che segue.
+
+## CSV per l'esempio guidato
 
 Usa un CSV ordini con una struttura simile a questa:
 
@@ -1164,9 +1271,7 @@ Data,Reparto,Prodotto,Quantità,Importo,Stato
 
 ## 9) Esempio guidato
 
-Usa il `CSV di lavoro` qui sopra.
-
-Consegna guidata:
+Usa il `CSV per l'esempio guidato` qui sopra.
 
 1. seleziona l'intervallo dati e attiva `Crea un filtro`
 2. blocca la riga delle intestazioni
@@ -1175,9 +1280,29 @@ Consegna guidata:
 5. filtra anche `Importo > 250`
 6. calcola totale visibile con `SUBTOTALE`
 
+Questo esempio guidato mostra una sequenza completa di lavoro sul dataset: prima si prepara la tabella, poi si filtra, infine si legge il risultato con `SUBTOTALE`.
+
+## CSV per l'esercizio
+
+Per l'esercizio usa invece questo dataset:
+
+```csv
+Data,Reparto,Prodotto,Quantità,Importo,Stato
+2026-03-08,Informatica,Webcam,4,159.6,Aperto
+2026-03-08,Vendite,Cartucce,6,168,Chiuso
+2026-03-09,Amministrazione,Cartelle,12,26.4,Aperto
+2026-03-09,Vendite,Stampante,1,180,Aperto
+2026-03-10,Informatica,Notebook,3,1950,Aperto
+2026-03-10,Magazzino,Etichette,25,20,Aperto
+2026-03-11,Amministrazione,Evidenziatori,18,27,Chiuso
+2026-03-11,Magazzino,Bobine,9,49.5,Aperto
+2026-03-12,Vendite,Monitor,2,280,Aperto
+2026-03-12,Informatica,Hub USB,9,171,Chiuso
+```
+
 ## 10) Esercizio Lezione 6
 
-Nel foglio `L6_Tabelle_Filtri` importa il `CSV di lavoro` di questa lezione.
+Nel foglio `L6_Tabelle_Filtri` importa il `CSV per l'esercizio` di questa lezione.
 
 Consegna:
 
@@ -1186,6 +1311,7 @@ Consegna:
 - ordina i dati per `Reparto` e poi per `Importo` decrescente
 - filtra solo gli ordini `Aperto` con importo >= 200
 - calcola il totale dei record visibili con `SUBTOTALE`
+- scrivi in una riga quali record restano visibili dopo il filtro
 
 # Lezione 7 - Grafici e tabelle pivot: sintetizzare i dati
 
@@ -1275,7 +1401,9 @@ Esempio base:
 - colonne = `Reparto`
 - valori = somma `Importo`
 
-## CSV di lavoro
+Questa parte serve come spiegazione del criterio di scelta. L'applicazione concreta arriva nel dataset qui sotto, poi nell'esempio guidato e nell'esercizio.
+
+## CSV per l'esempio guidato
 
 Usa un CSV vendite mensili come questo:
 
@@ -1297,14 +1425,36 @@ Aprile,Amministrazione,340
 
 ## 5) Esempio guidato
 
-1. Importa il `CSV di lavoro`.
+1. Importa il `CSV per l'esempio guidato`.
 2. Crea una tabella pivot con somma importi per `Mese` e `Reparto`.
 3. Crea un grafico a colonne per confrontare i reparti.
 4. Crea un grafico a linee per mostrare l'andamento mensile.
 
+In questo esempio il punto importante non è solo creare due grafici, ma capire che i due grafici servono a leggere due aspetti diversi dello stesso dataset: confronto tra categorie e andamento nel tempo.
+
+## CSV per l'esercizio
+
+Usa invece questo secondo CSV:
+
+```csv
+Mese,Reparto,Importo
+Maggio,Informatica,1020
+Maggio,Vendite,780
+Maggio,Amministrazione,360
+Giugno,Informatica,980
+Giugno,Vendite,810
+Giugno,Amministrazione,345
+Luglio,Informatica,1100
+Luglio,Vendite,790
+Luglio,Amministrazione,370
+Agosto,Informatica,1050
+Agosto,Vendite,830
+Agosto,Amministrazione,355
+```
+
 ## 6) Esercizio Lezione 7
 
-Nel foglio `L7_Grafici_Pivot` importa il `CSV di lavoro` di questa lezione.
+Nel foglio `L7_Grafici_Pivot` importa il `CSV per l'esercizio` di questa lezione.
 
 Consegna:
 
@@ -1312,6 +1462,7 @@ Consegna:
 - crea un grafico a colonne per confrontare i reparti
 - crea un grafico a linee per mostrare l'andamento mensile
 - scrivi in 2 righe quale dei due grafici comunica meglio ciascuna informazione
+- controlla che entrambi i grafici abbiano titolo leggibile e legenda chiara
 
 # Lezione 8 - Simulazione verifica (prova guidata)
 
@@ -1326,6 +1477,8 @@ Allenarsi in condizioni simili alla verifica reale, con tempi e consegna struttu
 ## Consegna simulazione
 
 Usa un file con dati ordini/vendite e completa tutte le richieste.
+
+Le parti qui sotto sono tutte operative: questa lezione non introduce nuova teoria, ma riunisce in un'unica prova guidata le competenze già allenate nelle lezioni precedenti.
 
 ### Parte A - Formule e funzioni
 
