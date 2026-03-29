@@ -431,48 +431,6 @@ Usa questo metodo se vuoi capire bene la struttura.
 4. duplica lo schema per le sezioni successive
 5. personalizza ogni parte
 
-## Esempio di costruzione guidata
-
-Supponiamo di voler creare la home page di un corso.
-
-### Passo 1
-
-Genera una prima bozza con un prompt come:
-
-```text
-Crea una landing page per un corso di HTML e CSS per principianti.
-Grafica moderna, semplice e professionale.
-Servono hero iniziale, vantaggi, programma, testimonianze, FAQ e contatti.
-```
-
-### Passo 2
-
-Controlla se sono presenti:
-
-- titolo principale
-- sottotitolo
-- bottone di iscrizione
-- sezione vantaggi
-- sezione programma
-- sezione finale con contatti
-
-### Passo 3
-
-Se una sezione non ti convince:
-
-- cancellala
-- aggiungi una nuova `Section`
-- inserisci i blocchi necessari
-
-### Passo 4
-
-Per migliorare l'hero:
-
-- seleziona il titolo e aumenta `font-size`
-- seleziona il bottone e cambia `background-color`
-- seleziona la sezione e regola `padding`
-- seleziona l'immagine e controlla dimensioni e allineamento
-
 ## Errori da evitare
 
 - usare troppi colori diversi
