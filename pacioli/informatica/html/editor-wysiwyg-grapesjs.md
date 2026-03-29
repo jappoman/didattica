@@ -488,7 +488,6 @@ Anche se lavori in modo visuale, tutto quello che fai corrisponde a concetti gia
 
 - i blocchi corrispondono a elementi HTML o gruppi di elementi
 - il pannello `Styles` modifica proprieta' CSS
-- il pannello `Properties` modifica attributi o configurazioni del componente
 - il canvas mostra il risultato finale nel browser
 
 Quindi usare un editor WYSIWYG puo' aiutarti anche a ripassare:
@@ -521,6 +520,18 @@ Vincoli:
 - usa almeno una `Section`, un blocco a colonne, un `Heading`, un `Text`, un `Image` e un `Link` o bottone
 - cambia almeno 5 proprieta' dal pannello `Styles`
 - controlla il risultato in vista desktop e mobile
+
+## Come pubblicare e consegnare il lavoro
+
+Quando hai finito la pagina e vuoi condividerla, devi pubblicarla.
+
+1. clicca su `Publish` in alto a destra
+2. nella finestrella che si apre clicca di nuovo su `Publish`
+3. aspetta la conferma della pubblicazione
+4. Grapes Studio ti mostrera' due link
+
+Otterrai quindi dei link condivisibili del progetto pubblicato.
+Per consegnare il lavoro al professore devi inviare il primo link, cioe' quello principale generato da Grapes Studio.
 
 ## Conclusione
 
