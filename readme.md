@@ -23,6 +23,7 @@ Questo repository contiene materiale per la didattica del professor Gabriele Tar
 #### HTML e CSS
 
 - [Laboratorio HTML](pacioli/informatica/html/laboratorio-html.md)
+- [Editor WYSIWYG e Grapes Studio](pacioli/informatica/html/editor-wysiwyg-grapesjs.md)
 
 ### Tecnologie della comunicazione
 
