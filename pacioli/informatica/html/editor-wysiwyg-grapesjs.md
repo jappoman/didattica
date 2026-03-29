@@ -113,10 +113,10 @@ Qui puoi:
 
 ### 2. Pannello Blocks
 
-Di solito si trova a sinistra.
+Si trova a sinistra della pagina.
 Contiene i blocchi pronti da trascinare nella pagina.
 
-Nello screenshot si vedono, per esempio:
+Tra i blocchi che puoi trovare ci sono, per esempio:
 
 - `1 Column`
 - `2 Columns`
@@ -133,36 +133,164 @@ Nello screenshot si vedono, per esempio:
 
 Il pannello Blocks serve per aggiungere nuovi pezzi di pagina senza doverli costruire da zero.
 
-### 3. Pannello Styles
+### 3. Pages
 
-Di solito si trova a destra.
+Nella zona sinistra dell'editor puoi trovare anche `Pages`.
+Serve per vedere quali pagine fanno parte del progetto.
+
+Esempi possibili:
+
+- home page
+- pagina corsi
+- contatti
+
+Se il progetto ha una sola pagina, `Pages` ti mostra comunque la pagina attiva su cui stai lavorando.
+
+### 4. Layers
+
+Sempre nella zona sinistra puoi trovare `Layers`.
+Questo pannello mostra la struttura della pagina come un albero di elementi.
+
+Per esempio puoi vedere:
+
+- il `Body`
+- le sezioni principali
+- i contenitori interni
+- i titoli
+- i paragrafi
+- i bottoni
+- le immagini
+
+`Layers` e' molto utile per capire come e' organizzata la pagina.
+Serve anche a selezionare meglio un elemento quando nel canvas centrale e' difficile cliccarlo.
+
+### 5. Global Styles
+
+Nella colonna laterale puoi trovare anche `Global Styles`.
+Questo pannello serve a impostare lo stile generale del sito, non del singolo blocco.
+
+Di solito permette di gestire:
+
+- i colori principali del progetto
+- lo stile generale del `Body`
+- lo stile dei titoli
+- lo stile dei sottotitoli
+- lo stile dei bottoni
+
+Esempi di impostazioni utili:
+
+- colore di sfondo generale
+- colore base del testo
+- font principale
+- dimensione del testo
+- dimensione dei titoli
+- line-height
+
+`Global Styles` e' comodo per dare coerenza grafica alla pagina.
+Invece di cambiare ogni elemento uno per uno, puoi impostare delle regole generali valide per tutto il sito.
+
+### 6. Pannello Styles
+
+Si trova a destra della pagina.
 Serve a cambiare l'aspetto grafico dell'elemento selezionato.
 
 Quando selezioni un titolo, un bottone, una colonna o un'immagine, il pannello mostra le proprieta' stilistiche modificabili.
+Le aree principali da conoscere sono queste.
 
-### 4. Pannello Properties
+#### Layout
 
-Accanto a `Styles` trovi spesso `Properties`.
-Qui non lavori tanto sull'aspetto, ma sulle caratteristiche dell'elemento selezionato.
+Qui trovi proprieta' che controllano il comportamento del blocco nella pagina.
 
-Per esempio puo' servire per:
+- `display`: decide come l'elemento si dispone, per esempio come blocco normale
+- opzioni `flex`: servono per allineare e distribuire meglio gli elementi
+- `align`: controlla l'allineamento interno
+- `order`: cambia l'ordine di un elemento nei layout flessibili
 
-- modificare attributi
-- cambiare il tipo di contenuto
-- impostare classi o identificatori
-- regolare opzioni specifiche del componente
+Questa parte e' utile soprattutto per sezioni, colonne, righe e gruppi di elementi.
 
-### 5. Layers
+#### Size
 
-Un page builder serio ti permette anche di vedere la struttura della pagina come un albero di elementi.
-Questo pannello e' utile per capire quali blocchi stanno dentro altri blocchi, specialmente quando una sezione contiene righe, colonne, titoli, paragrafi e bottoni.
+Qui controlli le dimensioni del blocco.
 
-### 6. Device preview
+- `width`: larghezza
+- `height`: altezza
+- `min-width` e `min-height`: dimensioni minime
+- `max-width` e `max-height`: dimensioni massime
+
+Serve quando vuoi evitare che un blocco sia troppo stretto, troppo largo o troppo alto.
+
+#### Space
+
+Questa e' una delle parti piu' importanti.
+
+- `padding`: spazio interno tra contenuto e bordo
+- `margin`: spazio esterno tra un blocco e gli altri
+
+Se una pagina sembra troppo stretta o troppo attaccata, spesso il problema e' qui.
+
+#### Position
+
+Qui trovi il modo in cui un elemento viene posizionato nella pagina.
+Di solito per iniziare si lascia il valore standard, ma e' utile sapere che esiste questa sezione.
+
+#### Typography
+
+Questa parte controlla l'aspetto del testo.
+
+- `font`: tipo di carattere
+- `color`: colore del testo
+- `size`: dimensione del testo
+- `weight`: spessore del testo, per esempio normale o grassetto
+- `line-height`: distanza verticale tra le righe
+- `spacing`: distanza tra le lettere
+- `align`: allineamento del testo
+- `transform`: modifica il testo, per esempio maiuscolo
+- `decoration`: sottolineatura o altre decorazioni
+
+Per titoli e paragrafi questa e' la sezione piu' usata.
+
+#### Background
+
+Qui controlli lo sfondo dell'elemento.
+
+- `background-color`: colore di sfondo
+- `background`: eventuale sfondo piu' complesso, anche con immagini
+
+Serve per evidenziare sezioni, bottoni, box e aree importanti della pagina.
+
+#### Borders
+
+Qui modifichi il bordo dell'elemento.
+
+- `border-radius`: arrotondamento degli angoli
+- `border-width`: spessore del bordo
+- `border-style`: stile del bordo
+- `border-color`: colore del bordo
+
+Questa sezione e' molto usata per bottoni, card e riquadri.
+
+#### Effects
+
+Qui trovi effetti grafici aggiuntivi.
+
+- `opacity`: trasparenza
+- `cursor`: tipo di cursore del mouse
+- `box-shadow`: ombra del blocco
+- `text-shadow`: ombra del testo
+- `filter`: effetti grafici
+- `transition`: velocita' dei cambiamenti
+- `transform`: spostamenti, rotazioni o ingrandimenti
+- `overflow`: decide cosa succede se il contenuto supera lo spazio disponibile
+
+Questi strumenti vanno usati con moderazione.
+Servono per rifinire la pagina, non per sostituire una buona struttura.
+
+### 7. Device preview
 
 In alto e' presente il selettore del dispositivo, ad esempio `Desktop`.
 Serve per passare da una vista larga a una piu' stretta e controllare il comportamento responsive della pagina.
 
-### 7. Code
+### 8. Code
 
 Il pulsante `Code` permette di vedere il codice generato.
 E' utile per collegare l'editor visuale a cio' che hai studiato in HTML e CSS.
@@ -251,94 +379,6 @@ Sono utili per iscrizioni, richieste di contatto, prenotazioni.
 - mantieni una gerarchia chiara: titolo, testo, bottone
 - sostituisci i testi generici con contenuti reali
 - controlla sempre l'ordine degli elementi nelle `Layers`
-
-## Le proprieta' principali del pannello Styles
-
-Il pannello `Styles` cambia a seconda dell'elemento selezionato, ma in generale ruota attorno alle proprieta' CSS piu' comuni.
-
-### Tipografia
-
-Proprieta' tipiche:
-
-- `font-family`: tipo di carattere
-- `font-size`: dimensione del testo
-- `font-weight`: spessore, ad esempio normale o grassetto
-- `line-height`: altezza della riga
-- `letter-spacing`: distanza tra le lettere
-- `text-align`: allineamento del testo
-- `color`: colore del testo
-
-### Dimensioni e layout
-
-Proprieta' tipiche:
-
-- `width`: larghezza
-- `height`: altezza
-- `max-width`: larghezza massima
-- `min-height`: altezza minima
-- `display`: modo in cui l'elemento si comporta nel layout
-- `gap`: distanza tra elementi interni, molto utile con colonne o layout moderni
-
-### Spaziatura
-
-Proprieta' tipiche:
-
-- `margin`: spazio esterno
-- `padding`: spazio interno
-
-Queste due sono fondamentali.
-Gran parte dei problemi grafici di una pagina dipende proprio da margini e padding sbagliati.
-
-### Sfondo e bordi
-
-Proprieta' tipiche:
-
-- `background-color`: colore di sfondo
-- `background-image`: immagine di sfondo
-- `border`: bordo
-- `border-radius`: arrotondamento degli angoli
-
-### Effetti
-
-Nello screenshot si vedono diverse voci del gruppo `Effects`.
-Tra le piu' importanti:
-
-- `opacity`: trasparenza
-- `box-shadow`: ombra del blocco
-- `text-shadow`: ombra del testo
-- `filter`: effetti grafici sull'elemento
-- `transition`: velocita' e fluidita' del cambiamento
-- `transform`: spostamenti, rotazioni, scale
-
-### Overflow e visibilita'
-
-Alcune proprieta' servono a controllare come si comporta il contenuto:
-
-- `overflow`: decide se il contenuto in eccesso resta visibile, viene nascosto o mostra barre di scorrimento
-- `backface-visibility`: usata soprattutto con trasformazioni 3D
-- `transform-origin`: punto da cui parte una trasformazione
-
-Queste proprieta' non sono le prime da usare, ma diventano utili quando vuoi rifinire meglio il layout.
-
-## A cosa serve il pannello Properties
-
-Il pannello `Properties` e' diverso da `Styles`.
-
-- `Styles` cambia come appare l'elemento
-- `Properties` cambia che cos'e' o come si comporta l'elemento
-
-Esempi possibili:
-
-- cambiare il testo o il contenuto di un componente
-- modificare l'URL di un link
-- impostare l'immagine sorgente
-- aggiungere o cambiare una classe CSS
-- impostare attributi HTML
-
-Questa distinzione e' importante:
-
-- se vuoi cambiare il colore di un bottone vai in `Styles`
-- se vuoi cambiare dove porta il bottone cliccato vai in `Properties`
 
 ## Selezione, classi e stati
 
