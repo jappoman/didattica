@@ -1000,36 +1000,27 @@ K7 = CONTA.PIÙ.SE(B2:B11;"Vendite";G2:G11;"Aperto")
 
 Con il CSV di questo esempio:
 
-- `K6` somma gli importi delle righe del reparto `Informatica` che hanno quantità almeno pari a `5`
+- `K6` somma gli importi delle righe del reparto `Informatica` che hanno quantità pari o superiori a `5`
 - `K7` conta quante righe appartengono al reparto `Vendite` e hanno stato `Aperto`
-
-Se vuoi, puoi anche controllare a mano i risultati finali del riepilogo:
-
-- totale importi: `3054`
-- media importi: `305,4`
-- importo minimo: `12`
-- importo massimo: `1300`
-- totale Informatica con quantità >= 5: `1254`
-- ordini Vendite aperti: `2`
 
 Questo esempio serve a mostrare come si passa dal dataset a una piccola area report leggibile. Nell'esercizio sotto dovrai costruire un riepilogo simile, ma con dati e criteri diversi.
 
 ## CSV per l'esercizio
 
-Per l'esercizio usa invece questo secondo dataset:
+Per l'esercizio usa invece questo secondo dataset, dedicato alle iscrizioni a piccoli corsi di formazione:
 
 ```csv
-Data;Reparto;Prodotto;Quantità;Prezzo unitario;Importo;Stato;Stato scorta
-2026-03-07;Informatica;Webcam;4;39,9;;Aperto;
-2026-03-07;Vendite;Cartucce;6;28;;Chiuso;
-2026-03-08;Amministrazione;Cartelle;12;2,2;;Aperto;
-2026-03-08;Vendite;Stampante;1;180;;Aperto;
-2026-03-09;Informatica;Hub USB;9;19;;Chiuso;
-2026-03-09;Informatica;Notebook;3;650;;Aperto;
-2026-03-10;Amministrazione;Evidenziatori;25;1,5;;Aperto;
-2026-03-10;Magazzino;Bobine;11;5,5;;Chiuso;
-2026-03-11;Vendite;Monitor;2;140;;Aperto;
-2026-03-11;Amministrazione;Raccoglitori;5;6,5;;Aperto;
+Data;Sede;Corso;Iscritti;Quota per iscritto;Incasso;Stato iscrizioni;Attivazione corso
+2026-03-07;Milano;Excel base;14;45;;Aperte;
+2026-03-07;Roma;Canva per la scuola;6;35;;Chiuse;
+2026-03-08;Torino;Foglio di calcolo avanzato;11;55;;Aperte;
+2026-03-08;Milano;Presentazioni efficaci;8;40;;Aperte;
+2026-03-09;Online;Google Moduli;19;25;;Chiuse;
+2026-03-09;Roma;Uso del registro elettronico;9;30;;Aperte;
+2026-03-10;Torino;Sicurezza digitale;7;50;;Aperte;
+2026-03-10;Online;Scrittura professionale;13;28;;Chiuse;
+2026-03-11;Milano;Intelligenza artificiale a scuola;5;60;;Aperte;
+2026-03-11;Roma;Organizzazione del lavoro;12;32;;Aperte;
 ```
 
 ## 4) Esercizio Lezione 4
@@ -1038,14 +1029,13 @@ Nel foglio `L4_Funzioni_Criteri` importa il `CSV per l'esercizio` di questa lezi
 
 Consegna:
 
-- calcola `Importo`
-- crea la colonna `Stato scorta` con `SE`
-- costruisci una piccola area riepilogo con `SOMMA`, `MEDIA`, `MIN`, `MAX` e una funzione di conta
-- calcola il totale del reparto `Informatica` con quantità >= 5 usando `SOMMA.PIÙ.SE`
-- conta gli ordini del reparto `Vendite` con stato `Aperto` usando `CONTA.PIÙ.SE`
-- calcola il totale del reparto `Amministrazione` con quantità >= 3 usando `SOMMA.PIÙ.SE`
-- scrivi il riepilogo in un'area separata, per esempio in `J:K`, usando etichette testuali in `J` e formule in `K`
-- aggiungi una breve riga finale in cui spieghi con parole tue quando conviene usare `SE`, `SOMMA.PIÙ.SE` e `CONTA.PIÙ.SE`
+- calcola la colonna `Incasso`
+- crea la colonna `Attivazione corso` con `SE` per indicare `Da confermare` se gli iscritti sono meno di `8` e `Attivo` negli altri casi
+
+- costruisci una piccola area riepilogo in un'area separata, per esempio in `J:K`, usando etichette testuali in `J` e formule in `K`. In questa area inserisci: `SOMMA`, `MEDIA`, `MIN`, `MAX` applicate alla colonna `Incasso`
+- calcola il totale degli incassi della sede `Milano` con iscritti >= 8 usando `SOMMA.PIÙ.SE`
+- conta i corsi della sede `Roma` con stato iscrizioni `Aperte` usando `CONTA.PIÙ.SE`
+- calcola il totale degli incassi della sede `Online` con iscritti >= 10 usando `SOMMA.PIÙ.SE`
 
 # Lezione 5 - Ricerca dati: CERCA.VERT, CERCA.X e SE.ERRORE
 
