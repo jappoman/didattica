@@ -864,7 +864,7 @@ Quando si vogliono applicare più criteri contemporaneamente, le funzioni più a
 
 ### SOMMA.PIÙ.SE
 
-Serve a sommare i valori di un intervallo solo se vengono soddisfatte più condizioni su altri intervalli.
+Serve a sommare i valori di un intervallo solo se vengono soddisfatte più condizioni su altri intervalli. E' più flessibile di `SOMMA.SE` perché permette di applicare più criteri contemporaneamente.
 
 Sintassi:
 
@@ -889,7 +889,7 @@ Nell'esempio sopra, la funzione somma i valori della colonna `F` solo se nella s
 
 ### CONTA.PIÙ.SE
 
-Serve a contare quante righe soddisfano più condizioni su diversi intervalli.
+Serve a contare quante righe soddisfano più condizioni su diversi intervalli. E' più flessibile di `CONTA.SE` perché permette di applicare più criteri contemporaneamente.
 
 Sintassi:
 
@@ -935,7 +935,7 @@ Data;Reparto;Prodotto;Quantità;Prezzo unitario;Importo;Stato;Stato scorta
 
 Usa il `CSV per l'esempio guidato` qui sopra.
 
-Struttura dati (`A:H`):
+Dopo l'importazione, la tabella occupa le colonne `A:H` e le righe da `1` a `11`. La prima riga contiene le intestazioni:
 
 - Data
 - Reparto
@@ -946,11 +946,17 @@ Struttura dati (`A:H`):
 - Stato
 - Stato scorta
 
+Per rendere l'esempio ordinato, lavoriamo in tre passaggi.
+
+### Passaggio 1: completa le colonne vuote del dataset
+
 In `F2` calcola `Importo` con `Quantità * Prezzo unitario`:
 
 ```text
 =E2*D2
 ```
+
+Copia poi la formula fino a `F11`.
 
 In `H2` calcola `Stato scorta` con `SE`:
 
@@ -958,28 +964,55 @@ In `H2` calcola `Stato scorta` con `SE`:
 =SE(D2<10;"Riordinare";"OK")
 ```
 
-Crea una piccola area riepilogo in `J:K`, usando in `J` le etichette e in `K` le formule:
+Copia poi la formula fino a `H11`.
+
+### Passaggio 2: crea una piccola area riepilogo separata
+
+Per non mescolare i calcoli con la tabella principale, crea il riepilogo nelle colonne `J:K`.
+
+Scrivi in `J` le etichette e in `K` le formule corrispondenti:
 
 ```text
 J2 = Totale importi
-K2 = SOMMA(F2:F200)
+K2 = SOMMA(F2:F11)
+
 J3 = Media importi
-K3 = MEDIA(F2:F200)
+K3 = MEDIA(F2:F11)
+
 J4 = Importo minimo
-K4 = MIN(F2:F200)
+K4 = MIN(F2:F11)
+
 J5 = Importo massimo
-K5 = MAX(F2:F200)
-J6 = Numero prodotti
-K6 = CONTA.VALORI(C2:C200)
-J7 = Totale Informatica con quantità >= 5
-K7 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Informatica";D2:D200;">=5")
-J8 = Ordini Vendite aperti
-K8 = CONTA.PIÙ.SE(B2:B200;"Vendite";G2:G200;"Aperto")
-J9 = Totale Vendite con quantità >= 3
-K9 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Vendite";D2:D200;">=3")
+K5 = MAX(F2:F11)
 ```
 
-Questo esempio serve a mostrare come si passa dal dataset a una piccola area report leggibile. Nell'esercizio sotto dovrai costruire un riepilogo simile cambiando almeno una parte dei criteri.
+### Passaggio 3: aggiungi i calcoli con criteri
+
+Sotto al riepilogo precedente aggiungi due formule che facciano vedere quando conviene usare le funzioni con criteri:
+
+```text
+J6 = Totale Informatica con quantità >= 5
+K6 = SOMMA.PIÙ.SE(F2:F11;B2:B11;"Informatica";D2:D11;">=5")
+
+J7 = Ordini Vendite aperti
+K7 = CONTA.PIÙ.SE(B2:B11;"Vendite";G2:G11;"Aperto")
+```
+
+Con il CSV di questo esempio:
+
+- `K6` somma gli importi delle righe del reparto `Informatica` che hanno quantità almeno pari a `5`
+- `K7` conta quante righe appartengono al reparto `Vendite` e hanno stato `Aperto`
+
+Se vuoi, puoi anche controllare a mano i risultati finali del riepilogo:
+
+- totale importi: `3054`
+- media importi: `305,4`
+- importo minimo: `12`
+- importo massimo: `1300`
+- totale Informatica con quantità >= 5: `1254`
+- ordini Vendite aperti: `2`
+
+Questo esempio serve a mostrare come si passa dal dataset a una piccola area report leggibile. Nell'esercizio sotto dovrai costruire un riepilogo simile, ma con dati e criteri diversi.
 
 ## CSV per l'esercizio
 
