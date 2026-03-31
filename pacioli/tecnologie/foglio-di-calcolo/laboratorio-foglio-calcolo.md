@@ -855,7 +855,7 @@ Esempi pratici:
 =SE(C2<10;"Riordinare";"OK")
 =SE(D2>=6;"Promosso";"Da recuperare")
 =SE(E2>500;"Bonus";"No bonus")
-=SE(B2>=50 e B2<=100;"Medio";"Fuori range")
+=SE(E(B2>=50;B2<=100);"Medio";"Fuori range")
 ```
 
 ## 2) Funzioni con più criteri
@@ -919,16 +919,16 @@ Importa o incolla un CSV con colonne come queste:
 
 ```csv
 Data;Reparto;Prodotto;Quantità;Prezzo unitario;Importo;Stato;Stato scorta
-2026-03-01;Informatica;Mouse;12;18,5;222;Aperto
-2026-03-01;Vendite;Toner;5;42;210;Chiuso
-2026-03-02;Amministrazione;Risma A4;20;4,8;96;Aperto
-2026-03-03;Vendite;Cuffie;3;35;105;Aperto
-2026-03-03;Informatica;Tastiera;8;24;192;Chiuso
-2026-03-04;Informatica;Monitor;6;140;840;Aperto
-2026-03-04;Amministrazione;Penne;10;1,2;12;Aperto
-2026-03-05;Vendite;Notebook;2;650;1300;Aperto
-2026-03-05;Magazzino;Nastro;15;3,4;51;Chiuso
-2026-03-06;Amministrazione;Raccoglitore;4;6,5;26;Aperto
+2026-03-01;Informatica;Mouse;12;18,5;;Aperto;
+2026-03-01;Vendite;Toner;5;42;;Chiuso;
+2026-03-02;Amministrazione;Risma A4;20;4,8;;Aperto;
+2026-03-03;Vendite;Cuffie;3;35;;Aperto;
+2026-03-03;Informatica;Tastiera;8;24;;Chiuso;
+2026-03-04;Informatica;Monitor;6;140;;Aperto;
+2026-03-04;Amministrazione;Penne;10;1,2;;Aperto;
+2026-03-05;Vendite;Notebook;2;650;;Aperto;
+2026-03-05;Magazzino;Nastro;15;3,4;;Chiuso;
+2026-03-06;Amministrazione;Raccoglitore;4;6,5;;Aperto;
 ```
 
 ## 3) Esempio guidato: mini report vendite
@@ -946,40 +946,37 @@ Struttura dati (`A:H`):
 - Stato
 - Stato scorta
 
-In `F2`:
+In `F2` calcola `Importo` con `Quantità * Prezzo unitario`:
 
 ```text
-=D2*E2
+=E2*D2
 ```
 
-In `H2`:
+In `H2` calcola `Stato scorta` con `SE`:
 
 ```text
 =SE(D2<10;"Riordinare";"OK")
 ```
 
-Area riepilogo (`J:K`):
-
-- totale vendite
-- media importo
-- importo minimo
-- importo massimo
-- numero righe compilate
-- totale importi reparto Informatica con quantità >= 5
-- numero ordini reparto Vendite con stato `Aperto`
-- totale importi reparto Vendite con quantità >= 100
-
-Formule possibili:
+Crea una piccola area riepilogo in `J:K`, usando in `J` le etichette e in `K` le formule:
 
 ```text
-J2 = SOMMA(F2:F200)
-J3 = MEDIA(F2:F200)
-J4 = MIN(F2:F200)
-J5 = MAX(F2:F200)
-J6 = CONTA.VALORI(C2:C200)
-J7 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Informatica";D2:D200;">=5")
-J8 = CONTA.PIÙ.SE(B2:B200;"Vendite";G2:G200;"Aperto")
-J9 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Vendite";D2:D200;">=100")
+J2 = Totale importi
+K2 = SOMMA(F2:F200)
+J3 = Media importi
+K3 = MEDIA(F2:F200)
+J4 = Importo minimo
+K4 = MIN(F2:F200)
+J5 = Importo massimo
+K5 = MAX(F2:F200)
+J6 = Numero prodotti
+K6 = CONTA.VALORI(C2:C200)
+J7 = Totale Informatica con quantità >= 5
+K7 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Informatica";D2:D200;">=5")
+J8 = Ordini Vendite aperti
+K8 = CONTA.PIÙ.SE(B2:B200;"Vendite";G2:G200;"Aperto")
+J9 = Totale Vendite con quantità >= 3
+K9 = SOMMA.PIÙ.SE(F2:F200;B2:B200;"Vendite";D2:D200;">=3")
 ```
 
 Questo esempio serve a mostrare come si passa dal dataset a una piccola area report leggibile. Nell'esercizio sotto dovrai costruire un riepilogo simile cambiando almeno una parte dei criteri.
@@ -989,17 +986,17 @@ Questo esempio serve a mostrare come si passa dal dataset a una piccola area rep
 Per l'esercizio usa invece questo secondo dataset:
 
 ```csv
-Data;Reparto;Prodotto;Quantità;Prezzo unitario;Importo;Stato
-2026-03-07;Informatica;Webcam;4;39,9;159,6;Aperto
-2026-03-07;Vendite;Cartucce;6;28;168;Chiuso
-2026-03-08;Amministrazione;Cartelle;12;2,2;26,4;Aperto
-2026-03-08;Vendite;Stampante;1;180;180;Aperto
-2026-03-09;Informatica;Hub USB;9;19;171;Chiuso
-2026-03-09;Informatica;Notebook;3;650;1950;Aperto
-2026-03-10;Amministrazione;Evidenziatori;25;1,5;37,5;Aperto
-2026-03-10;Magazzino;Bobine;11;5,5;60,5;Chiuso
-2026-03-11;Vendite;Monitor;2;140;280;Aperto
-2026-03-11;Amministrazione;Raccoglitori;5;6,5;32,5;Aperto
+Data;Reparto;Prodotto;Quantità;Prezzo unitario;Importo;Stato;Stato scorta
+2026-03-07;Informatica;Webcam;4;39,9;;Aperto;
+2026-03-07;Vendite;Cartucce;6;28;;Chiuso;
+2026-03-08;Amministrazione;Cartelle;12;2,2;;Aperto;
+2026-03-08;Vendite;Stampante;1;180;;Aperto;
+2026-03-09;Informatica;Hub USB;9;19;;Chiuso;
+2026-03-09;Informatica;Notebook;3;650;;Aperto;
+2026-03-10;Amministrazione;Evidenziatori;25;1,5;;Aperto;
+2026-03-10;Magazzino;Bobine;11;5,5;;Chiuso;
+2026-03-11;Vendite;Monitor;2;140;;Aperto;
+2026-03-11;Amministrazione;Raccoglitori;5;6,5;;Aperto;
 ```
 
 ## 4) Esercizio Lezione 4
@@ -1014,6 +1011,7 @@ Consegna:
 - calcola il totale del reparto `Informatica` con quantità >= 5 usando `SOMMA.PIÙ.SE`
 - conta gli ordini del reparto `Vendite` con stato `Aperto` usando `CONTA.PIÙ.SE`
 - calcola il totale del reparto `Amministrazione` con quantità >= 3 usando `SOMMA.PIÙ.SE`
+- scrivi il riepilogo in un'area separata, per esempio in `J:K`, usando etichette testuali in `J` e formule in `K`
 - aggiungi una breve riga finale in cui spieghi con parole tue quando conviene usare `SE`, `SOMMA.PIÙ.SE` e `CONTA.PIÙ.SE`
 
 # Lezione 5 - Ricerca dati: CERCA.VERT, CERCA.X e SE.ERRORE
