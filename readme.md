@@ -20,10 +20,10 @@ Questo repository contiene materiale per la didattica del professor Gabriele Tar
 
 ### Informatica
 
-#### HTML e CSS
+#### Sviluppo web
 
-- [Laboratorio HTML, CSS e JavaScript](pacioli/informatica/html/laboratorio-html-css-js.md)
-- [Editor WYSIWYG e Grapes Studio](pacioli/informatica/html/editor-wysiwyg-grapesjs.md)
+- [Laboratorio HTML, CSS e JavaScript](pacioli/informatica/sviluppo-web/laboratorio-html-css-js.md)
+- [Editor WYSIWYG e Grapes Studio](pacioli/informatica/sviluppo-web/editor-wysiwyg-grapesjs.md)
 
 ### Tecnologie della comunicazione
 
@@ -31,4 +31,7 @@ Questo repository contiene materiale per la didattica del professor Gabriele Tar
 
 - [Modellazione ER](pacioli/tecnologie/database/modellazione-er.md)
 - [Laboratorio SQL (Postgres)](pacioli/tecnologie/database/laboratorio-sql.md)
+
+#### Fogli di calcolo
+
 - [Laboratorio Fogli di Calcolo](pacioli/tecnologie/foglio-di-calcolo/laboratorio-foglio-calcolo.md)

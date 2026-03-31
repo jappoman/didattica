@@ -807,6 +807,7 @@ ID Ordine,Data Ordine,Reparto,Prodotto,Quantità,Prezzo,Stato,Codice
 Nel foglio `L3_Convalida_Pulizia` importa il `CSV per l'esercizio` di questa lezione.
 
 Consegna:
+
 - importa il nuovo CSV di lavoro sotto alla tabella dell'esempio guidato
 - pulisci i prodotti con `ANNULLA.SPAZI` in una nuova colonna `Prodotto normalizzato`
 - crea una piccola lista di supporto per il campo `Reparto`
@@ -826,40 +827,89 @@ A fine lezione devi saper:
 
 ## 1) Funzione SE
 
+La funzione `SE` permette di creare una logica condizionale, cioè di restituire un valore se una condizione è vera e un altro valore se la condizione è falsa.
+
 Sintassi:
 
 ```text
 =SE(test_logico; valore_se_vero; valore_se_falso)
 ```
 
-Esempi:
+Dove:
+
+- `test_logico` è la condizione che vuoi verificare (ad esempio, se un numero è maggiore di un certo valore)
+- `valore_se_vero` è il risultato che vuoi ottenere se la condizione è soddisfatta
+- `valore_se_falso` è il risultato che vuoi ottenere se la condizione non è soddisfatta
+
+Le condizioni che si possono usare in `test_logico` sono molteplici, ad esempio:
+
+- `A2>100`
+- `B2="Vendite"`
+- `C2<=50`
+- `D2<>0` (diverso da zero)
+- `E2>=10` e `E2<=20` (congiunzione di due condizioni)
+
+Esempi pratici:
 
 ```text
 =SE(C2<10;"Riordinare";"OK")
 =SE(D2>=6;"Promosso";"Da recuperare")
 =SE(E2>500;"Bonus";"No bonus")
+=SE(B2>=50 e B2<=100;"Medio";"Fuori range")
 ```
 
 ## 2) Funzioni con più criteri
 
+Quando si vogliono applicare più criteri contemporaneamente, le funzioni più adatte sono `SOMMA.PIÙ.SE` per sommare valori che rispettano più condizioni e `CONTA.PIÙ.SE` per contare quante righe rispettano più condizioni.
+
 ### SOMMA.PIÙ.SE
+
+Serve a sommare i valori di un intervallo solo se vengono soddisfatte più condizioni su altri intervalli.
+
+Sintassi:
+
+```text
+=SOMMA.PIÙ.SE(intervallo_somma; intervallo_criteri1; criterio1; [intervallo_criteri2; criterio2]; ...)
+```
+
+Dove:
+
+- `intervallo_somma` è l'intervallo di celle che contiene i valori da sommare
+- `intervallo_criteri1` è l'intervallo su cui applicare il primo criterio
+- `criterio1` è la condizione da soddisfare per il primo intervallo
+- `[intervallo_criteri2; criterio2]` sono opzionali e permettono di aggiungere ulteriori condizioni
+
+Esempio pratico:
 
 ```text
 =SOMMA.PIÙ.SE(F2:F200;B2:B200;"Vendite";D2:D200;">=100")
 ```
 
-Somma `F` dove:
-
-- reparto = Vendite
-- quantità >= 100
+Nell'esempio sopra, la funzione somma i valori della colonna `F` solo se nella stessa riga il reparto è `Vendite` e la quantità è maggiore o uguale a `100`.
 
 ### CONTA.PIÙ.SE
+
+Serve a contare quante righe soddisfano più condizioni su diversi intervalli.
+
+Sintassi:
+
+```text
+=CONTA.PIÙ.SE(intervallo_criteri1; criterio1; [intervallo_criteri2; criterio2]; ...)
+```
+
+Dove:
+
+- `intervallo_criteri1` è l'intervallo su cui applicare il primo criterio
+- `criterio1` è la condizione da soddisfare per il primo intervallo
+- `[intervallo_criteri2; criterio2]` sono opzionali e permettono di aggiungere ulteriori condizioni
+
+Esempio pratico:
 
 ```text
 =CONTA.PIÙ.SE(B2:B200;"Vendite";G2:G200;"Aperto")
 ```
 
-Conta ordini aperti nel reparto Vendite.
+Nell'esempio sopra, la funzione conta quante righe hanno `Vendite` nella colonna `B` e `Aperto` nella colonna `G`.
 
 Le sezioni precedenti servono come spiegazione e come riferimento delle formule. L'applicazione operativa delle funzioni compare nel `CSV di lavoro`, nell'esempio guidato e nell'esercizio.
 
@@ -868,7 +918,7 @@ Le sezioni precedenti servono come spiegazione e come riferimento delle formule.
 Importa o incolla un CSV con colonne come queste:
 
 ```csv
-Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo,Stato
+Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo,Stato,Stato scorta
 2026-03-01,Informatica,Mouse,12,18.5,222,Aperto
 2026-03-01,Vendite,Toner,5,42,210,Chiuso
 2026-03-02,Amministrazione,Risma A4,20,4.8,96,Aperto
