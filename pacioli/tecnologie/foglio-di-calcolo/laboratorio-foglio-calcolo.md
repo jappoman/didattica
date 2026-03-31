@@ -918,17 +918,17 @@ Le sezioni precedenti servono come spiegazione e come riferimento delle formule.
 Importa o incolla un CSV con colonne come queste:
 
 ```csv
-Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo,Stato,Stato scorta
-2026-03-01,Informatica,Mouse,12,18.5,222,Aperto
-2026-03-01,Vendite,Toner,5,42,210,Chiuso
-2026-03-02,Amministrazione,Risma A4,20,4.8,96,Aperto
-2026-03-03,Vendite,Cuffie,3,35,105,Aperto
-2026-03-03,Informatica,Tastiera,8,24,192,Chiuso
-2026-03-04,Informatica,Monitor,6,140,840,Aperto
-2026-03-04,Amministrazione,Penne,10,1.2,12,Aperto
-2026-03-05,Vendite,Notebook,2,650,1300,Aperto
-2026-03-05,Magazzino,Nastro,15,3.4,51,Chiuso
-2026-03-06,Amministrazione,Raccoglitore,4,6.5,26,Aperto
+Data;Reparto;Prodotto;Quantità;Prezzo unitario;Importo;Stato;Stato scorta
+2026-03-01;Informatica;Mouse;12;18,5;222;Aperto
+2026-03-01;Vendite;Toner;5;42;210;Chiuso
+2026-03-02;Amministrazione;Risma A4;20;4,8;96;Aperto
+2026-03-03;Vendite;Cuffie;3;35;105;Aperto
+2026-03-03;Informatica;Tastiera;8;24;192;Chiuso
+2026-03-04;Informatica;Monitor;6;140;840;Aperto
+2026-03-04;Amministrazione;Penne;10;1,2;12;Aperto
+2026-03-05;Vendite;Notebook;2;650;1300;Aperto
+2026-03-05;Magazzino;Nastro;15;3,4;51;Chiuso
+2026-03-06;Amministrazione;Raccoglitore;4;6,5;26;Aperto
 ```
 
 ## 3) Esempio guidato: mini report vendite
@@ -989,17 +989,17 @@ Questo esempio serve a mostrare come si passa dal dataset a una piccola area rep
 Per l'esercizio usa invece questo secondo dataset:
 
 ```csv
-Data,Reparto,Prodotto,Quantità,Prezzo unitario,Importo,Stato
-2026-03-07,Informatica,Webcam,4,39.9,159.6,Aperto
-2026-03-07,Vendite,Cartucce,6,28,168,Chiuso
-2026-03-08,Amministrazione,Cartelle,12,2.2,26.4,Aperto
-2026-03-08,Vendite,Stampante,1,180,180,Aperto
-2026-03-09,Informatica,Hub USB,9,19,171,Chiuso
-2026-03-09,Informatica,Notebook,3,650,1950,Aperto
-2026-03-10,Amministrazione,Evidenziatori,25,1.5,37.5,Aperto
-2026-03-10,Magazzino,Bobine,11,5.5,60.5,Chiuso
-2026-03-11,Vendite,Monitor,2,140,280,Aperto
-2026-03-11,Amministrazione,Raccoglitori,5,6.5,32.5,Aperto
+Data;Reparto;Prodotto;Quantità;Prezzo unitario;Importo;Stato
+2026-03-07;Informatica;Webcam;4;39,9;159,6;Aperto
+2026-03-07;Vendite;Cartucce;6;28;168;Chiuso
+2026-03-08;Amministrazione;Cartelle;12;2,2;26,4;Aperto
+2026-03-08;Vendite;Stampante;1;180;180;Aperto
+2026-03-09;Informatica;Hub USB;9;19;171;Chiuso
+2026-03-09;Informatica;Notebook;3;650;1950;Aperto
+2026-03-10;Amministrazione;Evidenziatori;25;1,5;37,5;Aperto
+2026-03-10;Magazzino;Bobine;11;5,5;60,5;Chiuso
+2026-03-11;Vendite;Monitor;2;140;280;Aperto
+2026-03-11;Amministrazione;Raccoglitori;5;6,5;32,5;Aperto
 ```
 
 ## 4) Esercizio Lezione 4
@@ -1118,12 +1118,12 @@ P001
 CSV `Listino`:
 
 ```csv
-Codice,Descrizione,Reparto,Prezzo
-P001,Mouse,Informatica,18.5
-P002,Tastiera,Informatica,24
-P003,Risma A4,Amministrazione,4.8
-P004,Toner,Vendite,42
-P005,Cuffie,Vendite,35
+Codice;Descrizione;Reparto;Prezzo
+P001;Mouse;Informatica;18,5
+P002;Tastiera;Informatica;24
+P003;Risma A4;Amministrazione;4,8
+P004;Toner;Vendite;42
+P005;Cuffie;Vendite;35
 ```
 
 ## 5) Esempio guidato
@@ -1178,12 +1178,12 @@ P010
 CSV `Listino`:
 
 ```csv
-Codice,Descrizione,Reparto,Prezzo
-P010,Webcam,Informatica,39.9
-P011,Hub USB,Informatica,19
-P012,Cartelle,Amministrazione,2.2
-P013,Cartucce,Vendite,28
-P014,Etichette,Magazzino,0.8
+Codice;Descrizione;Reparto;Prezzo
+P010;Webcam;Informatica;39,9
+P011;Hub USB;Informatica;19
+P012;Cartelle;Amministrazione;2,2
+P013;Cartucce;Vendite;28
+P014;Etichette;Magazzino;0,8
 ```
 
 ## 6) Esercizio Lezione 5
@@ -1334,19 +1334,19 @@ Queste sezioni descrivono quindi il metodo di lavoro corretto su tabelle e filtr
 Usa un CSV ordini con una struttura simile a questa:
 
 ```csv
-Data,Reparto,Prodotto,Quantità,Importo,Stato
-2026-03-01,Informatica,Mouse,12,222,Aperto
-2026-03-01,Vendite,Toner,5,210,Chiuso
-2026-03-02,Amministrazione,Risma A4,20,96,Aperto
-2026-03-03,Vendite,Cuffie,3,105,Aperto
-2026-03-03,Informatica,Tastiera,8,192,Chiuso
-2026-03-04,Magazzino,Scatole,15,37.5,Aperto
-2026-03-05,Vendite,Notebook,2,1300,Aperto
-2026-03-05,Informatica,Monitor,6,840,Aperto
-2026-03-06,Amministrazione,Penne,30,36,Chiuso
-2026-03-06,Magazzino,Nastro,10,34,Aperto
-2026-03-07,Vendite,Webcam,7,280,Aperto
-2026-03-07,Informatica,Hub USB,9,171,Chiuso
+Data;Reparto;Prodotto;Quantità;Importo;Stato
+2026-03-01;Informatica;Mouse;12;222;Aperto
+2026-03-01;Vendite;Toner;5;210;Chiuso
+2026-03-02;Amministrazione;Risma A4;20;96;Aperto
+2026-03-03;Vendite;Cuffie;3;105;Aperto
+2026-03-03;Informatica;Tastiera;8;192;Chiuso
+2026-03-04;Magazzino;Scatole;15;37,5;Aperto
+2026-03-05;Vendite;Notebook;2;1300;Aperto
+2026-03-05;Informatica;Monitor;6;840;Aperto
+2026-03-06;Amministrazione;Penne;30;36;Chiuso
+2026-03-06;Magazzino;Nastro;10;34;Aperto
+2026-03-07;Vendite;Webcam;7;280;Aperto
+2026-03-07;Informatica;Hub USB;9;171;Chiuso
 ```
 
 ## 9) Esempio guidato
@@ -1367,17 +1367,17 @@ Questo esempio guidato mostra una sequenza completa di lavoro sul dataset: prima
 Per l'esercizio usa invece questo dataset:
 
 ```csv
-Data,Reparto,Prodotto,Quantità,Importo,Stato
-2026-03-08,Informatica,Webcam,4,159.6,Aperto
-2026-03-08,Vendite,Cartucce,6,168,Chiuso
-2026-03-09,Amministrazione,Cartelle,12,26.4,Aperto
-2026-03-09,Vendite,Stampante,1,180,Aperto
-2026-03-10,Informatica,Notebook,3,1950,Aperto
-2026-03-10,Magazzino,Etichette,25,20,Aperto
-2026-03-11,Amministrazione,Evidenziatori,18,27,Chiuso
-2026-03-11,Magazzino,Bobine,9,49.5,Aperto
-2026-03-12,Vendite,Monitor,2,280,Aperto
-2026-03-12,Informatica,Hub USB,9,171,Chiuso
+Data;Reparto;Prodotto;Quantità;Importo;Stato
+2026-03-08;Informatica;Webcam;4;159,6;Aperto
+2026-03-08;Vendite;Cartucce;6;168;Chiuso
+2026-03-09;Amministrazione;Cartelle;12;26,4;Aperto
+2026-03-09;Vendite;Stampante;1;180;Aperto
+2026-03-10;Informatica;Notebook;3;1950;Aperto
+2026-03-10;Magazzino;Etichette;25;20;Aperto
+2026-03-11;Amministrazione;Evidenziatori;18;27;Chiuso
+2026-03-11;Magazzino;Bobine;9;49,5;Aperto
+2026-03-12;Vendite;Monitor;2;280;Aperto
+2026-03-12;Informatica;Hub USB;9;171;Chiuso
 ```
 
 ## 10) Esercizio Lezione 6
@@ -1488,19 +1488,19 @@ Questa parte serve come spiegazione del criterio di scelta. L'applicazione concr
 Usa un CSV vendite mensili come questo:
 
 ```csv
-Mese,Reparto,Importo
-Gennaio,Informatica,820
-Gennaio,Vendite,640
-Gennaio,Amministrazione,310
-Febbraio,Informatica,910
-Febbraio,Vendite,700
-Febbraio,Amministrazione,330
-Marzo,Informatica,880
-Marzo,Vendite,760
-Marzo,Amministrazione,290
-Aprile,Informatica,950
-Aprile,Vendite,720
-Aprile,Amministrazione,340
+Mese;Reparto;Importo
+Gennaio;Informatica;820
+Gennaio;Vendite;640
+Gennaio;Amministrazione;310
+Febbraio;Informatica;910
+Febbraio;Vendite;700
+Febbraio;Amministrazione;330
+Marzo;Informatica;880
+Marzo;Vendite;760
+Marzo;Amministrazione;290
+Aprile;Informatica;950
+Aprile;Vendite;720
+Aprile;Amministrazione;340
 ```
 
 ## 5) Esempio guidato
@@ -1517,19 +1517,19 @@ In questo esempio il punto importante non è solo creare due grafici, ma capire 
 Usa invece questo secondo CSV:
 
 ```csv
-Mese,Reparto,Importo
-Maggio,Informatica,1020
-Maggio,Vendite,780
-Maggio,Amministrazione,360
-Giugno,Informatica,980
-Giugno,Vendite,810
-Giugno,Amministrazione,345
-Luglio,Informatica,1100
-Luglio,Vendite,790
-Luglio,Amministrazione,370
-Agosto,Informatica,1050
-Agosto,Vendite,830
-Agosto,Amministrazione,355
+Mese;Reparto;Importo
+Maggio;Informatica;1020
+Maggio;Vendite;780
+Maggio;Amministrazione;360
+Giugno;Informatica;980
+Giugno;Vendite;810
+Giugno;Amministrazione;345
+Luglio;Informatica;1100
+Luglio;Vendite;790
+Luglio;Amministrazione;370
+Agosto;Informatica;1050
+Agosto;Vendite;830
+Agosto;Amministrazione;355
 ```
 
 ## 6) Esercizio Lezione 7
