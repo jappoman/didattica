@@ -815,7 +815,7 @@ Consegna:
 - usa `STRINGA.ESTRAI` per ricavare una parte utile da un codice
 - correggi gli errori individuati dai vari controlli
 
-# Lezione 4 - Funzioni essenziali: riepilogo, SE e criteri
+# Lezione 4 - Funzioni essenziali: SE e CONTA
 
 ## Obiettivi della lezione
 
