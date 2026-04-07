@@ -34,4 +34,4 @@ Questo repository contiene materiale per la didattica del professor Gabriele Tar
 
 #### Fogli di calcolo
 
-- [Laboratorio Fogli di Calcolo](pacioli/tecnologie/foglio-di-calcolo/laboratorio-foglio-calcolo.md)
+- [Laboratorio fogli di calcolo avanzati](pacioli/tecnologie/fogli-di-calcolo/laboratorio-fogli-di-calcolo-avanzati.md)

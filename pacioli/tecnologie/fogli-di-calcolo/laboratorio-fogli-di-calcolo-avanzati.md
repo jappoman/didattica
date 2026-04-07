@@ -1,4 +1,4 @@
-﻿# Laboratorio Foglio di Calcolo Avanzato
+﻿# Laboratorio foglio di calcolo avanzati
 
 ## Prima di iniziare
 
