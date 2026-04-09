@@ -1037,6 +1037,36 @@ Consegna:
 - conta i corsi della sede `Roma` con stato iscrizioni `Aperte` usando `CONTA.PIÙ.SE`
 - calcola il totale degli incassi della sede `Online` con iscritti >= 10 usando `SOMMA.PIÙ.SE`
 
+## 5) Esercizio aggiuntivo Lezione 4
+
+Nel foglio `L4_Funzioni_Criteri` importa questo secondo dataset sotto al precedente:
+
+```csv
+Data;Plesso;Laboratorio;Partecipanti;Quota;Totale incassato;Stato adesioni;Avvio laboratorio
+2026-03-12;Centrale;Robotica base;16;18;;Aperte;
+2026-03-12;Nord;Podcast scolastico;7;15;;Aperte;
+2026-03-13;Sud;Coding creativo;11;20;;Chiuse;
+2026-03-13;Centrale;Fotografia digitale;9;22;;Aperte;
+2026-03-14;Online;Scrittura web;14;12;;Chiuse;
+2026-03-14;Nord;Canva per eventi;6;16;;Aperte;
+2026-03-15;Sud;Video editing;13;24;;Aperte;
+2026-03-15;Online;Presentazioni smart;10;14;;Aperte;
+2026-03-16;Centrale;Stampa 3D;5;26;;Chiuse;
+2026-03-16;Nord;Foglio di calcolo per progetti;12;19;;Aperte;
+```
+
+### Consegna
+
+- calcola la colonna `Totale incassato`
+- crea la colonna `Avvio laboratorio` con `SE` per indicare `Da confermare` se i partecipanti sono meno di `8` e `Attivo` negli altri casi
+- costruisci una piccola area riepilogo separata, per esempio in `J:K`, con `SOMMA`, `MEDIA`, `MIN`, `MAX` applicate alla colonna `Totale incassato`
+- calcola il totale degli incassi del plesso `Centrale` con partecipanti >= 8 usando `SOMMA.PIÙ.SE`
+- calcola il totale degli incassi del plesso `Online` con partecipanti >= 10 usando `SOMMA.PIÙ.SE`
+- calcola il totale degli incassi del plesso `Nord` con stato adesioni `Aperte` usando `SOMMA.PIÙ.SE`
+- conta i laboratori del plesso `Nord` con stato adesioni `Aperte` usando `CONTA.PIÙ.SE`
+- conta i laboratori del plesso `Centrale` con `Avvio laboratorio` uguale a `Attivo` usando `CONTA.PIÙ.SE`
+- conta i laboratori del plesso `Online` con stato adesioni `Chiuse` usando `CONTA.PIÙ.SE`
+
 # Lezione 5 - Ricerca dati: CERCA.VERT, CERCA.X e SE.ERRORE
 
 ## Obiettivi della lezione
