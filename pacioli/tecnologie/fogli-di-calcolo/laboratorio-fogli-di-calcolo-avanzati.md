@@ -1080,6 +1080,7 @@ A fine lezione devi saper:
 
 ## 1) Perché servono le funzioni di ricerca
 
+Le funzioni di ricerca servono a recuperare dati da una tabella di supporto a partire da un dato chiave. Sono fondamentali per collegare informazioni che si trovano in tabelle diverse, evitando di dover inserire manualmente i dati più volte.
 Scenario tipico:
 
 - nel foglio `Ordini` hai solo il codice prodotto
@@ -1090,33 +1091,60 @@ Obiettivo:
 - inserire il codice una sola volta
 - far compilare in automatico le altre informazioni
 
+Questa è una situazione tipica nei file di lavoro reali: una tabella contiene il dato chiave, mentre le informazioni complete si trovano in una tabella di supporto. Le funzioni di ricerca servono proprio a collegare in modo automatico queste due parti del file.
+
 ## 2) CERCA.VERT
 
-Formula base:
+La CERCA.VERT è la funzione di ricerca più classica e diffusa. Permette di cercare un valore in una colonna e restituire un valore corrispondente da una colonna a destra.
+
+Sintassi:
 
 ```text
 =CERCA.VERT(A2;Listino!A:D;4;FALSO)
 ```
 
-Significato argomenti:
+Significato degli argomenti:
 
 - `A2`: valore da cercare
 - `Listino!A:D`: tabella di riferimento
 - `4`: colonna da restituire
 - `FALSO`: corrispondenza esatta
 
-Punto forte:
+Esempio:
+
+```text
+=CERCA.VERT(A2;Listino!A:D;4;FALSO)
+```
+
+Nell'esempio sopra, la funzione cerca il valore di `A2` nella prima colonna della tabella `Listino!A:D` e restituisce il valore corrispondente dalla quarta colonna (colonna `D`). Se il codice non viene trovato, restituisce un errore.
+
+PRO:
 
 - semplice e immediato
 
-Limite:
+CONTRO:
 
 - cerca solo verso destra
 - la chiave deve stare nella prima colonna della tabella
 
+Questa funzione è quindi molto utile quando la tabella è già organizzata con il codice nella prima colonna e i dati da recuperare nelle colonne successive.
+
 ## 3) CERCA.X
 
-Se disponibile nello strumento, `CERCA.X` è più leggibile.
+Se disponibile nello strumento, `CERCA.X` è più leggibile. Permette di cercare un valore in una colonna e restituire un valore corrispondente da qualsiasi colonna, sia a destra che a sinistra.
+
+Sintassi:
+
+```text
+=CERCA.X(A2;Listino!A:A;Listino!D:D;"Codice non trovato")
+```
+
+Significato degli argomenti:
+
+- `A2`: valore da cercare
+- `Listino!A:A`: colonna chiave
+- `Listino!D:D`: colonna da restituire
+- `"Codice non trovato"`: valore da restituire se la chiave non esiste
 
 Esempio:
 
@@ -1124,15 +1152,34 @@ Esempio:
 =CERCA.X(A2;Listino!A:A;Listino!D:D;"Codice non trovato")
 ```
 
-Vantaggi:
+Nell'esempio sopra, la funzione cerca il valore di `A2` nella colonna `A` del foglio `Listino` e restituisce il valore corrispondente dalla colonna `D`. Se il codice non viene trovato, restituisce "Codice non trovato".
+
+PRO:
 
 - non devi contare il numero della colonna
 - può cercare sia a destra sia a sinistra
 - può già mostrare un messaggio se il codice manca
 
+CONTRO:
+
+- non è disponibile in tutti gli strumenti
+
+In pratica, `CERCA.X` è spesso più comoda quando la tabella cambia struttura o quando vuoi scrivere formule più facili da leggere e mantenere.
+
 ## 4) SE.ERRORE
 
-Serve per evitare messaggi tecnici in output finale.
+Serve per evitare messaggi tecnici in output finale. Quando una funzione di ricerca non trova il codice, restituisce un errore che può essere poco chiaro a chi legge il file. `SE.ERRORE` permette di intercettare questo errore e sostituirlo con un messaggio più leggibile.
+
+Sintassi:
+
+```text=SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
+
+```
+
+Significato degli argomenti:
+
+- `CERCA.VERT(A2;Listino!A:D;4;FALSO)`: la formula di ricerca da eseguire
+- `"Codice non trovato"`: il messaggio da restituire se la formula di ricerca restituisce un errore
 
 Esempi:
 
@@ -1147,7 +1194,7 @@ Uso corretto:
 - mostra un messaggio utile a chi legge il file
 - non sostituisce il controllo dei dati sorgente
 
-Anche in questa lezione, le sezioni qui sopra spiegano come funzionano le formule e quando usarle. Il lavoro pratico vero e proprio inizia con i due `CSV di lavoro` e continua nell'esempio guidato e nell'esercizio.
+Le sezioni precedenti servono quindi come spiegazione e come riferimento delle formule. L'applicazione operativa compare nei due `CSV di lavoro`, nell'esempio guidato e nell'esercizio.
 
 ## CSV per l'esempio guidato
 
@@ -1177,9 +1224,9 @@ P004;Toner;Vendite;42
 P005;Cuffie;Vendite;35
 ```
 
-## 5) Esempio guidato
+## 5) Esempio guidato: completare una tabella ordini da un listino
 
-Importa i due `CSV per l'esempio guidato` qui sopra.
+Usa i due `CSV per l'esempio guidato` qui sopra.
 
 Foglio `Ordini`:
 
@@ -1195,7 +1242,23 @@ Foglio `Listino`:
 - `C` Reparto
 - `D` Prezzo listino
 
-Formule possibili:
+Per rendere l'esempio ordinato, lavoriamo in tre passaggi.
+
+### Passaggio 1: importa e prepara i due fogli
+
+Importa i due CSV in due fogli separati chiamati `Ordini` e `Listino`.
+
+Controlla che:
+
+- nel foglio `Ordini` ci sia solo la colonna `Codice` compilata in partenza
+- nel foglio `Listino` i dati occupino le colonne `A:D`
+- i prezzi del listino siano riconosciuti come numeri
+
+### Passaggio 2: completa i dati mancanti nel foglio Ordini
+
+Nel foglio `Ordini`, usa le formule di ricerca per compilare le colonne mancanti a partire dal codice presente in colonna `A`.
+
+Scrivi in riga `2` queste formule:
 
 ```text
 B2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;2;FALSO);"Codice non trovato")
@@ -1203,11 +1266,17 @@ C2 = SE.ERRORE(CERCA.X(A2;Listino!A:A;Listino!C:C;"Codice non trovato");"Codice 
 D2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
 ```
 
-In questo esempio:
+Poi copia le formule fino all'ultima riga degli ordini.
+
+### Passaggio 3: osserva il comportamento delle ricerche
+
+Con il CSV di questo esempio:
 
 - `CERCA.VERT` recupera dati da una colonna posta a destra della chiave
-- `CERCA.X` rende piu leggibile la ricerca e non obbliga a contare la colonna
+- `CERCA.X` rende più leggibile la ricerca e non obbliga a contare la colonna
 - `SE.ERRORE` evita la comparsa di messaggi tecnici quando un codice non esiste nel listino
+
+Osserva in particolare i codici `P999` e `P777`: non essendo presenti nel foglio `Listino`, devono mostrare un messaggio leggibile invece di un errore tecnico.
 
 ## CSV per l'esercizio
 
@@ -1243,6 +1312,7 @@ Nel foglio `L5_Ricerche` importa i due `CSV per l'esercizio` di questa lezione i
 
 Consegna:
 
+- completa il foglio `Ordini` recuperando automaticamente i dati mancanti a partire dal `Codice`
 - recupera `Descrizione` e `Prezzo` con `CERCA.VERT`
 - recupera `Reparto` con `CERCA.X`
 - recupera anche `Prezzo` o `Descrizione` con una seconda formula di ricerca a tua scelta
