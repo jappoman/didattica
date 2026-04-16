@@ -1080,8 +1080,7 @@ A fine lezione devi saper:
 
 ## 1) Perché servono le funzioni di ricerca
 
-Le funzioni di ricerca servono a recuperare dati da una tabella di supporto a partire da un dato chiave. Sono fondamentali per collegare informazioni che si trovano in tabelle diverse, evitando di dover inserire manualmente i dati più volte.
-Scenario tipico:
+Le funzioni di ricerca servono a recuperare dati da una tabella di supporto a partire da un dato chiave. Sono fondamentali per collegare informazioni che si trovano in tabelle diverse, evitando di dover inserire manualmente i dati più volte. Scenario tipico:
 
 - nel foglio `Ordini` hai solo il codice prodotto
 - nel foglio `Listino` hai `Codice`, `Descrizione`, `Reparto`, `Prezzo`
@@ -1106,9 +1105,9 @@ Sintassi:
 Significato degli argomenti:
 
 - `A2`: valore da cercare
-- `Listino!A:D`: tabella di riferimento
+- `Listino!A:D`: tabella di riferimento, situata nel foglio `Listino` e che occupa le colonne da `A` a `D`
 - `4`: colonna da restituire
-- `FALSO`: corrispondenza esatta
+- `FALSO`: corrispondenza esatta. Se il codice non viene trovato, restituisce un errore. Alternativamente, se si usa `VERO`, la funzione restituisce il valore più vicino inferiore al codice cercato, ma questo è rischioso se la tabella non è ordinata o se mancano codici.
 
 Esempio:
 
@@ -1142,8 +1141,8 @@ Sintassi:
 Significato degli argomenti:
 
 - `A2`: valore da cercare
-- `Listino!A:A`: colonna chiave
-- `Listino!D:D`: colonna da restituire
+- `Listino!A:A`: colonna chiave, situata nel foglio `Listino` e che occupa la colonna `A`
+- `Listino!D:D`: colonna da restituire, situata nel foglio `Listino` e che occupa la colonna `D`
 - `"Codice non trovato"`: valore da restituire se la chiave non esiste
 
 Esempio:
@@ -1198,7 +1197,7 @@ Le sezioni precedenti servono quindi come spiegazione e come riferimento delle f
 
 ## CSV per l'esempio guidato
 
-Per questa lezione usa due CSV: uno per `Ordini` e uno per `Listino`.
+Per questa lezione usa due CSV: uno per `Ordini` e uno per `Listino` e mettili in due fogli separati del file di lavoro.
 
 CSV `Ordini`:
 
@@ -1226,23 +1225,7 @@ P005;Cuffie;Vendite;35
 
 ## 5) Esempio guidato: completare una tabella ordini da un listino
 
-Usa i due `CSV per l'esempio guidato` qui sopra.
-
-Foglio `Ordini`:
-
-- `A` Codice
-- `B` Descrizione
-- `C` Reparto
-- `D` Prezzo
-
-Foglio `Listino`:
-
-- `A` Codice
-- `B` Descrizione
-- `C` Reparto
-- `D` Prezzo listino
-
-Per rendere l'esempio ordinato, lavoriamo in tre passaggi.
+Usa i due `CSV per l'esempio guidato` qui sopra. Per rendere l'esempio ordinato, lavoriamo in tre passaggi.
 
 ### Passaggio 1: importa e prepara i due fogli
 
@@ -1250,9 +1233,17 @@ Importa i due CSV in due fogli separati chiamati `Ordini` e `Listino`.
 
 Controlla che:
 
-- nel foglio `Ordini` ci sia solo la colonna `Codice` compilata in partenza
+- nel foglio `Ordini` ci sia inizialmente solo la colonna `Codice` compilata dall'importazione
 - nel foglio `Listino` i dati occupino le colonne `A:D`
 - i prezzi del listino siano riconosciuti come numeri
+
+Ora nel foglio `Ordini`, aggiungi le seguenti intestazioni a partire da `B1`:
+
+```text
+Descrizione
+Reparto
+Prezzo
+```
 
 ### Passaggio 2: completa i dati mancanti nel foglio Ordini
 
