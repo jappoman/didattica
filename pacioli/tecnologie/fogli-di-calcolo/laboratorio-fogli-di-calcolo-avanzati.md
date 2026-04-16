@@ -1236,6 +1236,7 @@ Controlla che:
 - nel foglio `Ordini` ci sia inizialmente solo la colonna `Codice` compilata dall'importazione
 - nel foglio `Listino` i dati occupino le colonne `A:D`
 - i prezzi del listino siano riconosciuti come numeri
+- se il `Listino` finisce tutto in colonna `A`, reimporta il file scegliendo come separatore `Punto e virgola`, altrimenti `CERCA.VERT` e `CERCA.X` non leggeranno correttamente i dati
 
 Ora nel foglio `Ordini`, aggiungi le seguenti intestazioni a partire da `B1`:
 
@@ -1253,7 +1254,7 @@ Scrivi in riga `2` queste formule:
 
 ```text
 B2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;2;FALSO);"Codice non trovato")
-C2 = SE.ERRORE(CERCA.X(A2;Listino!A:A;Listino!C:C;"Codice non trovato");"Codice non trovato")
+C2 = SE.ERRORE(CERCA.X(A2;Listino!A:A;Listino!C:C);"Codice non trovato")
 D2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
 ```
 
@@ -1284,6 +1285,10 @@ P011
 P777
 P013
 P010
+P014
+P015
+P998
+P012
 ```
 
 CSV `Listino`:
@@ -1295,6 +1300,8 @@ P011;Hub USB;Informatica;19
 P012;Cartelle;Amministrazione;2,2
 P013;Cartucce;Vendite;28
 P014;Etichette;Magazzino;0,8
+P015;Lampada LED;Acquisti;17,5
+P016;Supporto monitor;Informatica;31
 ```
 
 ## 6) Esercizio Lezione 5
