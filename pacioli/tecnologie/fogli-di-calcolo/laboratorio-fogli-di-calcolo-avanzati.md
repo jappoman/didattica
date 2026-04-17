@@ -229,6 +229,15 @@ Il riferimento misto blocca solo la colonna o solo la riga. Esempio:
 
 Quindi trascinando la formula in basso diventa `=$B3*C$1`, trascinando a destra diventa `=$B2*D$1`.
 
+## Riferimento di foglio
+
+Il riferimento di foglio indica una cella o un intervallo in un altro foglio dello stesso file. Si scrive il nome del foglio seguito da `!` e poi la cella o l'intervallo.
+Esempio:
+
+```text
+=L1_Formule!B2
+```
+
 ## Range di celle
 
 Un range di celle è un intervallo che comprende più celle. Si indica con i due punti `:` tra la cella iniziale e quella finale.
@@ -1167,12 +1176,17 @@ In pratica, `CERCA.X` è spesso più comoda quando la tabella cambia struttura o
 
 ## 4) SE.ERRORE
 
-Serve per evitare messaggi tecnici in output finale. Quando una funzione di ricerca non trova il codice, restituisce un errore che può essere poco chiaro a chi legge il file. `SE.ERRORE` permette di intercettare questo errore e sostituirlo con un messaggio più leggibile.
+Serve per evitare messaggi tecnici in output finale. In questa lezione lo usiamo con `CERCA.VERT`, che quando non trova il codice restituisce un errore tecnico.
+
+Nota importante:
+
+- con `CERCA.VERT`, se il codice non esiste, `SE.ERRORE` serve per mostrare un messaggio chiaro
+- con `CERCA.X`, non usiamo `SE.ERRORE` per intercettare i casi di codice non presente perché il caso "non trovato" si gestisce direttamente nel quarto argomento. Potrebbe comunque essere utile per intercettare altri tipi di errori, ad esempio se la tabella di riferimento è mancante o se ci sono errori di battitura nella formula.
 
 Sintassi:
 
-```text=SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
-
+```text
+=SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
 ```
 
 Significato degli argomenti:
@@ -1184,7 +1198,6 @@ Esempi:
 
 ```text
 =SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
-=SE.ERRORE(CERCA.X(A2;Listino!A:A;Listino!D:D;"Codice non trovato");"Codice non trovato")
 ```
 
 Uso corretto:
@@ -1192,6 +1205,7 @@ Uso corretto:
 - nasconde l'errore tecnico
 - mostra un messaggio utile a chi legge il file
 - non sostituisce il controllo dei dati sorgente
+- in questa lezione si applica a `CERCA.VERT`, non a `CERCA.X`
 
 Le sezioni precedenti servono quindi come spiegazione e come riferimento delle formule. L'applicazione operativa compare nei due `CSV di lavoro`, nell'esempio guidato e nell'esercizio.
 
@@ -1254,7 +1268,7 @@ Scrivi in riga `2` queste formule:
 
 ```text
 B2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;2;FALSO);"Codice non trovato")
-C2 = SE.ERRORE(CERCA.X(A2;Listino!A:A;Listino!C:C);"Codice non trovato")
+C2 = CERCA.X(A2;Listino!A:A;Listino!C:C;"Codice non trovato")
 D2 = SE.ERRORE(CERCA.VERT(A2;Listino!A:D;4;FALSO);"Codice non trovato")
 ```
 
@@ -1266,7 +1280,7 @@ Con il CSV di questo esempio:
 
 - `CERCA.VERT` recupera dati da una colonna posta a destra della chiave
 - `CERCA.X` rende più leggibile la ricerca e non obbliga a contare la colonna
-- `SE.ERRORE` evita la comparsa di messaggi tecnici quando un codice non esiste nel listino
+- `SE.ERRORE` evita la comparsa di messaggi tecnici quando `CERCA.VERT` non trova un codice
 
 Osserva in particolare i codici `P999` e `P777`: non essendo presenti nel foglio `Listino`, devono mostrare un messaggio leggibile invece di un errore tecnico.
 
@@ -1315,7 +1329,7 @@ Consegna:
 - recupera `Reparto` con `CERCA.X`
 - recupera anche `Prezzo` o `Descrizione` con una seconda formula di ricerca a tua scelta
 - inserisci almeno 3 codici inesistenti
-- gestisci i codici non trovati con `SE.ERRORE`
+- gestisci i codici non trovati con `SE.ERRORE` nelle formule `CERCA.VERT` e con l'argomento dedicato nelle formule `CERCA.X`
 - scrivi in 2 righe quale funzione ti sembra più comoda tra `CERCA.VERT` e `CERCA.X`
 
 # Lezione 6 - Tabelle, filtri e analisi operativa
