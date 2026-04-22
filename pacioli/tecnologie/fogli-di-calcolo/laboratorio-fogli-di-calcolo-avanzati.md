@@ -1250,7 +1250,6 @@ Controlla che:
 - nel foglio `Ordini` ci sia inizialmente solo la colonna `Codice` compilata dall'importazione
 - nel foglio `Listino` i dati occupino le colonne `A:D`
 - i prezzi del listino siano riconosciuti come numeri
-- se il `Listino` finisce tutto in colonna `A`, reimporta il file scegliendo come separatore `Punto e virgola`, altrimenti `CERCA.VERT` e `CERCA.X` non leggeranno correttamente i dati
 
 Ora nel foglio `Ordini`, aggiungi le seguenti intestazioni a partire da `B1`:
 
@@ -1320,17 +1319,14 @@ P016;Supporto monitor;Informatica;31
 
 ## 6) Esercizio Lezione 5
 
-Nel foglio `L5_Ricerche` importa i due `CSV per l'esercizio` di questa lezione in due fogli separati: `Ordini` e `Listino`.
+Importa i due CSV per l'esercizio di questa lezione in due fogli separati: `L5_ordini` e `L5_listino`.
 
 Consegna:
 
-- completa il foglio `Ordini` recuperando automaticamente i dati mancanti a partire dal `Codice`
-- recupera `Descrizione` e `Prezzo` con `CERCA.VERT`
-- recupera `Reparto` con `CERCA.X`
-- recupera anche `Prezzo` o `Descrizione` con una seconda formula di ricerca a tua scelta
-- inserisci almeno 3 codici inesistenti
-- gestisci i codici non trovati con `SE.ERRORE` nelle formule `CERCA.VERT` e con l'argomento dedicato nelle formule `CERCA.X`
-- scrivi in 2 righe quale funzione ti sembra più comoda tra `CERCA.VERT` e `CERCA.X`
+- completa il foglio `L5_ordini` recuperando automaticamente i dati mancanti a partire dal `L5_listino`:
+  - recupera `Descrizione` e `Prezzo` con `CERCA.VERT`
+  - recupera `Reparto` con `CERCA.X`
+  - gestisci i codici non trovati con `SE.ERRORE` nelle formule `CERCA.VERT` e con l'argomento dedicato nelle formule `CERCA.X`
 
 # Lezione 6 - Tabelle, filtri e analisi operativa
 
