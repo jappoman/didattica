@@ -1335,110 +1335,94 @@ Consegna:
 A fine lezione devi saper:
 
 - trasformare un intervallo dati in una tabella leggibile
+- bloccare le prime righe per lavorare meglio su dataset lunghi
 - ordinare per una o più colonne
 - applicare filtri testuali, numerici e per data
-- bloccare le prime righe per lavorare meglio su dataset lunghi
 - usare `SUBTOTALE` su dati filtrati
 - rispondere a domande reali con i dati filtrati
 
-## 1) Dato grezzo vs tabella leggibile
+## 1) Dato grezzo vs tabella
 
-Una tabella non ordinata può contenere le informazioni giuste ma essere poco utile.
-Ordinare e filtrare significa trasformare dati in risposte.
+I fogli di calcolo possono contenere dati corretti poco utili se non sono organizzati in modo chiaro. Ordinare e filtrare significa trasformare dati in risposte a domande reali. Per farlo, è possibile applicare alcune funzionalità che rendono il dataset più interattivo e leggibile.
 
-Prima regola:
+Prima di cominciare, bisogna assicurarsi che il dataset sia ben strutturato:
 
-- i dati devono avere intestazioni chiare
-- non devono esserci righe o colonne vuote interne
-- il blocco dati deve essere continuo
+- i dati devono avere intestazioni chiare: ogni colonna deve avere un nome che ne descriva il contenuto
+- il blocco dati deve essere continuo: non devono esserci righe o colonne vuote interne
+- le righe devono avere colori alternati per distinguere meglio i record (opzionale ma consigliato)
 
-Nel lavoro reale, anche in Google Fogli, conviene rendere il dataset leggibile con:
+## 2) Prepara l'intervallo con i filtri
 
-- filtro attivo sull'intervallo
-- intestazione ben formattata
-- colori alternati
-
-Questo rende più chiaro il dataset e aiuta a lavorare meglio con ordinamenti, filtri e riepiloghi.
-
-## 2) Prepara l'intervallo e attiva i filtri
-
-Vantaggi pratici:
-
-- intestazione evidenziata
-- filtri attivi subito su ogni colonna
-- lettura più chiara
-- aggiornamento più semplice quando aggiungi nuove righe
-
-Idea chiave della lezione:
-
-- alcune operazioni di filtro si possono fare direttamente sul foglio base
-- in Google Fogli è utile applicare `Crea un filtro` e, se vuoi, usare colori alternati per leggere meglio il dataset
-
-## 3) Blocca la visualizzazione: prime righe e intestazione
-
-Ordine consigliato in un file ordinato:
-
-- in alto eventuali righe con filtri o criteri
-- subito sotto l'intestazione della tabella
-- poi il blocco dei dati
-
-Quando il dataset è lungo, blocca le prime righe così intestazioni e criteri restano sempre visibili.
-
-## 4) Ordinamento: regole corrette
-
-Prima di ordinare:
-
-- seleziona tutta la tabella
-- verifica intestazioni corrette
-- evita righe vuote interne
-
-Tipi:
-
-- crescente (A-Z, 0-9)
-- decrescente (Z-A, 9-0)
-- ordinamento multiplo (prima reparto, poi importo)
-
-## 5) Filtri automatici: uso pratico
-
-Filtri principali:
+Una volta verificate le condizioni precedenti, è possibile applicare i filtri automatici. In Google Fogli, si usa `Crea un filtro` dal menu `Dati`. In Excel, si usa `Filtro` dal menu `Dati`. Questo abilita i filtri su ogni colonna, permettendo di ordinare e filtrare i dati in modo interattivo. Vengono applicati filtri di questo tipo:
 
 - per testo (contiene, inizia con)
 - per numero (> < = tra)
 - per data (mese, anno, intervallo)
 - per colore (se usato)
 
-Esempi:
+## 3) Blocca la visualizzazione: prime righe e intestazione
 
-- ordini `Aperto`
-- importo > 300
-- reparto = Informatica
-- data nel mese di marzo
+Un'altra funzionalità molto utile è il blocco delle prime righe, che permette di mantenere sempre visibili le intestazioni e eventuali righe con criteri o filtri, anche quando si scorre verso il basso in un dataset lungo.
 
-## 6) Domande tipiche da risolvere con filtri
+In Google Fogli, si usa `Blocca` dal menu `Visualizza`. In Excel, si usa `Blocca riquadri` dal menu `Visualizza`.
+
+Con l'intestazione sempre visibile, è più facile orientarsi nei dati e applicare filtri o ordinamenti senza perdere di vista le categorie di riferimento.
+
+## 4) Ordinamento: regole corrette
+
+Successivamente, è possibile ordinare i dati in base a una o più colonne. Prima di ordinare, è importante seguire alcune regole per evitare di disorganizzare il dataset:
+
+- seleziona tutta la tabella
+- assicurati che i filtri siano attivi
+- scegli le colonne su cui ordinare e l'ordine (crescente o decrescente)
+- se ordini per più colonne, stabilisci la priorità (prima una colonna, poi l'altra)
+
+I tipi di ordinamento più comuni sono:
+
+- crescente (A-Z, 0-9)
+- decrescente (Z-A, 9-0)
+- ordinamento multiplo (ad esempio, prima per reparto, poi per importo)
+
+L'ordinamento è utile per mettere in evidenza i record più importanti o per raggruppare i dati in modo logico.
+
+## 5) Domande tipiche da risolvere con filtri e ordinamento
+
+Già solo con i filtri e l'ordinamento è possibile rispondere a molte domande operative, ad esempio:
 
 - quali prodotti sono sotto scorta?
 - quanti ordini aperti ha il reparto X?
 - quali sono i 10 importi maggiori?
 - quante spese superano 500 euro?
+- quali ordini sono stati fatti a marzo?
+- quali sono i reparti con più di 5 ordini aperti?
+- quali sono i prodotti più venduti del reparto Y?
+- quali sono i 5 ordini più recenti?
 
-## 7) `SUBTOTALE` sui dati filtrati
+## 6) `SUBTOTALE` sui dati filtrati
 
-Quando filtri la tabella, `SUBTOTALE` calcola solo i record visibili.
+Quando applichi un filtro, i dati vengono nascosti ma non eliminati. La funzione `SUBTOTALE` permette di calcolare somme, medie, conteggi e altri aggregati solo sui record visibili, cioè quelli che rispettano i filtri applicati.
+
+Sintassi:
 
 ```text
-=SUBTOTALE(9;E2:E200)
+=SUBTOTALE(<funzione>; intervallo)
 ```
 
-`9` corrisponde alla somma.
-
-Altri codici utili:
+Dove `<funzione>` è un numero che indica il tipo di calcolo da eseguire:
 
 - `1` media
 - `2` conta numeri
+- `9` somma
 
-Questa funzione è utile perché, in pratica, si comporta come un riepilogo rapido dei dati selezionati dal filtro.
+Esempio:
 
-## 8) Attenzione agli errori frequenti
+```text
+=SUBTOTALE(9;F2:F100)
+```
+
+In questo caso la funzione calcola la somma dei valori nella colonna `F` solo per le righe che sono visibili dopo l'applicazione dei filtri.
+
+## 7) Attenzione agli errori frequenti
 
 Errore 1:
 
@@ -1454,13 +1438,15 @@ Errore 3:
 
 Buona pratica:
 
-- prima di consegna, rimuovi tutti i filtri e ricontrolla
+- prima di consegnare un file, disattiva i filtri e controlla che i dati siano completi
 
 Queste sezioni descrivono quindi il metodo di lavoro corretto su tabelle e filtri. L'attività concreta comincia dal `CSV di lavoro` che segue.
 
-## CSV per l'esempio guidato
+## 8) Esempio guidato
 
-Usa un CSV ordini con una struttura simile a questa:
+### CSV per l'esempio guidato
+
+Importa il seguente CSV in un foglio di lavoro e usalo per l'esempio guidato:
 
 ```csv
 Data;Reparto;Prodotto;Quantità;Importo;Stato
@@ -1478,10 +1464,6 @@ Data;Reparto;Prodotto;Quantità;Importo;Stato
 2026-03-07;Informatica;Hub USB;9;171;Chiuso
 ```
 
-## 9) Esempio guidato
-
-Usa il `CSV per l'esempio guidato` qui sopra.
-
 1. seleziona l'intervallo dati e attiva `Crea un filtro`
 2. blocca la riga delle intestazioni
 3. ordina per `Reparto`, poi `Importo` desc
@@ -1491,9 +1473,11 @@ Usa il `CSV per l'esempio guidato` qui sopra.
 
 Questo esempio guidato mostra una sequenza completa di lavoro sul dataset: prima si prepara la tabella, poi si filtra, infine si legge il risultato con `SUBTOTALE`.
 
-## CSV per l'esercizio
+## 9) Esercizio Lezione 6
 
-Per l'esercizio usa invece questo dataset:
+### CSV per l'esercizio
+
+Nel foglio `L6_Tabelle_Filtri` importa il seguente CSV:
 
 ```csv
 Data;Reparto;Prodotto;Quantità;Importo;Stato
@@ -1509,11 +1493,7 @@ Data;Reparto;Prodotto;Quantità;Importo;Stato
 2026-03-12;Informatica;Hub USB;9;171;Chiuso
 ```
 
-## 10) Esercizio Lezione 6
-
-Nel foglio `L6_Tabelle_Filtri` importa il `CSV per l'esercizio` di questa lezione.
-
-Consegna:
+### Consegna:
 
 - attiva il filtro sull'intervallo dati
 - blocca la riga delle intestazioni
