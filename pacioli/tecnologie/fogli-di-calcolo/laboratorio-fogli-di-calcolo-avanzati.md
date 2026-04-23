@@ -1499,9 +1499,22 @@ Data;Reparto;Prodotto;Quantità;Importo;Stato
 - mostra gli importi dei reparti in ordine decrescente poi ordina per `Reparto` in ordine decrescente
 - mostra la somma totale di tutti gli importi e la somma degli importi degli ordini aperti e superiori a 200 euro
 
-## 10) Bonus: la tabella automatica
+## 10) Bonus 1: la tabella automatica
 
 Google Fogli ha una funzionalità che permette di trasformare un intervallo di dati in una tabella con filtri, ordinamento e formattazione automaticamente. Per usarla, basta selezionare l'intervallo di dati e scegliere `Converti in tabella` dal menu `Formato`. Questa funzionalità è molto utile per creare rapidamente tabelle interattive senza dover applicare manualmente i filtri e le formattazioni.
+
+## 11) Bonus 2: `Colonna Raggruppa per`
+
+`Colonna Raggruppa per` è una funzione di visualizzazione utile per leggere rapidamente i dati per gruppi, ad esempio per `Reparto`.
+
+Per usarla:
+
+1. apri il menu della colonna, ad esempio `Reparto`
+2. scegli `Colonna Raggruppa per`
+
+Google Fogli crea gruppi temporanei e, per ogni colonna, puoi scegliere una metrica come `Count (Numero)`, `Somma` o `Media`.
+
+È comoda per esplorare il dataset e vedere subito riepiloghi per reparto, ma non sostituisce i filtri, `SUBTOTALE` o la tabella pivot.
 
 # Lezione 7 - Grafici e tabelle pivot: sintetizzare i dati
 
