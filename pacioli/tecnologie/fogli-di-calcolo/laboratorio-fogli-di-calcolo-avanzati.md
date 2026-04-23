@@ -1353,7 +1353,7 @@ Prima di cominciare, bisogna assicurarsi che il dataset sia ben strutturato:
 
 ## 2) Prepara l'intervallo con i filtri
 
-Una volta verificate le condizioni precedenti, è possibile applicare i filtri automatici. In Google Fogli, si usa `Crea un filtro` dal menu `Dati`. In Excel, si usa `Filtro` dal menu `Dati`. Questo abilita i filtri su ogni colonna, permettendo di ordinare e filtrare i dati in modo interattivo. Vengono applicati filtri di questo tipo:
+Una volta verificate le condizioni precedenti, è possibile applicare i filtri automatici. In Google Fogli, selezionare l'area dati sulla quale si vuole applicare il filtro (può essere anche tutta la tabella contemporaneamente) e si usa `Crea un filtro` dal menu `Dati`. Questo abilita i filtri su ogni colonna, permettendo di ordinare e filtrare i dati in modo interattivo. Vengono applicati filtri di questo tipo:
 
 - per testo (contiene, inizia con)
 - per numero (> < = tra)
@@ -1364,7 +1364,7 @@ Una volta verificate le condizioni precedenti, è possibile applicare i filtri a
 
 Un'altra funzionalità molto utile è il blocco delle prime righe, che permette di mantenere sempre visibili le intestazioni e eventuali righe con criteri o filtri, anche quando si scorre verso il basso in un dataset lungo.
 
-In Google Fogli, si usa `Blocca` dal menu `Visualizza`. In Excel, si usa `Blocca riquadri` dal menu `Visualizza`.
+In Google Fogli, si usa `Blocca` dal menu `Visualizza` e si selezionano le righe e le colonne che si vogliono mantenere fisse.
 
 Con l'intestazione sempre visibile, è più facile orientarsi nei dati e applicare filtri o ordinamenti senza perdere di vista le categorie di riferimento.
 
@@ -1464,12 +1464,13 @@ Data;Reparto;Prodotto;Quantità;Importo;Stato
 2026-03-07;Informatica;Hub USB;9;171;Chiuso
 ```
 
-1. seleziona l'intervallo dati e attiva `Crea un filtro`
+1. seleziona la tabella e attiva `Crea un filtro`
 2. blocca la riga delle intestazioni
-3. ordina per `Reparto`, poi `Importo` desc
-4. filtra `Stato = Aperto`
-5. filtra anche `Importo > 250`
-6. calcola totale visibile con `SUBTOTALE`
+3. ordina per `Reparto` in modo crescente, poi per `Importo` in modo decrescente
+4. aggiungi un totale in fondo alla colonna `Importo` con la funzione `SOMMA`
+5. filtra `Stato = Aperto`
+6. filtra anche `Importo > 250`
+7. aggiungi un nuovo totale sotto al precedente con la funzione `SUBTOTALE` ed osserva la differenza rispetto al totale precedente
 
 Questo esempio guidato mostra una sequenza completa di lavoro sul dataset: prima si prepara la tabella, poi si filtra, infine si legge il risultato con `SUBTOTALE`.
 
@@ -1495,12 +1496,12 @@ Data;Reparto;Prodotto;Quantità;Importo;Stato
 
 ### Consegna:
 
-- attiva il filtro sull'intervallo dati
-- blocca la riga delle intestazioni
-- ordina i dati per `Reparto` e poi per `Importo` decrescente
-- filtra solo gli ordini `Aperto` con importo >= 200
-- calcola il totale dei record visibili con `SUBTOTALE`
-- scrivi in una riga quali record restano visibili dopo il filtro
+- ordina i dati per `Reparto` in ordine decrescente e poi per `Importo` in ordine decrescente
+- mostra la somma totale di tutti gli importi e la somma degli importi degli ordini aperti e superiori a 200 euro
+
+## 10) Bonus: la tabella automatica
+
+Google Fogli ha una funzionalità che permette di trasformare un intervallo di dati in una tabella con filtri, ordinamento e formattazione automaticamente. Per usarla, basta selezionare l'intervallo di dati e scegliere `Converti in tabella` dal menu `Formato`. Questa funzionalità è molto utile per creare rapidamente tabelle interattive senza dover applicare manualmente i filtri e le formattazioni.
 
 # Lezione 7 - Grafici e tabelle pivot: sintetizzare i dati
 
