@@ -1466,7 +1466,7 @@ Data;Reparto;Prodotto;Quantità;Importo;Stato
 
 1. seleziona la tabella e attiva `Crea un filtro`
 2. blocca la riga delle intestazioni
-3. ordina per `Reparto` in modo crescente, poi per `Importo` in modo decrescente
+3. ordina prima per `Importo` in modo decrescente, poi per `Reparto` in modo crescente,
 4. aggiungi un totale in fondo alla colonna `Importo` con la funzione `SOMMA`
 5. filtra `Stato = Aperto`
 6. filtra anche `Importo > 250`
@@ -1496,7 +1496,7 @@ Data;Reparto;Prodotto;Quantità;Importo;Stato
 
 ### Consegna:
 
-- ordina i dati per `Reparto` in ordine decrescente e poi per `Importo` in ordine decrescente
+- mostra gli importi dei reparti in ordine decrescente poi ordina per `Reparto` in ordine decrescente
 - mostra la somma totale di tutti gli importi e la somma degli importi degli ordini aperti e superiori a 200 euro
 
 ## 10) Bonus: la tabella automatica
