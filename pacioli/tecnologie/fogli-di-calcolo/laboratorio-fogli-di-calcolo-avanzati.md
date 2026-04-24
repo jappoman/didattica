@@ -1462,6 +1462,14 @@ Data;Reparto;Prodotto;Quantità;Importo;Stato
 2026-03-06;Magazzino;Nastro;10;34;Aperto
 2026-03-07;Vendite;Webcam;7;280;Aperto
 2026-03-07;Informatica;Hub USB;9;171;Chiuso
+2026-03-08;Amministrazione;Cartelline;14;49;Aperto
+2026-03-08;Magazzino;Buste imbottite;18;68,4;Chiuso
+2026-03-09;Vendite;Proiettore;1;590;Aperto
+2026-03-09;Informatica;SSD esterno;4;356;Aperto
+2026-03-10;Magazzino;Etichette;22;28,6;Aperto
+2026-03-10;Amministrazione;Timbro;2;44;Chiuso
+2026-03-11;Vendite;Docking station;3;405;Aperto
+2026-03-11;Informatica;Router;5;325;Aperto
 ```
 
 1. seleziona la tabella e attiva `Crea un filtro`
@@ -1470,7 +1478,10 @@ Data;Reparto;Prodotto;Quantità;Importo;Stato
 4. aggiungi un totale in fondo alla colonna `Importo` con la funzione `SOMMA`
 5. filtra `Stato = Aperto`
 6. filtra anche `Importo > 250`
-7. aggiungi un nuovo totale sotto al precedente con la funzione `SUBTOTALE` ed osserva la differenza rispetto al totale precedente
+7. aggiungi un nuovo totale sotto al precedente con la funzione `SUBTOTALE` per sommare solo gli importi filtrati
+   ed osserva la differenza rispetto al totale precedente
+8. aggiungi un nuovo totale sotto al precedente con la funzione `SUBTOTALE` per contare quanti ordini filtrati ci sono
+9. aggiungi un nuovo totale sotto al precedente con la funzione `SUBTOTALE` per calcolare la media degli importi filtrati
 
 Questo esempio guidato mostra una sequenza completa di lavoro sul dataset: prima si prepara la tabella, poi si filtra, infine si legge il risultato con `SUBTOTALE`.
 
@@ -1492,12 +1503,20 @@ Data;Reparto;Prodotto;Quantità;Importo;Stato
 2026-03-11;Magazzino;Bobine;9;49,5;Aperto
 2026-03-12;Vendite;Monitor;2;280;Aperto
 2026-03-12;Informatica;Hub USB;9;171;Chiuso
+2026-03-13;Amministrazione;Carta protocollo;10;41;Aperto
+2026-03-13;Magazzino;Scotch;16;38,4;Chiuso
+2026-03-14;Vendite;Tablet;2;520;Aperto
+2026-03-14;Informatica;Access point;3;267;Aperto
+2026-03-15;Magazzino;Pallet;4;116;Aperto
+2026-03-15;Amministrazione;Raccoglitori;11;52,8;Aperto
+2026-03-16;Vendite;Scanner;2;310;Chiuso
+2026-03-16;Informatica;Mini PC;2;740;Aperto
 ```
 
 ### Consegna:
 
 - mostra gli importi dei reparti in ordine decrescente poi ordina per `Reparto` in ordine decrescente
-- mostra la somma totale di tutti gli importi e la somma degli importi degli ordini aperti e superiori a 200 euro
+- mostra la somma totale e la media di tutti gli importi e la somma degli importi degli ordini aperti e superiori a 200 euro
 
 ## 10) Bonus 1: la tabella automatica
 
