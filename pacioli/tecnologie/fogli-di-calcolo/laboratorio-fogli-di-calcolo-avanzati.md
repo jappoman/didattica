@@ -1349,6 +1349,7 @@ Prima di cominciare, bisogna assicurarsi che il dataset sia ben strutturato:
 
 - i dati devono avere intestazioni chiare: ogni colonna deve avere un nome che ne descriva il contenuto
 - il blocco dati deve essere continuo: non devono esserci righe o colonne vuote interne
+- i dati devono avere il formato corretto: ad esempio, le date devono essere riconosciute come date, i numeri come numeri, la valuta come valuta e così via
 - le righe devono avere colori alternati per distinguere meglio i record (opzionale ma consigliato)
 
 ## 2) Prepara l'intervallo con i filtri
@@ -1472,6 +1473,7 @@ Data;Reparto;Prodotto;Quantità;Importo;Stato
 2026-03-11;Informatica;Router;5;325;Aperto
 ```
 
+0. Controlla che i dati siano riconosciuti correttamente: le date come date, gli importi come numeri, ecc. Se necessario, applica formati corretti alle colonne.
 1. seleziona la tabella e attiva `Crea un filtro`
 2. blocca la riga delle intestazioni
 3. ordina prima per `Importo` in modo decrescente, poi per `Reparto` in modo crescente,
@@ -1546,145 +1548,301 @@ A fine lezione devi saper:
 - leggere un dataset già preparato o già importato
 - usare una tabella pivot come sintesi rapida a supporto dei grafici
 
-## 1) Perché usare i grafici
+## 1) Perché usare grafici e pivot
 
-Un grafico non sostituisce la tabella: la completa.
+Quando il dataset cresce, leggere solo righe e colonne non basta più. Un grafico e una tabella pivot servono a trasformare i dati in una sintesi leggibile.
 
-Serve per:
+In pratica:
 
-- confrontare categorie
-- vedere trend nel tempo
-- mostrare proporzioni
+- la tabella mostra il dettaglio riga per riga
+- la pivot riassume i dati per categorie
+- il grafico rende immediato il confronto visivo
+
+Questi strumenti servono quindi a rispondere più velocemente a domande come:
+
+- quale reparto vende di più
+- come cambia l'importo da un mese all'altro
+- quale categoria pesa di più sul totale
+
+Un grafico non sostituisce la tabella: la completa. La pivot, invece, è spesso il passaggio intermedio più utile perché organizza i dati prima della visualizzazione.
 
 ## 2) Scelta del grafico corretto
 
+Scegliere il grafico giusto è importante quanto saperlo creare. Se il tipo di grafico è sbagliato, anche dati corretti comunicano male.
+
 ### Colonne
 
-Uso:
+Il grafico a colonne è adatto quando vuoi confrontare categorie distinte.
 
-- confronto tra reparti/prodotti
+Uso tipico:
+
+- confronto tra reparti
+- confronto tra prodotti
+- confronto tra mesi letti come categorie separate
 
 Esempio:
 
-- vendite per reparto nel trimestre
+- totale vendite per reparto
+
+Il punto forte è che rende molto chiaro quale categoria ha il valore più alto o più basso.
 
 ### Linee
 
-Uso:
+Il grafico a linee è adatto quando vuoi osservare un andamento nel tempo o una variazione progressiva.
 
-- andamento nel tempo
+Uso tipico:
+
+- andamento mese per mese
+- evoluzione di ricavi, iscritti, costi o ordini
 
 Esempio:
 
-- vendite mese per mese
+- vendite da gennaio ad aprile
+
+Il punto forte è che fa vedere subito se il valore cresce, cala o resta stabile.
 
 ### Torta
 
-Uso:
+Il grafico a torta è adatto quando vuoi mostrare una ripartizione percentuale del totale tra poche categorie.
 
-- ripartizione percentuale con poche categorie
+Uso tipico:
+
+- quota vendite per reparto
+- distribuzione delle spese per area
 
 Esempio:
 
-- quota vendite per reparto
+- percentuale del totale generata da ogni reparto
 
 Attenzione:
 
-- evita torta con troppe categorie
+- funziona bene solo con poche categorie; se le categorie sono troppe, la lettura diventa confusa
+- non è il grafico migliore per confronti precisi tra valori simili
 
-## 3) Regole di leggibilità
+In questa lezione useremo soprattutto `colonne` e `linee`, perché sono i grafici più utili per il dataset mensile proposto.
+
+## 3) Come creare un grafico in Google Fogli
+
+La logica operativa è sempre simile:
+
+- si seleziona l'intervallo dati
+- si usa `Inserisci` > `Grafico`
+- nel pannello a destra si sceglie il tipo di grafico
+- si controllano:
+  - assi: di solito sull'asse X ci sono le categorie (es. mesi, reparti) e sull'asse Y i valori (es. importi)
+  - serie: indicano quali dati vengono rappresentati, ad esempio importi per reparto
+  - legenda: indica cosa rappresenta ogni colore o linea
+  - titolo: deve essere chiaro e descrittivo
+
+Prima di creare il grafico, conviene sempre verificare che:
+
+- le intestazioni siano chiare
+- non ci siano righe vuote nel blocco dati
+- il formato dei dati sia corretto (numeri, date, testo, valuta ecc.)
+
+Se il dataset è molto dettagliato, conviene spesso creare prima una tabella pivot e poi costruire il grafico sulla pivot, non direttamente sulla tabella originale.
+
+## 4) Regole di leggibilità
+
+Un grafico corretto dal punto di vista tecnico può comunque essere poco utile se è difficile da leggere.
 
 Ogni grafico deve avere:
 
 - titolo chiaro
 - etichette coerenti
 - legenda comprensibile
-- unità di misura (euro, pezzi, %)
+- unità di misura coerente (`euro`, `pezzi`, `%`)
 
 Da evitare:
 
-- 3D inutile
+- grafici 3D inutili
 - colori casuali senza significato
-- asse non leggibile
+- troppe categorie nello stesso grafico
+- asse non leggibile o compresso
 
-## 4) Tabelle pivot come supporto ai grafici
+## 5) Perché usare una tabella pivot
 
-Una tabella pivot serve per riassumere velocemente i dati prima di trasformarli in un grafico.
+Una tabella pivot serve per riassumere velocemente i dati senza scrivere formule lunghe.
 
-Uso pratico nella lezione:
+È utile perché:
 
-- costruisci un riepilogo per mese e reparto
-- controlli subito i totali
-- usi la pivot come base per creare un grafico piu pulito
+- raggruppa automaticamente i dati
+- calcola totali o conteggi
+- permette di cambiare il punto di vista molto rapidamente
+- crea una base ordinata per i grafici
 
-Esempio base:
+In pratica, la pivot prende un dataset dettagliato e lo trasforma in una tabella sintetica.
+
+Per esempio, da un elenco di righe con `Mese`, `Reparto` e `Importo`, puoi ottenere subito:
+
+- totale importi per mese
+- totale importi per reparto
+- matrice mese per reparto
+
+## 6) Struttura della tabella pivot
+
+Quando crei una pivot in Google Fogli, trovi quattro aree principali:
+
+- `Righe`: definiscono le categorie mostrate in verticale
+- `Colonne`: definiscono le categorie mostrate in orizzontale
+- `Valori`: indicano il calcolo da eseguire (`Somma`, `Conteggio`, `Media`)
+- `Filtri`: limitano i dati considerati
+
+Per questa lezione useremo una struttura semplice:
 
 - righe = `Mese`
 - colonne = `Reparto`
 - valori = somma `Importo`
 
-Questa parte serve come spiegazione del criterio di scelta. L'applicazione concreta arriva nel dataset qui sotto, poi nell'esempio guidato e nell'esercizio.
+Questa configurazione permette di vedere, in una sola tabella, quanto ha generato ogni reparto in ciascun mese.
 
-## CSV per l'esempio guidato
+## 7) Come creare una tabella pivot in Google Fogli
 
-Usa un CSV vendite mensili come questo:
+La procedura tipica è questa:
+
+- seleziona il dataset con anche l'intestazione
+- usa `Inserisci` > `Tabella pivot`
+- scegli se creare la pivot in un nuovo foglio oppure nello stesso foglio
+- nel pannello laterale aggiungi i campi nelle aree `Righe`, `Colonne` e `Valori`
+- dopo aver inserito un campo in `Righe` o `Colonne`, controlla anche le opzioni di ordinamento: puoi scegliere il criterio con `Ordina per` e il verso con ordinamento crescente o decrescente
+- nell'area `Valori`, controlla il tipo di riepilogo da applicare, ad esempio `Somma`, `Conteggio` o `Media`
+- se serve, usa anche l'area `Filtri` per mostrare solo una parte dei dati della pivot, ad esempio un solo reparto oppure solo alcuni valori
+
+Invece di inserire manualmente i campi, puoi anche usare i suggerimenti automatici proposti da Google Fogli nel pannello a destra mentre crei la tabella pivot: possono essere utili come punto di partenza, ma va comunque verificato che la configurazione proposta sia adatta al tipo di analisi che vuoi fare.
+
+## 8 ) Inserire un grafico partendo da una tabella pivot
+
+Una volta creata la tabella pivot, puoi usarla come base per costruire un grafico. La procedura è simile a quella per un grafico normale:
+
+- seleziona la tabella pivot
+- usa `Inserisci` > `Grafico`
+- scegli il tipo di grafico più adatto (colonne, linee, torta, ecc.)
+- controlla che gli assi, le serie, la legenda e il titolo siano coerenti con i dati della pivot e con l'informazione che vuoi comunicare.
+
+## 9) Esempio guidato: dalla tabella al grafico
+
+### CSV per l'esempio guidato
+
+Importa il seguente csv contenente le vendite mensili:
 
 ```csv
 Mese;Reparto;Importo
-Gennaio;Informatica;820
-Gennaio;Vendite;640
-Gennaio;Amministrazione;310
-Febbraio;Informatica;910
-Febbraio;Vendite;700
-Febbraio;Amministrazione;330
-Marzo;Informatica;880
-Marzo;Vendite;760
-Marzo;Amministrazione;290
-Aprile;Informatica;950
-Aprile;Vendite;720
-Aprile;Amministrazione;340
+01/2026;Informatica;820
+01/2026;Vendite;640
+01/2026;Amministrazione;310
+01/2026;Magazzino;220
+02/2026;Informatica;910
+02/2026;Vendite;700
+02/2026;Amministrazione;330
+02/2026;Magazzino;260
+03/2026;Informatica;880
+03/2026;Vendite;760
+03/2026;Amministrazione;290
+03/2026;Magazzino;240
+04/2026;Informatica;950
+04/2026;Vendite;720
+04/2026;Amministrazione;340
+04/2026;Magazzino;280
+05/2026;Informatica;990
+05/2026;Vendite;810
+05/2026;Amministrazione;360
+05/2026;Magazzino;300
+06/2026;Informatica;1040
+06/2026;Vendite;790
+06/2026;Amministrazione;350
+06/2026;Magazzino;315
 ```
 
-## 5) Esempio guidato
+Per rendere l'esempio ordinato, lavoriamo in tre passaggi.
 
-1. Importa il `CSV per l'esempio guidato`.
-2. Crea una tabella pivot con somma importi per `Mese` e `Reparto`.
-3. Crea un grafico a colonne per confrontare i reparti.
-4. Crea un grafico a linee per mostrare l'andamento mensile.
+### Passaggio 1: importa e controlla il dataset
+
+Importa il CSV nel foglio `L7_Grafici_Pivot` e controlla che i dati siano riconosciuti correttamente:
+
+- `Mese` deve essere scritto in modo coerente, ad esempio `2026/01`, `2026/02`, `2026/03`
+- `Reparto` deve contenere categorie scritte in modo uniforme
+- `Importo` deve essere riconosciuto come valuta
+
+Il dataset dell'esempio è già sintetico, ma contiene comunque più righe di quelle che servono per un grafico leggibile. Per questo conviene costruire prima una pivot.
+
+### Passaggio 2: crea la tabella pivot
+
+Seleziona il dataset con intestazioni e usa `Inserisci` > `Tabella pivot`. Inseriscilo nello stesso foglio, ad esempio a partire da `F1`.
+
+Nel pannello della pivot imposta:
+
+- `Righe` = `Mese`
+- `Colonne` = `Reparto`
+- `Valori` = `Importo`, con riepilogo `Somma`
+
+Otterrai una tabella sintetica in cui:
+
+- ogni riga rappresenta un mese
+- ogni colonna rappresenta un reparto
+- ogni cella mostra la somma degli importi
+
+Questa pivot serve già da mini report, perché permette di leggere subito i totali mese per mese e reparto per reparto.
+
+### Passaggio 3: crea i grafici corretti
+
+Partendo dalla tabella pivot:
+
+1. seleziona la pivot e usa `Inserisci` > `Grafico`
+2. scegli un `grafico a colonne` per confrontare i reparti nei diversi mesi
+3. crea poi un secondo grafico, questa volta `a linee`, per visualizzare l'andamento mensile
+
+Controlla in entrambi i grafici di avere:
+
+- titolo leggibile
+- legenda chiara
+- asse coerente con gli importi
+
+Con il dataset di questo esempio:
+
+- il grafico a colonne è utile per confrontare le categorie
+- il grafico a linee è utile per leggere l'andamento nel tempo
 
 In questo esempio il punto importante non è solo creare due grafici, ma capire che i due grafici servono a leggere due aspetti diversi dello stesso dataset: confronto tra categorie e andamento nel tempo.
 
-## CSV per l'esercizio
+## 10) Esercizio Lezione 7
 
-Usa invece questo secondo CSV:
+### CSV per l'esercizio
+
+Nel foglio `L7_Grafici_Pivot` importa il csv di seguito:
 
 ```csv
 Mese;Reparto;Importo
-Maggio;Informatica;1020
-Maggio;Vendite;780
-Maggio;Amministrazione;360
-Giugno;Informatica;980
-Giugno;Vendite;810
-Giugno;Amministrazione;345
-Luglio;Informatica;1100
-Luglio;Vendite;790
-Luglio;Amministrazione;370
-Agosto;Informatica;1050
-Agosto;Vendite;830
-Agosto;Amministrazione;355
+05/2026;Informatica;1020
+05/2026;Vendite;780
+05/2026;Amministrazione;360
+05/2026;Magazzino;295
+06/2026;Informatica;980
+06/2026;Vendite;810
+06/2026;Amministrazione;345
+06/2026;Magazzino;305
+07/2026;Informatica;1100
+07/2026;Vendite;790
+07/2026;Amministrazione;370
+07/2026;Magazzino;330
+08/2026;Informatica;1050
+08/2026;Vendite;830
+08/2026;Amministrazione;355
+08/2026;Magazzino;320
+09/2026;Informatica;1120
+09/2026;Vendite;860
+09/2026;Amministrazione;390
+09/2026;Magazzino;340
+10/2026;Informatica;1080
+10/2026;Vendite;845
+10/2026;Amministrazione;375
+10/2026;Magazzino;335
 ```
 
-## 6) Esercizio Lezione 7
-
-Nel foglio `L7_Grafici_Pivot` importa il `CSV per l'esercizio` di questa lezione.
-
-Consegna:
+### Consegna:
 
 - crea una tabella pivot che riassuma gli importi per mese e reparto
-- crea un grafico a colonne per confrontare i reparti
-- crea un grafico a linee per mostrare l'andamento mensile
-- scrivi in 2 righe quale dei due grafici comunica meglio ciascuna informazione
-- controlla che entrambi i grafici abbiano titolo leggibile e legenda chiara
+- crea un grafico che mostri chiaramente un confronto tra gli importi dei reparti per ogni mese
+- crea un grafico che mostri chiaramente l'andamento degli importi per ogni reparto da luglio a ottobre
 
 # Lezione 8 - Simulazione verifica (prova guidata)
 
