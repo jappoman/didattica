@@ -1921,21 +1921,19 @@ Lavora in ordine e lascia tutte le formule visibili nel foglio.
 
 1. Importa correttamente i due `CSV` nei fogli indicati.
 2. Nel foglio `L8_Simulazione`, completa la colonna `Codice pulito` partendo da `Codice prodotto grezzo` mantenendo solo i caratteri centrali, cioè quelli che identificano il prodotto, per esempio `PRD101`.
-3. Controlla che nel foglio principale restino vuote solo le colonne che devi ancora compilare.
 
 ### Parte B - Ricerca dati
 
-4. Recupera la `Descrizione` e il `Reparto` dal foglio `L8_Listino` usando `CERCA.X` partendo dal `Codice pulito`.
-5. Recupera il `Prezzo unitario` dal foglio `L8_Listino` usando la `CERCA.VERT`.
-6. Gestisci i codici mancanti con una soluzione leggibile per entrambe i tipi di ricerca.
+3. Recupera la `Descrizione` e il `Reparto` dal foglio `L8_Listino` usando `CERCA.X` partendo dal `Codice pulito`. Gestisci i codici mancanti con una soluzione leggibile.
+4. Recupera il `Prezzo unitario` dal foglio `L8_Listino` usando la `CERCA.VERT`. Gestisci i codici mancanti con una soluzione leggibile.
 
 ### Parte C - Formule e criteri
 
-7. Calcola la colonna `Importo`.
-8. Riempi la colonna `Esito ordine` con `SE`:
+5. Calcola la colonna `Importo`. Gestisci i codici mancanti con una soluzione leggibile.
+6. Riempi la colonna `Esito ordine`:
    - scrivi `Da ricontattare` se `Stato ordine` è `In attesa`
    - scrivi `OK` negli altri casi
-9. In un'area libera del foglio, per esempio da `N2` in poi, calcola:
+7. In un'area libera del foglio, per esempio a partire da `N2` e mettendo delle brevi spiegazioni a fianco, calcola:
 
 - il totale degli `Importi` del reparto `Informatica` con `Stato ordine` = `Confermato`
 - il totale degli `Importi` del canale `Negozio` con `Quantità` >= `15`
@@ -1946,55 +1944,14 @@ Lavora in ordine e lascia tutte le formule visibili nel foglio.
 
 ### Parte D - Analisi operativa
 
-11. Attiva il filtro su tutto il dataset.
-12. Ordina i dati per `Canale` e, a parità di canale, per `Importo` dal più alto al più basso.
-13. Mostra solo gli ordini con `Stato ordine` uguale a `Confermato`.
+8. Attiva il filtro su tutto il dataset.
+9. Ordina i dati per `Canale` e, a parità di canale, per `Importo` dal più alto al più basso.
 
 ### Parte E - Pivot e grafico
 
-14. Crea una tabella pivot nello stesso foglio o in un foglio nuovo.
-15. Imposta la pivot in questo modo:
+10. Crea una tabella pivot (nello stesso foglio o in un foglio nuovo) impostandola in questo modo per sintetizzare la somma degli importi per canale (sulle righe) e reparto (sulle colonne).
 
-- `Righe` = `Canale`
-- `Colonne` = `Reparto`
-- `Valori` = somma di `Importo`
-
-16. Crea un grafico partendo dalla pivot.
-17. Scegli un tipo di grafico coerente con il confronto tra canali e reparti e aggiungi almeno:
-
-- titolo
-- legenda
-- valori leggibili
-
-## Griglia di autocontrollo prima consegna
-
-- i due `CSV` sono stati importati nei fogli corretti
-- `Codice pulito` è stato ottenuto con una formula di estrazione corretta
-- le formule di ricerca compilano `Descrizione`, `Reparto` e `Prezzo unitario`
-- i codici non presenti nel listino non mostrano errori tecnici
-- `Importo` è calcolato correttamente
-- `Esito ordine` è coerente con lo stato
-- `SOMMA.PIÙ.SE` e `CONTA.PIÙ.SE` usano correttamente sia richieste a 2 criteri sia richieste a 3 criteri
-- il filtro è attivo sull'intera tabella
-- la pivot riassume correttamente i dati
-- il grafico è leggibile e coerente
-
-## Errori tipici da evitare
-
-- copiare il codice a mano invece di usare `STRINGA.ESTRAI`
-- usare `SOMMA` o `CONTA` semplici dove servono funzioni con più criteri
-- dimenticare uno dei criteri nelle richieste a 3 condizioni
-- dimenticare `FALSO` in `CERCA.VERT`
-- cercare con `CERCA.VERT` su un intervallo che non parte dalla colonna del codice
-- lasciare `#N/D` o altri errori tecnici nelle colonne compilate con ricerca
-- creare la pivot senza includere tutta la tabella
-- scegliere un grafico poco adatto, ad esempio una torta con molte categorie
-
-## Correzione guidata finale
-
-Dopo la simulazione controlla insieme alla classe:
-
-- quali formule erano più veloci da scrivere
-- dove comparivano gli errori più frequenti
-- se la pivot è stata costruita con campi corretti
-- se il grafico finale aiuta davvero a leggere il risultato
+11. Crea un grafico partendo dalla pivot. Non prendere i totali generali, ma solo i dati dei canali e dei reparti.
+12. Scegli un tipo di grafico coerente con il confronto tra canali e reparti.
+13. Rimuovi il reparto non trovato dal grafico in modo che sia più leggibile.
+14. Esporta il file come `Excel` (File > Scarica > Microsoft Excel (.xlsx)) e allega il file come consegna su classroom.
