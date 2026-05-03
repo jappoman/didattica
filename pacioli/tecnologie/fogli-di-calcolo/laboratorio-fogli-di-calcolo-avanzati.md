@@ -1854,70 +1854,145 @@ Allenarsi in condizioni simili alla verifica reale, con tempi e consegna struttu
 
 1 ora.
 
+## Materiale della simulazione
+
+Per questa simulazione usa due fogli:
+
+- `L8_Simulazione`
+- `L8_Listino`
+
+Nel foglio `L8_Simulazione` importa questo CSV principale:
+
+```csv
+Data;Canale;Cliente;Codice prodotto grezzo;Quantità;Prezzo unitario;Stato ordine;Codice pulito;Descrizione;Reparto;Importo;Esito ordine
+2026-04-03;Negozio;IC Verdi;cod-PRD101-26;12;;Confermato;;;;
+2026-04-03;Online;Liceo Fermi;cod-PRD104-26;7;;Confermato;;;;
+2026-04-04;Telefono;IC Manzoni;cod-PRD102-26;15;;In attesa;;;;
+2026-04-04;Online;IIS Volta;cod-PRD110-26;5;;Confermato;;;;
+2026-04-05;Negozio;IC Pascoli;cod-PRD103-26;18;;Confermato;;;;
+2026-04-05;Email;Liceo Galilei;cod-PRD108-26;9;;Annullato;;;;
+2026-04-06;Online;IC Leopardi;cod-PRD105-26;20;;Confermato;;;;
+2026-04-06;Telefono;CPIA Centro;cod-PRD101-26;6;;In attesa;;;;
+2026-04-07;Negozio;IIS Majorana;cod-PRD106-26;14;;Confermato;;;;
+2026-04-07;Email;IC Rodari;cod-PRD111-26;4;;Confermato;;;;
+2026-04-08;Online;Liceo Alfieri;cod-PRD107-26;11;;Confermato;;;;
+2026-04-08;Negozio;IC Carducci;cod-PRD109-26;8;;Annullato;;;;
+2026-04-09;Telefono;IIS Besta;cod-PRD112-26;16;;Confermato;;;;
+2026-04-09;Online;IC Don Milani;cod-PRD103-26;13;;Confermato;;;;
+2026-04-10;Email;Liceo Darwin;cod-PRD104-26;10;;In attesa;;;;
+2026-04-10;Negozio;IC Fogazzaro;cod-PRD105-26;19;;Confermato;;;;
+2026-04-11;Online;IIS Marconi;cod-PRD110-26;3;;Confermato;;;;
+2026-04-11;Telefono;IC Levi;cod-PRD106-26;17;;Confermato;;;;
+2026-04-12;Email;Liceo Montale;cod-PRD108-26;12;;Confermato;;;;
+2026-04-12;Negozio;IC Nievo;cod-PRD101-26;21;;Confermato;;;;
+2026-04-13;Online;IIS Parini;cod-PRD109-26;9;;In attesa;;;;
+2026-04-13;Telefono;IC Saba;cod-PRD112-26;7;;Confermato;;;;
+2026-04-14;Email;Liceo Tasso;cod-PRD107-26;15;;Confermato;;;;
+2026-04-14;Negozio;IC Ungaretti;cod-PRD102-26;22;;Confermato;;;;
+2026-04-15;Online;IIS Einaudi;cod-PRD111-26;6;;Annullato;;;;
+2026-04-15;Telefono;IC Calvino;cod-PRD105-26;18;;Confermato;;;;
+2026-04-16;Negozio;Liceo Ariosto;cod-PRD103-26;14;;Confermato;;;;
+2026-04-16;Email;IC Buzzati;cod-PRD120-26;5;;Confermato;;;;
+```
+
+Nel foglio `L8_Listino` importa questo CSV di supporto:
+
+```csv
+Codice;Descrizione;Reparto;Prezzo
+PRD101;Mouse wireless;Informatica;18,5
+PRD102;Tastiera USB;Informatica;24
+PRD103;Webcam HD;Informatica;39,9
+PRD104;Risma A4;Amministrazione;5,2
+PRD105;Cartelline archivio;Amministrazione;2,8
+PRD106;Toner laser;Segreteria;44
+PRD107;Etichette adesive;Segreteria;7,5
+PRD108;Cuffie con microfono;Multimedia;31
+PRD109;Hub USB;Informatica;19
+PRD110;Supporto monitor;Informatica;27,5
+PRD111;Carta fotografica;Multimedia;12,4
+PRD112;Chiavetta USB 64GB;Informatica;14,9
+```
+
 ## Consegna simulazione
 
-Usa un file con dati ordini/vendite e completa tutte le richieste.
+Lavora in ordine e lascia tutte le formule visibili nel foglio.
 
-Le parti qui sotto sono tutte operative: questa lezione non introduce nuova teoria, ma riunisce in un'unica prova guidata le competenze già allenate nelle lezioni precedenti.
+### Parte A - Importazione e pulizia
 
-### Parte A - Formule e funzioni
+1. Importa correttamente i due `CSV` nei fogli indicati.
+2. Nel foglio `L8_Simulazione`, completa la colonna `Codice pulito` partendo da `Codice prodotto grezzo` mantenendo solo i caratteri centrali, cioè quelli che identificano il prodotto, per esempio `PRD101`.
+3. Controlla che nel foglio principale restino vuote solo le colonne che devi ancora compilare.
 
-1. Calcola `Importo = Quantità*Prezzo`.
-2. Crea `Stato scorta` con `SE`.
-3. Calcola totale vendite reparto `Informatica` con funzione a più criteri.
-4. Recupera il prezzo da un foglio `Listino` con `CERCA.VERT` oppure `CERCA.X`
+### Parte B - Ricerca dati
 
-### Parte B - Qualità dato
+4. Recupera la `Descrizione` e il `Reparto` dal foglio `L8_Listino` usando `CERCA.X` partendo dal `Codice pulito`.
+5. Recupera il `Prezzo unitario` dal foglio `L8_Listino` usando la `CERCA.VERT`.
+6. Gestisci i codici mancanti con una soluzione leggibile per entrambe i tipi di ricerca.
 
-5. Applica convalida su:
-   - Reparto da elenco
-   - Quantità 1..100
-   - Data valida
+### Parte C - Formule e criteri
 
-### Parte C - Pulizia e controllo
+7. Calcola la colonna `Importo`
+8. Riempi la  olonna `Esito ordine` con `SE`:
+   - scrivi `Da ricontattare` se `Stato ordine` è `In attesa`
+   - scrivi `Da annullare` se `Stato ordine` è `Annullato`
+   - scrivi `OK` negli altri casi
+9. In un'area libera del foglio, per esempio da `N2` in poi, calcola:
 
-6. Pulisci una colonna testo con `ANNULLA.SPAZI` oppure estrai una parte del codice con `STRINGA.ESTRAI`.
+- il totale degli `Importi` del reparto `Informatica` con `Stato ordine` = `Confermato` usando `SOMMA.PIÙ.SE`
+- il totale degli `Importi` del canale `Online` con `Stato ordine` = `Confermato` usando `SOMMA.PIÙ.SE`
+- il numero di ordini del canale `Negozio` con `Stato ordine` = `Confermato` usando `CONTA.PIÙ.SE`
+- il numero di ordini del reparto `Informatica` con `Stato ordine` = `In attesa` usando `CONTA.PIÙ.SE`
 
-### Parte D - Analisi
+### Parte D - Analisi operativa
 
-7. Attiva il filtro sul dataset e rendilo leggibile con intestazione chiara e, se vuoi, colori alternati.
-8. Ordina per Reparto e Importo desc.
-9. Filtra ordini aperti con importo > 250.
-10. Calcola totale visibile con `SUBTOTALE`.
+11. Attiva il filtro su tutto il dataset.
+12. Ordina i dati per `Canale` e, a parità di canale, per `Importo` dal più alto al più basso.
+13. Mostra solo gli ordini con `Stato ordine` uguale a `Confermato`.
 
-### Parte E - Comunicazione dati
+### Parte E - Pivot e grafico
 
-11. Crea una tabella pivot base da usare come supporto al grafico.
-12. Crea grafico corretto con titolo e legenda.
-13. Esporta il foglio in CSV.
+14. Crea una tabella pivot nello stesso foglio o in un foglio nuovo.
+15. Imposta la pivot in questo modo:
+
+- `Righe` = `Canale`
+- `Colonne` = `Reparto`
+- `Valori` = somma di `Importo`
+
+16. Crea un grafico partendo dalla pivot.
+17. Scegli un tipo di grafico coerente con il confronto tra canali e reparti e aggiungi almeno:
+
+- titolo
+- legenda
+- valori leggibili
 
 ## Griglia di autocontrollo prima consegna
 
-- formule trascinate correttamente
-- import CSV eseguito correttamente
-- nessun riferimento errato
-- convalide attive
-- pulizia dati eseguita dove richiesta
-- filtro coerente con richiesta
-- pivot leggibile
-- grafico leggibile
-- file ordinato e intestazioni chiare
+- i due `CSV` sono stati importati nei fogli corretti
+- `Codice pulito` è stato ottenuto con una formula di estrazione corretta
+- le formule di ricerca compilano `Descrizione`, `Reparto` e `Prezzo unitario`
+- i codici non presenti nel listino non mostrano errori tecnici
+- `Importo` è calcolato correttamente
+- `Esito ordine` è coerente con lo stato
+- `SOMMA.PIÙ.SE` e `CONTA.PIÙ.SE` usano i criteri giusti
+- il filtro è attivo sull'intera tabella
+- la pivot riassume correttamente i dati
+- il grafico è leggibile e coerente
 
 ## Errori tipici da evitare
 
-- usare `SOMMA` dove serve `SOMMA.PIÙ.SE`
-- dimenticare `FALSO` in `CERCA.VERT` quando serve corrispondenza esatta
-- non controllare le colonne dopo un import CSV
-- usare `CERCA.VERT` su una tabella dove la chiave non è nella prima colonna
-- filtro applicato alla colonna sbagliata
-- non bloccare l'intestazione in un dataset lungo
-- grafico senza titolo
-- CSV esportato con foglio sbagliato
+- copiare il codice a mano invece di usare `STRINGA.ESTRAI`
+- usare `SOMMA` o `CONTA` semplici dove servono funzioni con più criteri
+- dimenticare `FALSO` in `CERCA.VERT`
+- cercare con `CERCA.VERT` su un intervallo che non parte dalla colonna del codice
+- lasciare `#N/D` o altri errori tecnici nelle colonne compilate con ricerca
+- creare la pivot senza includere tutta la tabella
+- scegliere un grafico poco adatto, ad esempio una torta con molte categorie
 
 ## Correzione guidata finale
 
-Dopo la simulazione:
+Dopo la simulazione controlla insieme alla classe:
 
-- confronto tra soluzioni diverse
-- discussione sugli errori più frequenti
-- strategia per migliorare velocità e precisione
+- quali formule erano più veloci da scrivere
+- dove comparivano gli errori più frequenti
+- se la pivot è stata costruita con campi corretti
+- se il grafico finale aiuta davvero a leggere il risultato
