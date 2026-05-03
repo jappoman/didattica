@@ -1870,13 +1870,13 @@ Data;Canale;Cliente;Codice prodotto grezzo;Quantità;Prezzo unitario;Stato ordin
 2026-04-04;Telefono;IC Manzoni;cod-PRD102-26;15;;In attesa;;;;
 2026-04-04;Online;IIS Volta;cod-PRD110-26;5;;Confermato;;;;
 2026-04-05;Negozio;IC Pascoli;cod-PRD103-26;18;;Confermato;;;;
-2026-04-05;Email;Liceo Galilei;cod-PRD108-26;9;;Annullato;;;;
+2026-04-05;Email;Liceo Galilei;cod-PRD108-26;9;;In attesa;;;;
 2026-04-06;Online;IC Leopardi;cod-PRD105-26;20;;Confermato;;;;
 2026-04-06;Telefono;CPIA Centro;cod-PRD101-26;6;;In attesa;;;;
 2026-04-07;Negozio;IIS Majorana;cod-PRD106-26;14;;Confermato;;;;
 2026-04-07;Email;IC Rodari;cod-PRD111-26;4;;Confermato;;;;
 2026-04-08;Online;Liceo Alfieri;cod-PRD107-26;11;;Confermato;;;;
-2026-04-08;Negozio;IC Carducci;cod-PRD109-26;8;;Annullato;;;;
+2026-04-08;Negozio;IC Carducci;cod-PRD109-26;8;;In attesa;;;;
 2026-04-09;Telefono;IIS Besta;cod-PRD112-26;16;;Confermato;;;;
 2026-04-09;Online;IC Don Milani;cod-PRD103-26;13;;Confermato;;;;
 2026-04-10;Email;Liceo Darwin;cod-PRD104-26;10;;In attesa;;;;
@@ -1889,7 +1889,7 @@ Data;Canale;Cliente;Codice prodotto grezzo;Quantità;Prezzo unitario;Stato ordin
 2026-04-13;Telefono;IC Saba;cod-PRD112-26;7;;Confermato;;;;
 2026-04-14;Email;Liceo Tasso;cod-PRD107-26;15;;Confermato;;;;
 2026-04-14;Negozio;IC Ungaretti;cod-PRD102-26;22;;Confermato;;;;
-2026-04-15;Online;IIS Einaudi;cod-PRD111-26;6;;Annullato;;;;
+2026-04-15;Online;IIS Einaudi;cod-PRD111-26;6;;In attesa;;;;
 2026-04-15;Telefono;IC Calvino;cod-PRD105-26;18;;Confermato;;;;
 2026-04-16;Negozio;Liceo Ariosto;cod-PRD103-26;14;;Confermato;;;;
 2026-04-16;Email;IC Buzzati;cod-PRD120-26;5;;Confermato;;;;
@@ -1931,17 +1931,18 @@ Lavora in ordine e lascia tutte le formule visibili nel foglio.
 
 ### Parte C - Formule e criteri
 
-7. Calcola la colonna `Importo`
-8. Riempi la  olonna `Esito ordine` con `SE`:
+7. Calcola la colonna `Importo`.
+8. Riempi la colonna `Esito ordine` con `SE`:
    - scrivi `Da ricontattare` se `Stato ordine` è `In attesa`
-   - scrivi `Da annullare` se `Stato ordine` è `Annullato`
    - scrivi `OK` negli altri casi
 9. In un'area libera del foglio, per esempio da `N2` in poi, calcola:
 
-- il totale degli `Importi` del reparto `Informatica` con `Stato ordine` = `Confermato` usando `SOMMA.PIÙ.SE`
-- il totale degli `Importi` del canale `Online` con `Stato ordine` = `Confermato` usando `SOMMA.PIÙ.SE`
-- il numero di ordini del canale `Negozio` con `Stato ordine` = `Confermato` usando `CONTA.PIÙ.SE`
-- il numero di ordini del reparto `Informatica` con `Stato ordine` = `In attesa` usando `CONTA.PIÙ.SE`
+- il totale degli `Importi` del reparto `Informatica` con `Stato ordine` = `Confermato`
+- il totale degli `Importi` del canale `Negozio` con `Quantità` >= `15`
+- il totale degli `Importi` del canale `Online`, del reparto `Informatica` e con `Quantità` >= `10`
+- il numero di ordini del canale `Negozio` con `Stato ordine` = `Confermato`
+- il numero di ordini del reparto `Informatica` con `Quantità` >= `15`
+- il numero di ordini del cliente `IC Verdi`, del reparto `Informatica` e con `Quantità` >= `10`
 
 ### Parte D - Analisi operativa
 
@@ -1973,7 +1974,7 @@ Lavora in ordine e lascia tutte le formule visibili nel foglio.
 - i codici non presenti nel listino non mostrano errori tecnici
 - `Importo` è calcolato correttamente
 - `Esito ordine` è coerente con lo stato
-- `SOMMA.PIÙ.SE` e `CONTA.PIÙ.SE` usano i criteri giusti
+- `SOMMA.PIÙ.SE` e `CONTA.PIÙ.SE` usano correttamente sia richieste a 2 criteri sia richieste a 3 criteri
 - il filtro è attivo sull'intera tabella
 - la pivot riassume correttamente i dati
 - il grafico è leggibile e coerente
@@ -1982,6 +1983,7 @@ Lavora in ordine e lascia tutte le formule visibili nel foglio.
 
 - copiare il codice a mano invece di usare `STRINGA.ESTRAI`
 - usare `SOMMA` o `CONTA` semplici dove servono funzioni con più criteri
+- dimenticare uno dei criteri nelle richieste a 3 condizioni
 - dimenticare `FALSO` in `CERCA.VERT`
 - cercare con `CERCA.VERT` su un intervallo che non parte dalla colonna del codice
 - lasciare `#N/D` o altri errori tecnici nelle colonne compilate con ricerca
